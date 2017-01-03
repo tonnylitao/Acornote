@@ -11,9 +11,13 @@ import tonnysunm.com.acornote.model.Folder;
 public class FolderViewModel extends BaseObservable {
     Folder folder;
 
-//    private Context context;
-//    private Subscription subscription;
-//    public ObservableField<String> ownerName;
+    //resource
+    //private Context context;
+
+    //value changed
+    //public ObservableField<String> ownerName;
+
+    //note: networking logic async operation should stay in presenter, not in ViewModel
 
     public FolderViewModel(Folder folder) {
         this.folder = folder;

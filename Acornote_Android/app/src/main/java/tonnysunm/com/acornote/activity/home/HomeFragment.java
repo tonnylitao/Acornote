@@ -38,6 +38,8 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
         mPresenter = presenter;
     }
 
+    //lifecycle
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,10 +64,14 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
         getRecycleView().setAdapter(adapter);
     }
 
-    private RecyclerView getRecycleView() {
-        final RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        return recyclerView;
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mPresenter.loadData();
     }
+
+    //HomeMVP.View
 
     @Override
     public void refresh(List<Folder> folders) {
@@ -73,11 +79,11 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
         ((HomeAdapter)recyclerView.getAdapter()).swap(folders);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    //Helper
 
-        mPresenter.loadData();
+    private RecyclerView getRecycleView() {
+        final RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+        return recyclerView;
     }
 
 }
