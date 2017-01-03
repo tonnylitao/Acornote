@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="folderColors">
+        <item>sky</item>
+        <item>red</item>
+        <item>green</item>
+        <item>yellow</item>
+        <item>purple</item>
+        <item>blue</item>
+    </string-array>
+
+    <string-array name="folderTitlesDemo">
+        <item>Title0</item>
+        <item>Title1</item>
+        <item>Title2</item>
+        <item>Title3</item>
+        <item>Title4</item>
+        <item>Title5</item>
+    </string-array>
+
+    <string-array name="itemTitlesDemo">
+        <item>TitleItem0</item>
+        <item>TitleItem1</item>
+        <item>TitleItem2</item>
+        <item>TitleItem3</item>
+        <item>TitleItem4</item>
+        <item>TitleItem5</item>
+    </string-array>
+</resources>

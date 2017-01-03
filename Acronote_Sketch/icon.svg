@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #383C40;">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>120 - iPhone2 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M68.3591125,35.2275028 C68.4058773,35.2078526 68.4529159,35.188725 68.5002208,35.1701274 C66.5833586,20.5406249 52.0282159,9.16666667 34.3571429,9.16666667 C16.4499357,9.16666667 1.74248995,20.8466307 0.144014156,35.7583232 C0.17846348,35.7661243 0.212810662,35.7741945 0.247053375,35.7825315 C0.200378251,36.0950646 0.176191148,36.4149459 0.176191148,36.7404764 C0.176191148,39.8212888 2.34255297,42.3961203 5.2350374,43.0247317 C5.23197857,43.0493698 5.22878409,43.0739659 5.22545473,43.0985191 C13.6545861,45.5177234 23.6454224,46.9180672 34.3571429,46.9180672 C45.4907303,46.9180672 55.8455333,45.4052499 64.4774233,42.80797 C64.471279,42.7812464 64.4652969,42.7544609 64.4594779,42.7276145 C66.8476357,41.7885722 68.5380962,39.4619384 68.5380962,36.7404764 C68.5380962,36.219351 68.4761115,35.712703 68.3591125,35.2275028 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="68.3940821" height="37.7514006" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="0.Icon&amp;launch" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="120---iPhone2-Copy">
+            <g id="acorn" transform="translate(100.969283, 73.329076) rotate(15.000000) translate(-100.969283, -73.329076) translate(24.969283, 34.829076)">
+                <path d="M7.92857143,55.137544 C7.92857143,65.3644057 15.6984307,73.641369 25.2830378,73.641369 L30.8811138,73.641369 C30.8811138,73.641369 33.8938101,77 35.2530266,77 C36.6122431,77 39.6249395,73.641369 39.6249395,73.641369 L44.3122003,73.641369 C53.8957445,73.641369 61.6666667,65.3564072 61.6666667,55.1363889 L61.6666667,50.446717 M44.3122003,23.2619048 L25.2830378,23.2619048 C15.6994936,23.2619048 7.92857143,31.5431788 7.92857143,41.758648 L7.92857143,46.1123079" id="Combined-Shape" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <use id="Combined-Shape" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="#383C40" xlink:href="#path-1"></use>
+                <path d="M10.5714286,33.8333333 C10.5714286,33.8333333 15.8571429,21.5 29.0714286,19.7380952" id="Path-3" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle id="Oval" fill="#FFFFFF" cx="37.4404762" cy="20.1785714" r="2.20238095"></circle>
+                <path d="M34.3571429,10.9285714 C34.3571429,10.9285714 33.5806857,2.74507966 38.8664,0.983174902" id="Path-2" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+            <path d="M58,20 C58,20 68,31.6461217 120,28" id="Path-5-Copy" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M44.5396198,82.7653004 C44.5396198,82.7653004 48.8274087,86.7233214 55.3534996,86.7233214 C61.8795904,86.7233214 66.1690689,82.7653004 66.1690689,82.7653004" id="Path-2-Copy" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(55.354344, 84.744311) rotate(15.000000) translate(-55.354344, -84.744311) "></path>
+        </g>
+    </g>
+</svg>

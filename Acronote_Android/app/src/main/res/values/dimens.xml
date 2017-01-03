@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_right_with_image">55dp</dimen>
+    <dimen name="item_right_without_image">5dp</dimen>
+</resources>

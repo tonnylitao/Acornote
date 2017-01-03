@@ -3,8 +3,8 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
-build/
-DerivedData/
+Acornote_iOS/build/
+Acornote_iOS/DerivedData/
 
 ## Various settings
 *.pbxuser
@@ -15,7 +15,7 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
+Acornote_iOS/xcuserdata/
 
 ## Other
 *.moved-aside
@@ -50,7 +50,7 @@ playground.xcworkspace
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
 
-Carthage/Build
+Acornote_iOS/Carthage/Build
 
 # fastlane
 #
@@ -63,3 +63,17 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+.DS_Store
+
+# Android
+
+*.iml
+Acronote_Android/.gradle
+Acronote_Android/local.properties
+Acronote_Android/.idea/workspace.xml
+Acronote_Android/.idea/libraries
+Acronote_Android/build
+Acronote_Android/captures
+Acronote_Android/.externalNativeBuild
+Acronote_Android/.idea
