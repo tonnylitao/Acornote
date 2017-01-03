@@ -1,4 +1,4 @@
-package tonnysunm.com.acronote;
+package tonnysunm.com.acornote;
 
 import org.junit.Test;
 

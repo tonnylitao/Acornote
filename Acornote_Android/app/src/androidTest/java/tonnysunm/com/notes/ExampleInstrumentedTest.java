@@ -1,4 +1,4 @@
-package tonnysunm.com.acronote;
+package tonnysunm.com.acornote;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("tonnysunm.com.acronote", appContext.getPackageName());
+        assertEquals("tonnysunm.com.acornote", appContext.getPackageName());
     }
 }

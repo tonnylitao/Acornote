@@ -4,8 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View" />
-        <variable name="viewModel" type="tonnysunm.com.acronote.activity.folder.ItemViewModel" />
+        <variable name="viewModel" type="tonnysunm.com.acornote.activity.folder.ItemViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -23,7 +22,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="@{viewModel.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
+            app:layout_marginRight="@{viewModel.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
             android:text="@{viewModel.title}"
             tools:text="Hello"
             />
@@ -40,7 +39,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="@{viewModel.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
+            app:layout_marginRight="@{viewModel.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
             />
 
         <ImageView
@@ -49,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_link_tips"
-            android:visibility="@{viewModel.hasUrl() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.linkVisibility}"
             />
 
         <ImageView
@@ -59,8 +58,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:background="@color/blue"
-            android:visibility="@{viewModel.hasImage() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.imageVisibility}"
+            tools:visibility="visible"
+            app:imageUrl="@{viewModel.imageUrl}"
             />
 
         <View style="@style/Divider"/>

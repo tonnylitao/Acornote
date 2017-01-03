@@ -1,5 +1,5 @@
 <resources>
-    <!-- <string name="app_name">Acronote</string> config in build.gradle file-->
+    <!-- <string name="app_name">Acornote</string> config in build.gradle file-->
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->

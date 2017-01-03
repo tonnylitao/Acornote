@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Tonny/Development/github/Acornote/Acornote_Android/app/build/intermediates/incremental-runtime-classes/dev21/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b43fc3c2086492e219a89bf7d9862d8e651c3824">
+        <dex dex="/Users/Tonny/Development/github/Acornote/Acornote_Android/app/build/intermediates/transforms/dex/dev21/debug/folders/1000/10000/instant-run_97a5e735ff6277cd9f0d9ecafba4efcd07ca722a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Tonny/Development/github/Acornote/Acornote_Android/app/build/intermediates/incremental-classes/dev21/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e473c2e7993fe563b8136743a4af3e07eb8c5f29">
+        <dex dex="/Users/Tonny/Development/github/Acornote/Acornote_Android/app/build/intermediates/transforms/dex/dev21/debug/folders/1000/10000/instant-run-bootstrap_4f3932c502825a1a7dc06383a790728c99c9b7cd/classes.dex" />
+    </item>
+
+</items>

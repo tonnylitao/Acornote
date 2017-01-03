@@ -15,7 +15,7 @@ android {
 //        jackOptions {
 //            enabled false
 //        }
-        applicationId "tonnysunm.com.acronote"
+        applicationId "tonnysunm.com.acornote"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
@@ -76,14 +76,14 @@ android {
             minifyEnabled false
             applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
-            resValue "string", "app_name", "Acronote(debug)"
+            resValue "string", "app_name", "Acornote(debug)"
         }
 
         release {
             debuggable false
             minifyEnabled true
             signingConfig signingConfigs.release
-            resValue "string", "app_name", "Acronote"
+            resValue "string", "app_name", "Acornote"
 
             proguardFile 'proguard-guava.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

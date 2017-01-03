@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="tonnysunm.com.acronote">
+          package="tonnysunm.com.acornote">
 
     <application
-        android:name=".AcronoteApplication"
+        android:name=".AcornoteApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
