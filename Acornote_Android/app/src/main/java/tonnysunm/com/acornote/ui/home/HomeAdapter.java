@@ -50,10 +50,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
+        private HomeCardviewBinding mBinding;
+
         public ViewHolder(View itemView) {
             super(itemView);
         }
-        private HomeCardviewBinding mBinding;
 
         private ViewHolder(@NonNull HomeCardviewBinding binding) {
             super(binding.getRoot());
@@ -62,7 +63,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 final Context ctx = v.getContext();
 
                 final HomeCardviewBinding bindingInner = DataBindingUtil.getBinding(v);
-                final int id = bindingInner.getViewModel().folder.id;
+                final int id = bindingInner.getViewModel().getId();
 
                 ctx.startActivity(FolderActivity.createIntent(ctx, id));
             });

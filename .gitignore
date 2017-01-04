@@ -69,11 +69,12 @@ fastlane/test_output
 # Android
 
 *.iml
-Acronote_Android/.gradle
-Acronote_Android/local.properties
-Acronote_Android/.idea/workspace.xml
-Acronote_Android/.idea/libraries
-Acronote_Android/build
-Acronote_Android/captures
-Acronote_Android/.externalNativeBuild
-Acronote_Android/.idea
+Acornote_Android/.gradle
+Acornote_Android/local.properties
+Acornote_Android/build
+Acornote_Android/captures
+Acornote_Android/.externalNativeBuild
+Acornote_Android/.idea
+Acornote_Android/.idea/*
+
+Acornote_Android/local.properties

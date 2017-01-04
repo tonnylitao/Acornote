@@ -9,7 +9,7 @@ import tonnysunm.com.acornote.model.Folder;
  */
 
 public class FolderViewModel extends BaseObservable {
-    Folder folder;
+    private Folder mFolder;
 
     //resource
     //private Context context;
@@ -20,15 +20,19 @@ public class FolderViewModel extends BaseObservable {
     //note: networking logic async operation should stay in presenter, not in ViewModel
 
     public FolderViewModel(Folder folder) {
-        this.folder = folder;
+        this.mFolder = folder;
         notifyChange();
     }
 
+    public int getId() {
+        return  mFolder.id;
+    }
+
     public void setFolder(Folder folder) {
-        this.folder = folder;
+        this.mFolder = folder;
     }
 
     public String getTitle() {
-        return folder.title;
+        return mFolder.title;
     }
 }

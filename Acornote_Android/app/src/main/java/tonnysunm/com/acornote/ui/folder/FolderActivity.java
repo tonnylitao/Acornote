@@ -14,8 +14,6 @@ public class FolderActivity extends BaseActivity<FolderPresenter> {
     public static final String EXTRA_FOLDER_ID = "EXTRA_FOLDER_ID";
     private static final String TAG = FolderActivity.class.getSimpleName();
 
-    private int folderId;
-
     public static Intent createIntent(Context context, int folderId) {
         Intent intent = new Intent(context, FolderActivity.class);
         intent.putExtra(EXTRA_FOLDER_ID, folderId);

@@ -10,27 +10,27 @@ import tonnysunm.com.acornote.model.Item;
  */
 
 public class ItemViewModel extends BaseObservable {
-    Item item;
+    private Item mItem;
 
-    public ItemViewModel(Item item) { this.item = item; }
+    public ItemViewModel(Item item) { this.mItem = item; }
 
     public void setItem(Item item) {
-        this.item = item;
+        this.mItem = item;
         notifyChange();
     }
 
     public String getTitle() {
-        return item.title;
+        return mItem.title;
     }
 
-    public String getImageUrl() { return  item.imgUrl; }
+    public String getImageUrl() { return  mItem.imgUrl; }
 
     public int getLinkVisibility() {
-        return item.hasUrl() ? View.VISIBLE : View.GONE;
+        return mItem.hasUrl() ? View.VISIBLE : View.GONE;
     }
 
-    public int getImageVisibility() { return item.hasImage() ? View.VISIBLE : View.GONE;}
+    public int getImageVisibility() { return mItem.hasImage() ? View.VISIBLE : View.GONE;}
 
-    public boolean hasImage() { return item.hasImage(); }
+    public boolean hasImage() { return mItem.hasImage(); }
 
 }
