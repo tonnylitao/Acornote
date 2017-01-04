@@ -4,7 +4,7 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 tools:context="tonnysunm.com.acornote.activity.folder.FolderFragment">
+                                                 tools:context="tonnysunm.com.acornote.ui.folder.FolderFragment">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <fragment
-        android:name="tonnysunm.com.acornote.activity.folder.FolderFragment"
+        android:name="tonnysunm.com.acornote.ui.folder.FolderFragment"
         android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

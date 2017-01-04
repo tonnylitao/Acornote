@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.home.HomeActivity">
+    tools:context=".ui.home.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment android:name="tonnysunm.com.acornote.activity.home.HomeFragment"
+    <fragment android:name="tonnysunm.com.acornote.ui.home.HomeFragment"
               android:id="@+id/fragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"

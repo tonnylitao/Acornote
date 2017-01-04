@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.mvp;
+package tonnysunm.com.acornote.ui.base;
 
 import android.support.v7.app.AppCompatActivity;
 

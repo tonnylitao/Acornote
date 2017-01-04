@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.folder;
+package tonnysunm.com.acornote.ui.folder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import tonnysunm.com.acornote.R;
-import tonnysunm.com.acornote.mvp.BaseActivity;
+import tonnysunm.com.acornote.ui.base.BaseActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.home;
+package tonnysunm.com.acornote.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,10 +28,6 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
     private HomePresenter mPresenter;
 
     public HomeFragment() {}
-
-    public HomeFragment(HomePresenter presenter) {
-        mPresenter = presenter;
-    }
 
     @Override
     public void setPresenter(HomePresenter presenter) {

@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.mvp;
+package tonnysunm.com.acornote.ui.base;
 
 public abstract class BasePresenter<V extends MVP.View> implements MVP.Presenter {
     protected V mView;

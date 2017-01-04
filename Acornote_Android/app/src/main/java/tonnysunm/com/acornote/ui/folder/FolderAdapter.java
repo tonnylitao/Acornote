@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.folder;
+package tonnysunm.com.acornote.ui.folder;
 
 import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
@@ -22,7 +22,7 @@ import tonnysunm.com.acornote.model.Item;
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder> {
     private static final String TAG = FolderAdapter.class.getSimpleName();
 
-    private List<Item> mDataSource;
+    private final List<Item> mDataSource;
 
     FolderAdapter() {
         mDataSource = new ArrayList<Item>();
@@ -79,16 +79,16 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         }
     }
 
-    @BindingAdapter("app:layout_marginRight")
-    public static void setRightMargin(View view, float margin) {
+    @BindingAdapter("layout_marginRight")
+    public static void setLayoutMarginRight(View view, float margin) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin,
                 (int)margin, layoutParams.bottomMargin);
         view.setLayoutParams(layoutParams);
     }
 
-    @BindingAdapter("app:imageUrl")
-    public static void setSrc(ImageView view, String url) {
+    @BindingAdapter("imageUrl")
+    public static void setImageUrl(ImageView view, String url) {
         if (URLUtil.isHttpUrl(url) || URLUtil.isHttpsUrl(url)) {
 
         }

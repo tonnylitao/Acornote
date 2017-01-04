@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.mvp;
+package tonnysunm.com.acornote.ui.base;
 
 public interface MVP {
 

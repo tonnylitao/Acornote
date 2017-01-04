@@ -1,9 +1,9 @@
-package tonnysunm.com.acornote.activity.home;
+package tonnysunm.com.acornote.ui.home;
 
 import java.util.List;
 
 import tonnysunm.com.acornote.model.Folder;
-import tonnysunm.com.acornote.mvp.MVP;
+import tonnysunm.com.acornote.ui.base.MVP;
 
 /**
  * Created by Tonny on 20/12/16.

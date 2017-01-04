@@ -1,7 +1,7 @@
-package tonnysunm.com.acornote.activity.folder;
+package tonnysunm.com.acornote.ui.folder;
 
 import tonnysunm.com.acornote.model.Item;
-import tonnysunm.com.acornote.mvp.BasePresenter;
+import tonnysunm.com.acornote.ui.base.BasePresenter;
 
 class FolderPresenter extends BasePresenter<FolderMVP.View> implements FolderMVP.Presenter {
     private static final String TAG = FolderPresenter.class.getSimpleName();

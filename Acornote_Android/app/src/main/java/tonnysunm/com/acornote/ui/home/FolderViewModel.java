@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.home;
+package tonnysunm.com.acornote.ui.home;
 
 import android.databinding.BaseObservable;
 

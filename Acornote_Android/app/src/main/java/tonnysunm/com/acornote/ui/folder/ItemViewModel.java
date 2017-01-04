@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.folder;
+package tonnysunm.com.acornote.ui.folder;
 
 import android.databinding.BaseObservable;
 import android.view.View;

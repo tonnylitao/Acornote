@@ -1,9 +1,9 @@
-package tonnysunm.com.acornote.activity.folder;
+package tonnysunm.com.acornote.ui.folder;
 
 import java.util.List;
 
 import tonnysunm.com.acornote.model.Item;
-import tonnysunm.com.acornote.mvp.MVP;
+import tonnysunm.com.acornote.ui.base.MVP;
 
 public interface FolderMVP {
 

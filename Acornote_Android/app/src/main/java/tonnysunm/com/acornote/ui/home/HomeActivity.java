@@ -1,10 +1,10 @@
-package tonnysunm.com.acornote.activity.home;
+package tonnysunm.com.acornote.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import tonnysunm.com.acornote.R;
-import tonnysunm.com.acornote.mvp.BaseActivity;
+import tonnysunm.com.acornote.ui.base.BaseActivity;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class HomeActivity extends BaseActivity<HomePresenter> {

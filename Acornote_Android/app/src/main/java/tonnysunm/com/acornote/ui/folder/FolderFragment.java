@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.folder;
+package tonnysunm.com.acornote.ui.folder;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

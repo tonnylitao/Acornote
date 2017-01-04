@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.activity.home;
+package tonnysunm.com.acornote.ui.home;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import tonnysunm.com.acornote.activity.folder.FolderActivity;
+import tonnysunm.com.acornote.ui.folder.FolderActivity;
 import tonnysunm.com.acornote.databinding.HomeCardviewBinding;
 import tonnysunm.com.acornote.model.Folder;
 
@@ -22,7 +22,7 @@ import tonnysunm.com.acornote.model.Folder;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private static final String TAG = HomeAdapter.class.getSimpleName();
 
-    private List<Folder> mFolders;
+    private final List<Folder> mFolders;
 
     HomeAdapter() {
         mFolders = new ArrayList<Folder>();
