@@ -1,16 +1,19 @@
 package tonnysunm.com.acornote.ui.base;
 
-public abstract class BasePresenter<V extends MVP.View> implements MVP.Presenter {
-    protected V mView;
+public abstract class BasePresenter<V extends MVP.View> implements MVP.Presenter<V> {
+    private V mView;
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public void setView(MVP.View view) {
-        mView = (V) view;
+    public V getMVPView() {
+        return mView;
     }
 
     @Override
-    public void destroy() {
+    public void attachView(V view) {
+        mView = view;
+    }
+
+    @Override
+    public void detachView() {
         mView = null;
     }
 

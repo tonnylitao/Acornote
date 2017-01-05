@@ -1,16 +1,15 @@
 package tonnysunm.com.acornote.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import io.realm.RealmChangeListener;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import tonnysunm.com.acornote.AcornoteApplication;
 
-/**
- * Created by Tonny on 30/12/16.
- */
-
-public class Item extends RealmObject {
+public class Item extends RealmObject implements Parcelable {
     @PrimaryKey
     public int id;
 
@@ -94,4 +93,38 @@ public class Item extends RealmObject {
 
         result.addChangeListener(listener);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.imgUrl);
+        dest.writeString(this.url);
+        dest.writeParcelable(this.folder, flags);
+    }
+
+    protected Item(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.imgUrl = in.readString();
+        this.url = in.readString();
+        this.folder = in.readParcelable(Folder.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel source) {
+            return new Item(source);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 }

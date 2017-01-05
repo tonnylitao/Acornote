@@ -2,10 +2,10 @@ package tonnysunm.com.acornote.ui.base;
 
 public interface MVP {
 
-    interface Presenter {
-        void destroy();
+    interface Presenter <V extends View> {
+        void attachView(V view);
 
-        void setView(View view);
+        void detachView();
     }
 
     interface View <P extends Presenter> {

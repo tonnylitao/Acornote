@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 apply plugin: 'me.tatarka.retrolambda'
 
-
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -109,6 +108,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+
 //    compile 'com.github.ReactiveX:RxJava:v2.0.3'
 //    compile 'com.github.ReactiveX:RxAndroid:2.0.1'
 

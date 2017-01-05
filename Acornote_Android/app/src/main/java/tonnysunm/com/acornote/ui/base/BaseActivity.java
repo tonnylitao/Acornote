@@ -8,7 +8,7 @@ public abstract class BaseActivity<P extends MVP.Presenter> extends AppCompatAct
 
     @Override
     protected void onDestroy() {
-        mPresenter.destroy();
+        mPresenter.detachView();
 
         super.onDestroy();
     }

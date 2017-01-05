@@ -9,7 +9,7 @@ class FolderPresenter extends BasePresenter<FolderMVP.View> implements FolderMVP
     @Override
     public void loadData(int folderId){
         Item.findAllInFolderAsync(folderId, result -> {
-            mView.refresh(result);
+            getMVPView().refresh(result);
         });
     }
 

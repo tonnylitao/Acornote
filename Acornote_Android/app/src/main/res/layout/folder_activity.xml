@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        />
+        tools:layout="@layout/folder_fragment"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

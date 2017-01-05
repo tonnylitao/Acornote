@@ -25,6 +25,11 @@
         <activity android:name=".ui.folder.FolderActivity"
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity android:name=".ui.editfolder.EditFolderActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+        </activity>
     </application>
 
 </manifest>

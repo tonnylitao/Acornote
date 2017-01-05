@@ -1,6 +1,8 @@
 package tonnysunm.com.acornote.model;
 
 import android.content.res.Resources;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Random;
 
@@ -12,11 +14,7 @@ import io.realm.annotations.PrimaryKey;
 import tonnysunm.com.acornote.AcornoteApplication;
 import tonnysunm.com.acornote.R;
 
-/**
- * Created by Tonny on 29/12/16.
- */
-
-public class Folder extends RealmObject {
+public class Folder extends RealmObject implements Parcelable {
 
     @PrimaryKey
     public int id;
@@ -24,9 +22,7 @@ public class Folder extends RealmObject {
     public String title;
     public String color;
 
-    public Folder(){
-        super();
-    }
+    public Folder(){ }
 
     public Folder(int id, String title, String color) {
         this.id = id;
@@ -89,4 +85,33 @@ public class Folder extends RealmObject {
         result.addChangeListener(listener);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.color);
+    }
+
+    protected Folder(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.color = in.readString();
+    }
+
+    public static final Parcelable.Creator<Folder> CREATOR = new Parcelable.Creator<Folder>() {
+        @Override
+        public Folder createFromParcel(Parcel source) {
+            return new Folder(source);
+        }
+
+        @Override
+        public Folder[] newArray(int size) {
+            return new Folder[size];
+        }
+    };
 }

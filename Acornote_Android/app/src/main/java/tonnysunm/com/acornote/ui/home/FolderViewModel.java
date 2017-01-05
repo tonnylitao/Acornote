@@ -11,6 +11,10 @@ import tonnysunm.com.acornote.model.Folder;
 public class FolderViewModel extends BaseObservable {
     private Folder mFolder;
 
+    public Folder getFolder() {
+        return mFolder;
+    }
+
     //resource
     //private Context context;
 

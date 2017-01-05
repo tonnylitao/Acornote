@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel" type="tonnysunm.com.acornote.ui.editfolder.EditFolderViewModel"></variable>
+    </data>
+
+<android.support.constraint.ConstraintLayout android:id="@+id/content_home"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@{viewModel.color}"
+                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                             tools:showIn="@layout/editfolder_activity">
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="0dp"
+        android:onClick="@{(v)->viewModel.MVPView.onCancel()}"
+        />
+
+    <Button
+        android:id="@+id/btn_color_0"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintLeft_toRightOf="@+id/btn_cancel"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:layout_constraintRight_toLeftOf="@+id/btn_color_1"
+        />
+    <Button
+        android:id="@+id/btn_color_1"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/btn_color_0"
+        app:layout_constraintRight_toLeftOf="@+id/btn_color_2"
+        />
+    <Button
+        android:id="@+id/btn_color_2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/btn_color_1"
+        app:layout_constraintRight_toLeftOf="@+id/btn_color_3"
+        />
+    <Button
+        android:id="@+id/btn_color_3"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/btn_color_2"
+        app:layout_constraintRight_toLeftOf="@+id/btn_color_4"
+        />
+    <Button
+        android:id="@+id/btn_color_4"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/btn_color_3"
+        app:layout_constraintRight_toLeftOf="@+id/btn_color_5"
+        />
+    <Button
+        android:id="@+id/btn_color_5"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/btn_color_4"
+        app:layout_constraintRight_toLeftOf="@+id/btn_sure"
+        />
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_add"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="@{(v)->viewModel.MVPView.onSure(viewModel)}"
+        />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:minWidth="150dp"
+        android:hint="Folder Name"
+        android:inputType="text"
+        android:textColor="#444444"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="Folder Name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Folder Name"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <Button
+        android:id="@+id/btn_link"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_add"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_tag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="0dp"/>
+    <Button
+        android:id="@+id/btn_tag"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_add"
+        app:layout_constraintLeft_toRightOf="@+id/btn_link"
+        app:layout_constraintRight_toLeftOf="@+id/btn_flip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <Button
+        android:id="@+id/btn_flip"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_add"
+        app:layout_constraintLeft_toRightOf="@+id/btn_tag"
+        app:layout_constraintRight_toLeftOf="@+id/btn_audio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <Button
+        android:id="@+id/btn_audio"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_add"
+        app:layout_constraintLeft_toRightOf="@+id/btn_flip"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>
+
+</layout>

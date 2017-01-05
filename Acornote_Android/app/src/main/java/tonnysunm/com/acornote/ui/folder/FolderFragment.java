@@ -14,6 +14,7 @@ import java.util.List;
 
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.databinding.FolderFragmentBinding;
+import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.model.Item;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -22,6 +23,8 @@ public class FolderFragment extends Fragment implements FolderMVP.View {
     private static final String TAG = FolderFragment.class.getSimpleName();
 
     private FolderPresenter mPresenter;
+
+    private Folder mFolder;
 
     public FolderFragment() {}
 
@@ -35,6 +38,10 @@ public class FolderFragment extends Fragment implements FolderMVP.View {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.folder_fragment, container, false);
 
+        final Bundle bundle = getActivity().getIntent().getExtras();
+        mFolder = bundle.getParcelable(FolderActivity.EXTRA_FOLDER);
+
+        //
         FolderFragmentBinding binding = FolderFragmentBinding.bind(view);
         final RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
@@ -70,11 +77,8 @@ public class FolderFragment extends Fragment implements FolderMVP.View {
     public void onResume() {
         super.onResume();
 
-        final Bundle bundle = getActivity().getIntent().getExtras();
-        final int id = bundle != null ? bundle.getInt(FolderActivity.EXTRA_FOLDER_ID, 0) : 0;
+        Log.d(TAG, String.format("folderId = %d", mFolder.id));
 
-        Log.d(TAG, String.format("folderId = %d", id));
-
-        mPresenter.loadData(id);
+        mPresenter.loadData(mFolder.id);
     }
 }

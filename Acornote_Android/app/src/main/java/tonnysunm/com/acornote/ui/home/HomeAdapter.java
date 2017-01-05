@@ -63,9 +63,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 final Context ctx = v.getContext();
 
                 final HomeCardviewBinding bindingInner = DataBindingUtil.getBinding(v);
-                final int id = bindingInner.getViewModel().getId();
+                final Folder folder = bindingInner.getViewModel().getFolder();
 
-                ctx.startActivity(FolderActivity.createIntent(ctx, id));
+                ctx.startActivity(FolderActivity.createIntent(ctx, folder));
             });
             mBinding = binding;
         }

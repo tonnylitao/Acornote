@@ -13,7 +13,7 @@ class HomePresenter extends BasePresenter<HomeMVP.View> implements HomeMVP.Prese
     @Override
     public void loadData(){
         Folder.findAllAsync(result -> {
-            mView.refresh(result);
+            getMVPView().refresh(result);
         });
     }
 

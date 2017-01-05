@@ -2,6 +2,8 @@ package tonnysunm.com.acornote.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.ui.base.BaseActivity;
@@ -20,8 +22,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                 .findFragmentById(R.id.fragment);
         checkNotNull(fragment, "view should not be null");
 
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayUseLogoEnabled(true);
+
         mPresenter = new HomePresenter();
-        mPresenter.setView(fragment);
+        mPresenter.attachView(fragment);
         fragment.setPresenter(mPresenter);
     }
 }
