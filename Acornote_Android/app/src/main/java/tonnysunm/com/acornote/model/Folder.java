@@ -1,5 +1,6 @@
 package tonnysunm.com.acornote.model;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,13 +22,15 @@ public class Folder extends RealmObject implements Parcelable {
 
     public String title;
     public String color;
+    public String url;
 
     public Folder(){ }
 
-    public Folder(int id, String title, String color) {
+    public Folder(int id, String title, String color, String url) {
         this.id = id;
         this.title = title;
         this.color = color;
+        this.url = url;
     }
 
     //getter and setter
@@ -59,7 +62,7 @@ public class Folder extends RealmObject implements Parcelable {
     static public void createInitialData(Realm realm) {
         final Resources res = AcornoteApplication.getContext().getResources();
         String[] titles = res.getStringArray(R.array.folderTitlesDemo);
-        String[] colors = res.getStringArray(R.array.folderColors);
+        String[] colors = res.getStringArray(R.array.folderColorKeys);
 
         int folderId = 1;
         int itemId = 1;
@@ -114,4 +117,18 @@ public class Folder extends RealmObject implements Parcelable {
             return new Folder[size];
         }
     };
+
+    static public int colorByName(Context context, String name) {
+        int i = -1;
+        for (String text: context.getResources().getStringArray(R.array.folderColorKeys)) {
+            i++;
+            if (text.equals(name))
+                break;
+        }
+        return context.getResources().getIntArray(R.array.folderColorsValues)[i];
+    }
+
+    static public int colorByIndex(Context context, int index) {
+        return context.getResources().getIntArray(R.array.folderColorsValues)[index];
+    }
 }

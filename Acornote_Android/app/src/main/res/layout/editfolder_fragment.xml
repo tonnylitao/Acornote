@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res-auto/tonnysunm.com.acornote.ui.customview.ColorIndicatorButton"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,135 +12,179 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              android:background="@{viewModel.color}"
+                                             tools:background="@color/sky"
                                              app:layout_behavior="@string/appbar_scrolling_view_behavior"
                                              tools:showIn="@layout/editfolder_activity">
 
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_cancel"
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="0dp"
-        android:onClick="@{(v)->viewModel.MVPView.onCancel()}"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:srcCompat="@drawable/ic_cancel"
+        android:background="@android:color/transparent"
+        android:onClick="@{(v)->viewModel.view.onCancel()}"
         />
 
-    <Button
+    <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_0"
         android:layout_width="0dp"
+        custom:colorIndex="0"
+        custom:selected="@{viewModel.isColorSelected(0)}"
+        android:onClick="@{(v)->viewModel.selectColor(0)}"
         android:layout_height="48dp"
+        android:background="@android:color/transparent"
         app:layout_constraintLeft_toRightOf="@+id/btn_cancel"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintRight_toLeftOf="@+id/btn_color_1"
         />
-    <Button
+    <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_1"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        custom:colorIndex="1"
+        custom:selected="@{viewModel.isColorSelected(1)}"
+        android:onClick="@{(v)->viewModel.selectColor(1)}"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintLeft_toRightOf="@+id/btn_color_0"
         app:layout_constraintRight_toLeftOf="@+id/btn_color_2"
         />
-    <Button
+    <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_2"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        custom:colorIndex="2"
+        custom:selected="@{viewModel.isColorSelected(2)}"
+        android:onClick="@{(v)->viewModel.selectColor(2)}"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintLeft_toRightOf="@+id/btn_color_1"
         app:layout_constraintRight_toLeftOf="@+id/btn_color_3"
         />
-    <Button
+    <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_3"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        custom:colorIndex="3"
+        custom:selected="@{viewModel.isColorSelected(3)}"
+        android:onClick="@{(v)->viewModel.selectColor(3)}"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintLeft_toRightOf="@+id/btn_color_2"
         app:layout_constraintRight_toLeftOf="@+id/btn_color_4"
         />
-    <Button
+    <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_4"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        custom:colorIndex="4"
+        custom:selected="@{viewModel.isColorSelected(4)}"
+        android:onClick="@{(v)->viewModel.selectColor(4)}"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintLeft_toRightOf="@+id/btn_color_3"
         app:layout_constraintRight_toLeftOf="@+id/btn_color_5"
         />
-    <Button
+    <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_5"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        custom:colorIndex="5"
+        custom:selected="@{viewModel.isColorSelected(5)}"
+        android:onClick="@{(v)->viewModel.selectColor(5)}"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel"
         app:layout_constraintLeft_toRightOf="@+id/btn_color_4"
         app:layout_constraintRight_toLeftOf="@+id/btn_sure"
         />
 
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_sure"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/ic_add"
+        app:srcCompat="@drawable/ic_sure"
+        android:background="@android:color/transparent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{(v)->viewModel.MVPView.onSure(viewModel)}"
-        />
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        android:onClick="@{(v)->viewModel.view.onSure(viewModel)}"
+        android:layout_marginEnd="10dp"/>
 
     <EditText
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:minWidth="150dp"
-        android:hint="Folder Name"
+        android:textColorHint="@color/iconOff"
         android:inputType="text"
-        android:textColor="#444444"
+        android:textColor="#FFFFFF"
+        android:background="@android:color/transparent"
         android:maxLines="1"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:text="Folder Name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:text="@{viewModel.title}"
+        android:hint="Folder Name"
         tools:text="Folder Name"
+        tools:textColor="@color/iconOff"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
 
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_link"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/ic_add"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_link"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/btn_tag"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"/>
-    <Button
+        android:layout_marginBottom="0dp"
+        android:tint="@{viewModel.hasLink ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setHasLink(!viewModel.hasLink)}"
+        />
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_tag"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/ic_add"
+        android:src="@drawable/ic_tag_on"
+        android:background="@android:color/transparent"
         app:layout_constraintLeft_toRightOf="@+id/btn_link"
         app:layout_constraintRight_toLeftOf="@+id/btn_flip"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:tint="@{viewModel.hasTag ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setHasTag(!viewModel.hasTag)}"
         />
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_flip"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/ic_add"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_flip"
         app:layout_constraintLeft_toRightOf="@+id/btn_tag"
         app:layout_constraintRight_toLeftOf="@+id/btn_audio"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:tint="@{viewModel.hasFlip ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setHasFlip(!viewModel.hasFlip)}"
         />
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_audio"
         android:layout_width="0dp"
+        android:background="@android:color/transparent"
         android:layout_height="48dp"
-        android:background="@drawable/ic_add"
         app:layout_constraintLeft_toRightOf="@+id/btn_flip"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_audio"
+        android:tint="@{viewModel.hasAudio ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setHasAudio(!viewModel.hasAudio)}"
         />
 
 </android.support.constraint.ConstraintLayout>

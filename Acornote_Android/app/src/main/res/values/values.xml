@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="folderColors">
+    <string-array name="folderColorKeys">
         <item>sky</item>
         <item>red</item>
         <item>green</item>
@@ -8,6 +8,15 @@
         <item>purple</item>
         <item>blue</item>
     </string-array>
+
+    <array name="folderColorsValues">
+        <item>@color/sky</item>
+        <item>@color/red</item>
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/purple</item>
+        <item>@color/blue</item>
+    </array>
 
     <string-array name="folderTitlesDemo">
         <item>Title0</item>

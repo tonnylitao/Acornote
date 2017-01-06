@@ -41,9 +41,10 @@ public class EditFolderFragment extends Fragment implements EditFolderMVP.View {
             view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.sky));
         }
 
-        EditfolderFragmentBinding binding = EditfolderFragmentBinding.bind(view);
-        final EditFolderViewModel viewModel = new EditFolderViewModel(getActivity(), mFolder);
-        viewModel.setMVPView(this);
+        final EditfolderFragmentBinding binding = EditfolderFragmentBinding.bind(view);
+        final EditFolderViewModel viewModel = new EditFolderViewModel(mFolder);
+        viewModel.setContext(getActivity())
+                .setView(this);
 
         binding.setViewModel(viewModel);
 
