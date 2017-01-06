@@ -75,6 +75,8 @@ Acornote_Android/build
 Acornote_Android/captures
 Acornote_Android/.externalNativeBuild
 Acornote_Android/.idea
-Acornote_Android/.idea/*
 
 Acornote_Android/local.properties
+
+*.bin
+*.lock
