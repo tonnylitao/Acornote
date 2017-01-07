@@ -23,15 +23,15 @@ public class Folder extends RealmObject implements Parcelable {
     public int id;
 
     public String title;
-    public String color;
+    public String colorName;
     public String url;
 
     public Folder(){ }
 
-    public Folder(int id, String title, String color, String url) {
+    public Folder(int id, String title, String colorName, String url) {
         this.id = id;
         this.title = title;
-        this.color = color;
+        this.colorName = colorName;
         this.url = url;
     }
 
@@ -53,12 +53,12 @@ public class Folder extends RealmObject implements Parcelable {
         this.title = title;
     }
 
-    public String getColor() {
-        return color;
+    public String getColorName() {
+        return colorName;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColorName(String color) {
+        this.colorName = color;
     }
 
     static public void createInitialData(Realm realm) {
@@ -72,7 +72,7 @@ public class Folder extends RealmObject implements Parcelable {
             Folder folder = realm.createObject(Folder.class, folderId++);
             folder.setTitle(title);
             String color = colors[new Random().nextInt(colors.length)];
-            folder.setColor(color);
+            folder.setColorName(color);
 
             String[] titles1 = res.getStringArray(R.array.itemTitlesDemo);
 
@@ -99,13 +99,13 @@ public class Folder extends RealmObject implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.title);
-        dest.writeString(this.color);
+        dest.writeString(this.colorName);
     }
 
     protected Folder(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
-        this.color = in.readString();
+        this.colorName = in.readString();
     }
 
     public static final Parcelable.Creator<Folder> CREATOR = new Parcelable.Creator<Folder>() {
@@ -134,24 +134,24 @@ public class Folder extends RealmObject implements Parcelable {
         return context.getResources().getIntArray(R.array.folderColorsValues)[index];
     }
 
-    static public void createFolder(EditFolderViewModel model, Folder mFolder, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
-        if (mFolder == null) {
-            AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
-                        final int id = realm.where(Folder.class).max("id").intValue() + 1;
-                        Folder folder = realm.createObject(Folder.class, id);
-                        folder.setTitle(model.title);
-                        folder.setColor(model.colorName);
-                    },
-                    onSuccess,
-                    onError);
-        }else {
-            AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
-                        Folder folder = realm.where(Folder.class).equalTo("id", mFolder.id).findFirst();
-                        folder.setTitle(model.title);
-                        folder.setColor(model.colorName);
-                    },
-                    onSuccess,
-                    onError);
-        }
+    static public void createFolder(EditFolderViewModel model, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
+        AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
+                    final int id = realm.where(Folder.class).max("id").intValue() + 1;
+                    final Folder f = realm.createObject(Folder.class, id);
+                    f.setTitle(model.title);
+                    f.setColorName(model.colorName);
+                },
+                onSuccess,
+                onError);
+    }
+
+    static public void updateFolder(EditFolderViewModel model, int folderId, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
+        AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
+                    final Folder f = realm.where(Folder.class).equalTo("id", folderId).findFirst();
+                    f.setTitle(model.title);
+                    f.setColorName(model.colorName);
+                },
+                onSuccess,
+                onError);
     }
 }

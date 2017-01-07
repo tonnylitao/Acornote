@@ -1,12 +1,20 @@
 package tonnysunm.com.acornote.ui.editfolder;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatEditText;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
+import tonnysunm.com.acornote.BR;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 
@@ -21,17 +29,17 @@ public class EditFolderViewModel extends BaseObservable {
     /**** ****/
     public String colorName;
     public String title;
-    public boolean hasLink;
-    public boolean hasTag;
-    public boolean hasFlip;
-    public boolean hasAudio;
+    @Bindable public String url;
+
+    @Bindable public boolean hasTag;
+    @Bindable public boolean hasFlip;
+    @Bindable public boolean hasAudio;
 
     public EditFolderViewModel(Folder folder) {
         if (folder != null) {
-            this.colorName = folder.color;
+            this.colorName = folder.colorName;
             this.title = folder.title;
-
-            this.hasLink = folder.url != null;
+            this.url = folder.url;
 
 //            this.hasTag = false;
 //            this.hasFlip = false;
@@ -55,31 +63,51 @@ public class EditFolderViewModel extends BaseObservable {
 
     /*** Getter Setter ***/
 
-    public void editHasLink() {
-        //this.hasLink = hasLink;
+    public void editUrl() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        //notifyChange();
+        final AppCompatEditText editText = new AppCompatEditText(context);
+        editText.setHint("https://");
+        editText.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+
+        final AlertDialog dialog = builder.setTitle("Enter Folder URL")
+                .setCancelable(false) //TODO
+                .setView(editText)
+                .setPositiveButton("Sure", (DialogInterface d, int whichButton) -> {
+                    final String text = editText.getText().toString();
+                    if (text.startsWith("http://") || text.startsWith("https://")) {
+                        EditFolderViewModel.this.url = text;
+                        notifyPropertyChanged(BR.url);
+                        d.dismiss();
+                    }else{
+                        Toast.makeText(context, "Need http or https url", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     public void setHasTag(boolean hasTag) {
         this.hasTag = hasTag;
 
-        notifyChange();
+        notifyPropertyChanged(BR.hasTag);
     }
 
     public void setHasFlip(boolean hasFlip) {
         this.hasFlip = hasFlip;
 
-        notifyChange();
+        notifyPropertyChanged(BR.hasFlip);
     }
 
     public void setHasAudio(boolean hasAudio) {
         this.hasAudio = hasAudio;
 
-        notifyChange();
+        notifyPropertyChanged(BR.hasAudio);
     }
 
-    public boolean isColorSelected(int index) {
+    public boolean isSelected(int index) {
         if (colorName != null) {
             final Resources res = context.getResources();
             String[] colors = res.getStringArray(R.array.folderColorKeys);
@@ -120,7 +148,7 @@ public class EditFolderViewModel extends BaseObservable {
     @Override
     public String toString() {
         return "( " +colorName + ", " + title
-                + ", "+hasLink
+                + ", "+url
                 + ", "+hasTag
                 + ", "+hasFlip
                 + ", "+hasAudio

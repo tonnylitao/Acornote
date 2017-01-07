@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.ui.editfolder;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -8,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import io.realm.Realm;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.databinding.EditfolderFragmentBinding;
 import tonnysunm.com.acornote.model.Folder;
@@ -72,16 +75,27 @@ public class EditFolderFragment extends Fragment implements EditFolderMVP.View {
 
     @Override
     public void onSure(EditFolderViewModel model) {
+        final Context context = getContext();
+
         if (model.title == null) {
+            Toast.makeText(context, R.string.need_folder_name, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Folder.createFolder(model, mFolder, ()-> {
+        final Realm.Transaction.OnSuccess onSuccess = () -> {
             final Activity activity = EditFolderFragment.this.getActivity();
             activity.setResult(Activity.RESULT_OK);
             activity.finish();
-        }, (error) -> {
+        };
 
-        });
+        final Realm.Transaction.OnError onError = (error) -> {
+            Toast.makeText(context, R.string.create_error, Toast.LENGTH_SHORT).show();
+        };
+
+        if (mFolder == null) {
+            Folder.createFolder(model, onSuccess, onError);
+        }else {
+            Folder.updateFolder(model, mFolder.id, onSuccess, onError);
+        }
     }
 }
