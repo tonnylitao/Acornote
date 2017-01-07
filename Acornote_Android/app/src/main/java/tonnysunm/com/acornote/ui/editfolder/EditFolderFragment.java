@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.editfolder;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -66,18 +65,23 @@ public class EditFolderFragment extends Fragment implements EditFolderMVP.View {
 
     @Override
     public void onCancel() {
-        getActivity().setResult(Activity.RESULT_CANCELED);
-        getActivity().finish();
+        final Activity activity = getActivity();
+        activity.setResult(Activity.RESULT_CANCELED);
+        activity.finish();
     }
 
     @Override
     public void onSure(EditFolderViewModel model) {
-        Log.d(TAG, "onSure");
+        if (model.title == null) {
+            return;
+        }
 
-        final Intent intent = new Intent();
-        intent.putExtra("SOMETHING", "EXTRAS");
+        Folder.createFolder(model, mFolder, ()-> {
+            final Activity activity = EditFolderFragment.this.getActivity();
+            activity.setResult(Activity.RESULT_OK);
+            activity.finish();
+        }, (error) -> {
 
-        getActivity().setResult(Activity.RESULT_OK, intent);
-        getActivity().finishActivity(EditFolderActivity.CREATE_FOLDER_REQUEST);
+        });
     }
 }

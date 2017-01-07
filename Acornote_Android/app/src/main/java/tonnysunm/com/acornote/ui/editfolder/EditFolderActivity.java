@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class EditFolderActivity extends BaseActivity<EditFolderPresenter> {
     public static final int CREATE_FOLDER_REQUEST = 1;
     public static final String EXTRA_FOLDER = "EXTRA_FOLDER";
+    public static final String EXTRA_FOLDER_VIEWMODEL = "EXTRA_FOLDER_VIEWMODEL";
 
     private static final String TAG = EditFolderActivity.class.getSimpleName();
 

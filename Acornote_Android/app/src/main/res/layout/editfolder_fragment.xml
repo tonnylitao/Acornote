@@ -130,7 +130,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@{viewModel.title}"
+        android:text="@={viewModel.title}"
         android:hint="Folder Name"
         tools:text="Folder Name"
         tools:textColor="@color/iconOff"
@@ -148,7 +148,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="0dp"
         android:tint="@{viewModel.hasLink ? @android:color/white : @color/iconOff}"
-        android:onClick="@{(v)->viewModel.setHasLink(!viewModel.hasLink)}"
+        android:onClick="@{(v)->viewModel.editHasLink()}"
         />
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_tag"

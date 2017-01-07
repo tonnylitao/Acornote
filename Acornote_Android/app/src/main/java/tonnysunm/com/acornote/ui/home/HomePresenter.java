@@ -1,5 +1,7 @@
 package tonnysunm.com.acornote.ui.home;
 
+import android.util.Log;
+
 import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.ui.base.BasePresenter;
 
@@ -12,6 +14,7 @@ class HomePresenter extends BasePresenter<HomeMVP.View> implements HomeMVP.Prese
 
     @Override
     public void loadData(){
+        Log.d(TAG, "loadData");
         Folder.findAllAsync(result -> {
             getMVPView().refresh(result);
         });

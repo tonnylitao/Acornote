@@ -55,10 +55,10 @@ public class EditFolderViewModel extends BaseObservable {
 
     /*** Getter Setter ***/
 
-    public void setHasLink(boolean hasLink) {
-        this.hasLink = hasLink;
+    public void editHasLink() {
+        //this.hasLink = hasLink;
 
-        notifyChange();
+        //notifyChange();
     }
 
     public void setHasTag(boolean hasTag) {
@@ -117,4 +117,13 @@ public class EditFolderViewModel extends BaseObservable {
         view.setLayoutParams(layoutParams);
     }
 
+    @Override
+    public String toString() {
+        return "( " +colorName + ", " + title
+                + ", "+hasLink
+                + ", "+hasTag
+                + ", "+hasFlip
+                + ", "+hasAudio
+                + " )";
+    }
 }

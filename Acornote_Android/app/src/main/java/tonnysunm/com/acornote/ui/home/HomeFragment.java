@@ -113,10 +113,8 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EditFolderActivity.CREATE_FOLDER_REQUEST) {
-            if (requestCode == Activity.RESULT_CANCELED) {
+            if (resultCode == Activity.RESULT_OK) {
 
-            }else if (requestCode == Activity.RESULT_OK) {
-                Log.d(TAG, data.getData().toString());
             }
         }
     }

@@ -14,8 +14,10 @@ import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import tonnysunm.com.acornote.AcornoteApplication;
 import tonnysunm.com.acornote.R;
+import tonnysunm.com.acornote.ui.editfolder.EditFolderViewModel;
 
 public class Folder extends RealmObject implements Parcelable {
+    private static final String TAG = "Folder";
 
     @PrimaryKey
     public int id;
@@ -130,5 +132,26 @@ public class Folder extends RealmObject implements Parcelable {
 
     static public int colorByIndex(Context context, int index) {
         return context.getResources().getIntArray(R.array.folderColorsValues)[index];
+    }
+
+    static public void createFolder(EditFolderViewModel model, Folder mFolder, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
+        if (mFolder == null) {
+            AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
+                        final int id = realm.where(Folder.class).max("id").intValue() + 1;
+                        Folder folder = realm.createObject(Folder.class, id);
+                        folder.setTitle(model.title);
+                        folder.setColor(model.colorName);
+                    },
+                    onSuccess,
+                    onError);
+        }else {
+            AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
+                        Folder folder = realm.where(Folder.class).equalTo("id", mFolder.id).findFirst();
+                        folder.setTitle(model.title);
+                        folder.setColor(model.colorName);
+                    },
+                    onSuccess,
+                    onError);
+        }
     }
 }
