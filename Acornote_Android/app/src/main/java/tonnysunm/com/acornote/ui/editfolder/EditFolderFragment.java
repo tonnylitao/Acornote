@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,15 @@ import io.realm.Realm;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.databinding.EditfolderFragmentBinding;
 import tonnysunm.com.acornote.model.Folder;
+import tonnysunm.com.acornote.ui.base.MVP;
 
 public class EditFolderFragment extends Fragment implements EditFolderMVP.View {
     private static final String TAG = EditFolderFragment.class.getSimpleName();
 
-    private EditFolderPresenter mPresenter;
-
     private Folder mFolder;
 
     @Override
-    public void setPresenter(EditFolderPresenter presenter) {
-        mPresenter = presenter;
-    }
+    public void setPresenter(MVP.Presenter presenter) {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,19 +47,6 @@ public class EditFolderFragment extends Fragment implements EditFolderMVP.View {
         binding.setViewModel(viewModel);
 
         return view;
-    }
-
-    @Override
-    public void refresh(String string) {
-
-        Log.d("Home", string);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        mPresenter.loadData();
     }
 
     @Override

@@ -8,10 +8,11 @@ import android.support.annotation.Nullable;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.ui.base.BaseActivity;
+import tonnysunm.com.acornote.ui.base.MVP;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class EditFolderActivity extends BaseActivity<EditFolderPresenter> {
+public class EditFolderActivity extends BaseActivity<MVP.Presenter> {
     public static final int CREATE_FOLDER_REQUEST = 1;
     public static final String EXTRA_FOLDER = "EXTRA_FOLDER";
     public static final String EXTRA_FOLDER_VIEWMODEL = "EXTRA_FOLDER_VIEWMODEL";
@@ -35,16 +36,5 @@ public class EditFolderActivity extends BaseActivity<EditFolderPresenter> {
         final EditFolderFragment fragment = (EditFolderFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment);
         checkNotNull(fragment, "view should not be null");
-
-        mPresenter = new EditFolderPresenter();
-        mPresenter.attachView(fragment);
-        fragment.setPresenter(mPresenter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        mPresenter.loadData();
     }
 }

@@ -30,6 +30,7 @@
         android:onClick="@{(v)->viewModel.view.onCancel()}"
         />
 
+
     <tonnysunm.com.acornote.ui.customview.ColorIndicatorButton
         android:id="@+id/btn_color_0"
         android:layout_width="0dp"
@@ -119,6 +120,7 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:minWidth="150dp"
+        android:textSize="@dimen/edit_folder_size"
         android:textColorHint="@color/iconOff"
         android:inputType="text"
         android:textColor="#FFFFFF"
@@ -131,8 +133,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="@={viewModel.title}"
-        android:hint="Folder Name"
-        tools:text="Folder Name"
+        android:hint="Idea title"
+        tools:text="Idea title"
         tools:textColor="@color/iconOff"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>

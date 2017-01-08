@@ -4,14 +4,8 @@ import tonnysunm.com.acornote.ui.base.MVP;
 
 public interface EditFolderMVP {
 
-    interface Presenter {
-        void loadData();
-    }
-
-    interface View extends MVP.View<EditFolderPresenter> {
+    interface View extends MVP.View<MVP.Presenter> {
         void onCancel();
         void onSure(EditFolderViewModel viewModel);
-
-        void refresh(String string);
     }
 }
