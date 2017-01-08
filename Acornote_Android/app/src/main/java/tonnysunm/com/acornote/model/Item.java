@@ -14,16 +14,19 @@ public class Item extends RealmObject implements Parcelable {
     public int id;
 
     public String title;
-    public String imgUrl;
+    public String des;
+
     public String url;
+    public String imgUrl;
 
     public Folder folder;
 
     public Item() {}
 
-    public Item(int id, String title, String imgUrl, String url, Folder folder) {
+    public Item(int id, String title, String des, String imgUrl, String url, Folder folder) {
         this.id = id;
         this.title = title;
+        this.des = des;
         this.imgUrl = imgUrl;
         this.url = url;
         this.folder = folder;

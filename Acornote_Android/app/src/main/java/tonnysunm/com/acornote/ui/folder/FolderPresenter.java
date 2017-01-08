@@ -13,4 +13,13 @@ class FolderPresenter extends BasePresenter<FolderMVP.View> implements FolderMVP
         });
     }
 
+    @Override
+    public void addItem() {
+
+    }
+
+    @Override
+    public void editItem() {
+
+    }
 }

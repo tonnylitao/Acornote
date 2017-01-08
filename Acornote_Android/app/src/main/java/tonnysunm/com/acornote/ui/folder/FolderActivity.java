@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
@@ -52,6 +53,12 @@ public class FolderActivity extends BaseActivity<FolderPresenter> {
         mPresenter = new FolderPresenter();
         mPresenter.attachView(fragment);
         fragment.setPresenter(mPresenter);
+
+        //
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener((v)->{
+            mPresenter.
+        });
     }
 
     @Override
