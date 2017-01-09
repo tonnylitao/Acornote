@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import tonnysunm.com.acornote.AcornoteApplication;
 import tonnysunm.com.acornote.BR;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
@@ -23,8 +24,6 @@ import tonnysunm.com.acornote.model.Folder;
 public class EditFolderViewModel extends BaseObservable {
 
     public EditFolderMVP.View view;
-
-    private Context context;
 
     /**** ****/
     public String colorName;
@@ -51,11 +50,6 @@ public class EditFolderViewModel extends BaseObservable {
 
     /***** Chain setter *****/
 
-    public EditFolderViewModel setContext(Context context) {
-        this.context = context;
-        return this;
-    }
-
     public EditFolderViewModel setView(EditFolderMVP.View view) {
         this.view = view;
         return this;
@@ -63,7 +57,8 @@ public class EditFolderViewModel extends BaseObservable {
 
     /*** Getter Setter ***/
 
-    public void editUrl() {
+    public void editUrl(View view) {
+        final Context context = view.getContext();
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         final AppCompatEditText editText = new AppCompatEditText(context);
@@ -109,6 +104,7 @@ public class EditFolderViewModel extends BaseObservable {
 
     public boolean isSelected(int index) {
         if (colorName != null) {
+            final Context context = AcornoteApplication.getContext();
             final Resources res = context.getResources();
             String[] colors = res.getStringArray(R.array.folderColorKeys);
             if (index < colors.length) {
@@ -120,6 +116,7 @@ public class EditFolderViewModel extends BaseObservable {
     }
 
     public void selectColor(int index){
+        final Context context = AcornoteApplication.getContext();
         final Resources res = context.getResources();
         final String[] colors = res.getStringArray(R.array.folderColorKeys);
         if (index >= colors.length) {
@@ -134,6 +131,7 @@ public class EditFolderViewModel extends BaseObservable {
     }
 
     public int getColor() {
+        final Context context = AcornoteApplication.getContext();
         return Folder.colorByName(context, colorName);
     }
 

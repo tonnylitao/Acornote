@@ -35,6 +35,10 @@
                   android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity android:name=".ui.flip.FlipActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

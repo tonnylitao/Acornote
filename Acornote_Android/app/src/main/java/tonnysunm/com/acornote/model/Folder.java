@@ -26,6 +26,9 @@ public class Folder extends RealmObject implements Parcelable {
     public String colorName;
     public String url;
 
+    public boolean flip;
+    public boolean playAudio;
+
     public Folder(){ }
 
     public Folder(int id, String title, String colorName, String url) {
@@ -70,6 +73,9 @@ public class Folder extends RealmObject implements Parcelable {
         int itemId = 1;
         for (String title : titles) {
             Folder folder = realm.createObject(Folder.class, folderId++);
+            folder.url = "https://baidu.com";
+            folder.playAudio = true;
+            folder.flip = true;
             folder.setTitle(title);
             String color = colors[new Random().nextInt(colors.length)];
             folder.setColorName(color);
@@ -121,6 +127,10 @@ public class Folder extends RealmObject implements Parcelable {
     };
 
     static public int colorByName(Context context, String name) {
+        if (name == null) {
+            return context.getResources().getIntArray(R.array.folderColorsValues)[0];
+        }
+
         int i = -1;
         for (String text: context.getResources().getStringArray(R.array.folderColorKeys)) {
             i++;

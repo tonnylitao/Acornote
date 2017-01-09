@@ -22,11 +22,11 @@
                 android:id="@+id/folder_color_view"
                 android:layout_width="8dp"
                 android:layout_height="0dp"
-                android:background="@color/blue"
-
+                android:background="@{viewModel.color}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                tools:background="@color/sky"
                 />
 
             <TextView

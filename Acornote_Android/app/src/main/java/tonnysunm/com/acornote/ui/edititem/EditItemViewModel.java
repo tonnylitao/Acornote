@@ -13,8 +13,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import tonnysunm.com.acornote.R;
+import tonnysunm.com.acornote.AcornoteApplication;
 import tonnysunm.com.acornote.BR;
+import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.model.Item;
 
@@ -24,11 +25,9 @@ public class EditItemViewModel extends BaseObservable {
 
     public EditItemMVP.View view;
 
-    private Context context;
-
     /**** ****/
-    public String title;
-    public String des;
+    @Bindable public String title;
+    @Bindable public String des;
 
     @Bindable public String url;
     @Bindable public String imgUrl;
@@ -44,19 +43,14 @@ public class EditItemViewModel extends BaseObservable {
             this.title = item.title;
             this.des = item.des;
             this.url = item.url;
-
-            this.colorName = colorName;
         }else {
             headTitle = R.string.edit_item_headtitle_add;
         }
+
+        this.colorName = colorName;
     }
 
     /***** Chain setter *****/
-
-    public EditItemViewModel setContext(Context context) {
-        this.context = context;
-        return this;
-    }
 
     public EditItemViewModel setView(EditItemMVP.View view) {
         this.view = view;
@@ -65,7 +59,8 @@ public class EditItemViewModel extends BaseObservable {
 
     /*** Getter Setter ***/
 
-    public void editUrl() {
+    public void editUrl(View view) {
+        final Context context = view.getContext();
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         final AppCompatEditText editText = new AppCompatEditText(context);
@@ -92,6 +87,7 @@ public class EditItemViewModel extends BaseObservable {
     }
 
     public int getColor() {
+        final Context context = AcornoteApplication.getContext();
         return Folder.colorByName(context, colorName);
     }
 
@@ -107,6 +103,9 @@ public class EditItemViewModel extends BaseObservable {
         final String title = this.title;
         this.title = des;
         this.des = title;
+
+        notifyPropertyChanged(BR.title);
+        notifyPropertyChanged(BR.des);
     }
 
 

@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_link_tips"
+            app:srcCompat="@drawable/ic_url_tips"
             android:visibility="@{viewModel.linkVisibility}"
             />
 

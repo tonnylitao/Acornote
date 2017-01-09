@@ -3,11 +3,13 @@ package tonnysunm.com.acornote.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import tonnysunm.com.acornote.AcornoteApplication;
+import tonnysunm.com.acornote.ui.edititem.EditItemViewModel;
 
 public class Item extends RealmObject implements Parcelable {
     @PrimaryKey
@@ -17,8 +19,8 @@ public class Item extends RealmObject implements Parcelable {
     public String des;
 
     public String url;
-    public String imgUrl;
 
+    public String imgUrl;
     public Folder folder;
 
     public Item() {}
@@ -30,6 +32,10 @@ public class Item extends RealmObject implements Parcelable {
         this.imgUrl = imgUrl;
         this.url = url;
         this.folder = folder;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public Folder getFolder() {
@@ -92,7 +98,7 @@ public class Item extends RealmObject implements Parcelable {
 
         RealmResults<Item> result = AcornoteApplication.REALM.where(Item.class)
                 .equalTo("folder.id", folderId)
-                .findAllAsync();
+                .findAllSortedAsync("id");
 
         result.addChangeListener(listener);
     }
@@ -130,4 +136,31 @@ public class Item extends RealmObject implements Parcelable {
             return new Item[size];
         }
     };
+
+    static private void update(Item item, EditItemViewModel model) {
+        if (item == null || model == null) return;
+
+        item.setTitle(model.title);
+        item.setDes(model.des);
+    }
+
+    static public void create(EditItemViewModel model, int folderId, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
+        AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
+                    final int id = realm.where(Item.class).max("id").intValue() + 1;
+                    final Item item = realm.createObject(Item.class, id);
+                    item.folder = realm.where(Folder.class).equalTo("id", folderId).findFirst();
+                    Item.update(item, model);
+                },
+                onSuccess,
+                onError);
+    }
+
+    static public void update(EditItemViewModel model, int id, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
+        AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
+                    final Item item = realm.where(Item.class).equalTo("id", id).findFirst();
+                    Item.update(item, model);
+                },
+                onSuccess,
+                onError);
+    }
 }

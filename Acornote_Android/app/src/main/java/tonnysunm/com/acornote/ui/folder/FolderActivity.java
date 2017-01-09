@@ -2,6 +2,7 @@ package tonnysunm.com.acornote.ui.folder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.ui.base.BaseActivity;
+import tonnysunm.com.acornote.ui.editfolder.EditFolderActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,12 +23,6 @@ public class FolderActivity extends BaseActivity<FolderPresenter> {
     public static Intent createIntent(Context context, Folder folder) {
         Intent intent = new Intent(context, FolderActivity.class);
         intent.putExtra(EXTRA_FOLDER, folder);
-        return intent;
-    }
-
-    public static Intent createIntent(Context context, int folderId) {
-        Intent intent = new Intent(context, FolderActivity.class);
-//        intent.putExtra(EXTRA_FOLDER, folder);
         return intent;
     }
 
@@ -49,15 +45,18 @@ public class FolderActivity extends BaseActivity<FolderPresenter> {
                 .findFragmentById(R.id.fragment);
         checkNotNull(fragment, "view should not be null");
 
+        final Folder folder = getIntent().getExtras().getParcelable(EditFolderActivity.EXTRA_FOLDER);
+
         //
-        mPresenter = new FolderPresenter();
+        mPresenter = new FolderPresenter(folder);
         mPresenter.attachView(fragment);
         fragment.setPresenter(mPresenter);
 
         //
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundTintList(ColorStateList.valueOf(Folder.colorByName(this, folder.colorName)));
         fab.setOnClickListener((v)->{
-            mPresenter.
+            fragment.addItem();
         });
     }
 

@@ -3,8 +3,9 @@ package tonnysunm.com.acornote.ui.edititem;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,18 @@ import android.widget.Toast;
 import io.realm.Realm;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.databinding.EdititemFragmentBinding;
-import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.model.Item;
 import tonnysunm.com.acornote.ui.base.MVP;
 
 public class EditItemFragment extends Fragment implements EditItemMVP.View {
     private static final String TAG = EditItemFragment.class.getSimpleName();
 
-    private Item mItem;
+    @NonNull
+    private int mFolderId;
     private String mColorName = "sky";
+
+    @Nullable
+    private Item mItem;     //update item
 
     @Override
     public void setPresenter(MVP.Presenter presenter) {}
@@ -32,19 +36,13 @@ public class EditItemFragment extends Fragment implements EditItemMVP.View {
         final View view = inflater.inflate(R.layout.edititem_fragment, container, false);
 
         final Bundle bundle = getActivity().getIntent().getExtras();
-        if (bundle != null) {
-            mItem = bundle.getParcelable(EditItemActivity.EXTRA_ITEM);
-            mColorName = bundle.getParcelable(EditItemActivity.EXTRA_COLOR_NAME);
-
-            view.setBackgroundColor(Folder.colorByName(mColorName));
-        }else {
-            view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.sky));
-        }
+        mItem = bundle.getParcelable(EditItemActivity.EXTRA_ITEM);
+        mFolderId = bundle.getInt(EditItemActivity.EXTRA_FOLDER_ID);
+        mColorName = bundle.getString(EditItemActivity.EXTRA_COLOR_NAME);
 
         final EdititemFragmentBinding binding = EdititemFragmentBinding.bind(view);
         final EditItemViewModel viewModel = new EditItemViewModel(mItem, mColorName);
-        viewModel.setContext(getActivity())
-                .setView(this);
+        viewModel.setView(this);
 
         binding.setViewModel(viewModel);
 
@@ -78,9 +76,9 @@ public class EditItemFragment extends Fragment implements EditItemMVP.View {
         };
 
         if (mItem == null) {
-            //Folder.createFolder(model, onSuccess, onError);
+            Item.create(model, mFolderId, onSuccess, onError);
         }else {
-            //Folder.updateFolder(model, mFolder.id, onSuccess, onError);
+            Item.update(model, mItem.id, onSuccess, onError);
         }
     }
 

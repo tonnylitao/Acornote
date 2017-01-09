@@ -78,7 +78,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public void bind(Folder folder) {
             final FolderViewModel viewModel = mBinding.getViewModel();
             if (viewModel == null) {
-                mBinding.setViewModel(new FolderViewModel(folder));
+                final FolderViewModel model = new FolderViewModel(folder);
+                model.setContext(mBinding.getRoot().getContext());
+                mBinding.setViewModel(model);
             }else {
                 viewModel.setFolder(folder);
             }

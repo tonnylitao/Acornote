@@ -57,16 +57,18 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="10dp"
+        android:layout_height="0dp"
         android:elevation="10dp"
         app:layout_constraintTop_toBottomOf="@+id/btn_cancel"
         app:layout_constraintBottom_toTopOf="@+id/btn_previous"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@android:color/white"
-        >
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
     </android.support.v7.widget.CardView>
 
     <EditText
@@ -88,7 +90,7 @@
         android:hint="@string/edititem_title_hint"
         tools:text="Item title"
         android:background="@android:color/transparent"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginStart="26dp"
@@ -102,7 +104,8 @@
         app:cardElevation="1dp"
         android:textSize="@dimen/edit_item_des"
         android:textColorHint="@color/iconOff"
-        android:inputType="text"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
         android:textColor="#555555"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@+id/title"
@@ -123,22 +126,22 @@
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_previous"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btn_link"
+        app:layout_constraintRight_toLeftOf="@+id/btn_url"
         app:layout_constraintBottom_toTopOf="@+id/btn_add"
         android:onClick="@{(v)->viewModel.view.previous()}"
         />
 
     <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/btn_link"
+        android:id="@+id/btn_url"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/ic_link"
+        app:srcCompat="@drawable/ic_url"
         app:layout_constraintLeft_toRightOf="@+id/btn_previous"
         app:layout_constraintRight_toLeftOf="@+id/btn_img"
         app:layout_constraintBottom_toBottomOf="@+id/btn_previous"
         android:tint="@{viewModel.url != null ? @android:color/white : @color/iconOff}"
-        android:onClick="@{(v)->viewModel.editUrl()}"
+        android:onClick="@{viewModel::editUrl}"
         />
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_img"
@@ -146,7 +149,7 @@
         android:layout_height="48dp"
         android:src="@{viewModel.img}"
         android:background="@android:color/transparent"
-        app:layout_constraintLeft_toRightOf="@+id/btn_link"
+        app:layout_constraintLeft_toRightOf="@+id/btn_url"
         app:layout_constraintRight_toLeftOf="@+id/btn_translate"
         app:layout_constraintBottom_toBottomOf="@+id/btn_previous"
         android:onClick="@{(v)->viewModel.editImage()}"
@@ -189,7 +192,7 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_add"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="28dp"
         android:text="@string/edititem_btn_add_one"
         android:textColor="@android:color/white"
         android:background="@android:color/transparent"

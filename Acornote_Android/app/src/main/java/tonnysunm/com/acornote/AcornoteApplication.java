@@ -13,6 +13,7 @@ import tonnysunm.com.acornote.model.Folder;
  * Created by Tonny on 1/01/17.
  */
 
+
 public class AcornoteApplication extends Application {
     public static Realm REALM;
 

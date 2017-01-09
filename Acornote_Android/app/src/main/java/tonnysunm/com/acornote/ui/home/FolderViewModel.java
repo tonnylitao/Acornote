@@ -1,5 +1,6 @@
 package tonnysunm.com.acornote.ui.home;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 
 import tonnysunm.com.acornote.model.Folder;
@@ -16,7 +17,12 @@ public class FolderViewModel extends BaseObservable {
     }
 
     //resource
-    //private Context context;
+    private Context mContext;
+
+    public FolderViewModel setContext(Context context) {
+        mContext = context;
+        return this;
+    }
 
     //value changed
     //public ObservableField<String> ownerName;
@@ -38,5 +44,9 @@ public class FolderViewModel extends BaseObservable {
 
     public String getTitle() {
         return mFolder.title;
+    }
+
+    public int getColor() {
+        return Folder.colorByName(mContext, mFolder.colorName);
     }
 }

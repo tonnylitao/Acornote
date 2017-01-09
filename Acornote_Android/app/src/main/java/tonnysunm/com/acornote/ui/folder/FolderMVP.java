@@ -9,12 +9,12 @@ public interface FolderMVP {
 
     interface Presenter {
         void loadData(int folderId);
-
-        void addItem();
-        void editItem();
     }
 
     interface View extends MVP.View<FolderPresenter> {
         void refresh(List<Item> items);
+
+        void addItem();
+        void editItem(ItemViewModel model);
     }
 }

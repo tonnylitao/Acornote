@@ -41,8 +41,7 @@ public class EditFolderFragment extends Fragment implements EditFolderMVP.View {
 
         final EditfolderFragmentBinding binding = EditfolderFragmentBinding.bind(view);
         final EditFolderViewModel viewModel = new EditFolderViewModel(mFolder);
-        viewModel.setContext(getActivity())
-                .setView(this);
+        viewModel.setView(this);
 
         binding.setViewModel(viewModel);
 
