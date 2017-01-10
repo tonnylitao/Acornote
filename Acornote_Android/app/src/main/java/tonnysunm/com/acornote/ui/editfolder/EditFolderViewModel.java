@@ -19,8 +19,6 @@ import tonnysunm.com.acornote.BR;
 import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 
-//TODO: partly notify
-
 public class EditFolderViewModel extends BaseObservable {
 
     public EditFolderMVP.View view;

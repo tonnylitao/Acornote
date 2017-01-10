@@ -106,12 +106,20 @@ public class Folder extends RealmObject implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.colorName);
+        dest.writeString(this.url);
+
+        dest.writeByte((byte) (flip ? 1 : 0));
+        dest.writeByte((byte) (playAudio ? 1 : 0));
     }
 
     protected Folder(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.colorName = in.readString();
+        this.url = in.readString();
+
+        this.flip = in.readByte() != 0;
+        this.playAudio = in.readByte() != 0;
     }
 
     public static final Parcelable.Creator<Folder> CREATOR = new Parcelable.Creator<Folder>() {

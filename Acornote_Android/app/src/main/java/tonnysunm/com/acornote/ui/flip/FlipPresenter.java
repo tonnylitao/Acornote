@@ -2,7 +2,7 @@ package tonnysunm.com.acornote.ui.flip;
 
 import android.util.Log;
 
-import tonnysunm.com.acornote.model.Folder;
+import tonnysunm.com.acornote.model.Item;
 import tonnysunm.com.acornote.ui.base.BasePresenter;
 
 /**
@@ -13,11 +13,13 @@ class FlipPresenter extends BasePresenter<FlipMVP.View> implements FlipMVP.Prese
     private static final String TAG = FlipPresenter.class.getSimpleName();
 
     @Override
-    public void loadData(){
+    public void loadData(int folderId){
         Log.d(TAG, "loadData");
-        Folder.findAllAsync(result -> {
-            getMVPView().refresh(result);
-        });
+        if (folderId == 0) {
+            Item.findAllAsync(getMVPView()::refresh);
+        }else {
+            Item.findAllInFolderAsync(folderId, getMVPView()::refresh);
+        }
     }
 
 }

@@ -23,6 +23,8 @@ public class Item extends RealmObject implements Parcelable {
     public String imgUrl;
     public Folder folder;
 
+    public boolean marked;
+
     public Item() {}
 
     public Item(int id, String title, String des, String imgUrl, String url, Folder folder) {
@@ -32,6 +34,10 @@ public class Item extends RealmObject implements Parcelable {
         this.imgUrl = imgUrl;
         this.url = url;
         this.folder = folder;
+    }
+
+    public boolean isMarked() {
+        return marked;
     }
 
     public void setDes(String des) {

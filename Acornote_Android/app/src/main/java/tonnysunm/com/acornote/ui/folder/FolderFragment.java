@@ -80,7 +80,9 @@ public class FolderFragment extends Fragment implements FolderMVP.View {
         switch (item.getItemId()) {
             case R.id.menu_flip:
                 final Context ctx = getContext();
-                startActivity(FlipActivity.createIntent(ctx, null));
+
+                //TODO find visible first item
+                startActivity(FlipActivity.createIntent(ctx, null, mFolder));
                 break;
         }
         return true;

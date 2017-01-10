@@ -109,6 +109,8 @@ dependencies {
 
     compile "com.google.guava:guava:$rootProject.guavaVersion"
 
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 //    compile 'com.github.ReactiveX:RxJava:v2.0.3'
 //    compile 'com.github.ReactiveX:RxAndroid:2.0.1'
 

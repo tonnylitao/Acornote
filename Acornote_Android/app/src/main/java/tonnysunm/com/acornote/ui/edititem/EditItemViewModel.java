@@ -19,7 +19,6 @@ import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.model.Item;
 
-//TODO: partly notify
 
 public class EditItemViewModel extends BaseObservable {
 
