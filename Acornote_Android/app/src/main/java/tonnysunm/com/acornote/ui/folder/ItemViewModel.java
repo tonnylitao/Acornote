@@ -20,7 +20,7 @@ public class ItemViewModel extends BaseObservable {
     }
 
     public String getTitle() {
-        return item.title + item.folder.title;
+        return item.title + " " + item.des;
     }
 
     public String getImageUrl() { return  item.imgUrl; }

@@ -1,5 +1,6 @@
 package tonnysunm.com.acornote.ui.flip;
 
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -7,6 +8,7 @@ import android.databinding.Bindable;
 import android.view.View;
 
 import tonnysunm.com.acornote.AcornoteApplication;
+import tonnysunm.com.acornote.R;
 import tonnysunm.com.acornote.model.Folder;
 import tonnysunm.com.acornote.model.Item;
 
@@ -23,12 +25,19 @@ public class FlipItemViewModel extends BaseObservable {
     public int flipable;
 
     public AnimatorSet flipIn;
-    public AnimatorSet flipOut;
+    public AnimatorSet flipAnimation;
 
     @Bindable public int backVisibility = View.GONE;
 
     public FlipItemViewModel(Item item) {
         this.item = item;
+        if (item.des != null || item.imgUrl != null) {
+            backVisibility = View.VISIBLE;
+        }
+
+        flipAnimation = (AnimatorSet) AnimatorInflater.loadAnimator(AcornoteApplication.getContext(), R.animator.flip_animation);
+        showAnimation = (AnimatorSet) AnimatorInflater.loadAnimator(AcornoteApplication.getContext(), R.animator.flip_show_animation);
+        hideAnimation = (AnimatorSet) AnimatorInflater.loadAnimator(AcornoteApplication.getContext(), R.animator.flip_hide_animation);
     }
 
     public void setItem(Item item) {
@@ -37,7 +46,7 @@ public class FlipItemViewModel extends BaseObservable {
     }
 
     public int getFlipable() {
-        return flipable;
+        return backVisibility == View.GONE ? View.GONE : View.VISIBLE;
     }
 
     public boolean isMarked() {
@@ -63,16 +72,40 @@ public class FlipItemViewModel extends BaseObservable {
         return Folder.colorByName(context, colorName);
     }
 
-    public void flip(View view) {
-        View card = (View) view.getParent().getParent();
-        card.animate()
-                .rotationY(100)
-                .setDuration(3000)
-                .start();
+    private AnimatorSet showAnimation;
+    private AnimatorSet hideAnimation;
 
-//        flipOut = (AnimatorSet) AnimatorInflater.loadAnimator(view.getContext(), R.animator.flip_out_animation);
-//        flipOut.setTarget(card);
-//        flipOut.start();
+    public void flip(View view) {
+        assert backVisibility != View.GONE;
+
+        View card = (View) view.getParent();
+
+        View titleView = card.findViewById(R.id.front_txtview);
+        View scrollView = card.findViewById(R.id.back_scrollview);
+
+        flipAnimation.cancel();
+        showAnimation.cancel();
+        hideAnimation.cancel();
+
+        if (scrollView.getAlpha() == 0) {
+            flipAnimation.setTarget(card);
+            flipAnimation.start();
+
+            showAnimation.setTarget(scrollView);
+            showAnimation.start();
+
+            hideAnimation.setTarget(titleView);
+            hideAnimation.start();
+        }else {
+            flipAnimation.setTarget(card);
+            flipAnimation.start();
+
+            showAnimation.setTarget(titleView);
+            showAnimation.start();
+
+            hideAnimation.setTarget(scrollView);
+            hideAnimation.start();
+        }
     }
 
 }

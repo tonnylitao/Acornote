@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="tonnysunm.com.acornote">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AcornoteApplication"
         android:allowBackup="true"

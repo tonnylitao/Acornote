@@ -13,12 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#383C40"
-        android:clipChildren="false"
-        android:clipToPadding="false"
         >
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview_front"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cardview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:cardBackgroundColor="@android:color/white"
@@ -27,72 +25,107 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/btn_play"
-            android:layout_margin="32dp"
-            android:visibility="visible"
-            android:clipChildren="false"
-            android:clipToPadding="false"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginBottom="8dp"
             >
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_url_tips"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingLeft="22dp"
+                android:paddingBottom="23dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_url_tips"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{viewModel.linkVisibility}"
+                android:onClick="@{(v)->viewModel.view.showUrl(viewModel)}"
                 android:clipChildren="false"
-                android:clipToPadding="false">
+                android:clipToPadding="false"
+                />
 
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btn_url_tips"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:paddingLeft="22dp"
-                    android:paddingBottom="23dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_url_tips"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="@{viewModel.linkVisibility}"
-                    android:onClick="@{(v)->viewModel.view.showUrl(viewModel)}"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    />
+            <TextView
+                android:id="@+id/front_txtview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textColor="#333333"
+                android:text="@{viewModel.title}"
+                android:gravity="center"
+                tools:text="Hello"
+                android:textSize="@dimen/flip_item_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textAlignment="center"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                />
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:textColor="#333333"
-                    android:text="@{viewModel.title}"
-                    android:gravity="center"
-                    tools:text="Hello"
-                    android:textSize="@dimen/flip_item_title"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:textAlignment="center"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    />
+            <ScrollView
+                android:id="@+id/back_scrollview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="@{viewModel.backVisibility}"
+                android:alpha="0"
+                >
 
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btn_flipable"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:srcCompat="@drawable/ic_flipable"
-                    android:visibility="@{viewModel.flipable}"
-                    android:onClick="@{(v)->viewModel.flip(v)}"
-                    tools:layout_editor_absoluteX="304dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            </android.support.constraint.ConstraintLayout>
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imgview"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/des"
+                        android:src="@drawable/test"
+                        app:imageUrl="@{viewModel.item.imgUrl}"
+                        />
 
-        </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/des"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imgview"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@{viewModel.item.des}"
+                        tools:text="Hello HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello"
+                        />
+                </android.support.constraint.ConstraintLayout>
 
+            </ScrollView>
 
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_flipable"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_flipable"
+                android:visibility="@{viewModel.flipable}"
+                android:onClick="@{(v)->viewModel.flip(v)}"
+                tools:layout_editor_absoluteX="272dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!-- Bottom action -->
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/btn_play"
             android:layout_width="0dp"
@@ -104,7 +137,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{(v)->viewModel.view.play()}"
             />
-
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/btn_url"
             android:layout_width="0dp"

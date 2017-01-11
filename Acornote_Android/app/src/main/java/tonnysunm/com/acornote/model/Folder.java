@@ -85,6 +85,8 @@ public class Folder extends RealmObject implements Parcelable {
             for (String item1 : titles1) {
                 Item item = realm.createObject(Item.class, itemId++);
                 item.setTitle(item1);
+                item.setDes(String.format("des %d", itemId));
+                item.setImgUrl("http://weknowyourdreams.com/images/beautiful/beautiful-03.jpg");
                 item.setFolder(folder);
             }
         }

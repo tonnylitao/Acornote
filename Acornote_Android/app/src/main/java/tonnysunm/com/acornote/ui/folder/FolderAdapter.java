@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,13 +91,11 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView view, String url) {
-        if (URLUtil.isHttpUrl(url) || URLUtil.isHttpsUrl(url)) {
-
+        if (URLUtil.isNetworkUrl(url)) {
+            Picasso.with(view.getContext())
+                    .load(url)
+                    .into(view);
         }
-//        Picasso.with(view.getContext())
-//                .load(url)
-//                .placeholder(R.drawable.placeholder)
-//                .into(view);
     }
 
 }
