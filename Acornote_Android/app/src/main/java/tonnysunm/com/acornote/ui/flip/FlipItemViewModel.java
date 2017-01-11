@@ -1,7 +1,9 @@
 package tonnysunm.com.acornote.ui.flip;
 
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.view.View;
 
 import tonnysunm.com.acornote.AcornoteApplication;
@@ -18,11 +20,24 @@ public class FlipItemViewModel extends BaseObservable {
 
     public FlipMVP.View view;
 
-    public FlipItemViewModel(Item item) { this.item = item; }
+    public int flipable;
+
+    public AnimatorSet flipIn;
+    public AnimatorSet flipOut;
+
+    @Bindable public int backVisibility = View.GONE;
+
+    public FlipItemViewModel(Item item) {
+        this.item = item;
+    }
 
     public void setItem(Item item) {
         this.item = item;
         notifyChange();
+    }
+
+    public int getFlipable() {
+        return flipable;
     }
 
     public boolean isMarked() {
@@ -47,4 +62,17 @@ public class FlipItemViewModel extends BaseObservable {
         final Context context = AcornoteApplication.getContext();
         return Folder.colorByName(context, colorName);
     }
+
+    public void flip(View view) {
+        View card = (View) view.getParent().getParent();
+        card.animate()
+                .rotationY(100)
+                .setDuration(3000)
+                .start();
+
+//        flipOut = (AnimatorSet) AnimatorInflater.loadAnimator(view.getContext(), R.animator.flip_out_animation);
+//        flipOut.setTarget(card);
+//        flipOut.start();
+    }
+
 }

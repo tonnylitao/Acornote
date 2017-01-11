@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,12 +149,13 @@ public class FlipFragment extends Fragment implements FlipMVP.View {
 
     }
 
+    @Override
+    public void showUrl(FlipItemViewModel model) {
+
+    }
+
     /***** Helper *****/
 
-    private RecyclerView getRecycleView() {
-        final RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        return recyclerView;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

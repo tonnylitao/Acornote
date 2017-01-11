@@ -7,4 +7,7 @@
     <dimen name="edit_item_head_title">26sp</dimen>
     <dimen name="edit_item_title">25sp</dimen>
     <dimen name="edit_item_des">20sp</dimen>
+
+    <dimen name="flip_item_title">40sp</dimen>
+    <dimen name="flip_item_des">25sp</dimen>
 </resources>

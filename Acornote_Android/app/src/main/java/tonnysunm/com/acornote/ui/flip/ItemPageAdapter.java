@@ -65,6 +65,12 @@ public class ItemPageAdapter extends FragmentStatePagerAdapter {
                                  Bundle savedInstanceState) {
             final View view = inflater.inflate(R.layout.flip_page_fragment, container, false);
 
+            //
+            int distance = 8000;
+            float scale = getContext().getResources().getDisplayMetrics().density * distance;
+            final View card = view.findViewById(R.id.cardview_front);
+            card.setCameraDistance(scale);
+
             FlipPageFragmentBinding binding = FlipPageFragmentBinding.bind(view);
             binding.setViewModel(new FlipItemViewModel(mItem));
 

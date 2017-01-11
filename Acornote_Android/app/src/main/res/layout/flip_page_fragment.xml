@@ -13,36 +13,84 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#383C40"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         >
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardview"
+            android:id="@+id/cardview_front"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:cardBackgroundColor="@android:color/white"
             android:background="@android:color/white"
-            app:cardElevation="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/btn_play"
             android:layout_margin="32dp"
-            />
+            android:visibility="visible"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:cardElevation="10dp"
-            android:textColor="#333333"
-            android:text="@{viewModel.title}"
-            tools:text="Hello"
-            android:textSize="@dimen/edit_item_title"
-            app:layout_constraintTop_toTopOf="@+id/cardview"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/cardview"
-            app:layout_constraintRight_toRightOf="@+id/cardview"
-            android:textAlignment="center"
-            />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btn_url_tips"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:paddingLeft="22dp"
+                    android:paddingBottom="23dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_url_tips"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{viewModel.linkVisibility}"
+                    android:onClick="@{(v)->viewModel.view.showUrl(viewModel)}"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textColor="#333333"
+                    android:text="@{viewModel.title}"
+                    android:gravity="center"
+                    tools:text="Hello"
+                    android:textSize="@dimen/flip_item_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textAlignment="center"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btn_flipable"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:srcCompat="@drawable/ic_flipable"
+                    android:visibility="@{viewModel.flipable}"
+                    android:onClick="@{(v)->viewModel.flip(v)}"
+                    tools:layout_editor_absoluteX="304dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
 
 
         <android.support.v7.widget.AppCompatImageButton

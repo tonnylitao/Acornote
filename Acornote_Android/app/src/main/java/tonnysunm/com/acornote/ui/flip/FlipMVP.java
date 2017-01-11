@@ -25,5 +25,7 @@ public interface FlipMVP {
         void edit();
         void setMarked(boolean marked);
         void more();
+
+        void showUrl(FlipItemViewModel model);
     }
 }

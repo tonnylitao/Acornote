@@ -5,12 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.flip.FlipActivity">
+    tools:context=".ui.flip.FlipActivity"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <fragment android:name="tonnysunm.com.acornote.ui.flip.FlipFragment"
               android:id="@+id/fragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:layout="@layout/flip_fragment"/>
+              tools:layout="@layout/flip_fragment"
+              android:clipChildren="false"
+              android:clipToPadding="false"
+        />
 
 </android.support.design.widget.CoordinatorLayout>
