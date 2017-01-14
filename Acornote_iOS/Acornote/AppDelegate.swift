@@ -30,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+//        #if DEBUG
+//            importDB()
+//        #endif
+        
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = .rgb(56, 59, 69)
@@ -93,39 +97,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-
-    
+        
         try? cdStore.operation { (context, save) throws -> Void in
-            #if DEBUG
-                let folders = try! context.request(Folder.self).fetch()
+            
+            let folders = try! context.request(Folder.self).fetch()
+            
+            let folderArr = folders.reduce([], { (results, folder) -> [[String: Any]] in
+                var re = results
+                re.append(folder.dic)
                 
-                let folderArr = folders.reduce([], { (results, folder) -> [[String: Any]] in
-                    var re = results
-                    re.append(folder.dic)
-                    
-                    return re
-                })
+                return re
+            })
+            
+            let items = try! context.request(Item.self).fetch()
+            let itemArr = items.reduce([], { (results, item) -> [[String: Any]] in
+                var re = results
+                re.append(item.dic)
                 
-                let items = try! context.request(Item.self).fetch()
-                let itemArr = items.reduce([], { (results, item) -> [[String: Any]] in
-                    var re = results
-                    re.append(item.dic)
-                    
-                    return re
-                })
+                return re
+            })
+            
+            if let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+                let dic = ["folders": folderArr, "items": itemArr]
                 
-                if let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-                    let dic = ["folders": folderArr, "items": itemArr]
-                    
-                    let c = Calendar.current
-                    let coms = c.dateComponents([.year, .month, .day], from: Date())
-                    
-                    let file = (path as NSString).appendingPathComponent("db_\(coms.year!)_\(coms.month!)_\(coms.day!)")
-                    
-                    let success = (dic as NSDictionary).write(toFile: file, atomically: true)
-                    debugPrint("save file ", success)
-                }
-            #endif
+                let c = Calendar.current
+                let coms = c.dateComponents([.year, .month, .day], from: Date())
+                
+                let file = (path as NSString).appendingPathComponent("db_\(coms.year!)_\(coms.month!)_\(coms.day!)")
+                
+                let success = (dic as NSDictionary).write(toFile: file, atomically: true)
+                debugPrint("save file ", success)
+                
+                //TODO remove old files
+            }
             
             save()
         }
@@ -196,6 +200,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         return true
     }
+    
+    #if DEBUG
+    func importDB() {
+        let url = Bundle.main.url(forResource: "db", withExtension: nil)!
+        let data = try! Data(contentsOf: url)
+        
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let p = (path as NSString).appendingPathComponent("db")
+        
+        try? data.write(to: URL(fileURLWithPath: p))
+    }
+    #endif
 }
 
 

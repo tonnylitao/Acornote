@@ -24,8 +24,8 @@ extension Folder {
     @NSManaged public var playable: Bool
     @NSManaged public var flipable: Bool
     @NSManaged public var tagable: Bool
-    
     @NSManaged public var quizlet: Bool
+    
     @NSManaged public var createdAt: NSDate?
     @NSManaged public var updatedAt: NSDate?
     
@@ -37,8 +37,10 @@ extension Folder {
         var d = [String: Any?]()
         
         d["title"] = title
-        d["color"] = color
         d["url"] = url
+        d["audioUrl"] = audioUrl
+        
+        d["color"] = color
         
         d["playable"] = playable
         d["flipable"] = flipable
@@ -46,6 +48,9 @@ extension Folder {
         
         d["quizlet"] = quizlet
         d["createdAt"] = createdAt
+        d["updatedAt"] = createdAt
+        
+        d["lastVisited"] = lastVisited
         
         return d
     }

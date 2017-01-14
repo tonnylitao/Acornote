@@ -17,7 +17,9 @@ extension Item {
 
     @NSManaged public var title: String?
     @NSManaged public var des: String?
+    
     @NSManaged public var url: String?
+    
     @NSManaged public var taged: Bool
     @NSManaged public var imgPath: String?
     @NSManaged public var createdAt: NSDate?
@@ -30,12 +32,17 @@ extension Item {
         
         d["title"] = title
         d["des"] = des
+        
         d["url"] = url
+        
         d["taged"] = taged
         d["imgPath"] = imgPath
+        
         d["createdAt"] = createdAt
         
         d["folder"] = folder?.title
+        
+        d["fliped"] = fliped
         
         return d
     }

@@ -32,7 +32,6 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     var item: Item?
     
     
-    @IBOutlet weak var moveRightCons: NSLayoutConstraint!
     @IBOutlet weak var playRightCons: NSLayoutConstraint!
     @IBOutlet weak var linkRightCons: NSLayoutConstraint!
     @IBOutlet weak var flipRightCons: NSLayoutConstraint!
@@ -40,11 +39,14 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     @IBOutlet weak var audioBtn: UIButton!
     @IBOutlet weak var linkBtn: UIButton!
     @IBOutlet weak var quizletBtn: UIButton!
+    @IBOutlet weak var moreBtn: UIButton!
+    
     @IBOutlet weak var addBtn: UIButton!
+    
+    @IBOutlet weak var tableBottomCons: NSLayoutConstraint!
     
     var speechingLbl: UITextView?
     var speechingText: String?
-    
     
     
     var quizletBtnTintColor: UIColor {
@@ -103,7 +105,6 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
             audioBtn = nil
         }
         
-        moveRightCons?.constant = (44.0+10)*CGFloat(moveRightBtnCount)+5
         playRightCons?.constant = (44.0+10)*CGFloat(playRightBtnCount)+5
         linkRightCons?.constant = (44.0+10)*CGFloat(linkRightBtnCount)+5
         flipRightCons?.constant = (44.0+10)*CGFloat(flipRightBtnCount)+5
@@ -241,45 +242,75 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         self.tableView.tableHeaderView = view
     }
     
-    @IBAction func move(_ sender: UIButton?) {
-        if !tableView.isEditing {
-            tableView.allowsMultipleSelectionDuringEditing = true
-            tableView.isEditing = true
+    
+    @IBAction func more(_ sender: Any) {
+        let action = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        action.addAction(UIAlertAction(title: "Move items", style: .default, handler: {[unowned self] (_) in
+            self.startMove()
+        }))
+        //TODO: reorder
+//        action.addAction(UIAlertAction(title: "Reorder items", style: .default, handler: { (_) in
+//        }))
+        action.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
             
-            tableView.visibleCells.forEach { $0.selectionStyle = .default }
-            let vc = self
-            let toolView = UIView { [unowned self] in
-                $0.frame = CGRect(0, screenH-44, screenW, 44)
-                $0.backgroundColor = UIColor(white: 1, alpha: 0.8)
-                $0.tag = 100
-                
-                let btn = UIButton { [unowned self] in
-                    $0.frame = CGRect(0, 0, screenW, 44)
-                    $0.setTitle("Move", for: .normal)
-                    $0.setTitleColor(self.lineView.backgroundColor, for: .normal)
-                    $0.addTarget(vc, action: #selector(ItemsTableViewController.moveItems), for: .touchUpInside)
-                }
-                $0.addSubview(btn)
-            }
-            view.addSubview(toolView)
-            
-            audioBtn?.isEnabled = false
-            linkBtn?.isEnabled = false
-            quizletBtn?.isEnabled = false
-            addBtn?.isEnabled = false
-        }else {
-            tableView.visibleCells.forEach { $0.selectionStyle = .none }
-            
-            tableView.allowsMultipleSelectionDuringEditing = false
-            tableView.isEditing = false
-            
-            view.subview(withTag: 100)?.removeFromSuperview()
-            
-            audioBtn?.isEnabled = true
-            linkBtn?.isEnabled = true
-            quizletBtn?.isEnabled = true
-            addBtn?.isEnabled = true
+        }))
+        present(action, animated: true)
+    }
+    
+    //TODO: bug: canot select last cell
+    func startMove() {
+        audioBtn?.isHidden = true
+        linkBtn?.isHidden = true
+        quizletBtn?.isHidden = true
+        moreBtn.isHidden = true
+        
+        addBtn?.isHidden = true
+        
+        let cancelBtn = UIButton {
+            $0.frame = CGRect(screenW-70, 20, 60, 44)
+            $0.setTitle("Cancel", for: .normal)
+            $0.addTarget(self, action: #selector(ItemsTableViewController.cancelMove(btn:)), for: .touchUpInside)
         }
+        moreBtn.superview?.addSubview(cancelBtn)
+        
+        //
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.isEditing = true
+        
+        tableView.visibleCells.forEach { $0.selectionStyle = .default }
+        
+        let btn = UIButton { [unowned self] in
+            $0.frame = CGRect(0, screenH-44, screenW, 44)
+            $0.setTitle("Move", for: .normal)
+            $0.tag = 100
+            $0.backgroundColor = self.lineView.backgroundColor
+            $0.setTitleColor(.white, for: .normal)
+            $0.addTarget(self, action: #selector(ItemsTableViewController.moveItems), for: .touchUpInside)
+        }
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
+        
+        view.addSubview(btn)
+    }
+    
+    func cancelMove(btn: UIButton) {
+        tableView.visibleCells.forEach { $0.selectionStyle = .none }
+        
+        tableView.allowsMultipleSelectionDuringEditing = false
+        tableView.isEditing = false
+        
+        view.subview(withTag: 100)?.removeFromSuperview()
+        
+        audioBtn?.isHidden = false
+        linkBtn?.isHidden = false
+        quizletBtn?.isHidden = false
+        moreBtn.isHidden = false
+        
+        addBtn?.isHidden = false
+        
+        btn.removeFromSuperview()
+        
+        tableView.contentInset = .zero
     }
     
     func moveItems() {
@@ -298,7 +329,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
             folders = try! cdStore.saveContext.request(Folder.self).filtered(with: NSPredicate(format: "SELF != %@", folder!)).fetch()
         }
     
-        let action = UIAlertController(title: "Input url", message: nil, preferredStyle: .alert)
+        let action = UIAlertController(title: "Move into", message: nil, preferredStyle: .alert)
         folders.forEach { folder in
             action.addAction(UIAlertAction(title: folder.title, style: .default, handler: { (_) in
                 
@@ -422,6 +453,8 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    
 }
 
 extension ItemsTableViewController: AVSpeechSynthesizerDelegate {
@@ -621,7 +654,8 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell0", for: indexPath) as! ItemTableViewCell
+        let iden = folder == nil ? "Cell1" : "Cell0"
+        let cell = tableView.dequeueReusableCell(withIdentifier: iden, for: indexPath) as! ItemTableViewCell
         
         let item = self.frc?.object(at: indexPath)
         cell.item = item
@@ -639,7 +673,13 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = self.frc?.object(at: indexPath)
-        return item?.smallCellHeight ?? 0
+        let h = item?.smallCellHeight ?? 0
+        
+        if folder == nil {
+            return h + 20
+        }
+        
+        return h
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -814,6 +854,8 @@ extension ItemsTableViewController {
         }
         super.decodeRestorableState(with: coder)
     }
+    
+    
     
 }
 

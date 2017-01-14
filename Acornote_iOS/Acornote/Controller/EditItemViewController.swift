@@ -215,26 +215,16 @@ extension EditItemViewController {
     }
     
     @IBAction func chosePhoto(_ sender: AnyObject) {
-//        let vc = UIAlertController(title: "Edit Image", message: data["imgPath"], preferredStyle: .actionSheet)
-//        vc.addAction(UIAlertAction(title: "From Search", style: .default, handler: {[unowned self] (_) in
-            guard let title = self.titleTxtView.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
-                return
-            }
+        guard let title = self.titleTxtView.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+            return
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(EditItemViewController.imgPathChanged(noti:)), name: Notification.Name(rawValue:"ImgPathChanged"), object: nil)
             
-            let path = "https://www.bing.com/images/search?q=\(title.replacingOccurrences(of: " ", with: "+"))&FORM=HDRSC2&qft=+filterui:aspect-square"
-            let vc = WebViewController.show(withUrl: path, folder:folder, vc:self)
-            vc?.isForImage = true
-            vc?.item = self.item
-//        }))
-//        vc.addAction(UIAlertAction(title: "From Album", style: .default, handler: { (_) in
-//            
-//        }))
-//        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-//            
-//        }))
-//        present(vc, animated: true, completion: nil)
+        let path = "https://www.google.com/search?site=&tbm=isch&source=hp&q=\(title.replacingOccurrences(of: " ", with: "+"))" //&FORM=HDRSC2&qft=+filterui:aspect-square
+        let vc = WebViewController.show(withUrl: path, folder:folder, vc:self)
+        vc?.isForImage = true
+        vc?.item = self.item
     }
     
     func imgPathChanged(noti: Notification) {

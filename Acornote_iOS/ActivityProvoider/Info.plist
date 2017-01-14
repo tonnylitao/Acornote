@@ -26,12 +26,12 @@
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<string>TRUEPREDICATE</string>
-			<key>NSExtensionActivationSupportsText</key>
-			<true/>
-			<key>NSExtensionActivationSupportsImageWithMaxCount</key>
-			<integer>1</integer>
 			<key>NSExtensionActivationSupportsFileWithMaxCount</key>
 			<integer>0</integer>
+			<key>NSExtensionActivationSupportsImageWithMaxCount</key>
+			<integer>1</integer>
+			<key>NSExtensionActivationSupportsText</key>
+			<true/>
 			<key>NSExtensionActivationSupportsVideoWithMaxCount</key>
 			<integer>0</integer>
 			<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>

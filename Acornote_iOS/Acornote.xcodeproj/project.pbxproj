@@ -24,26 +24,26 @@
 		E197B15B1DC1DF6000CCABE8 /* Folder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197B1571DC1DF6000CCABE8 /* Folder+CoreDataProperties.swift */; };
 		E197B15C1DC1DF6000CCABE8 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197B1581DC1DF6000CCABE8 /* Item+CoreDataClass.swift */; };
 		E197B15D1DC1DF6000CCABE8 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197B1591DC1DF6000CCABE8 /* Item+CoreDataProperties.swift */; };
-		E197B15F1DC1E16D00CCABE8 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197B15E1DC1E16D00CCABE8 /* HomeTableViewController.swift */; };
-		E197B1631DC1EE9300CCABE8 /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197B1621DC1EE9300CCABE8 /* ItemsTableViewController.swift */; };
 		E197B16A1DC1F53E00CCABE8 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E197B1691DC1F53E00CCABE8 /* NotificationCenter.framework */; };
 		E197B16D1DC1F53E00CCABE8 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197B16C1DC1F53E00CCABE8 /* TodayViewController.swift */; };
 		E197B1701DC1F53E00CCABE8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E197B16E1DC1F53E00CCABE8 /* MainInterface.storyboard */; };
 		E197B1741DC1F53E00CCABE8 /* AddItem.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E197B1681DC1F53E00CCABE8 /* AddItem.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E1998AD51DC33A8500A40476 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1998AD41DC33A8500A40476 /* Images.xcassets */; };
 		E19AC5641DC9592700E87041 /* Swift_Short.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19AC5631DC9592700E87041 /* Swift_Short.swift */; };
-		E19D0FE01DC4008C00D00FF7 /* ItemLargeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D0FDF1DC4008C00D00FF7 /* ItemLargeTableViewController.swift */; };
 		E19D0FE21DC4081700D00FF7 /* ItemLargeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D0FE11DC4081700D00FF7 /* ItemLargeTableViewCell.swift */; };
-		E19D1C2D1DC2EE950088C024 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D1C2C1DC2EE950088C024 /* EditItemViewController.swift */; };
 		E1A795E31DCAA8970004B21F /* highlight.js in Resources */ = {isa = PBXBuildFile; fileRef = E1A795E21DCAA8970004B21F /* highlight.js */; };
 		E1AB4E391DD2A2130083BA8B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AB4E381DD2A2130083BA8B /* TextView.swift */; };
 		E1B210C21DCD55B2003CB723 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B210C11DCD55B2003CB723 /* ShareViewController.swift */; };
 		E1B210C51DCD55B2003CB723 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1B210C31DCD55B2003CB723 /* MainInterface.storyboard */; };
 		E1B210C91DCD55B2003CB723 /* ActivityProvoider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1B210BF1DCD55B2003CB723 /* ActivityProvoider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E1D514671DC2991700A5D075 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D514661DC2991700A5D075 /* UIColor.swift */; };
-		E1D514691DC29B4F00A5D075 /* EditFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D514681DC29B4F00A5D075 /* EditFolderViewController.swift */; };
 		E1D5146C1DC2A48C00A5D075 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5146B1DC2A48C00A5D075 /* ItemTableViewCell.swift */; };
-		E1EC73A61DC467160047BBBC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EC73A51DC467160047BBBC /* WebViewController.swift */; };
+		E1FDBF1C1E2AD79000AD3D4F /* EditFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF161E2AD79000AD3D4F /* EditFolderViewController.swift */; };
+		E1FDBF1D1E2AD79000AD3D4F /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF171E2AD79000AD3D4F /* EditItemViewController.swift */; };
+		E1FDBF1E1E2AD79000AD3D4F /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF181E2AD79000AD3D4F /* HomeTableViewController.swift */; };
+		E1FDBF1F1E2AD79000AD3D4F /* ItemLargeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF191E2AD79000AD3D4F /* ItemLargeTableViewController.swift */; };
+		E1FDBF201E2AD79000AD3D4F /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF1A1E2AD79000AD3D4F /* ItemsTableViewController.swift */; };
+		E1FDBF211E2AD79000AD3D4F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF1B1E2AD79000AD3D4F /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,8 +102,6 @@
 		E197B1571DC1DF6000CCABE8 /* Folder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Folder+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E197B1581DC1DF6000CCABE8 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E197B1591DC1DF6000CCABE8 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E197B15E1DC1E16D00CCABE8 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
-		E197B1621DC1EE9300CCABE8 /* ItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
 		E197B1681DC1F53E00CCABE8 /* AddItem.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AddItem.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E197B1691DC1F53E00CCABE8 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		E197B16C1DC1F53E00CCABE8 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -111,9 +109,7 @@
 		E197B1711DC1F53E00CCABE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1998AD41DC33A8500A40476 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E19AC5631DC9592700E87041 /* Swift_Short.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swift_Short.swift; sourceTree = "<group>"; };
-		E19D0FDF1DC4008C00D00FF7 /* ItemLargeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLargeTableViewController.swift; sourceTree = "<group>"; };
 		E19D0FE11DC4081700D00FF7 /* ItemLargeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLargeTableViewCell.swift; sourceTree = "<group>"; };
-		E19D1C2C1DC2EE950088C024 /* EditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		E1A795E21DCAA8970004B21F /* highlight.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = highlight.js; sourceTree = "<group>"; };
 		E1AB4E381DD2A2130083BA8B /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		E1B210BF1DCD55B2003CB723 /* ActivityProvoider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ActivityProvoider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,9 +120,13 @@
 		E1C901DA1DC1F74300FC7FF4 /* Acornote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Acornote.entitlements; sourceTree = "<group>"; };
 		E1C901DB1DC1F79A00FC7FF4 /* AddItem.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AddItem.entitlements; sourceTree = "<group>"; };
 		E1D514661DC2991700A5D075 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		E1D514681DC29B4F00A5D075 /* EditFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFolderViewController.swift; sourceTree = "<group>"; };
 		E1D5146B1DC2A48C00A5D075 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
-		E1EC73A51DC467160047BBBC /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		E1FDBF161E2AD79000AD3D4F /* EditFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFolderViewController.swift; sourceTree = "<group>"; };
+		E1FDBF171E2AD79000AD3D4F /* EditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
+		E1FDBF181E2AD79000AD3D4F /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		E1FDBF191E2AD79000AD3D4F /* ItemLargeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLargeTableViewController.swift; sourceTree = "<group>"; };
+		E1FDBF1A1E2AD79000AD3D4F /* ItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
+		E1FDBF1B1E2AD79000AD3D4F /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,14 +195,9 @@
 			children = (
 				E1C901DA1DC1F74300FC7FF4 /* Acornote.entitlements */,
 				E197B13E1DC1D7A700CCABE8 /* AppDelegate.swift */,
-				E1D514681DC29B4F00A5D075 /* EditFolderViewController.swift */,
-				E19D1C2C1DC2EE950088C024 /* EditItemViewController.swift */,
-				E197B15E1DC1E16D00CCABE8 /* HomeTableViewController.swift */,
-				E197B1621DC1EE9300CCABE8 /* ItemsTableViewController.swift */,
-				E19D0FDF1DC4008C00D00FF7 /* ItemLargeTableViewController.swift */,
 				E197B1501DC1DA9A00CCABE8 /* Utility.swift */,
-				E1EC73A51DC467160047BBBC /* WebViewController.swift */,
 				E1998AD41DC33A8500A40476 /* Images.xcassets */,
+				E1FDBF151E2AD79000AD3D4F /* Controller */,
 				E1D5146A1DC2A47B00A5D075 /* View */,
 				E1D514651DC2991700A5D075 /* Extensions */,
 				E197B1521DC1DD7F00CCABE8 /* CoreData */,
@@ -271,6 +266,19 @@
 				E19D0FE11DC4081700D00FF7 /* ItemLargeTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E1FDBF151E2AD79000AD3D4F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E1FDBF161E2AD79000AD3D4F /* EditFolderViewController.swift */,
+				E1FDBF171E2AD79000AD3D4F /* EditItemViewController.swift */,
+				E1FDBF181E2AD79000AD3D4F /* HomeTableViewController.swift */,
+				E1FDBF191E2AD79000AD3D4F /* ItemLargeTableViewController.swift */,
+				E1FDBF1A1E2AD79000AD3D4F /* ItemsTableViewController.swift */,
+				E1FDBF1B1E2AD79000AD3D4F /* WebViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		FDEEF2DE83FCD3F31846D4CC /* Frameworks */ = {
@@ -350,7 +358,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Tonny&Sunm";
 				TargetAttributes = {
 					E197B13A1DC1D7A700CCABE8 = {
@@ -494,25 +502,25 @@
 			files = (
 				E12168591DC5DBC0004541DB /* String.swift in Sources */,
 				E1AB4E391DD2A2130083BA8B /* TextView.swift in Sources */,
-				E1D514691DC29B4F00A5D075 /* EditFolderViewController.swift in Sources */,
-				E19D1C2D1DC2EE950088C024 /* EditItemViewController.swift in Sources */,
 				E11CA1501DC8189200C0B5A6 /* UISegmentControl.swift in Sources */,
 				E1722C541DDD8D680001D592 /* Dao.swift in Sources */,
+				E1FDBF1E1E2AD79000AD3D4F /* HomeTableViewController.swift in Sources */,
 				E197B15B1DC1DF6000CCABE8 /* Folder+CoreDataProperties.swift in Sources */,
 				E19D0FE21DC4081700D00FF7 /* ItemLargeTableViewCell.swift in Sources */,
 				E18EEB2E1DC5B34A00A9008E /* FolderTableViewCell.swift in Sources */,
 				E197B15D1DC1DF6000CCABE8 /* Item+CoreDataProperties.swift in Sources */,
-				E19D0FE01DC4008C00D00FF7 /* ItemLargeTableViewController.swift in Sources */,
+				E1FDBF1C1E2AD79000AD3D4F /* EditFolderViewController.swift in Sources */,
+				E1FDBF1D1E2AD79000AD3D4F /* EditItemViewController.swift in Sources */,
 				E197B13F1DC1D7A700CCABE8 /* AppDelegate.swift in Sources */,
 				E11CA14E1DC7FE2600C0B5A6 /* UIViewExtension.swift in Sources */,
 				E1D5146C1DC2A48C00A5D075 /* ItemTableViewCell.swift in Sources */,
+				E1FDBF211E2AD79000AD3D4F /* WebViewController.swift in Sources */,
+				E1FDBF201E2AD79000AD3D4F /* ItemsTableViewController.swift in Sources */,
 				E197B15A1DC1DF6000CCABE8 /* Folder+CoreDataClass.swift in Sources */,
 				E197B1511DC1DA9A00CCABE8 /* Utility.swift in Sources */,
-				E197B1631DC1EE9300CCABE8 /* ItemsTableViewController.swift in Sources */,
-				E1EC73A61DC467160047BBBC /* WebViewController.swift in Sources */,
-				E197B15F1DC1E16D00CCABE8 /* HomeTableViewController.swift in Sources */,
 				E197B1551DC1DD8C00CCABE8 /* Model.xcdatamodeld in Sources */,
 				E197B15C1DC1DF6000CCABE8 /* Item+CoreDataClass.swift in Sources */,
+				E1FDBF1F1E2AD79000AD3D4F /* ItemLargeTableViewController.swift in Sources */,
 				E1D514671DC2991700A5D075 /* UIColor.swift in Sources */,
 				E19AC5641DC9592700E87041 /* Swift_Short.swift in Sources */,
 			);
@@ -689,11 +697,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Acornote/Acornote.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8W8N352WU6;
 				INFOPLIST_FILE = Acornote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Acornote;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -705,11 +717,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Acornote/Acornote.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8W8N352WU6;
 				INFOPLIST_FILE = Acornote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Acornote;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -721,7 +737,7 @@
 				DEVELOPMENT_TEAM = 8W8N352WU6;
 				INFOPLIST_FILE = AddItem/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Acornote.AddItem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Notes.AddItem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -735,7 +751,7 @@
 				DEVELOPMENT_TEAM = 8W8N352WU6;
 				INFOPLIST_FILE = AddItem/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Acornote.AddItem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Notes.AddItem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -750,7 +766,7 @@
 				INFOPLIST_FILE = ActivityProvoider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Acornote.ActivityProvoider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Notes.ActivityProvoider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -765,7 +781,7 @@
 				INFOPLIST_FILE = ActivityProvoider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Acornote.ActivityProvoider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tonnysunm.Notes.ActivityProvoider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;

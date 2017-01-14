@@ -29,6 +29,11 @@ class ItemTableViewCell: MGSwipeTableCell {
     var editBtn: MGSwipeButton?
     var removeBtn: MGSwipeButton?
     
+    //for folder info
+    @IBOutlet weak var folderColorView: UIView!
+    @IBOutlet weak var folderNameLbl: TextView!
+    
+    
     lazy var tagBtn: MGSwipeButton? = {
         let tagBtn = MGSwipeButton(title: "", icon: UIImage(named:"icon_flag_off"), backgroundColor: .clear, padding: self.padding) {[unowned self] cell -> Bool in
             
@@ -167,6 +172,10 @@ class ItemTableViewCell: MGSwipeTableCell {
             }else {
                 rightButtons = [removeBtn!, editBtn!, bingBtn!]
             }
+            
+            //
+            folderColorView?.backgroundColor = item.folder?.highlightColor
+            folderNameLbl?.text = item.folder?.title
             
 //            titleTxtView.backgroundColor = .blue
 //            desTxtView.backgroundColor = .red

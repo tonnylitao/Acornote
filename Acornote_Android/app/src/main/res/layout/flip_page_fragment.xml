@@ -89,7 +89,7 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toTopOf="@+id/des"
-                        android:src="@drawable/test"
+                        tools:src="@drawable/test"
                         app:imageUrl="@{viewModel.item.imgUrl}"
                         />
 
