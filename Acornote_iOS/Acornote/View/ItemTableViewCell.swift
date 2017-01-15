@@ -11,6 +11,17 @@ import MGSwipeTableCell
 import SafariServices
 import Cache
 
+enum ItemTableViewCellIdentifier: String {
+    case normal = "normal"
+    case withFolder = "withFolder"
+    
+    static func identifierWith(folder: Folder?) -> String {
+        return folder == nil
+            ? ItemTableViewCellIdentifier.withFolder.rawValue
+            : ItemTableViewCellIdentifier.normal.rawValue
+    }
+}
+
 class ItemTableViewCell: MGSwipeTableCell {
     
     @IBOutlet weak var titleTxtView: TextView!
@@ -261,7 +272,7 @@ extension Item {
         return (top, right, titleAttibutedString.height(size: size))
     }
     
-    var smallCellHeight: CGFloat {
+    var height: CGFloat {
         
         let titleCons = self.cuculateTitleCons
         let tTop = titleCons.top

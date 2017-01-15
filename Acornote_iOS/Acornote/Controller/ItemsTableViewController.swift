@@ -654,7 +654,7 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let iden = folder == nil ? "Cell1" : "Cell0"
+        let iden = ItemTableViewCellIdentifier.identifierWith(folder: folder)
         let cell = tableView.dequeueReusableCell(withIdentifier: iden, for: indexPath) as! ItemTableViewCell
         
         let item = self.frc?.object(at: indexPath)
@@ -673,7 +673,7 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = self.frc?.object(at: indexPath)
-        let h = item?.smallCellHeight ?? 0
+        let h = item?.height ?? 0
         
         if folder == nil {
             return h + 20

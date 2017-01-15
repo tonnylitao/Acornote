@@ -417,7 +417,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-XO-kUg">
-                                                            <rect key="frame" x="10" y="40.5" width="320" height="21"/>
+                                                            <rect key="frame" x="10" y="41" width="320" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="jHc-GV-OIr"/>
                                                             </constraints>
@@ -441,7 +441,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow" translatesAutoresizingMaskIntoConstraints="NO" id="KhV-dJ-7y6">
-                                                    <rect key="frame" x="34.5" y="81" width="307" height="10"/>
+                                                    <rect key="frame" x="35" y="81" width="307" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="JLh-mV-lrI"/>
                                                     </constraints>
@@ -493,7 +493,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kc-yg-kvJ">
-                                                            <rect key="frame" x="10" y="40.5" width="320" height="21"/>
+                                                            <rect key="frame" x="10" y="41" width="320" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="jqA-6C-8ej"/>
                                                             </constraints>
@@ -528,7 +528,7 @@
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow" translatesAutoresizingMaskIntoConstraints="NO" id="x69-jo-xlD">
-                                                    <rect key="frame" x="34.5" y="81" width="307" height="10"/>
+                                                    <rect key="frame" x="35" y="81" width="307" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="HBm-Ew-i1w"/>
                                                     </constraints>
@@ -577,22 +577,22 @@
                                             <segue destination="9kb-UF-eSa" kind="presentation" identifier="addFolder" id="hyO-C4-M9f"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ESSENTIAL" translatesAutoresizingMaskIntoConstraints="NO" id="dag-cU-Ccy">
-                                        <rect key="frame" x="116" y="33" width="142" height="17"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="acornote" translatesAutoresizingMaskIntoConstraints="NO" id="dag-cU-Ccy">
+                                        <rect key="frame" x="130" y="33" width="116" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="142" id="W30-ld-i5g"/>
-                                            <constraint firstAttribute="height" constant="17" id="zKh-iL-LYo"/>
+                                            <constraint firstAttribute="width" constant="116" id="9gk-Kv-1p1"/>
+                                            <constraint firstAttribute="height" constant="20" id="b3B-M6-ay2"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2156862745" green="0.23137254900000001" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="dag-cU-Ccy" firstAttribute="centerX" secondItem="ubQ-uQ-xX5" secondAttribute="centerX" id="9UO-F5-ch5"/>
+                                    <constraint firstItem="dag-cU-Ccy" firstAttribute="centerX" secondItem="ubQ-uQ-xX5" secondAttribute="centerX" id="2ix-Oh-ngz"/>
                                     <constraint firstAttribute="height" constant="64" id="NJL-Hp-a2R"/>
                                     <constraint firstItem="CvB-7D-Ad7" firstAttribute="top" secondItem="ubQ-uQ-xX5" secondAttribute="top" constant="20" id="Rsg-VZ-6dT"/>
+                                    <constraint firstItem="dag-cU-Ccy" firstAttribute="top" secondItem="ubQ-uQ-xX5" secondAttribute="top" constant="33" id="XzR-y3-co5"/>
                                     <constraint firstAttribute="trailing" secondItem="CvB-7D-Ad7" secondAttribute="trailing" constant="5" id="Yji-89-5Xg"/>
-                                    <constraint firstItem="dag-cU-Ccy" firstAttribute="top" secondItem="ubQ-uQ-xX5" secondAttribute="top" constant="33" id="iRk-jm-W3P"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -634,7 +634,7 @@
                                 <rect key="frame" x="0.0" y="69" width="375" height="598"/>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.94117647059999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell0" rowHeight="90" id="WXz-pf-ixz" customClass="ItemTableViewCell" customModule="Acornote" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="normal" rowHeight="90" id="WXz-pf-ixz" customClass="ItemTableViewCell" customModule="Acornote" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WXz-pf-ixz" id="sRI-KK-gPd">
@@ -707,7 +707,7 @@
                                             <outlet property="titleTxtView" destination="fnN-NV-csV" id="y5w-81-8jP"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell1" rowHeight="110" id="2gu-O5-Dmb" customClass="ItemTableViewCell" customModule="Acornote" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="withFolder" rowHeight="110" id="2gu-O5-Dmb" customClass="ItemTableViewCell" customModule="Acornote" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="118" width="375" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2gu-O5-Dmb" id="Io2-PF-ccq">
@@ -1276,7 +1276,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ESSENTIAL" width="142" height="17"/>
+        <image name="acornote" width="116" height="20"/>
         <image name="btn_float_add" width="84" height="85"/>
         <image name="ic_more" width="20" height="4"/>
         <image name="icon_add" width="20" height="20"/>
