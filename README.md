@@ -1,6 +1,6 @@
 # Collecting acorns like squirrels.
 
-![Icon](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/icon.svg)
+![Icon](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/icon.svg?a)
 
 A note app by Tonny&Sunm.
 
@@ -20,7 +20,7 @@ We are life learners, struggled for many years in Notes, Evernote, Quizlet, Memr
 * A item may be is a new word, an interesting sentence, a sudden inspiration...
 
 ##Folders
-![Folders](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg)
+![Folders](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg?a)
 
 A Folder is a context, we create folders in below cases
 
