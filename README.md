@@ -54,6 +54,12 @@ A Folder is a context, we create folders in below cases
 * Link to goodreads.com
 
 
+##TODO
+* Android development
+* iOS code refactor
+* iOS data backup regularly
+* iOS image scanner
+
 You can read more at [Medium](https://medium.com/tonny-sunm/developing-own-app-to-take-notes-2d84413b9b32). Welcome your ideas about note taking.
 
 
