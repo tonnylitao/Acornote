@@ -42,7 +42,7 @@ class ItemTableViewCell: MGSwipeTableCell {
     
     //for folder info
     @IBOutlet weak var folderColorView: UIView!
-    @IBOutlet weak var folderNameLbl: TextView!
+    @IBOutlet weak var folderNameLbl: UILabel!
     
     
     lazy var tagBtn: MGSwipeButton? = {
@@ -187,6 +187,8 @@ class ItemTableViewCell: MGSwipeTableCell {
             //
             folderColorView?.backgroundColor = item.folder?.highlightColor
             folderNameLbl?.text = item.folder?.title
+            folderNameLbl?.font = ItemTableViewCell.desFont
+            folderNameLbl?.textColor = .gray
             
 //            titleTxtView.backgroundColor = .blue
 //            desTxtView.backgroundColor = .red

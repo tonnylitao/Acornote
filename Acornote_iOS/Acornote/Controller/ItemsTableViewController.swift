@@ -65,13 +65,19 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         var linkRightBtnCount:CGFloat = 0
         var flipRightBtnCount:CGFloat = 0
         
-        if folder != nil {
-            quizletMode = folder?.quizlet == true
+        if let f = folder {
+            quizletMode = f.quizlet == true
             
             moveRightBtnCount = 1
             playRightBtnCount = 1
             linkRightBtnCount = 1
             flipRightBtnCount = 1
+            
+            addBtn.backgroundColor = f.highlightColor
+            addBtn.layer.shadowColor = f.highlightColor.cgColor
+            addBtn.layer.shadowOffset = CGSize(width:0 , height:3)
+            addBtn.layer.shadowOpacity = 0.5
+            addBtn.layer.shadowRadius = 5
         }else {
             addBtn.removeFromSuperview()
             addBtn = nil
