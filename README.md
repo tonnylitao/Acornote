@@ -1,6 +1,8 @@
 # Collecting acorns like squirrels.
-A note app by Tonny&Sunm.
+
 ![Icon](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/icon.svg)
+
+A note app by Tonny&Sunm.
 
 We are life learners, struggled for many years in Notes, Evernote, Quizlet, Memrise...Those apps did not provide advanced features for us, as designer and developer, we canot bear them any longer, so we create own note app - acorn note.
 
@@ -55,7 +57,8 @@ A Folder is a context, we create folders in below cases
 You can read more at [Medium](https://medium.com/tonny-sunm/developing-own-app-to-take-notes-2d84413b9b32). Welcome your ideas about note taking.
 
 
-![Folders](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/tonnysunm.jpg)
+![Tonny&Sunm](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/tonnysunm.jpg)
+
 ---
 Apache License 2.0
 
