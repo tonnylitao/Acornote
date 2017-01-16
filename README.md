@@ -20,7 +20,7 @@ We are life learners, struggled for many years in Notes, Evernote, Quizlet, Memr
 * A item may be is a new word, an interesting sentence, a sudden inspiration...
 
 ##Folders
-![Folders](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg?a)
+<img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg?a" width="250">
 
 A Folder is a context, we create folders in below cases
 
@@ -40,7 +40,7 @@ A Folder is a context, we create folders in below cases
 ---
 
 ## A book titled 'Because of Winn-Dixie' folder
-![Folders](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/item.jpg)
+![Items](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/item.jpg)
 
 ####Items in this folder
 * A new vocabulary with image
@@ -57,7 +57,7 @@ A Folder is a context, we create folders in below cases
 You can read more at [Medium](https://medium.com/tonny-sunm/developing-own-app-to-take-notes-2d84413b9b32). Welcome your ideas about note taking.
 
 
-![Tonny&Sunm](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/tonnysunm.jpg)
+<img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/tonnysunm.jpg" width="300">
 
 ---
 Apache License 2.0
