@@ -83,6 +83,13 @@ class FolderTableViewCell: MGSwipeTableCell {
                     
                 }))
                 action.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {[unowned self] (actionC) in
+                    
+                    self.folder.items?.forEach({ obj in
+                        if let item = obj as? Item, let path = item.imgPath {
+                            cache.remove(path)
+                        }
+                    })
+                    
                     self.folder.remove( {
                         if needUpdate {
                             NotificationCenter.default.post(name: NSNotification.Name("colorChanged"), object: nil)

@@ -108,7 +108,13 @@ class ItemTableViewCell: MGSwipeTableCell {
                 
             }))
             action.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {[unowned self] (actionC) in
-                self.item?.remove(nil)
+                if let item = self.item {
+                    item.remove(nil)
+                    
+                    if let path = item.imgPath {
+                        cache.remove(path)
+                    }
+                }
             }))
             let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController
             nav?.present(action, animated: true, completion: nil)

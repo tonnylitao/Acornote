@@ -15,7 +15,7 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var frc: NSFetchedResultsController<Folder> = self.setUp()
+    lazy var frc: NSFetchedResultsController<Folder> = self.buildFRC()
     
     var needToScrollTo: IndexPath?
     
@@ -52,7 +52,7 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.tableHeaderView?.removeAllSubviews()
         setFilter()
         
-        self.frc = setUp()
+        self.frc = buildFRC()
         tableView.reloadData()
         
         if frc.fetchedObjects != nil {
@@ -108,7 +108,7 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
             UserDefaults.standard.removeObject(forKey: "kColor")
         }
         
-        self.frc = setUp()
+        self.frc = buildFRC()
         
         tableView.reloadData()
         
@@ -158,6 +158,13 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
 }
 
 extension HomeTableViewController {
+    
+    @IBAction func search(_ sender: Any) {
+        
+    }
+}
+
+extension HomeTableViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = self.frc.fetchedObjects?.count ?? 0
         return count + (currentColor == nil ? 1 : 0)
@@ -202,7 +209,7 @@ extension HomeTableViewController {
 
 extension HomeTableViewController {
     
-    func setUp() -> NSFetchedResultsController<Folder> {
+    func buildFRC() -> NSFetchedResultsController<Folder> {
         let request:NSFetchRequest<Folder> = Folder.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
         if let c = currentColor  {

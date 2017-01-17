@@ -46,7 +46,7 @@ class ShareViewController: SLComposeServiceViewController {
                 ud?.synchronize()
             }else if attachment.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
                 attachment.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil, completionHandler: { (coding:NSSecureCoding?, _) in
-                    let url = coding as! String
+                    _ = coding as! String
                 })
                 //TODO
                 //item: text img

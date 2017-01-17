@@ -44,8 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIReferenceLibraryViewController.dictionaryHasDefinition(forTerm: "")
         
-        //
-        
         createDemoDataIfNecessory();
         
         return true
@@ -140,6 +138,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        //TODO
+        
         let ud = UserDefaults(suiteName: "group.tonnysunm.acornote")!
         if let arr = ud.object(forKey: "Items") as? [String], let map = ud.object(forKey: "Item_Folder_Map") as? [String: String] {
             try? cdStore.operation { (context, save) throws -> Void in

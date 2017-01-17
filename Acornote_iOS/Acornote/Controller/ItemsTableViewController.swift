@@ -14,8 +14,6 @@ import AVFoundation
 
 class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource {
     
-    @IBOutlet weak var lineView: UIView!
-    
     var folder: Folder?
     lazy var frc: NSFetchedResultsController<Item>? = self.setupFrc(taged: false)
     
@@ -32,6 +30,9 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     var item: Item?
     
     
+    //
+    @IBOutlet weak var lineView: UIView!
+    
     @IBOutlet weak var playRightCons: NSLayoutConstraint!
     @IBOutlet weak var linkRightCons: NSLayoutConstraint!
     @IBOutlet weak var flipRightCons: NSLayoutConstraint!
@@ -41,6 +42,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     @IBOutlet weak var quizletBtn: UIButton!
     @IBOutlet weak var moreBtn: UIButton!
     
+    //
     @IBOutlet weak var addBtn: UIButton!
     
     @IBOutlet weak var tableBottomCons: NSLayoutConstraint!
@@ -152,7 +154,8 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
                 lineView.backgroundColor = Folder.ColorConfig.color(withId: id)?.uiColor
             }
         }else {
-            lineView.backgroundColor = .appNav
+            lineView.removeFromSuperview()
+            lineView = nil
         }
         
     }
@@ -485,7 +488,7 @@ extension ItemsTableViewController: AVSpeechSynthesizerDelegate {
         
         self.speechingLbl?.textColor = ItemTableViewCell.titleColor
         self.speechingLbl = (cell as? ItemTableViewCell)?.titleTxtView
-        self.speechingLbl?.textColor = lineView.backgroundColor
+        self.speechingLbl?.textColor = (cell as? ItemTableViewCell)?.item?.folder?.highlightColor
     }
     
     //TODO: 无法知道 总结束
@@ -670,7 +673,7 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
         if self.speechingText != nil &&
             self.speechingText == item?.title!.replacingOccurrences(of: "\n", with: ", ") &&
             self.speechingText == item?.des?.replacingOccurrences(of: "\n", with: ", ") {
-            cell.titleTxtView.textColor = lineView.backgroundColor
+            cell.titleTxtView.textColor = item?.folder?.highlightColor
         }
         
         return cell
