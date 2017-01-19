@@ -28,9 +28,9 @@ public class EditFolderViewModel extends BaseObservable {
     public String title;
     @Bindable public String url;
 
-    @Bindable public boolean hasTag;
-    @Bindable public boolean hasFlip;
-    @Bindable public boolean hasAudio;
+    @Bindable public boolean markable;
+    @Bindable public boolean flashcardable;
+    @Bindable public boolean audioPlayable;
 
     public EditFolderViewModel(Folder folder) {
         if (folder != null) {
@@ -38,9 +38,9 @@ public class EditFolderViewModel extends BaseObservable {
             this.title = folder.title;
             this.url = folder.url;
 
-//            this.hasTag = false;
-//            this.hasFlip = false;
-//            this.hasAudio = false;
+            this.markable = folder.markable;
+            this.flashcardable = folder.flashcardable;
+            this.audioPlayable = folder.audioPlayable;
         }else {
             this.colorName = "sky";
         }
@@ -82,22 +82,22 @@ public class EditFolderViewModel extends BaseObservable {
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
-    public void setHasTag(boolean hasTag) {
-        this.hasTag = hasTag;
+    public void setMarkable(boolean markable) {
+        this.markable = markable;
 
-        notifyPropertyChanged(BR.hasTag);
+        notifyPropertyChanged(BR.markable);
     }
 
-    public void setHasFlip(boolean hasFlip) {
-        this.hasFlip = hasFlip;
+    public void setFlashcardable(boolean flashcardable) {
+        this.flashcardable = flashcardable;
 
-        notifyPropertyChanged(BR.hasFlip);
+        notifyPropertyChanged(BR.flashcardable);
     }
 
-    public void setHasAudio(boolean hasAudio) {
-        this.hasAudio = hasAudio;
+    public void setAudioPlayable(boolean audioPlayable) {
+        this.audioPlayable = audioPlayable;
 
-        notifyPropertyChanged(BR.hasAudio);
+        notifyPropertyChanged(BR.audioPlayable);
     }
 
     public boolean isSelected(int index) {
@@ -145,9 +145,9 @@ public class EditFolderViewModel extends BaseObservable {
     public String toString() {
         return "( " +colorName + ", " + title
                 + ", "+url
-                + ", "+hasTag
-                + ", "+hasFlip
-                + ", "+hasAudio
+                + ", "+ markable
+                + ", "+ flashcardable
+                + ", "+ audioPlayable
                 + " )";
     }
 }

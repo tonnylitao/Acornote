@@ -20,7 +20,7 @@
 
             <View
                 android:id="@+id/folder_color_view"
-                android:layout_width="8dp"
+                android:layout_width="5dp"
                 android:layout_height="0dp"
                 android:background="@{viewModel.color}"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +40,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="@{viewModel.title}"
+                android:text="@{viewModel.folder.title}"
                 tools:text="Hello"
                 />
 
@@ -48,7 +48,7 @@
                 android:id="@+id/folder_des_textview"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
-                android:text="@{viewModel.title}"
+                android:text="@{viewModel.getItemCount()}"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@+id/folder_title_textview"
                 app:layout_constraintLeft_toRightOf="@+id/folder_color_view"

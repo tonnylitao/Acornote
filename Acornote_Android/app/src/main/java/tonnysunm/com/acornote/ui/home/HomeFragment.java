@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
                 startActivityForResult(EditFolderActivity.createIntent(ctx, null), EditFolderActivity.CREATE_FOLDER_REQUEST);
                 break;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

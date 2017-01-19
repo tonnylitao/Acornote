@@ -161,8 +161,8 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_url"
         app:layout_constraintRight_toLeftOf="@+id/btn_flip"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:tint="@{viewModel.hasTag ? @android:color/white : @color/iconOff}"
-        android:onClick="@{(v)->viewModel.setHasTag(!viewModel.hasTag)}"
+        android:tint="@{viewModel.markable ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setMarkable(!viewModel.markable)}"
         />
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_flip"
@@ -173,8 +173,8 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_mark"
         app:layout_constraintRight_toLeftOf="@+id/btn_audio"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:tint="@{viewModel.hasFlip ? @android:color/white : @color/iconOff}"
-        android:onClick="@{(v)->viewModel.setHasFlip(!viewModel.hasFlip)}"
+        android:tint="@{viewModel.flashcardable ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setFlashcardable(!viewModel.flashcardable)}"
         />
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btn_audio"
@@ -185,8 +185,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_audio"
-        android:tint="@{viewModel.hasAudio ? @android:color/white : @color/iconOff}"
-        android:onClick="@{(v)->viewModel.setHasAudio(!viewModel.hasAudio)}"
+        android:tint="@{viewModel.audioPlayable ? @android:color/white : @color/iconOff}"
+        android:onClick="@{(v)->viewModel.setAudioPlayable(!viewModel.audioPlayable)}"
         />
 
 </android.support.constraint.ConstraintLayout>

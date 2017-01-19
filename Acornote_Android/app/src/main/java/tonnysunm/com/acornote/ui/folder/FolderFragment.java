@@ -66,10 +66,10 @@ public class FolderFragment extends Fragment implements FolderMVP.View {
         super.onPrepareOptionsMenu(menu);
 
         final MenuItem flip = menu.findItem(R.id.menu_flip);
-        flip.setVisible(mFolder.flip);
+        flip.setVisible(mFolder.flashcardable);
 
         final MenuItem audio = menu.findItem(R.id.menu_play);
-        audio.setVisible(mFolder.playAudio);
+        audio.setVisible(mFolder.audioPlayable);
 
         final MenuItem url = menu.findItem(R.id.menu_url);
         url.setVisible(mFolder.url != null);
@@ -85,7 +85,7 @@ public class FolderFragment extends Fragment implements FolderMVP.View {
                 startActivity(FlipActivity.createIntent(ctx, null, mFolder));
                 break;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

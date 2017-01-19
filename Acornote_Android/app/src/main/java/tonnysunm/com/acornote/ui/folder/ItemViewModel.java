@@ -19,10 +19,6 @@ public class ItemViewModel extends BaseObservable {
         notifyChange();
     }
 
-    public String getTitle() {
-        return item.title + " " + item.des;
-    }
-
     public String getImageUrl() { return  item.imgUrl; }
 
     public int getLinkVisibility() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +64,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 final Context ctx = v.getContext();
 
                 final HomeCardviewBinding bindingInner = DataBindingUtil.getBinding(v);
-                final Folder folder = bindingInner.getViewModel().getFolder();
+                final Folder folder = bindingInner.getViewModel().folder;
 
+                Log.d(TAG, folder.title);
                 ctx.startActivity(FolderActivity.createIntent(ctx, folder));
             });
             mBinding = binding;

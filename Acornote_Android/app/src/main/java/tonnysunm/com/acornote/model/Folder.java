@@ -26,8 +26,10 @@ public class Folder extends RealmObject implements Parcelable {
     public String colorName;
     public String url;
 
-    public boolean flip;
-    public boolean playAudio;
+    public boolean flashcardable;
+    public boolean audioPlayable;
+
+    public boolean markable;
 
     public Folder(){ }
 
@@ -56,6 +58,14 @@ public class Folder extends RealmObject implements Parcelable {
         this.title = title;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getColorName() {
         return colorName;
     }
@@ -74,8 +84,8 @@ public class Folder extends RealmObject implements Parcelable {
         for (String title : titles) {
             Folder folder = realm.createObject(Folder.class, folderId++);
             folder.url = "https://baidu.com";
-            folder.playAudio = true;
-            folder.flip = true;
+            folder.audioPlayable = true;
+            folder.flashcardable = true;
             folder.setTitle(title);
             String color = colors[new Random().nextInt(colors.length)];
             folder.setColorName(color);
@@ -110,8 +120,8 @@ public class Folder extends RealmObject implements Parcelable {
         dest.writeString(this.colorName);
         dest.writeString(this.url);
 
-        dest.writeByte((byte) (flip ? 1 : 0));
-        dest.writeByte((byte) (playAudio ? 1 : 0));
+        dest.writeByte((byte) (flashcardable ? 1 : 0));
+        dest.writeByte((byte) (audioPlayable ? 1 : 0));
     }
 
     protected Folder(Parcel in) {
@@ -120,8 +130,8 @@ public class Folder extends RealmObject implements Parcelable {
         this.colorName = in.readString();
         this.url = in.readString();
 
-        this.flip = in.readByte() != 0;
-        this.playAudio = in.readByte() != 0;
+        this.flashcardable = in.readByte() != 0;
+        this.audioPlayable = in.readByte() != 0;
     }
 
     public static final Parcelable.Creator<Folder> CREATOR = new Parcelable.Creator<Folder>() {
@@ -158,8 +168,8 @@ public class Folder extends RealmObject implements Parcelable {
         AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
                     final int id = realm.where(Folder.class).max("id").intValue() + 1;
                     final Folder f = realm.createObject(Folder.class, id);
-                    f.setTitle(model.title);
-                    f.setColorName(model.colorName);
+
+                    f.updateFolderWithViewModel(model);
                 },
                 onSuccess,
                 onError);
@@ -168,10 +178,19 @@ public class Folder extends RealmObject implements Parcelable {
     static public void updateFolder(EditFolderViewModel model, int folderId, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
         AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
                     final Folder f = realm.where(Folder.class).equalTo("id", folderId).findFirst();
-                    f.setTitle(model.title);
-                    f.setColorName(model.colorName);
+                    f.updateFolderWithViewModel(model);
                 },
                 onSuccess,
                 onError);
+    }
+
+    private void updateFolderWithViewModel(EditFolderViewModel model) {
+        this.title = model.title;
+        this.colorName = model.colorName;
+        this.url = model.url;
+
+        this.audioPlayable = model.audioPlayable;
+        this.flashcardable = model.flashcardable;
+        this.markable = model.markable;
     }
 }
