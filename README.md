@@ -2,9 +2,15 @@
 
 ![Icon](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/icon.svg?a)
 
-A note app by Tonny&Sunm.
+A note app by [Tonny&Sunm](https://tonnysunm.github.io). It will be continually updated.
 
-We are life learners, struggled for many years in Notes, Evernote, Quizlet, Memrise...Those apps did not provide advanced features for us, as designer and developer, we canot bear them any longer, so we create own note app - acorn note.
+We are lifelong learners, struggled for many years in Notes, Evernote, Quizlet, Memrise...Those apps did not provide advanced features for us, as designer and developer, we canot bear them any longer, so we create own note app - acorn note.
+
+This repository constains design and source code:
+
+* Sketch design, by [Sunm](https://dribbble.com/sunmlu)
+* iOS, by Tonny
+* [Android](Acornote_Android/README.md), by Tonny
 
 ##Basic
 * Learn, memorize, active or deep-learn any new things with `context`
