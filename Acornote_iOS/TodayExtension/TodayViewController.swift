@@ -26,7 +26,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         self.allFolders = ud?.object(forKey: "All_Folder_Names") as? [[String: String]]
         
-        let folderName = ud?.object(forKey: "Current_Folder_Name") as? String ?? "待整理"
+        let folderName = ud?.object(forKey: "Current_Folder_Name") as? String ?? allFolders?.first?.keys.first
         folderLbl.text = folderName
         
         if let text = UIPasteboard.general.string?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty {
@@ -70,7 +70,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.newData)
     }
     
-    @IBAction func tap(_ sender: Any) {
+    @IBAction func tapFolder(_ sender: Any) {
         guard let arr = allFolders, !arr.isEmpty else {
             return
         }

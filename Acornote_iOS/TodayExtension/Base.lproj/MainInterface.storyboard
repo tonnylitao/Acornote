@@ -96,7 +96,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="azs-uf-ET0">
                     <connections>
-                        <action selector="tap:" destination="M4Y-Lb-cyx" id="Iw6-ia-oEa"/>
+                        <action selector="tapFolder:" destination="M4Y-Lb-cyx" id="lSF-aC-6Pm"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="M7H-lE-rZd">
