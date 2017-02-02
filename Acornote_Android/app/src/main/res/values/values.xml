@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="defaultColor">sky</string>
+
     <string-array name="folderColorKeys">
         <item>sky</item>
         <item>red</item>

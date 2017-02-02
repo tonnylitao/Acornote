@@ -42,7 +42,7 @@ public class EditFolderViewModel extends BaseObservable {
             this.flashcardable = folder.flashcardable;
             this.audioPlayable = folder.audioPlayable;
         }else {
-            this.colorName = "sky";
+            this.colorName = AcornoteApplication.getContext().getString(R.string.defaultColor);
         }
     }
 

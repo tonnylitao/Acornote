@@ -22,11 +22,9 @@ public class ItemViewModel extends BaseObservable {
     public String getImageUrl() { return  item.imgUrl; }
 
     public int getLinkVisibility() {
-        return item.hasUrl() ? View.VISIBLE : View.GONE;
+        return item.url != null && !item.url.isEmpty() ? View.VISIBLE : View.GONE;
     }
 
     public int getImageVisibility() { return item.hasImage() ? View.VISIBLE : View.GONE;}
-
-    public boolean hasImage() { return item.hasImage(); }
 
 }

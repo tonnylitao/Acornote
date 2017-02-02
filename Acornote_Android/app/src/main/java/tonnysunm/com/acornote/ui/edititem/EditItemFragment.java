@@ -22,7 +22,7 @@ public class EditItemFragment extends Fragment implements EditItemMVP.View {
 
     @NonNull
     private int mFolderId;
-    private String mColorName = "sky";
+    private String mColorName;
 
     @Nullable
     private Item mItem;     //update item

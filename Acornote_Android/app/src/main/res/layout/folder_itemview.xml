@@ -22,7 +22,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            app:layout_marginRight="@{viewModel.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
+            app:layout_marginRight="@{viewModel.item.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
             android:text="@{viewModel.item.title}"
             tools:text="Hello"
             />
@@ -40,7 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            app:layout_marginRight="@{viewModel.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
+            app:layout_marginRight="@{viewModel.item.hasImage() ? @dimen/item_right_with_image : @dimen/item_right_without_image}"
             tools:text="des"
             />
 

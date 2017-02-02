@@ -5,12 +5,14 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
 import java.util.Random;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import io.realm.annotations.PrimaryKey;
 import tonnysunm.com.acornote.AcornoteApplication;
 import tonnysunm.com.acornote.R;
@@ -31,48 +33,10 @@ public class Folder extends RealmObject implements Parcelable {
 
     public boolean markable;
 
+    public Date updatedAt;
+    public Date createdAt;
+
     public Folder(){ }
-
-    public Folder(int id, String title, String colorName, String url) {
-        this.id = id;
-        this.title = title;
-        this.colorName = colorName;
-        this.url = url;
-    }
-
-    //getter and setter
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getColorName() {
-        return colorName;
-    }
-
-    public void setColorName(String color) {
-        this.colorName = color;
-    }
 
     static public void createInitialData(Realm realm) {
         final Resources res = AcornoteApplication.getContext().getResources();
@@ -86,25 +50,28 @@ public class Folder extends RealmObject implements Parcelable {
             folder.url = "https://baidu.com";
             folder.audioPlayable = true;
             folder.flashcardable = true;
-            folder.setTitle(title);
+            folder.title = title;
             String color = colors[new Random().nextInt(colors.length)];
-            folder.setColorName(color);
+            folder.colorName = color;
+            folder.updatedAt = new Date();
+            folder.createdAt = new Date();
 
             String[] titles1 = res.getStringArray(R.array.itemTitlesDemo);
 
             for (String item1 : titles1) {
                 Item item = realm.createObject(Item.class, itemId++);
-                item.setTitle(item1);
-                item.setDes(String.format("des %d", itemId));
-                item.setImgUrl("http://weknowyourdreams.com/images/beautiful/beautiful-03.jpg");
-                item.setFolder(folder);
+                item.createdAt = new Date();
+                item.title = item1;
+                item.des = String.format("des %d", itemId);
+                item.imgUrl = "http://weknowyourdreams.com/images/beautiful/beautiful-03.jpg";
+                item.folder = folder;
             }
         }
     }
 
     //CRUD
     public static void findAllAsync(RealmChangeListener<RealmResults<Folder>> listener) {
-        RealmResults<Folder> result = AcornoteApplication.REALM.where(Folder.class).findAllAsync();
+        RealmResults<Folder> result = AcornoteApplication.REALM.where(Folder.class).findAllSortedAsync("updatedAt", Sort.DESCENDING);
         result.addChangeListener(listener);
     }
 
@@ -168,6 +135,7 @@ public class Folder extends RealmObject implements Parcelable {
         AcornoteApplication.REALM.executeTransactionAsync((realm) -> {
                     final int id = realm.where(Folder.class).max("id").intValue() + 1;
                     final Folder f = realm.createObject(Folder.class, id);
+                    f.createdAt = new Date();
 
                     f.updateFolderWithViewModel(model);
                 },
@@ -185,12 +153,14 @@ public class Folder extends RealmObject implements Parcelable {
     }
 
     private void updateFolderWithViewModel(EditFolderViewModel model) {
-        this.title = model.title;
-        this.colorName = model.colorName;
-        this.url = model.url;
+        title = model.title;
+        colorName = model.colorName;
+        url = model.url;
 
-        this.audioPlayable = model.audioPlayable;
-        this.flashcardable = model.flashcardable;
-        this.markable = model.markable;
+        audioPlayable = model.audioPlayable;
+        flashcardable = model.flashcardable;
+        markable = model.markable;
+
+        updatedAt = new Date();
     }
 }

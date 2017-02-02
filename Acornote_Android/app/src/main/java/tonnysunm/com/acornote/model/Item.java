@@ -3,6 +3,8 @@ package tonnysunm.com.acornote.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmObject;
@@ -25,70 +27,12 @@ public class Item extends RealmObject implements Parcelable {
 
     public boolean marked;
 
+    public Date updatedAt;
+    public Date createdAt;
+
     public Item() {}
 
-    public Item(int id, String title, String des, String imgUrl, String url, Folder folder) {
-        this.id = id;
-        this.title = title;
-        this.des = des;
-        this.imgUrl = imgUrl;
-        this.url = url;
-        this.folder = folder;
-    }
-
-    public boolean isMarked() {
-        return marked;
-    }
-
-    public void setDes(String des) {
-        this.des = des;
-    }
-
-    public Folder getFolder() {
-        return folder;
-    }
-
-    public void setFolder(Folder folder) {
-        this.folder = folder;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public boolean hasImage() { return imgUrl != null; }
-
-    public boolean hasUrl() {
-        return url != null;
-    }
+    public boolean hasImage() { return imgUrl != null && !imgUrl.isEmpty(); }
 
     //CRUD
     public static void findAllAsync(RealmChangeListener<RealmResults<Item>> listener) {
@@ -146,8 +90,10 @@ public class Item extends RealmObject implements Parcelable {
     static private void update(Item item, EditItemViewModel model) {
         if (item == null || model == null) return;
 
-        item.setTitle(model.title);
-        item.setDes(model.des);
+        item.title = model.title;
+        item.des = model.des;
+
+        item.updatedAt = new Date();
     }
 
     static public void create(EditItemViewModel model, int folderId, Realm.Transaction.OnSuccess onSuccess, Realm.Transaction.OnError onError) {
@@ -155,6 +101,8 @@ public class Item extends RealmObject implements Parcelable {
                     final int id = realm.where(Item.class).max("id").intValue() + 1;
                     final Item item = realm.createObject(Item.class, id);
                     item.folder = realm.where(Folder.class).equalTo("id", folderId).findFirst();
+                    item.createdAt = new Date();
+
                     Item.update(item, model);
                 },
                 onSuccess,
