@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import HomeScreen from './components/screen/home'
+import HomeScreen from './js/screen/home'
 
 class AcornoteApp extends Component {
   render() {

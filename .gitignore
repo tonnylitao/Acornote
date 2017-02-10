@@ -89,6 +89,7 @@ Acornote_Android/local.properties
 
 # Xcode
 #
+Acornote_React_Native/ios/build/
 Acornote_React_Native/build/
 Acornote_React_Native/*.pbxuser
 Acornote_React_Native/!default.pbxuser
@@ -109,7 +110,8 @@ Acornote_React_Native/project.xcworkspace
 
 # Android/IntelliJ
 #
-Acornote_React_Native/build/
+Acornote_React_Native/android/build/
+Acornote_React_Native/android/app/build/
 Acornote_React_Native/.idea
 Acornote_React_Native/.gradle
 Acornote_React_Native/local.properties
