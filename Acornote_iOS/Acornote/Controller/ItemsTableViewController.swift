@@ -14,7 +14,15 @@ import AVFoundation
 
 class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource {
     
-    var folder: Folder?
+    var folder: Folder? {
+        didSet {
+            if self.folder != nil {
+                self.orderBy = FolderOrderBy(rawValue: self.folder?.orderBy ?? 0)!
+            }
+        }
+    }
+    var orderBy: FolderOrderBy = .createdDescent
+    
     lazy var frc: NSFetchedResultsController<Item>? = self.setupFrc(taged: false)
     
     @IBOutlet weak var tableView: UITableView!
@@ -28,7 +36,6 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     // pageVC
     var pageVC: UIPageViewController?
     var item: Item?
-    
     
     //
     @IBOutlet weak var lineView: UIView!
@@ -246,9 +253,22 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         self.tableView.tableHeaderView = view
     }
     
-    
     @IBAction func more(_ sender: Any) {
         let action = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let order = FolderOrderBy(rawValue: self.folder?.orderBy ?? 0)
+        action.addAction(UIAlertAction(title: order == .createdAscend ? "Order by lastet" : "Order by oldest", style: .default, handler: {[unowned self] (_) in
+            
+            self.orderBy = order == .createdAscend ? .createdDescent : .createdAscend
+
+            self.frc = self.setupFrc(taged: self.selectTag)
+            self.tableView.reloadData()
+            
+            //
+            self.folder?.update(update: {(obj) in
+                let folder = obj as! Folder
+                folder.orderBy = self.orderBy.rawValue
+            }, callback: nil)
+        }))
         action.addAction(UIAlertAction(title: "Move items", style: .default, handler: {[unowned self] (_) in
             self.startMove()
         }))
@@ -774,7 +794,11 @@ extension ItemsTableViewController {
             let request:NSFetchRequest<Item> = Item.fetchRequest()
             request.predicate = NSPredicate(format: "taged == %@", taged as CVarArg)
             
-            request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)] //降序
+            if orderBy == .createdAscend {
+                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)] //降序
+            }else {
+                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)] //降序
+            }
             let frc = NSFetchedResultsController(fetchRequest: request , managedObjectContext: cdStore.mainContext! as! NSManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             frc.delegate = self
             
@@ -791,7 +815,11 @@ extension ItemsTableViewController {
             let request:NSFetchRequest<Item> = Item.fetchRequest()
             request.predicate = NSPredicate(format: "folder == %@ AND taged == %@", folder, taged as CVarArg)
             
-            request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+            if orderBy == .createdAscend {
+                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)] //降序
+            }else {
+                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)] //降序
+            }
             let frc = NSFetchedResultsController(fetchRequest: request , managedObjectContext: cdStore.mainContext! as! NSManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             frc.delegate = self
             

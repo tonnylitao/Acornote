@@ -29,6 +29,8 @@ extension Folder {
     @NSManaged public var createdAt: NSDate?
     @NSManaged public var updatedAt: NSDate?
     
+    @NSManaged public var orderBy: Int16
+    
     @NSManaged public var lastVisited: String?
     
     @NSManaged public var items: NSOrderedSet?
@@ -45,6 +47,8 @@ extension Folder {
         d["playable"] = playable
         d["flipable"] = flipable
         d["tagable"] = tagable
+        
+        d["orderBy"] = orderBy
         
         d["quizlet"] = quizlet
         d["createdAt"] = createdAt

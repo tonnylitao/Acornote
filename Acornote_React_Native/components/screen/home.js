@@ -48,7 +48,7 @@ export default class HomeScreen extends Component {
         <View style={styles.nav}>
           <IconButton onPress={this._onSearch} source={require('../../img/ic_search@3x.png')} />
           <Text style={styles.title}>Acornote</Text>
-          <IconButton onPress={this._onAddFolder} source={require('../../img/icon_add@3x.png')} />
+          <IconButton onPress={this._onAddFolder} source={require('../../img/ic_add@3x.png')} />
         </View>
 
         <FoldersListView navigator={this.props.navigator}/>

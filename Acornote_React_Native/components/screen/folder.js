@@ -34,7 +34,7 @@ export default class FolderScreen extends Component {
     return (
       <View style={styles.view}>
         <View style={styles.nav}>
-          <IconButton onPress={this._onPressButton} source={require('../../img/icon_back@3x.png')} />
+          <IconButton onPress={this._onPressButton} source={require('../../img/ic_back@3x.png')} />
         </View>
         <ItemsListView navigator={this.props.navigator}/>
       </View>

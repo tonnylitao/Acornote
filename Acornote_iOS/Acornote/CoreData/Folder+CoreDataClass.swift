@@ -11,6 +11,10 @@ import CoreData
 import UIKit
 import SugarRecord
 
+enum FolderOrderBy : Int16 {
+    case createdAscend, createdDescent
+}
+
 public class Folder: NSManagedObject {
 }
 
