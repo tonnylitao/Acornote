@@ -3,7 +3,7 @@ import schemas from './schema';
 
 const realm = new Realm(schemas)
 
-if (realm.objects('Folder').length <= 10) {
+if (realm.objects('Folder').length < 10) {
     realm.write(() => {
         for (let i=0; i<10; i++) {
 

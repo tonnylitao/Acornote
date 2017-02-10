@@ -1,10 +1,7 @@
+'use strict';
+
 import React, { PropTypes } from 'react'
-import {
-  StyleSheet,
-  TouchableHighlight,
-  Text,
-  View,
-} from 'react-native'
+import { StyleSheet, TouchableHighlight, Text, View, } from 'react-native'
 
 const cardRadius = 3
 

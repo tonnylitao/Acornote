@@ -1,46 +1,20 @@
-import React, { Component, PropTypes } from 'react'
-import {
-  StyleSheet,
-  ListView,
-  TouchableHighlight,
-  Text,
-  View,
-  Image,
-} from 'react-native'
+'use strict';
 
+import React, { Component, PropTypes } from 'react'
+import { StyleSheet, ListView, TouchableHighlight, Text, View, Image,} from 'react-native'
+
+import ItemRow from './itemRow'
 
 const styles = StyleSheet.create({
-  cell: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    overflow:'hidden', 
-    backgroundColor:'white', 
-    flexDirection: 'column', 
-  },
-  
-  titleAndImg: {
+  view: {
     flex: 1,
-    flexDirection: 'row', 
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize:20,
-    // backgroundColor:'#0F0', 
-  },
-  des: {
-    flex: 1,
-    fontSize:15,
-    // backgroundColor:'#00F', 
-  },
-  img: {
-
   },
   separator: {
-    backgroundColor:'gray',
+    flex: 1,
     marginLeft: 10,
     height: StyleSheet.hairlineWidth,
-  }
+    backgroundColor: '#8E8E8E',
+  },
 })
 
 export default class FolderListView extends Component {
@@ -57,30 +31,21 @@ export default class FolderListView extends Component {
     };
   }
 
-  _renderRow = (rowData, sectionID, rowID) => 
-    <TouchableHighlight onPress={() => {
+  _renderRow = (rowData, _, rowID)=>{
+    return (
+      <ItemRow 
+        rowData={rowData} 
+        rowID={rowID} 
+        onPress={(rowID)=>{
             
-          }} underlayColor="transparent">
-
-      <View style={styles.cell}>
-        <View style={styles.titleAndImg}>
-          <Text style={styles.title}>{rowData}</Text>
-          
-          <TouchableHighlight onPress={this._onPressButton} style={styles.img}>
-            <Image 
-              style={{width: 44, height: 44}}
-              source={{uri: 'https://images.pexels.com/photos/36764/marguerite-daisy-beautiful-beauty.jpg?h=350&auto=compress&cs=tinysrgb'}}
-            />
-          </TouchableHighlight>
-        </View>
-
-        <Text style={styles.des}>10 items</Text>
-      </View>
-    </TouchableHighlight>
+          }}
+      />
+    )
+  }
 
   render() {
     return (
-      <View>
+      <View style={styles.view}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}

@@ -1,12 +1,7 @@
+'use strict';
+
 import React, { Component, PropTypes } from 'react'
-import {
-  StyleSheet,
-  ListView,
-  TouchableHighlight,
-  Text,
-  View,
-  Image,
-} from 'react-native'
+import { StyleSheet, ListView, TouchableHighlight, Text, View, Image, } from 'react-native'
 
 import realm from 'Acornote_React_Native/js/realm'
 

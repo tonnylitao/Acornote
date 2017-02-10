@@ -1,14 +1,12 @@
+'use strict';
+
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  TouchableHighlight,
-  Text,
-  View,
-  Image,
-} from 'react-native'
+import { StyleSheet, Navigator, TouchableHighlight, Text, View, Image, } from 'react-native'
 
 import FoldersListView from './foldersListView'
 import IconButton from '../../components/iconButton'
+
+import EditFolderScreen from '../editFolder'
 
 const styles = StyleSheet.create({
   view: {
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
     paddingLeft:5,
     height:64,
     flexDirection: 'row',
-    backgroundColor:'#000', 
+    backgroundColor:'#373B46', 
     justifyContent: 'space-between',
   },
   title: {
@@ -36,26 +34,47 @@ export default class HomeScreen extends Component {
     navigator: PropTypes.object.isRequired,
   }
 
-  _onSearch = ()=>{
+  state = {
+    modalVisible: false,
+  }
 
+  _onSearch = ()=>{
+    this.props.navigator.push({
+      title: '',
+      
+    })
   }
 
   _onAddFolder = ()=>{
+    this.setState({modalVisible: true});
+  }
 
+  _onDismissEditFolder = () => {
+    this.setState({modalVisible: !this.state.modalVisible});
   }
 
   render() {
     return (
       <View style={styles.view}>
         <View style={styles.nav}>
-          <IconButton onPress={this._onSearch} source={require('Acornote_React_Native/img/ic_search@3x.png')} />
+          <IconButton 
+            onPress={this._onSearch} 
+            source={require('Acornote_React_Native/img/ic_search@3x.png')} />
+
           <Text style={styles.title}>Acornote</Text>
-          <IconButton onPress={this._onAddFolder} source={require('Acornote_React_Native/img/ic_add@3x.png')} />
+
+          <IconButton 
+            onPress={this._onAddFolder} 
+            source={require('Acornote_React_Native/img/ic_add@3x.png')} />
         </View>
 
         <FoldersListView 
           automaticallyAdjustContentInsets={false}
           {...this.props} />
+
+        <EditFolderScreen 
+          modalVisible={this.state.modalVisible} 
+          onCancel={this._onDismissEditFolder} />
       </View>
     )
   }
