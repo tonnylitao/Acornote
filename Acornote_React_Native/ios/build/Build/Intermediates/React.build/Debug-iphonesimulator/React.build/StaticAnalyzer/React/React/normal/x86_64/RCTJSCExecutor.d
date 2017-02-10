@@ -1,0 +1,24 @@
+dependencies: \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Executors/RCTJSCExecutor.mm \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Executors/RCTJSCExecutor.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTJavaScriptExecutor.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSBundleType.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JavaScriptCore.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Modules/JSCSamplingProfiler.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Modules/RCTDevMenu.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Executors/RCTJSCErrorHandling.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Profiler/RCTJSCProfiler.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTPerformanceLogger.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTUtils.h

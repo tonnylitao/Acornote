@@ -80,3 +80,71 @@ Acornote_Android/local.properties
 
 *.bin
 *.lock
+
+#React Native
+
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+Acornote_React_Native/build/
+Acornote_React_Native/*.pbxuser
+Acornote_React_Native/!default.pbxuser
+Acornote_React_Native/*.mode1v3
+Acornote_React_Native/!default.mode1v3
+Acornote_React_Native/*.mode2v3
+Acornote_React_Native/!default.mode2v3
+Acornote_React_Native/*.perspectivev3
+Acornote_React_Native/!default.perspectivev3
+Acornote_React_Native/xcuserdata
+Acornote_React_Native/*.xccheckout
+Acornote_React_Native/*.moved-aside
+Acornote_React_Native/DerivedData
+Acornote_React_Native/*.hmap
+Acornote_React_Native/*.ipa
+Acornote_React_Native/*.xcuserstate
+Acornote_React_Native/project.xcworkspace
+
+# Android/IntelliJ
+#
+Acornote_React_Native/build/
+Acornote_React_Native/.idea
+Acornote_React_Native/.gradle
+Acornote_React_Native/local.properties
+Acornote_React_Native/*.iml
+
+# node.js
+#
+Acornote_React_Native/node_modules/
+Acornote_React_Native/npm-debug.log
+Acornote_React_Native/yarn-error.log
+
+# BUCK
+Acornote_React_Native/buck-out/
+Acornote_React_Native/\.buckd/
+Acornote_React_Native/android/app/libs
+Acornote_React_Native/*.keystore
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+
+Acornote_React_Native/fastlane/report.xml
+Acornote_React_Native/fastlane/Preview.html
+Acornote_React_Native/fastlane/screenshots
+
+#Kotlin
+
+Acornote_Kotlin/*.iml
+Acornote_Kotlin/.gradle
+Acornote_Kotlin/local.properties
+Acornote_Kotlin/.idea/workspace.xml
+Acornote_Kotlin/.idea/libraries
+Acornote_Kotlin/build
+Acornote_Kotlin/captures
+Acornote_Kotlin/.externalNativeBuild

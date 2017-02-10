@@ -3,11 +3,13 @@ package tonnysunm.com.acornote.ui.home;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,40 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
     private HomePresenter mPresenter;
+
+    private ViewGroup buttonsView;
+
+    final ItemTouchHelper.SimpleCallback swipeCallback = new ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.LEFT) {
+
+        @Override
+        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            Log.d(TAG, "dx "+ dX);
+            View itemView = viewHolder.itemView;
+
+            if(isCurrentlyActive) {
+                buttonsView.setY(itemView.getTop());
+
+                buttonsView.setVisibility(View.VISIBLE);
+            }else{
+                buttonsView.setVisibility(View.GONE);
+            }
+
+//            dX = Math.max(dX, -100);
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+    };
 
     public HomeFragment() {}
 
@@ -56,6 +92,11 @@ public class HomeFragment extends Fragment implements HomeMVP.View {
         final RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
         recyclerView.setHasFixedSize(true);
+
+        buttonsView = binding.menuView;
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         setHasOptionsMenu(true);
 

@@ -121,7 +121,6 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         
         if quizletMode {
             var page = 0
-//            let count = frc?.fetchedObjects?.count ?? 0
             if let f = folder, let l = f.lastVisited {
                 let pre = NSPredicate(format: "folder == %@ AND title == %@", f, l)
                 if let item = Item.findOne(cdStore.mainContext, predicate: pre) {
@@ -131,13 +130,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
                     }
                 }
             }
-//            debugPrint("page", page)
-            
-//            if count > 0 {
-//                lineViewWCons.constant = min(CGFloat(max(page, 1))/CGFloat(count)*screenW, screenW)
-//            }else {
-//                lineViewWCons.constant = screenW
-//            }
+
             pageVC = ItemsTableViewController.createPageVC(vc: self, page)
             tableView.isHidden = true
         }
@@ -158,6 +151,8 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
             lineView = nil
         }
         
+        //
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
     }
     
     func pasteboardChanged(noti: NSNotification) {

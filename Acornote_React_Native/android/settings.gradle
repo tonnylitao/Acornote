@@ -1,0 +1,3 @@
+rootProject.name = 'Acornote_React_Native'
+
+include ':app'

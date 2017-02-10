@@ -106,6 +106,7 @@ dependencies {
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.android.support:multidex:1.0.1'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
 
     compile "com.google.guava:guava:$rootProject.guavaVersion"
 

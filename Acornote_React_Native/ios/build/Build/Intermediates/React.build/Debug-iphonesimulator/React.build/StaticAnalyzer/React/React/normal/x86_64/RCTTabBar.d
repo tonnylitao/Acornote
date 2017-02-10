@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTTabBar.m \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTTabBar.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTTabBarItem.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTView.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTViewControllerProtocol.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/RCTWrapperViewController.h \
+  /Users/Tonny/Development/github/Acornote/Acornote_React_Native/node_modules/react-native/React/Views/UIView+React.h

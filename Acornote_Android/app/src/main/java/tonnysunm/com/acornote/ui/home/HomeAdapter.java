@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import tonnysunm.com.acornote.ui.folder.FolderActivity;
 import tonnysunm.com.acornote.databinding.HomeCardviewBinding;
 import tonnysunm.com.acornote.model.Folder;
+import tonnysunm.com.acornote.ui.folder.FolderActivity;
 
 /**
  * Created by Tonny on 29/12/16.
@@ -48,6 +48,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         mFolders.clear(); //GC
         mFolders.addAll(datas);
         notifyDataSetChanged();
+    }
+
+    public void removeFolderAt(int position) {
+        mFolders.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mFolders.size());
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
