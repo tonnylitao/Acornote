@@ -87,9 +87,11 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   textInput: {
-    backgroundColor: 'yellow',
     color: 'white',
     textAlign: 'center',
+    fontSize: 50,
+    marginRight: 10,
+    marginLeft: 10,
   },
   buttons: {
     margin: 10,

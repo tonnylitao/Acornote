@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
   },
+  listview: {
+    backgroundColor: 'white' //for andorid
+  },
   separator: {
     flex: 1,
     marginLeft: 10,
@@ -47,6 +50,7 @@ export default class FolderListView extends Component {
     return (
       <View style={styles.view}>
         <ListView
+          style={styles.listview}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}

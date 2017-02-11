@@ -1,29 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import {
-  Navigator,
-  AppRegistry,
-  TouchableHighlight,
-  Text,
-  View,
-  StatusBar,
-} from 'react-native';
+import React, { Component, PropTypes } from 'react'
+import { Navigator, AppRegistry, StatusBar, View, } from 'react-native'
 
 import HomeScreen from './js/screen/home'
 
 class AcornoteApp extends Component {
+
   render() {
     return (
       <View style={{flex: 1}}>
-        <StatusBar barStyle="light-content"/>
+
         <Navigator
           style={{flex: 1}}
-          initialRoute={{ name: 'HomeScreen' }}
+          initialRoute={{ component: HomeScreen }}
           renderScene={(route, navigator)=> {
-            if (route.name === 'HomeScreen') {
-              return <HomeScreen navigator={navigator} />
-            }else if (route.name === 'FolderScreen') {
-              return <HomeScreen navigator={navigator} />
-            }
+            return <route.component navigator={navigator} />
           }}
         />
       </View>
