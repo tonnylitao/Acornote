@@ -1,12 +1,15 @@
-package tonnysunm.com.acornote
+package tonnysunm.com.acornote.ui.home
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+import kotlinx.android.synthetic.main.home_activity.*
+
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 }

@@ -70,15 +70,6 @@ extension UIColor {
     }
 }
 
-//TODO:
-struct Constants {
-    
-    struct Color {
-        static let a = ""
-    }
-    
-}
-
 ///
 let config = Config(
     frontKind: .memory,

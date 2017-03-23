@@ -26,7 +26,7 @@ class ItemLargeTableViewController: UIViewController, UITableViewDelegate, UITab
 
         updateBtns()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ItemLargeTableViewController.itemChanged(noti:)), name: NSNotification.Name("itemChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: .itemChanged, name: .itemChanged, object: nil)
     }
     
     func itemChanged(noti: Notification) {
@@ -117,6 +117,14 @@ class ItemLargeTableViewController: UIViewController, UITableViewDelegate, UITab
         
         sender.isSelected = !sender.isSelected
     }
+}
+
+extension Selector {
+    static let itemChanged = #selector(ItemLargeTableViewController.itemChanged(noti:))
+}
+
+extension Notification.Name {
+    static let itemChanged = NSNotification.Name("itemChanged")
 }
 
 extension ItemLargeTableViewController {

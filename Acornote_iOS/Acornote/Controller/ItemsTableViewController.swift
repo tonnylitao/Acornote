@@ -12,6 +12,7 @@ import SugarRecord
 import SafariServices
 import AVFoundation
 
+
 class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource {
     
     var folder: Folder? {
@@ -195,7 +196,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
                 save()
                 
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name("hightlightChanged"), object: text)
+                    NotificationCenter.default.post(name: .hightlightChanged, object: text)
                 }
             })
         }
@@ -318,7 +319,6 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     }
     
     func cancelMove(btn: UIButton) {
-        tableView.visibleCells.forEach { $0.selectionStyle = .none }
         
         tableView.allowsMultipleSelectionDuringEditing = false
         tableView.isEditing = false
@@ -335,6 +335,8 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         btn.removeFromSuperview()
         
         tableView.contentInset = .zero
+        
+        tableView.visibleCells.forEach { $0.selectionStyle = .none }
     }
     
     func moveItems() {
@@ -450,7 +452,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     @IBAction func showLink(_ sender: AnyObject) {
         if let url = folder?.url {
             if folder != nil {
-                NotificationCenter.default.addObserver(self, selector: #selector(ItemsTableViewController.pasteboardChanged(noti:)), name: NSNotification.Name.UIPasteboardChanged, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(ItemsTableViewController.pasteboardChanged(noti:)), name: .UIPasteboardChanged, object: nil)
             }
             
             _ = WebViewController.show(withUrl: url, folder: folder)
@@ -691,6 +693,8 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleTxtView.textColor = item?.folder?.highlightColor
         }
         
+        cell.selectionStyle = tableView.isEditing ? .default : .none
+        
         return cell
     }
     
@@ -857,6 +861,8 @@ extension ItemsTableViewController: NSFetchedResultsControllerDelegate {
 
 extension NSNotification.Name {
     static let tagChanged = NSNotification.Name("tagChanged")
+    
+    static let hightlightChanged = NSNotification.Name("hightlightChanged")
 }
 
 extension ItemsTableViewController {

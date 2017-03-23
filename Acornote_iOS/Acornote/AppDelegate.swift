@@ -138,12 +138,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        //TODO
+        importFromTodayWedget()
+    }
+
+    func importFromTodayWedget() {
         
         let ud = UserDefaults(suiteName: "group.tonnysunm.acornote")!
         if let arr = ud.object(forKey: "Items") as? [String], let map = ud.object(forKey: "Item_Folder_Map") as? [String: String] {
             try? cdStore.operation { (context, save) throws -> Void in
-                //TODO 批量
+                //TODO in batch
                 arr.forEach({ text in
                     guard let fName = map[text] else {
                         return
@@ -181,7 +184,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        //
         try? cdStore.operation { (context, save) throws -> Void in
             let folders = try! context.request(Folder.self).sorted(with: "updatedAt", ascending: false).fetch()
             let items = folders.map({ (f) -> [String: String] in
@@ -191,10 +193,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ud.set(items, forKey: "All_Folder_Names")
             ud.synchronize()
         }
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        
     }
 
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {

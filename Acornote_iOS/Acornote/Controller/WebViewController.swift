@@ -34,16 +34,16 @@ class WebViewController: UIViewController, UIWebViewDelegate {
             lineView.backgroundColor = color
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.hightlightChanged(noti:)), name: NSNotification.Name("hightlightChanged"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.hightlightChanged(noti:)), name: .hightlightChanged, object: nil)
     }
     
     func hightlightChanged(noti: NSNotification) {
-        if let obj = noti.object as? String {
+//        if let obj = noti.object as? String {
 //            highlight?.texts.append(obj)
             
             //TODO: crash
 //            setHighlight()
-        }
+//        }
     }
     
     var imgTask: URLSessionDataTask?

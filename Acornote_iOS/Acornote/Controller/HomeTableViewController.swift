@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import CoreData
-//import SugarRecord
 
 class HomeTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -37,7 +36,7 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         setFilter()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.colorChanged(noti:)), name: NSNotification.Name("colorChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: .colorChanged, name: .colorChanged, object: nil)
         
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
@@ -157,11 +156,12 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 }
 
-extension HomeTableViewController {
-    
-    @IBAction func search(_ sender: Any) {
-        
-    }
+extension Selector {
+    static let colorChanged = #selector(HomeTableViewController.colorChanged(noti:))
+}
+
+extension Notification.Name {
+    static let colorChanged = NSNotification.Name("colorChanged")
 }
 
 extension HomeTableViewController {
@@ -226,6 +226,7 @@ extension HomeTableViewController {
 
 
 extension HomeTableViewController : NSFetchedResultsControllerDelegate {
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }

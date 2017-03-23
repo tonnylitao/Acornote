@@ -92,7 +92,7 @@ class FolderTableViewCell: MGSwipeTableCell {
                     
                     self.folder.remove( {
                         if needUpdate {
-                            NotificationCenter.default.post(name: NSNotification.Name("colorChanged"), object: nil)
+                            NotificationCenter.default.post(name: .colorChanged, object: nil)
                         }
                     })
                 }))

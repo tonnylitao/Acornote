@@ -167,7 +167,7 @@ extension EditFolderViewController {
             
             if needUpdate {
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name("colorChanged"), object: newColor)
+                    NotificationCenter.default.post(name: .colorChanged, object: newColor)
                 }
             }
         }
