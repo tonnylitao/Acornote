@@ -123,7 +123,46 @@ class ItemTableViewCell: MGSwipeTableCell {
         }
         
         rightSwipeSettings.transition = .static
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ItemTableViewCell.showImagePreviewView(sender:)))
+        imgView.addGestureRecognizer(tap)
+        imgView.isUserInteractionEnabled = true
     }
+    
+    func showImagePreviewView(sender: UITapGestureRecognizer) {
+        let nav = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
+        
+        let view = UIView() {
+            $0.frame = nav.view.bounds
+            $0.backgroundColor = .black
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(ItemTableViewCell.dismissImagePreviewView(_:)))
+            $0.addGestureRecognizer(tap)
+            
+            let w = nav.view.bounds.width, h = nav.view.bounds.height
+            let imgView = UIImageView(frame: CGRect(x:0, y:(h-w)*0.5, width: w, height:w))
+            imgView.contentMode = .scaleAspectFit
+            imgView.clipsToBounds = true
+            imgView.image = self.imgView.image
+            $0.addSubview(imgView)
+            
+            
+            let y = (h-w)*0.5+w
+            let lbl = UILabel(frame: CGRect(x:10, y:y, width: w-20, height:h-y))
+            lbl.text = self.titleTxtView.text
+            lbl.textColor = .white
+            lbl.textAlignment = .center
+            lbl.numberOfLines = 0
+            $0.addSubview(lbl)
+        }
+        
+        nav.view.addSubview(view)
+    }
+    
+    func dismissImagePreviewView(_ sender: UITapGestureRecognizer) {
+        sender.view!.removeFromSuperview()
+    }
+
     
     var imgTask: URLSessionDataTask?
     

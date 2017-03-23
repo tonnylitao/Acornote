@@ -657,14 +657,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pLE-Lp-y5u">
+                                                <imageView tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pLE-Lp-y5u" userLabel="Image1">
                                                     <rect key="frame" x="320" y="15" width="40" height="40"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="AUO-Vf-asW"/>
                                                         <constraint firstAttribute="width" constant="40" id="Gkf-Wk-b8Q"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fnN-NV-csV" customClass="TextView" customModule="Acornote" customModuleProvider="target">
+                                                <textView multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fnN-NV-csV" customClass="TextView" customModule="Acornote" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="20" width="63" height="21"/>
                                                     <color key="backgroundColor" red="0.94509803920000002" green="0.94117647059999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -730,14 +731,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dGk-92-8oO">
+                                                <imageView tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dGk-92-8oO" userLabel="Image2">
                                                     <rect key="frame" x="320" y="15" width="40" height="40"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="ZlJ-wW-cM7"/>
                                                         <constraint firstAttribute="width" constant="40" id="yxq-an-gzu"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mts-zp-EY8" customClass="TextView" customModule="Acornote" customModuleProvider="target">
+                                                <textView multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mts-zp-EY8" customClass="TextView" customModule="Acornote" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="20" width="63" height="21"/>
                                                     <color key="backgroundColor" red="0.94509803920000002" green="0.94117647059999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -1362,7 +1364,7 @@
                                                         <constraint firstAttribute="width" constant="44" id="G4k-SN-lP5"/>
                                                         <constraint firstAttribute="height" constant="44" id="hJa-oW-RX5"/>
                                                     </constraints>
-                                                    <state key="normal" image="30DC995F-6492-4D43-BA24-5B8E046DADEE"/>
+                                                    <state key="normal" image="3836DD26-5915-4BE3-AD7A-0056137DB1DF"/>
                                                     <connections>
                                                         <action selector="showLink:" destination="aeP-Th-zRq" eventType="touchUpInside" id="ghi-1V-YPJ"/>
                                                     </connections>
@@ -1512,7 +1514,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="30DC995F-6492-4D43-BA24-5B8E046DADEE" width="27" height="26">
+        <image name="3836DD26-5915-4BE3-AD7A-0056137DB1DF" width="27" height="26">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

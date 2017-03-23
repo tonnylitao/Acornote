@@ -39,6 +39,7 @@
 		E1B210C91DCD55B2003CB723 /* ActivityProvoider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1B210BF1DCD55B2003CB723 /* ActivityProvoider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E1D514671DC2991700A5D075 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D514661DC2991700A5D075 /* UIColor.swift */; };
 		E1D5146C1DC2A48C00A5D075 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5146B1DC2A48C00A5D075 /* ItemTableViewCell.swift */; };
+		E1D6D2D51E8472E6003FFD7C /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D6D2D41E8472E6003FFD7C /* ImageCollectionViewCell.swift */; };
 		E1FDBF1C1E2AD79000AD3D4F /* EditFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF161E2AD79000AD3D4F /* EditFolderViewController.swift */; };
 		E1FDBF1D1E2AD79000AD3D4F /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF171E2AD79000AD3D4F /* EditItemViewController.swift */; };
 		E1FDBF1E1E2AD79000AD3D4F /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDBF181E2AD79000AD3D4F /* HomeTableViewController.swift */; };
@@ -123,6 +124,7 @@
 		E1C901DA1DC1F74300FC7FF4 /* Acornote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Acornote.entitlements; sourceTree = "<group>"; };
 		E1D514661DC2991700A5D075 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1D5146B1DC2A48C00A5D075 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		E1D6D2D41E8472E6003FFD7C /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1FDBF161E2AD79000AD3D4F /* EditFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFolderViewController.swift; sourceTree = "<group>"; };
 		E1FDBF171E2AD79000AD3D4F /* EditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		E1FDBF181E2AD79000AD3D4F /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				E18EEB2D1DC5B34A00A9008E /* FolderTableViewCell.swift */,
 				E1D5146B1DC2A48C00A5D075 /* ItemTableViewCell.swift */,
 				E1AB4E381DD2A2130083BA8B /* TextView.swift */,
+				E1D6D2D41E8472E6003FFD7C /* ImageCollectionViewCell.swift */,
 				E19D0FE11DC4081700D00FF7 /* ItemLargeTableViewCell.swift */,
 			);
 			path = View;
@@ -508,6 +511,7 @@
 			files = (
 				E12168591DC5DBC0004541DB /* String.swift in Sources */,
 				E1AB4E391DD2A2130083BA8B /* TextView.swift in Sources */,
+				E1D6D2D51E8472E6003FFD7C /* ImageCollectionViewCell.swift in Sources */,
 				E11CA1501DC8189200C0B5A6 /* UISegmentControl.swift in Sources */,
 				E1722C541DDD8D680001D592 /* Dao.swift in Sources */,
 				E1FDBF1E1E2AD79000AD3D4F /* HomeTableViewController.swift in Sources */,
