@@ -138,25 +138,28 @@ class ItemTableViewCell: MGSwipeTableCell {
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(ItemTableViewCell.dismissImagePreviewView(_:)))
             $0.addGestureRecognizer(tap)
-            
-            let w = nav.view.bounds.width, h = nav.view.bounds.height
-            let imgView = UIImageView(frame: CGRect(x:0, y:(h-w)*0.5, width: w, height:w))
-            imgView.contentMode = .scaleAspectFit
-            imgView.clipsToBounds = true
-            imgView.image = self.imgView.image
-            $0.addSubview(imgView)
-            
-            
-            let y = (h-w)*0.5+w
-            let lbl = UILabel(frame: CGRect(x:10, y:y, width: w-20, height:h-y))
-            lbl.text = self.titleTxtView.text
-            lbl.textColor = .white
-            lbl.textAlignment = .center
-            lbl.numberOfLines = 0
-            $0.addSubview(lbl)
         }
-        
         nav.view.addSubview(view)
+        
+        let w = nav.view.bounds.width, h = nav.view.bounds.height
+        let imgView = UIImageView() {
+            $0.frame = CGRect(x:0, y:(h-w)*0.5, width: w, height:w)
+            $0.contentMode = .scaleAspectFit
+            $0.clipsToBounds = true
+            $0.image = self.imgView.image
+        }
+        view.addSubview(imgView)
+        
+        
+        let lbl = UILabel() {
+            let y = (h-w)*0.5+w
+            $0.frame = CGRect(x:10, y:y, width: w-20, height:h-y)
+            $0.text = self.titleTxtView.text
+            $0.textColor = .white
+            $0.textAlignment = .center
+            $0.numberOfLines = 0
+        }
+        view.addSubview(lbl)
     }
     
     func dismissImagePreviewView(_ sender: UITapGestureRecognizer) {
