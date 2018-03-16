@@ -143,9 +143,11 @@ class EditItemViewController: UIViewController {
         titleTxtView.becomeFirstResponder()
         
         if let imgUrl = data["imgPath"] {
-            cache.object(imgUrl, completion: {[weak self] (img:UIImage?) in
-                DispatchQueue.main.async {
-                    self?.imgBtn.setImage(img)
+            cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                if case .value(let wrapper) = result {
+                    DispatchQueue.main.async {
+                        self?.imgBtn.setImage(wrapper.image)
+                    }
                 }
             })
         }else {
@@ -159,7 +161,7 @@ class EditItemViewController: UIViewController {
 //MARK: Notification
 
 extension EditItemViewController {
-    func keyboardWillShow(noti: NSNotification) {
+    @objc func keyboardWillShow(noti: NSNotification) {
         let rect = noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
         cardHCons.constant = screenH-64-50-44-10-(rect?.height ?? 271)
     }
@@ -227,17 +229,17 @@ extension EditItemViewController {
         vc?.item = self.item
     }
     
-    func imgPathChanged(noti: Notification) {
+    @objc func imgPathChanged(noti: Notification) {
         guard let url = noti.object as? String else {
             return
         }
             
         self.data["imgPath"] = url
         
-        cache.object(url, completion: {[weak self] (img:UIImage?) in
-            if img != nil {
+        cache?.async.object(ofType: ImageWrapper.self, forKey: url, completion: { [weak self] result in
+            if case .value(let wrapper) = result {
                 DispatchQueue.main.async {
-                    self?.imgBtn.setImage(img)
+                    self?.imgBtn.setImage(wrapper.image)
                 }
             }
         })
@@ -307,17 +309,22 @@ extension EditItemViewController {
                 return
             }
             
-            let obj = JSON(data: d)
-            var result = obj["tuc"][0]["phrase"]["text"].string // ?? obj["tuc"][0]["meanings"][0]["text"].string {
-            if let result1 = obj["tuc"][1]["phrase"]["text"].string {
-                result! += "，\(result1)"
-            }
-            if let result2 = obj["tuc"][2]["phrase"]["text"].string {
-                result! += "，\(result2)"
-            }
-            
-            DispatchQueue.main.async {
-                completion(result)
+            if let obj = try? JSON(data: d) {
+                var result = obj["tuc"][0]["phrase"]["text"].string // ?? obj["tuc"][0]["meanings"][0]["text"].string {
+                if let result1 = obj["tuc"][1]["phrase"]["text"].string {
+                    result! += "，\(result1)"
+                }
+                if let result2 = obj["tuc"][2]["phrase"]["text"].string {
+                    result! += "，\(result2)"
+                }
+                
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }else {
+                DispatchQueue.main.async {
+                    completion("")
+                }
             }
         }
         task?.resume()

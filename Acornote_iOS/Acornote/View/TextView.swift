@@ -23,7 +23,7 @@ class TextView: UITextView {
                 let style:NSMutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
                 style.lineSpacing = 2
                 
-                let att = NSAttributedString(string: old, attributes: [NSFontAttributeName : ItemTableViewCell.titleFont, NSParagraphStyleAttributeName:style, NSForegroundColorAttributeName: color])
+                let att = NSAttributedString(string: old, attributes: [.font : ItemTableViewCell.titleFont, .paragraphStyle:style, .foregroundColor: color])
                 
                 attributedText = att
             }

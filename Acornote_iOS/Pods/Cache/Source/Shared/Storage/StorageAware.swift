@@ -1,80 +1,63 @@
 import Foundation
 
-/**
- Defines basic cache behaviour
- */
-public protocol CacheAware {
-
+/// A protocol used for saving and loading from storage
+public protocol StorageAware {
   /**
-   Saves passed object in the cache.
-
+   Tries to retrieve the object from the storage.
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter object: Object that needs to be cached
-   - Parameter expiry: Expiration date for the cached object
-   - Parameter completion: Completion closure to be called when the task is done
+   - Returns: Cached object or nil if not found
    */
-  func add<T: Cachable>(_ key: String, object: T, expiry: Expiry, completion: (() -> Void)?)
+  func object<T: Codable>(ofType type: T.Type, forKey key: String) throws -> T
 
   /**
-   Tries to retrieve the object from the cache.
-
+   Get cache entry which includes object with metadata.
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure returns object or nil
+   - Returns: Object wrapper with metadata or nil if not found
    */
-  func object<T: Cachable>(_ key: String, completion: @escaping (_ object: T?) -> Void)
+  func entry<T: Codable>(ofType type: T.Type, forKey key: String) throws -> Entry<T>
 
   /**
-   Removes the object from the cache by the given key.
-
-   - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure to be called when the task is done
+   Removes the object by the given key.
+   - Parameter key: Unique key to identify the object.
    */
-  func remove(_ key: String, completion: (() -> Void)?)
+  func removeObject(forKey key: String) throws
 
   /**
-   Removes the object from the cache if it's expired.
-
-   - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure to be called when the task is done
+   Saves passed object.
+   - Parameter key: Unique key to identify the object in the cache.
+   - Parameter object: Object that needs to be cached.
+   - Parameter expiry: Overwrite expiry for this object only.
    */
-  func removeIfExpired(_ key: String, completion: (() -> Void)?)
+  func setObject<T: Codable>(_ object: T, forKey key: String, expiry: Expiry?) throws
 
   /**
-   Clears the cache storage.
-
-   - Parameter completion: Completion closure to be called when the task is done
+   Check if an object exist by the given key.
+   - Parameter key: Unique key to identify the object.
    */
-  func clear(_ completion: (() -> Void)?)
+  func existsObject<T: Codable>(ofType type: T.Type, forKey key: String) throws -> Bool
+
+  /**
+   Removes all objects from the cache storage.
+   */
+  func removeAll() throws
 
   /**
    Clears all expired objects.
-
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  func clearExpired(_ completion: (() -> Void)?)
+  func removeExpiredObjects() throws
 }
 
-/**
- Defines basic storage properties
- */
-public protocol StorageAware: CacheAware {
-  /// Prefix used in the queue or cache names
-  static var prefix: String { get }
+public extension StorageAware {
+  func object<T: Codable>(ofType type: T.Type, forKey key: String) throws -> T {
+    return try entry(ofType: type, forKey: key).object
+  }
 
-  /// Storage root path
-  var path: String { get }
-  /// Maximum size of the cache storage
-  var maxSize: UInt { get set }
-  /// Queue for write operations
-  var writeQueue: DispatchQueue { get }
-  /// Queue for read operations
-  var readQueue: DispatchQueue { get }
-
-  /**
-   Storage initialization.
-
-   - Parameter name: A name of the storage
-   - Parameter maxSize: Maximum size of the cache storage
-   */
-  init(name: String, maxSize: UInt)
+  func existsObject<T: Codable>(ofType type: T.Type, forKey key: String) throws -> Bool {
+    do {
+      let _: T = try object(ofType: type, forKey: key)
+      return true
+    } catch {
+      return false
+    }
+  }
 }

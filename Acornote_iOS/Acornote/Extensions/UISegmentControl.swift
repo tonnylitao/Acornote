@@ -33,8 +33,8 @@ extension UISegmentedControl {
         segment.setDividerImage(img, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
         
         //text color
-        segment.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.lightGray], for: .normal)
-        segment.setTitleTextAttributes([NSForegroundColorAttributeName: color], for: .selected)
+        segment.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: .normal)
+        segment.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: color], for: .selected)
         
         segment.selectedSegmentIndex =  0 //should be at last
         return segment

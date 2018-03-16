@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import Cache
 
 class WebViewController: UIViewController, UIWebViewDelegate {
     
@@ -56,8 +57,8 @@ class WebViewController: UIViewController, UIWebViewDelegate {
                 var request = URLRequest(url: url)
                 request.addValue("image/*", forHTTPHeaderField: "Accept")
                 self?.imgTask = URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
-                    if let d = data {
-                        cache.add(url.absoluteString, object: d, completion: {
+                    if let d = data, let img = UIImage(data: d) {
+                        cache?.async.setObject(ImageWrapper(image: img), forKey: url.absoluteString, completion: { _ in
                             DispatchQueue.main.async {
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue:"ImgPathChanged"), object: url.absoluteString)
                             }

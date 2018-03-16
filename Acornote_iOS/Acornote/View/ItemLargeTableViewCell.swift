@@ -55,11 +55,11 @@ class ItemLargeTableViewCell: UITableViewCell {
             if let des = item.des {
                 let style = NSMutableParagraphStyle()
                 style.lineSpacing = 4
-                let att = NSMutableAttributedString(string: des, attributes: [NSFontAttributeName : ItemLargeTableViewCell.desFont, NSForegroundColorAttributeName:desTxtView.textColor!, NSParagraphStyleAttributeName:style])
+                let att = NSMutableAttributedString(string: des, attributes: [.font : ItemLargeTableViewCell.desFont, .foregroundColor:desTxtView.textColor!, .paragraphStyle:style])
                 
                 let range = (des.lowercased() as NSString).range(of: item.title!.lowercased())
                 if range.location != NSNotFound {
-                    att.addAttributes([NSForegroundColorAttributeName:item.folder?.highlightColor ?? UIColor.appGreen], range: range)
+                    att.addAttributes([.foregroundColor:item.folder?.highlightColor ?? UIColor.appGreen], range: range)
                 }
                 desTxtView.attributedText = att
             }else{
@@ -77,9 +77,11 @@ class ItemLargeTableViewCell: UITableViewCell {
             if let imgUrl = item.imgPath {
                 imgView.isHidden = false
                 
-                cache.object(imgUrl, completion: {[weak self] (img:UIImage?) in
-                    DispatchQueue.main.async {
-                        self?.imgView.image = img
+                cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                    if case .value(let wrapper) = result {
+                        DispatchQueue.main.async {
+                            self?.imgView.image = wrapper.image
+                        }
                     }
                 })
             }else {
@@ -98,7 +100,7 @@ class ItemLargeTableViewCell: UITableViewCell {
                 desTxtView.superview?.isHidden = false
             }
             
-            let titleH = (item.title! as NSString).boundingRect(with: CGSize(width:textW, height:CGFloat.infinity), options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName : ItemLargeTableViewController.titleFont], context: nil).height
+            let titleH = (item.title! as NSString).boundingRect(with: CGSize(width:textW, height:CGFloat.infinity), options: [.usesLineFragmentOrigin], attributes: [.font : ItemLargeTableViewController.titleFont], context: nil).height
             titleHCons.constant = min(ceil(titleH), (screenH-69-44-20-20))
         }
     }

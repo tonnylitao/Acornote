@@ -163,7 +163,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
     }
     
-    func pasteboardChanged(noti: NSNotification) {
+    @objc func pasteboardChanged(noti: NSNotification) {
         if let id = folder?.objectID, let text = UIPasteboard.general.string?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty {
             
             try? cdStore.operation({[weak self] (ctx, save) -> Void in
@@ -202,7 +202,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         }
     }
     
-    func refresh(sender: UIRefreshControl) {
+    @objc func refresh(sender: UIRefreshControl) {
         
         let vc = storyboard!.instantiateViewController(withIdentifier:"EditItemViewController") as! EditItemViewController
         vc.folder = folder
@@ -318,7 +318,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         view.addSubview(btn)
     }
     
-    func cancelMove(btn: UIButton) {
+    @objc func cancelMove(btn: UIButton) {
         
         tableView.allowsMultipleSelectionDuringEditing = false
         tableView.isEditing = false
@@ -339,7 +339,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         tableView.visibleCells.forEach { $0.selectionStyle = .none }
     }
     
-    func moveItems() {
+    @objc func moveItems() {
         guard let arr = tableView.indexPathsForSelectedRows else {
             return
         }
@@ -459,7 +459,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         }
     }
     
-    func chose(seg: UISegmentedControl) {
+    @objc func chose(seg: UISegmentedControl) {
         self.frc = self.setupFrc(taged: seg.selectedSegmentIndex == 1)
         self.tableView.reloadData()
     }
@@ -780,7 +780,7 @@ extension ItemsTableViewController {
         }
     }
     
-    func imgPathChanged(noti: NSNotification) {
+    @objc func imgPathChanged(noti: NSNotification) {
         guard let _ = noti.object as? String else {
             return
         }
@@ -788,7 +788,7 @@ extension ItemsTableViewController {
         tableView.reloadData()
     }
     
-    func setupFrcNotification(noti: NSNotification?) {
+    @objc func setupFrcNotification(noti: NSNotification?) {
         setupSegment()
     }
     

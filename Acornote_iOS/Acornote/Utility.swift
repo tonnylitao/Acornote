@@ -71,10 +71,8 @@ extension UIColor {
 }
 
 ///
-let config = Config(
-    frontKind: .memory,
-    backKind: .disk,
-    expiry: .never)
+let diskConfig = DiskConfig(name: "FloAcornote_Cacheppy")
+let memoryConfig = MemoryConfig()
 
-let cache = HybridCache(name: "Acornote_Cache", config: config)
+let cache = try? Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
 

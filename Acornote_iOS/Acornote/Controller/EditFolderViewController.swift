@@ -44,7 +44,7 @@ class EditFolderViewController: UIViewController {
 
         textField.becomeFirstResponder()
         textField.text = data["title"] as? String
-        textField.attributedPlaceholder = NSAttributedString(string: "Folder Name", attributes: [NSForegroundColorAttributeName: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: "Folder Name", attributes: [.foregroundColor: UIColor.white])
         
         linkBtn.isSelected = data["url"] != nil
         audioBtn.isSelected = data["playable"] as? Bool ?? false
@@ -105,7 +105,7 @@ extension EditFolderViewController: UITextFieldDelegate {
 
 extension EditFolderViewController {
     
-    func choseColor(btn: UIButton) {
+    @objc func choseColor(btn: UIButton) {
         if btn.isSelected {
             return
         }
@@ -258,12 +258,12 @@ extension EditFolderViewController {
 //MARK: Notification
 
 extension EditFolderViewController {
-    func keyboardWillShow(noti: NSNotification) {
+    @objc func keyboardWillShow(noti: NSNotification) {
         let rect = noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
         btnBtmCons.constant = 30+(rect?.height ?? 271)
     }
     
-    func textChanged(noti: NSNotification) {
+    @objc func textChanged(noti: NSNotification) {
         if noti.object as? UITextField == textField {
             data["title"] = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         }

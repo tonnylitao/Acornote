@@ -86,7 +86,7 @@ class FolderTableViewCell: MGSwipeTableCell {
                     
                     self.folder.items?.forEach({ obj in
                         if let item = obj as? Item, let path = item.imgPath {
-                            cache.remove(path)
+                            try? cache?.removeObject(forKey: path)
                         }
                     })
                     

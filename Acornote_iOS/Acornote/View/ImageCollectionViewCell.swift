@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cache
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
@@ -37,10 +38,10 @@ class ImageCollectionViewCell: UICollectionViewCell {
                 titleLbl.text = item?.title
                 desLbl.text = item?.des
                 
-                cache.object(imgUrl, completion: {[weak self] (img:UIImage?) in
-                    if let img = img {
+                cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                    if case .value(let wrapper) = result {
                         DispatchQueue.main.async {
-                            self?.imgView.image = img
+                            self?.imgView.image = wrapper.image
                         }
                     }else if let url = URL(string: imgUrl) {
                         self?.imgTask?.cancel()
@@ -48,7 +49,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
                         request.addValue("image/*", forHTTPHeaderField: "Accept")
                         self?.imgTask = URLSession.shared.dataTask(with: request) {[weak self] (data, response, error) -> Void in
                             if let d = data, let img = UIImage(data: d){
-                                cache.add(imgUrl, object: d, completion: {
+                                cache?.async.setObject(ImageWrapper(image: img), forKey: imgUrl, completion: { _ in
                                     DispatchQueue.main.async {
                                         self?.imgView.image = img
                                     }

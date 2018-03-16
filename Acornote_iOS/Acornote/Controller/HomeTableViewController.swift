@@ -41,7 +41,7 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
-    func colorChanged(noti: Notification) {
+    @objc func colorChanged(noti: Notification) {
         if let obj = noti.object as? Int16 {
             currentColor = Folder.Color(rawValue: Int16(obj))!
         }else {
@@ -89,7 +89,7 @@ class HomeTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func filter(btn: UIButton) {
+    @objc func filter(btn: UIButton) {
         let tag = btn.tag
         
         if !btn.isSelected {
@@ -201,7 +201,7 @@ extension HomeTableViewController {
         let folder = self.frc.object(at: ip)
         let title = folder.title!
         
-        let h = (title as NSString).boundingRect(with: CGSize(width:screenW-55, height:CGFloat.infinity), options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName : FolderTableViewCell.titleFont], context: nil).height
+        let h = (title as NSString).boundingRect(with: CGSize(width:screenW-55, height:CGFloat.infinity), options: [.usesLineFragmentOrigin], attributes: [.font : FolderTableViewCell.titleFont], context: nil).height
         
         return ceil(h) + 90 - 21
     }

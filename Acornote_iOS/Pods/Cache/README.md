@@ -6,23 +6,20 @@
 [![License](https://img.shields.io/cocoapods/l/Cache.svg?style=flat)](http://cocoadocs.org/docsets/Cache)
 [![Platform](https://img.shields.io/cocoapods/p/Cache.svg?style=flat)](http://cocoadocs.org/docsets/Cache)
 [![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/Cache.svg?style=flat)](http://cocoadocs.org/docsets/Cache)
-![Swift](https://img.shields.io/badge/%20in-swift%203.0-orange.svg)
+![Swift](https://img.shields.io/badge/%20in-swift%204.0-orange.svg)
 
 ## Table of Contents
 
 * [Description](#description)
 * [Key features](#key-features)
 * [Usage](#usage)
-  * [Hybrid cache](#hybrid-cache)
-  * [Type safe cache](#type-safe-cache)
-  * [SyncCache](#sync-cache)
-  * [SyncHybridCache](#sync-hybrid-cache)
+  * [Storage](#storage)
+  * [Configuration](#configuration)
+  * [Sync APIs](#sync-apis)
+  * [Async APIS](#async-apis)
   * [Expiry date](#expiry-date)
-  * [Cachable protocol](#cachable-protocol)
-* [Optional bonuses](#optional-bonuses)
-  * [JSON](#json)
-  * [DefaultCacheConverter](#defaultcacheconverter)
 * [What about images?](#what-about-images)
+* [Handling JSON response](#handling-json-response)
 * [Installation](#installation)
 * [Author](#author)
 * [Contributing](#contributing)
@@ -31,263 +28,281 @@
 ## Description
 
 <img src="https://github.com/hyperoslo/Cache/blob/master/Resources/CacheIcon.png" alt="Cache Icon" align="right" />
+
 **Cache** doesn't claim to be unique in this area, but it's not another monster
-library that gives you a god's power.
-So don't ask it to fetch something from network or magically set an image from
-url to your `UIImageView`.
-It does nothing but caching, but it does it well. It offers a good public API
-with out-of-box implementations and great customization possibilities.
+library that gives you a god's power. It does nothing but caching, but it does it well. It offers a good public API
+with out-of-box implementations and great customization possibilities. `Cache` utilizes `Codable` in Swift 4 to perform serialization.
 
 ## Key features
 
-- Generic `Cachable` protocol to be able to cache any type you want.
-- `CacheAware` and `StorageAware` protocols to implement different kinds
-of key-value cache storages. The basic interface includes methods to add, get
-and remove objects by key.
-- `Cache` class to create a type safe cache storage by a given name for a specified
-`Cachable`-compliant type.
-- `HybridCache` class that works with every kind of `Cachable`-compliant types.
-- Flexible `Config` struct which is used in the initialization of `Cache` and
-`HybridCache` classes, based on the concept of having front- and back- caches.
-A request to a front cache should be less time and memory consuming (`NSCache` is used
-by default here). The difference between front and back caching is that back
-caching is used for content that outlives the application life-cycle. See it more
-like a convenient way to store user information that should persist across application
-launches. Disk cache is the most reliable choice here.
-- `StorageFactory` - a place to register and retrieve your cache storage by type.
-- Possibility to set expiry date + automatic cleanup of expired objects.
-- Basic memory and disk cache functionality.
-- Scalability, you are free to add as many cache storages as you want
-(if default implementations of memory and disk caches don't fit your purpose for some reason).
-- `Data` encoding and decoding required by `Cachable` protocol are implemented
-for `UIImage`, `String`, `JSON` and `Data`.
-- iOS and OSX support.
+- [x] Work with Swift 4 `Codable`. Anything conforming to `Codable` will be saved and loaded easily by `Storage`.
+- [X] Disk storage by default. Optionally using `memory storage` to enable hybrid.
+- [X] Many options via `DiskConfig` and `MemoryConfig`.
+- [x] Support `expiry` and clean up of expired objects.
+- [x] Thread safe. Operations can be accessed from any queue.
+- [x] Sync by default. Also support Async APIs.
+- [X] Store images via `ImageWrapper`.
+- [x] Extensive unit test coverage and great documentation.
+- [x] iOS, tvOS and macOS support.
 
 ## Usage
 
-### Hybrid cache
+### Storage
 
-`HybridCache` supports storing all kinds of objects, as long as they conform to
-the `Cachable` protocol. It's two layered cache (with front and back storages),
-as well as `Cache`.
+`Cache` is built based on [Chain-of-responsibility pattern](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern), in which there are many processing objects, each knows how to do 1 task and delegates to the next one. But that's just implementation detail. All you need to know is `Storage`, it saves and loads `Codable` objects.
 
-**Initialization with default configuration**
+`Storage` has disk storage and an optional memory storage. Memory storage should be less time and memory consuming, while disk storage is used for content that outlives the application life-cycle, see it more like a convenient way to store user information that should persist across application launches.
+
+`DiskConfig` is required to set up disk storage. You can optionally pass `MemoryConfig` to use memory as front storage.
+
 
 ```swift
-let cache = HybridCache(name: "Mix")
+let diskConfig = DiskConfig(name: "Floppy")
+let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+
+let storage = try? Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
 ```
 
-**Initialization with custom configuration**
+#### Codable types
+
+`Storage` supports any objects that conform to [Codable](https://developer.apple.com/documentation/swift/codable) protocol. You can [make your own things conform to Codable](https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types) so that can be saved and loaded from `Storage`.
+
+The supported types are
+
+- Primitives like `Int`, `Float`, `String`, `Bool`, ...
+- Array of primitives like `[Int]`, `[Float]`, `[Double]`, ...
+- Set of primitives like `Set<String>`, `Set<Int>`, ...
+- Simply dictionary like `[String: Int]`, `[String: String]`, ...
+- `Date`
+- `URL`
+- `Data`
+
+#### Error handling
+
+Error handling is done via `try catch`. `Storage` throws errors in terms of `StorageError`.
 
 ```swift
-let config = Config(
-  // Your front cache type
-  frontKind: .memory,
-  // Your back cache type
-  backKind: .disk,
+public enum StorageError: Error {
+  /// Object can not be found
+  case notFound
+  /// Object is found, but casting to requested type failed
+  case typeNotMatch
+  /// The file attributes are malformed
+  case malformedFileAttributes
+  /// Can't perform Decode
+  case decodingFailed
+  /// Can't perform Encode
+  case encodingFailed
+  /// The storage has been deallocated
+  case deallocated
+}
+```
+
+There can be errors because of disk problem or type mismatch when loading from storage, so if want to handle errors, you need to do `try catch`
+
+```swift
+do {
+  let storage = try Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
+} catch {
+  print(error)
+}
+```
+
+### Configuration
+
+Here is how you can play with many configuration options
+
+```swift
+let diskConfig = DiskConfig(
+  // The name of disk storage, this will be used as folder name within directory
+  name: "Floppy",
   // Expiry date that will be applied by default for every added object
-  // if it's not overridden in the add(key: object: expiry: completion:) method
-  expiry: .date(Date().addingTimeInterval(100000)),
-  // Maximum size of your cache storage
-  maxSize: 10000)
-
-let cache = HybridCache(name: "Custom", config: config)
+  // if it's not overridden in the `setObject(forKey:expiry:)` method
+  expiry: .date(Date().addingTimeInterval(2*3600)),
+  // Maximum size of the disk cache storage (in bytes)
+  maxSize: 10000,
+  // Where to store the disk cache. If nil, it is placed in `cachesDirectory` directory.
+  directory: try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, 
+    appropriateFor: nil, create: true).appendingPathComponent("MyPreferences"),
+  // Data protection is used to store files in an encrypted format on disk and to decrypt them on demand
+  protectionType: .complete
+)
 ```
 
-**Basic operations**
-
 ```swift
-let cache = HybridCache(name: "Mix")
-
-// String
-cache.add("string", object: "This is a string")
-
-cache.object("string") { (string: String?) in
-  print(string) // Prints "This is a string"
-}
-
-// JSON
-cache.add("jsonDictionary", object: JSON.dictionary(["key": "value"]))
-
-cache.object("jsonDictionary") { (json: JSON?) in
-  print(json?.object)
-}
-
-// UIImage
-cache.add("image", object: UIImage(named: "image.png"))
-
-cache.object("image") { (image: UIImage?) in
-  // Use your image
-}
-
-// Data
-cache.add("data", object: data)
-
-cache.object("data") { (data: Data?) in
-  // Use your Data object
-}
-
-// Remove an object from the cache
-cache.remove("data")
-
-// Clean the cache
-
-cache.clear()
+let memoryConfig = MemoryConfig(
+  // Expiry date that will be applied by default for every added object
+  // if it's not overridden in the `setObject(forKey:expiry:)` method
+  expiry: .date(Date().addingTimeInterval(2*60)),
+  /// The maximum number of objects in memory the cache should hold
+  countLimit: 50,
+  /// The maximum total cost that the cache can hold before it starts evicting objects
+  totalCostLimit: 0
+)
 ```
 
-### Type safe cache
+On iOS, tvOS we can also specify `protectionType` on `DiskConfig` to add a level of security to files stored on disk by your app in the app’s container. For more information, see [FileProtectionType](https://developer.apple.com/documentation/foundation/fileprotectiontype)
 
-Initialization with default or custom configuration, basic operations and
-working with expiry dates are done exactly in the same way as in `HybridCache`.
+### Sync APIs
 
-**Basic operations**
+`Storage` is sync by default and is `thead safe`, you can access it from any queues. All Sync functions are constrained by `StorageAware` protocol.
 
 ```swift
-// Create an image cache, so it's possible to add only UIImage objects
-let cache = Cache<UIImage>(name: "ImageCache")
+// Save to storage
+try? storage.setObject(10, forKey: "score")
+try? storage.setObject("Oslo", forKey: "my favorite city", expiry: .never)
+try? storage.setObject(["alert", "sounds", "badge"], forKey: "notifications")
+try? storage.setObject(data, forKey: "a bunch of bytes")
+try? storage.setObject(authorizeURL, forKey: "authorization URL")
 
-// Add objects to the cache
-cache.add("image", object: UIImage(named: "image.png"))
+// Load from storage
+let score = try? storage.object(ofType: Int.self, forKey: "score")
+let favoriteCharacter = try? storage.object(ofType: String.self, forKey: "my favorite city")
 
-// Fetch objects from the cache
-cache.object("image") { (image: UIImage?) in
-  // Use your image
+// Check if an object exists
+let hasFavoriteCharacter = try? storage.existsObject(ofType: String.self, forKey: "my favorite city")
+
+// Remove an object in storage
+try? storage.removeObject(forKey: "my favorite city")
+
+// Remove all objects
+try? storage.removeAll()
+
+// Remove expired objects
+try? storage.removeExpiredObjects()
+```
+
+#### Entry
+
+There is time you want to get object together with its expiry information and meta data. You can use `Entry`
+
+```swift
+let entry = try? storage.entry(ofType: String.self, forKey: "my favorite city")
+print(entry?.object)
+print(entry?.expiry)
+print(entry?.meta)
+```
+
+`meta` may contain file information if the object was fetched from disk storage.
+
+#### Custom Codable
+
+`Codable` works for simple dictionary like `[String: Int]`, `[String: String]`, ... It does not work for `[String: Any]` as `Any` is not `Codable` conformance, it will raise `fatal error` at runtime. So when you get json from backend responses, you need to convert that to your custom `Codable` objects and save to `Storage` instead.
+
+```swift
+struct User: Codable {
+  let firstName: String
+  let lastName: String
 }
 
-// Remove an object from the cache
-cache.remove("image")
-
-// Clean the cache
-cache.clear()
+let user = User(fistName: "John", lastName: "Snow")
+try? storage.setObject(user, forKey: "character")
 ```
 
-### SyncHybridCache
+### Async APIs
 
-`Cache` was born to be async, but if for some reason you need to perform cache
-operations synchronously, there is a helper for that.
+In `async` fashion, you deal with `Result` instead of `try catch` because the result is delivered at a later time, in order to not block the current calling queue. In the completion block, you either have `value` or `error`. 
 
-```swift
-let cache = HybridCache(name: "Mix")
-let syncCache = SyncHybridCache(cache)
-
-// Add UIImage to cache synchronously
-syncCache.add("image", object: UIImage(named: "image.png"))
-
-// Retrieve image from cache synchronously
-let image: UIImage? = syncCache.object("image")
-
-// Remove an object from the cache
-syncCache.remove("image")
-
-// Clean the cache
-syncCache.clear()
-```
-
-### SyncCache
-
-`SyncCache` works exactly in the same way as `SyncHybridCache`, the only
-difference is that it's a wrapper around a type safe cache.
+You access Async APIs via `storage.async`, it is also thread safe, and you can use Sync and Async APIs in any order you want. All Async functions are constrained by `AsyncStorageAware` protocol.
 
 ```swift
-let cache = Cache<UIImage>(name: "ImageCache")
-let syncCache = SyncCache(cache)
+storage.async.setObject("Oslo", forKey: "my favorite city") { result in
+  switch result {
+    case .value:
+      print("saved successfully")
+    case .error:
+      print(error)
+    }
+  }
+}
 
-syncCache.add("image", object: UIImage(named: "image.png"))
-let image = syncCache.object("image")
-syncCache.remove("image")
-syncCache.clear()
+storage.async.object(ofType: String.self, forKey: "my favorite city") { result in
+  switch result {
+    case .value(let city):
+      print("my favorite city is \(city)")
+    case .error:
+      print(error)
+    }
+  }
+}
+
+storage.async.existsObject(ofType: String.self, forKey: "my favorite city") { result in
+  if case .value(let exists) = result, exists {
+    print("I have a favorite city")
+  }
+}
+
+storage.async.removeAll() { result in
+  print("removal completes")
+}
+
+storage.async.removeExpiredObjects() { result in
+  print("removal completes")
+}
 ```
 
 ### Expiry date
 
-```swift
-// Default cache expiry date will be applied to the item
-cache.add("string", object: "This is a string")
-
-// A provided expiry date will be applied to the item
-cache.add("string", object: "This is a string",
-  expiry: .date(Date().addingTimeInterval(100000)))
-```
-
-### Cachable protocol
-
-Encode and decode methods should be implemented if a type conforms to `Cachable` protocol.
+By default, all saved objects have the same expiry as the expiry you specify in `DiskConfig` or `MemoryConfig`. You can overwrite this for a specific object by specifying `expiry` for `setObject`
 
 ```swift
-class User: Cachable {
+// Default cexpiry date from configuration will be applied to the item
+try? storage.setObject("This is a string", forKey: "string")
 
-  typealias CacheType = User
+// A given expiry date will be applied to the item
+try? storage.setObject(
+  "This is a string",
+  forKey: "string"
+  expiry: .date(Date().addingTimeInterval(2 * 3600))
+)
 
-  static func decode(_ data: Data) -> CacheType? {
-    var object: User?
-
-    // Decode your object from data
-
-    return object
-  }
-
-  func encode() -> Data? {
-    var data: Data?
-
-    // Encode your object to data
-
-    return data
-  }
-}
-```
-
-## Optional bonuses
-
-### JSON
-
-JSON is a helper enum that could be `Array([Any])` or `Dictionary([String : Any])`.
-Then you could cache `JSON` objects using the same API methods:
-
-```swift
-cache.add("jsonDictionary", object: JSON.dictionary(["key": "value"]))
-
-cache.object("jsonDictionary") { (json: JSON?) in
-  print(json?.object)
-}
-
-cache.add("jsonArray", object: JSON.array([
-  ["key1": "value1"],
-  ["key2": "value2"]
-]))
-
-cache.object("jsonArray") { (json: JSON?) in
-  print(json?.object)
-}
-```
-
-### DefaultCacheConverter
-
-You could use this `Data` encoding and decoding implementation for any kind
-of objects, but do it on ***your own risk***. With this approach decoding
-***will not work*** if the `Data` length doesn't match the type size. This can commonly
-happen if you try to read the data after updates in the type's structure, so
-there is a different-sized version of the same type. Also note that `size`
-and `size(ofValue:)` may return different values on different devices.
-
-```swift
-do {
-  object = try DefaultCacheConverter<User>().decode(data)
-} catch {}
-
-do {
-  data = try DefaultCacheConverter<User>().encode(self)
-} catch {}
+// Clear expired objects
+storage.removeExpiredObjects()
 ```
 
 ## What about images?
 
-As being said before, `Cache` works with any kind of `Cachable` types, with no
-preferences and extra care about specific ones. But don't be desperate, we have
-something nice for you. It's called [Imaginary](https://github.com/hyperoslo/Imaginary)
-and uses `Cache` under the hood to make you life easier when it comes to working
-with remote images.
+As you may know, `NSImage` and `UIImage` don't conform to `Codable` by default. To make it play well with `Codable`, we introduce `ImageWrapper`, so you can save and load images like
+
+```swift
+let wrapper = ImageWrapper(image: starIconImage)
+try? storage.setObject(wrapper, forKey: "star")
+
+let icon = try? storage.object(ofType: ImageWrapper.self, forKey: "star").image
+```
+
+If you want to load image into `UIImageView` or `NSImageView`, then we also have a nice gift for you. It's called [Imaginary](https://github.com/hyperoslo/Imaginary) and uses `Cache` under the hood to make you life easier when it comes to working with remote images.
+
+## Handling JSON response
+
+Most of the time, our use case is to fetch some json from backend, display it while saving the json to storage for future uses. If you're using libraries like [Alamofire](https://github.com/Alamofire/Alamofire) or [Malibu](https://github.com/hyperoslo/Malibu), you mostly get json in the form of dictionary, string, or data.
+
+`Storage` can persist `String` or `Data`. You can even save json to `Storage` using `JSONArrayWrapper` and `JSONDictionaryWrapper`, but we prefer persisting the strong typed objects, since those are the objects that you will use to display in UI. Furthermore, if the json data can't be converted to strongly typed objects, what's the point of saving it ? 😉
+
+You can use these extensions on `JSONDecoder` to decode json dictionary, string or data to objects.
+
+```swift
+let user = JSONDecoder.decode(jsonString, to: User.self)
+let cities = JSONDecoder.decode(jsonDictionary, to: [City].self)
+let dragons = JSONDecoder.decode(jsonData, to: [Dragon].self)
+```
+
+This is how you perform object converting and saving with `Alamofire`
+
+```swift
+Alamofire.request("https://gameofthrones.org/mostFavoriteCharacter").responseString { response in
+  do {
+    let user = try JSONDecoder.decode(response.result.value, to: User.self)
+    try storage.setObject(user, forKey: "most favorite character")
+  } catch {
+    print(error)
+  }
+}
+```
 
 ## Installation
+
+### Cocoapods
 
 **Cache** is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -296,6 +311,8 @@ it, simply add the following line to your Podfile:
 pod 'Cache'
 ```
 
+### Carthage
+
 **Cache** is also available through [Carthage](https://github.com/Carthage/Carthage).
 To install just write into your Cartfile:
 
@@ -303,9 +320,12 @@ To install just write into your Cartfile:
 github "hyperoslo/Cache"
 ```
 
+You also need to add `SwiftHash.framework` in your [copy-frameworks](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) script.
+
 ## Author
 
-[Hyper](http://hyper.no) made this with ❤️. If you’re using this library we probably want to [hire you](https://github.com/hyperoslo/iOS-playbook/blob/master/HYPER_RECIPES.md)! Send us an email at ios@hyper.no.
+- [Hyper](http://hyper.no) made this with ❤️
+- Inline MD5 implementation from [SwiftHash](https://github.com/onmyway133/SwiftHash) 
 
 ## Contributing
 

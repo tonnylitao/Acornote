@@ -29,7 +29,7 @@ class ItemLargeTableViewController: UIViewController, UITableViewDelegate, UITab
         NotificationCenter.default.addObserver(self, selector: .itemChanged, name: .itemChanged, object: nil)
     }
     
-    func itemChanged(noti: Notification) {
+    @objc func itemChanged(noti: Notification) {
         tableView.reloadData()
     }
     

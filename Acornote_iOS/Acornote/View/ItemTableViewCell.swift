@@ -112,7 +112,7 @@ class ItemTableViewCell: MGSwipeTableCell {
                     item.remove(nil)
                     
                     if let path = item.imgPath {
-                        cache.remove(path)
+                        try? cache?.removeObject(forKey: path)
                     }
                 }
             }))
@@ -129,7 +129,7 @@ class ItemTableViewCell: MGSwipeTableCell {
         imgView.isUserInteractionEnabled = true
     }
     
-    func showImagePreviewView(sender: UITapGestureRecognizer) {
+    @objc func showImagePreviewView(sender: UITapGestureRecognizer) {
         let nav = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
         
         let view = UIView() {
@@ -162,7 +162,7 @@ class ItemTableViewCell: MGSwipeTableCell {
         view.addSubview(lbl)
     }
     
-    func dismissImagePreviewView(_ sender: UITapGestureRecognizer) {
+    @objc func dismissImagePreviewView(_ sender: UITapGestureRecognizer) {
         sender.view!.removeFromSuperview()
     }
 
@@ -186,11 +186,11 @@ class ItemTableViewCell: MGSwipeTableCell {
                 imgView.image = nil
                 
                 let title = self.item.title
-                cache.object(imgUrl, completion: {[weak self] (img:UIImage?) in
-                    if let img = img {
+                cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                    if case .value(let wrapper) = result {
                         DispatchQueue.main.async {
                             if self?.item?.title == title {
-                                self?.imgView.image = img
+                                self?.imgView.image = wrapper.image
                             }
                         }
                     }else if let url = URL(string: imgUrl) {
@@ -199,7 +199,7 @@ class ItemTableViewCell: MGSwipeTableCell {
                         request.addValue("image/*", forHTTPHeaderField: "Accept")
                         self?.imgTask = URLSession.shared.dataTask(with: request) {[weak self] (data, response, error) -> Void in
                             if let d = data, let img = UIImage(data: d){
-                                cache.add(imgUrl, object: d, completion: {
+                                cache?.async.setObject(ImageWrapper(image: img), forKey: imgUrl, completion: { _ in
                                     if self?.item?.title == title {
                                         DispatchQueue.main.async {
                                             self?.imgView.image = img
@@ -274,7 +274,7 @@ extension Item {
     var titleAttibutedString: NSAttributedString {
         let style:NSMutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.lineSpacing = 2
-        let att = NSAttributedString(string: title!, attributes: [NSFontAttributeName : ItemTableViewCell.titleFont, NSParagraphStyleAttributeName:style, NSForegroundColorAttributeName: ItemTableViewCell.titleColor])
+        let att = NSAttributedString(string: title!, attributes: [.font : ItemTableViewCell.titleFont, .paragraphStyle:style, .foregroundColor: ItemTableViewCell.titleColor])
         
         return att
     }
@@ -286,11 +286,11 @@ extension Item {
         
         let style:NSMutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.lineSpacing = 2
-        let att = NSMutableAttributedString(string: d, attributes: [NSFontAttributeName : ItemTableViewCell.desFont, NSForegroundColorAttributeName:UIColor.gray, NSParagraphStyleAttributeName:style])
+        let att = NSMutableAttributedString(string: d, attributes: [.font : ItemTableViewCell.desFont, .foregroundColor:UIColor.gray, .paragraphStyle:style])
         
         let ranges = (d.lowercased() as NSString).allRange(of: title!.lowercased())
         ranges.forEach {
-            att.addAttributes([NSForegroundColorAttributeName:folder?.highlightColor ?? UIColor.appGreen], range: $0)
+            att.addAttributes([.foregroundColor:folder?.highlightColor ?? UIColor.appGreen], range: $0)
         }
         
         return att
@@ -304,7 +304,7 @@ extension Item {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 2
-        let att = NSAttributedString(string: d, attributes: [NSFontAttributeName : ItemTableViewCell.desFont, NSParagraphStyleAttributeName:style])
+        let att = NSAttributedString(string: d, attributes: [.font : ItemTableViewCell.desFont, .paragraphStyle:style])
 
         return att
     }
