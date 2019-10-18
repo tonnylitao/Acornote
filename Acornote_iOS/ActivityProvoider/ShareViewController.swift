@@ -69,9 +69,8 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     func imageFromExtensionItem(extensionItem: NSExtensionItem, callback: (_ image: UIImage?)->Void) {
-        for attachment in extensionItem.attachments as! [NSItemProvider] {
-            debugPrint(attachment.registeredTypeIdentifiers)
-            
-        }
+//        for attachment in extensionItem.attachments {
+//            debugPrint(attachment.registeredTypeIdentifiers)
+//        }
     }
 }

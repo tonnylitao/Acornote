@@ -253,30 +253,30 @@
         
         CGFloat duration = _fromLeft ? _cell.leftExpansion.animationDuration : _cell.rightExpansion.animationDuration;
         [UIView animateWithDuration: duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            _expandedButton.hidden = NO;
+            self->_expandedButton.hidden = NO;
 
-            if (_expansionLayout == MGSwipeExpansionLayoutCenter) {
-                _expandedButtonBoundsCopy = _expandedButton.bounds;
-                _expandedButton.layer.mask = nil;
-                _expandedButton.layer.transform = CATransform3DIdentity;
-                _expandedButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-                [_expandedButton.superview bringSubviewToFront:_expandedButton];
-                _expandedButton.frame = _container.bounds;
-                _expansionBackground.frame = [self expansionBackgroundRect:_expandedButton];
+            if (self->_expansionLayout == MGSwipeExpansionLayoutCenter) {
+                self->_expandedButtonBoundsCopy = self->_expandedButton.bounds;
+                self->_expandedButton.layer.mask = nil;
+                self->_expandedButton.layer.transform = CATransform3DIdentity;
+                self->_expandedButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+                [self->_expandedButton.superview bringSubviewToFront:self->_expandedButton];
+                self->_expandedButton.frame = self->_container.bounds;
+                self->_expansionBackground.frame = [self expansionBackgroundRect:self->_expandedButton];
             }
-            else if (_expansionLayout == MGSwipeExpansionLayoutNone) {
-                [_expandedButton.superview bringSubviewToFront:_expandedButton];
-                _expansionBackground.frame = _container.bounds;
+            else if (self->_expansionLayout == MGSwipeExpansionLayoutNone) {
+                [self->_expandedButton.superview bringSubviewToFront:self->_expandedButton];
+                self->_expansionBackground.frame = self->_container.bounds;
             }
-            else if (_fromLeft) {
-                _expandedButton.frame = CGRectMake(_container.bounds.size.width - _expandedButton.bounds.size.width, 0, _expandedButton.bounds.size.width, _expandedButton.bounds.size.height);
-                _expandedButton.autoresizingMask|= UIViewAutoresizingFlexibleLeftMargin;
-                _expansionBackground.frame = [self expansionBackgroundRect:_expandedButton];
+            else if (self->_fromLeft) {
+                self->_expandedButton.frame = CGRectMake(self->_container.bounds.size.width - self->_expandedButton.bounds.size.width, 0, self->_expandedButton.bounds.size.width, self->_expandedButton.bounds.size.height);
+                self->_expandedButton.autoresizingMask|= UIViewAutoresizingFlexibleLeftMargin;
+                self->_expansionBackground.frame = [self expansionBackgroundRect:self->_expandedButton];
             }
             else {
-                _expandedButton.frame = CGRectMake(0, 0, _expandedButton.bounds.size.width, _expandedButton.bounds.size.height);
-                _expandedButton.autoresizingMask|= UIViewAutoresizingFlexibleRightMargin;
-                _expansionBackground.frame = [self expansionBackgroundRect:_expandedButton];
+                self->_expandedButton.frame = CGRectMake(0, 0, self->_expandedButton.bounds.size.width, self->_expandedButton.bounds.size.height);
+                self->_expandedButton.autoresizingMask|= UIViewAutoresizingFlexibleRightMargin;
+                self->_expansionBackground.frame = [self expansionBackgroundRect:self->_expandedButton];
             }
 
         } completion:^(BOOL finished) {
@@ -303,14 +303,14 @@
         }
         CGFloat duration = _fromLeft ? _cell.leftExpansion.animationDuration : _cell.rightExpansion.animationDuration;
         [UIView animateWithDuration: animated ? duration : 0.0 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            _container.frame = self.bounds;
-            if (_expansionLayout == MGSwipeExpansionLayoutCenter) {
-                _expandedButtonAnimated.frame = _expandedButtonBoundsCopy;
+            self->_container.frame = self.bounds;
+            if (self->_expansionLayout == MGSwipeExpansionLayoutCenter) {
+                self->_expandedButtonAnimated.frame = self->_expandedButtonBoundsCopy;
             }
             [self resetButtons];
-            _expansionBackgroundAnimated.frame = [self expansionBackgroundRect:_expandedButtonAnimated];
+            self->_expansionBackgroundAnimated.frame = [self expansionBackgroundRect:self->_expandedButtonAnimated];
         } completion:^(BOOL finished) {
-            [_expansionBackgroundAnimated removeFromSuperview];
+            [self->_expansionBackgroundAnimated removeFromSuperview];
         }];
     }
     else if (_expansionBackground) {
@@ -622,6 +622,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
     bool _overlayEnabled;
     UITableViewCellSelectionStyle _previusSelectionStyle;
     NSMutableSet * _previusHiddenViews;
+    UITableViewCellAccessoryType _previusAccessoryType;
     BOOL _triggerStateChanges;
     
     MGSwipeAnimationData * _animationData;
@@ -659,7 +660,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
 
 -(void) dealloc
 {
-    [self hideSwipeOverlayIfNeeded];
+    [self hideSwipeOverlayIfNeededIncludingReselect:false];
 }
 
 -(void) initViews: (BOOL) cleanButtons
@@ -904,7 +905,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
     [self addGestureRecognizer:_tapRecognizer];
 }
 
--(void) hideSwipeOverlayIfNeeded
+-(void) hideSwipeOverlayIfNeededIncludingReselect: (BOOL) reselectCellIfNeeded
 {
     if (!_overlayEnabled) {
         return;
@@ -921,12 +922,14 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
         [_tableInputOverlay removeFromSuperview];
         _tableInputOverlay = nil;
     }
-    
-    self.selectionStyle = _previusSelectionStyle;
-    NSArray * selectedRows = self.parentTable.indexPathsForSelectedRows;
-    if ([selectedRows containsObject:[self.parentTable indexPathForCell:self]]) {
-        self.selected = NO; //Hack: in some iOS versions setting the selected property to YES own isn't enough to force the cell to redraw the chosen selectionStyle
-        self.selected = YES;
+
+    if (reselectCellIfNeeded) {
+        self.selectionStyle = _previusSelectionStyle;
+        NSArray * selectedRows = self.parentTable.indexPathsForSelectedRows;
+        if ([selectedRows containsObject:[self.parentTable indexPathForCell:self]]) {
+            self.selected = NO; //Hack: in some iOS versions setting the selected property to YES own isn't enough to force the cell to redraw the chosen selectionStyle
+            self.selected = YES;
+        }
     }
     [self setAccesoryViewsHidden:NO];
     
@@ -973,7 +976,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
 -(void) willMoveToSuperview:(UIView *)newSuperview;
 {
     if (newSuperview == nil) { //remove the table overlay when a cell is removed from the table
-        [self hideSwipeOverlayIfNeeded];
+        [self hideSwipeOverlayIfNeededIncludingReselect:false];
     }
 }
 
@@ -1026,8 +1029,8 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
 #pragma mark Some utility methods
 
 - (UIImage *)imageFromView:(UIView *)view cropSize:(CGSize)cropSize{
-    UIGraphicsBeginImageContextWithOptions(cropSize, NO, [[UIScreen mainScreen] scale]);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIGraphicsBeginImageContextWithOptions(cropSize, NO, 0);
+    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
     UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
@@ -1035,6 +1038,19 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
 
 -(void) setAccesoryViewsHidden: (BOOL) hidden
 {
+    if (@available(iOS 12, *)) {
+        // Hide the accessory to prevent blank box being displayed in iOS13 / iOS12
+        // (blank area would be overlayed in accessory area when using cell in storyboard view)
+        // See: https://github.com/MortimerGoro/MGSwipeTableCell/issues/337
+        if (hidden) {
+            _previusAccessoryType = self.accessoryType;
+            self.accessoryType = UITableViewCellAccessoryNone;
+        } else if (self.accessoryType == UITableViewCellAccessoryNone) {
+            self.accessoryType = _previusAccessoryType;
+            _previusAccessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+    
     if (self.accessoryView) {
         self.accessoryView.hidden = hidden;
     }
@@ -1126,7 +1142,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
             [_leftView endExpansionAnimated:NO];
         if (_rightView)
             [_rightView endExpansionAnimated:NO];
-        [self hideSwipeOverlayIfNeeded];
+        [self hideSwipeOverlayIfNeededIncludingReselect:true];
         _targetOffset = 0;
         [self updateState:MGSwipeStateNone];
         return;

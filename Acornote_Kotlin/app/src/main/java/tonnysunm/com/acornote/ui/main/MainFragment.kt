@@ -20,12 +20,11 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return MainFragmentBinding.inflate(inflater, container, false)
-            .apply {
-                this.lifecycleOwner = this@MainFragment
-                this.viewModel = _viewModel
-            }.root
 
+        return MainFragmentBinding.inflate(inflater, container, false).apply {
+            this.lifecycleOwner = this@MainFragment
+            this.viewModel = _viewModel
+        }.root
     }
 
 }

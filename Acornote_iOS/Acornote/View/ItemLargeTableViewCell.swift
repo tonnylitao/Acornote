@@ -77,7 +77,7 @@ class ItemLargeTableViewCell: UITableViewCell {
             if let imgUrl = item.imgPath {
                 imgView.isHidden = false
                 
-                cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                cache?.async.object(forKey: imgUrl, completion: { [weak self] result in
                     if case .value(let wrapper) = result {
                         DispatchQueue.main.async {
                             self?.imgView.image = wrapper.image

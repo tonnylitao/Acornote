@@ -52,7 +52,7 @@ class EditFolderViewController: UIViewController {
         tagBtn.isSelected = data["tagable"] as? Bool ?? false
         
 
-        NotificationCenter.default.addObserver(self, selector: #selector(EditFolderViewController.textChanged(noti:)), name: .UITextFieldTextDidChange, object: textField)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditFolderViewController.textChanged(noti:)), name: UITextField.textDidChangeNotification, object: textField)
         
         //
         let w = 40
@@ -76,7 +76,7 @@ class EditFolderViewController: UIViewController {
         }
         
         //
-        NotificationCenter.default.addObserver(self, selector: #selector(EditFolderViewController.keyboardWillShow(noti:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditFolderViewController.keyboardWillShow(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         view.backgroundColor = Folder.ColorConfig.color(withId: currentColor)?.uiColor ?? .appGreen
     }
@@ -259,7 +259,7 @@ extension EditFolderViewController {
 
 extension EditFolderViewController {
     @objc func keyboardWillShow(noti: NSNotification) {
-        let rect = noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+        let rect = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
         btnBtmCons.constant = 30+(rect?.height ?? 271)
     }
     

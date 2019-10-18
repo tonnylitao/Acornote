@@ -75,7 +75,7 @@ extension Folder {
             })
         }
         
-        let arr = maps.flatMap { $0 }
+        let arr = maps.compactMap { $0 }
         
         return arr.sorted { $0.name < $1.name }
     }

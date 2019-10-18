@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.main
+package tonnysunm.com.acornote.ui.detail
 
 import androidx.lifecycle.ViewModel
 

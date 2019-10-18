@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 //        #if DEBUG
 //            importDB()
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let folderArr = folders.reduce([], { (results, folder) -> [[String: Any]] in
                 var re = results
-                re.append(folder.dic)
+                re.append(folder.dic as [String : Any])
                 
                 return re
             })
@@ -221,7 +221,7 @@ extension String {
             return []
         }
         
-        var arr = self.components(separatedBy: .whitespaces)
+        let arr = self.components(separatedBy: .whitespaces)
         
         var result = [String]()
         for (index, _) in arr.enumerated() {

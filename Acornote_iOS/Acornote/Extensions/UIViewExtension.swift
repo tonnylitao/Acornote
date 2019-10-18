@@ -34,16 +34,16 @@ extension UIView {
         showIndicator(withCenter: CGPoint(x:self.frame.size.width*0.5, y:self.frame.size.height*0.5), style: .white, block: block)
     }
     
-    func showIndicator(style: UIActivityIndicatorViewStyle) {
+    func showIndicator(style: UIActivityIndicatorView.Style) {
         showIndicator(withCenter: CGPoint(x:self.frame.size.width*0.5, y:self.frame.size.height*0.5), style: style, block: nil)
     }
     
-    func showIndicator(withCenter center: CGPoint, style: UIActivityIndicatorViewStyle, block: ((UIView) -> Void)?) {
+    func showIndicator(withCenter center: CGPoint, style: UIActivityIndicatorView.Style, block: ((UIView) -> Void)?) {
         var view = self.viewWithTag(40404) as? UIActivityIndicatorView
         
         if view == nil {
             view = UIActivityIndicatorView(frame: CGRect(x:center.x-10, y:center.y-10, width:20, height:20))
-            view?.activityIndicatorViewStyle = style
+            view?.style = style
             view?.tag = 40404
             
             view?.translatesAutoresizingMaskIntoConstraints = false

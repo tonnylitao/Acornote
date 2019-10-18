@@ -60,7 +60,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // Dispose of any resources that can be recreated.
     }
     
-    private func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
+    internal func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
@@ -77,7 +77,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let text = folderLbl.text!
         
-        guard let index = arr.index(where: { (item) -> Bool in
+        guard let index = arr.firstIndex(where: { (item) -> Bool in
             return item.keys.first == text
         }) else {
             return
@@ -118,7 +118,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         //
         let ud = UserDefaults(suiteName: "group.tonnysunm.acornote")
         if let arr = ud?.object(forKey: "Items") as? [String]
-            , let index = arr.index(of: text) {
+            , let index = arr.firstIndex(of: text) {
             
             var temp = arr
             temp.remove(at: index)

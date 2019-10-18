@@ -246,6 +246,8 @@ extension HomeTableViewController : NSFetchedResultsControllerDelegate {
             tableView.reloadRows(at: [ip!], with: .fade)
         case .move:
             tableView.moveRow(at: ip!, to: newIp!)
+        default:
+            break
         }
     }
     

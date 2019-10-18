@@ -50,7 +50,7 @@ class EditItemViewController: UIViewController {
 
         setup()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EditItemViewController.keyboardWillShow(noti:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditItemViewController.keyboardWillShow(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         view.backgroundColor = Folder.ColorConfig.color(withId: folder.color)?.uiColor ?? .appGreen
     }
@@ -143,7 +143,7 @@ class EditItemViewController: UIViewController {
         titleTxtView.becomeFirstResponder()
         
         if let imgUrl = data["imgPath"] {
-            cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+            cache?.async.object(forKey: imgUrl, completion: { [weak self] result in
                 if case .value(let wrapper) = result {
                     DispatchQueue.main.async {
                         self?.imgBtn.setImage(wrapper.image)
@@ -162,7 +162,7 @@ class EditItemViewController: UIViewController {
 
 extension EditItemViewController {
     @objc func keyboardWillShow(noti: NSNotification) {
-        let rect = noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+        let rect = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
         cardHCons.constant = screenH-64-50-44-10-(rect?.height ?? 271)
     }
 }
@@ -236,7 +236,7 @@ extension EditItemViewController {
             
         self.data["imgPath"] = url
         
-        cache?.async.object(ofType: ImageWrapper.self, forKey: url, completion: { [weak self] result in
+        cache?.async.object(forKey: url, completion: { [weak self] result in
             if case .value(let wrapper) = result {
                 DispatchQueue.main.async {
                     self?.imgBtn.setImage(wrapper.image)

@@ -29,7 +29,7 @@ extension Dao where Self : NSObject {
 
 extension Dao where Self : UIButton {
     
-    init(type: UIButtonType, closure: (Self) -> Void) {
+    init(type: UIButton.ButtonType, closure: (Self) -> Void) {
         self = UIButton(type: type) as! Self
         closure(self)
     }

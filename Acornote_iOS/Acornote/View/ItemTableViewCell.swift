@@ -186,7 +186,7 @@ class ItemTableViewCell: MGSwipeTableCell {
                 imgView.image = nil
                 
                 let title = self.item.title
-                cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                cache?.async.object(forKey: imgUrl, completion: { [weak self] result in
                     if case .value(let wrapper) = result {
                         DispatchQueue.main.async {
                             if self?.item?.title == title {

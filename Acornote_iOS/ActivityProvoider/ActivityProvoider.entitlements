@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.tonnysunm.acornote</string>
+		<string>group.com.tonnysunm.acornotes</string>
 	</array>
 </dict>
 </plist>

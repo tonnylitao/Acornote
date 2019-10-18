@@ -21,9 +21,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        imgView = self.viewWithTag(1) as! UIImageView!
-        titleLbl = self.viewWithTag(2) as! UILabel
-        desLbl = self.viewWithTag(3) as! UILabel
+        imgView = self.viewWithTag(1) as? UIImageView
+        titleLbl = self.viewWithTag(2) as? UILabel
+        desLbl = self.viewWithTag(3) as? UILabel
     }
     
     var imgTask: URLSessionDataTask?
@@ -38,7 +38,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
                 titleLbl.text = item?.title
                 desLbl.text = item?.des
                 
-                cache?.async.object(ofType: ImageWrapper.self, forKey: imgUrl, completion: { [weak self] result in
+                cache?.async.object(forKey: imgUrl, completion: { [weak self] result in
                     if case .value(let wrapper) = result {
                         DispatchQueue.main.async {
                             self?.imgView.image = wrapper.image

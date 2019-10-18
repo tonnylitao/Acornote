@@ -1,24 +1,32 @@
 PODS:
-  - Cache (4.1.2)
-  - MGSwipeTableCell (1.6.6)
+  - Cache (5.2.0)
+  - MGSwipeTableCell (1.6.11)
   - Result (3.2.4)
   - SugarRecord/CoreData (3.1.2):
     - Result (~> 3.0)
-  - SwiftyJSON (4.0.0)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
-  - Cache (~> 4.1.2)
-  - MGSwipeTableCell (~> 1.6.6)
-  - SugarRecord/CoreData (~> 3.1.2)
-  - SwiftyJSON (~> 4.0.0)
+  - Cache
+  - MGSwipeTableCell
+  - SugarRecord/CoreData
+  - SwiftyJSON
+
+SPEC REPOS:
+  trunk:
+    - Cache
+    - MGSwipeTableCell
+    - Result
+    - SugarRecord
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
-  MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
+  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
+  MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SugarRecord: be6aa5c18b4a4dec0de4c1f49fc61c85eabb5328
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 90148c35dfd75b96bb64430d895a633017dd4d8f
+PODFILE CHECKSUM: 3d2e402c134ff597e43d19cacdbc0814cd7499b8
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.8.3

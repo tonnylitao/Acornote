@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="tonnysunm.com.acornote.ui.main.DetailFragment"
+        android:name="tonnysunm.com.acornote.ui.detail.DetailFragment"
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment" />
 </navigation>

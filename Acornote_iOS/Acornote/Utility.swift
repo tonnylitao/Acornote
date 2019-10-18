@@ -74,5 +74,11 @@ extension UIColor {
 let diskConfig = DiskConfig(name: "FloAcornote_Cacheppy")
 let memoryConfig = MemoryConfig()
 
-let cache = try? Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
+let cache = try? Storage(
+    diskConfig: diskConfig,
+    memoryConfig: memoryConfig,
+    transformer: TransformerFactory.forCodable(ofType: ImageWrapper.self) // Storage<User>
+)
+
+//try? Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
 

@@ -132,7 +132,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
             if let f = folder, let l = f.lastVisited {
                 let pre = NSPredicate(format: "folder == %@ AND title == %@", f, l)
                 if let item = Item.findOne(cdStore.mainContext, predicate: pre) {
-                    let i = frc?.fetchedObjects?.index(of: item)
+                    let i = frc?.fetchedObjects?.firstIndex(of: item)
                     if i != nil && i != NSNotFound {
                         page = i!
                     }
@@ -233,7 +233,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
         }
         
         //to fix bug: copy cut in edit-item vc
-        NotificationCenter.default.removeObserver(self, name: .UIPasteboardChanged, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIPasteboard.changedNotification, object: nil)
     }
     
     func createHeaderView() {
@@ -401,7 +401,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
                         }
                         
                         self?.player = try? AVAudioPlayer(data: d)
-                        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                        try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
                         self?.player?.prepareToPlay()
                         self?.player?.play()
                     })
@@ -452,7 +452,7 @@ class ItemsTableViewController: UIViewController, UIPageViewControllerDataSource
     @IBAction func showLink(_ sender: AnyObject) {
         if let url = folder?.url {
             if folder != nil {
-                NotificationCenter.default.addObserver(self, selector: #selector(ItemsTableViewController.pasteboardChanged(noti:)), name: .UIPasteboardChanged, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(ItemsTableViewController.pasteboardChanged(noti:)), name: UIPasteboard.changedNotification, object: nil)
             }
             
             _ = WebViewController.show(withUrl: url, folder: folder)
@@ -551,7 +551,7 @@ extension ItemsTableViewController {
         
         pageVC.dataSource = vc
         
-        vc.addChildViewController(pageVC)
+        vc.addChild(pageVC)
         let pageView = pageVC.view!
         
         pageView.backgroundColor = .appBackground
@@ -561,10 +561,10 @@ extension ItemsTableViewController {
         
         pageView.clipsToBounds = false
         
-        pageVC.didMove(toParentViewController: vc)
+        pageVC.didMove(toParent: vc)
         
         if let items = items, let item = vc.item {
-            let page = items.index(of: item)!
+            let page = items.firstIndex(of: item)!
             if let firstController = vc.getItemController(page, items) {
                 pageVC.setViewControllers([firstController], direction: .forward, animated: false, completion: nil)
             }
@@ -596,7 +596,7 @@ extension ItemsTableViewController {
             tableView.isHidden = false
             
             self.pageVC?.view.removeFromSuperview()
-            self.pageVC?.removeFromParentViewController()
+            self.pageVC?.removeFromParent()
             self.pageVC = nil
             
             sender.tintColor = .white
@@ -649,7 +649,7 @@ extension ItemsTableViewController {
             return nil
         }
         
-        let index = items.index(of: item)!
+        let index = items.firstIndex(of: item)!
         let vc = getItemController(index-1, items)
         
         return vc
@@ -665,7 +665,7 @@ extension ItemsTableViewController {
             return nil
         }
         
-        let index = items.index(of: item)!
+        let index = items.firstIndex(of: item)!
         let vc = getItemController(index+1, items)
         return vc
     }
@@ -748,7 +748,7 @@ extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     
@@ -852,6 +852,8 @@ extension ItemsTableViewController: NSFetchedResultsControllerDelegate {
             tableView.reloadRows(at: [indexPath!], with: .fade)
         case .move:
             tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        default:
+            break
         }
     }
     
