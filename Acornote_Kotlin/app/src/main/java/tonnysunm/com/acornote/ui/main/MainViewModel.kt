@@ -1,6 +1,9 @@
 package tonnysunm.com.acornote.ui.main
 
+import android.view.View
 import androidx.lifecycle.*
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.*
 import tonnysunm.com.acornote.model.Item
 import java.util.*
@@ -38,6 +41,11 @@ class MainViewModel : ViewModel() {
 
         viewModelScope.cancel()
 
+    }
+
+    fun onClick(view: View) {
+        val action = MainFragmentDirections.actionMainFragmentToDetailFragment()
+        view.findNavController().navigate(action)
     }
 
 }
