@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Folder::class], version = 1)
+@Database(entities = [Folder::class, Item::class], version = 2)
 abstract class AppRoomDatabase : RoomDatabase() {
 
     abstract fun folderDao(): FolderDao
+    abstract fun itemDao(): ItemDao
 
     companion object {
         @Volatile

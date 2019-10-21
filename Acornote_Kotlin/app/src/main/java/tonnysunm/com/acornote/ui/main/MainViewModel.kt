@@ -14,15 +14,12 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: Repository by lazy {
-        Repository(AppRoomDatabase.getDatabase(application).folderDao())
-    }
+    private val repository: Repository by lazy { Repository(application) }
 
     val data: LiveData<List<Folder>> by lazy {
         repository.allFolders
     }
 
-//
 //    init {
 //        viewModelScope.launch {
 //            val data = withContext(Dispatchers.IO) {

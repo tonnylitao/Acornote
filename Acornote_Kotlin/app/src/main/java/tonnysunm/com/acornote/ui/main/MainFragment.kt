@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
 
                     if (index != null) {
                         val item = adapter.itemOf(index)
-                        val action = MainFragmentDirections.actionMainFragmentToDetailFragment()
+                        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(item.title)
                         rv.findNavController().navigate(action)
 
                         return false
