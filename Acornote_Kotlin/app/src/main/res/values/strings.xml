@@ -6,4 +6,5 @@
     <string name="button">Button</string>
     <string name="hello">Hello</string>
     <string name="titleTextview">TextView</string>
+    <string name="todo">TODO</string>
 </resources>

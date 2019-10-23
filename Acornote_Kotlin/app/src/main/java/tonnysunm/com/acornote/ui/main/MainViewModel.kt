@@ -25,7 +25,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 //            }
 //
 //            repository.insert(Folder(title = "Folder Title33", createdAt = Date().time, updatedAt = Date().time))
-//            repository.insert(Item(folderId = 1, title = "Item Title112", createdAt = Date().time, updatedAt = Date().time))
+//            repository.insert(Item(
+//                folderId = 1,
+//                title = "Item Title112",
+//                description = "Ur Hello",
+//                createdAt = Date().time,
+//                updatedAt = Date().time))
 //        }
 //    }
 

@@ -18,6 +18,8 @@ data class Item(
 
     val title: String,
 
+    val description: String,
+
     @ColumnInfo(name = "folder_id", index = true)
     val folderId: Int,
 
