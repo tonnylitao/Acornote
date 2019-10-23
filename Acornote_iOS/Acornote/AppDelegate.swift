@@ -44,9 +44,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIReferenceLibraryViewController.dictionaryHasDefinition(forTerm: "")
         
-        createDemoDataIfNecessory();
+//        createDemoDataIfNecessory();
+        
+//        importFromPlist()
         
         return true
+    }
+    
+    func importFromPlist() {
+        let texts:String = Bundle.main.path(forResource: "db", ofType: "")!
+        
+        let dic = NSDictionary(contentsOfFile: texts)!
+        (dic["folders"] as! [[String: Any]]).forEach({ item in
+            let model: Folder = try! cdStore.saveContext.create()
+            model.title = item["title"] as? String
+            model.url = item["url"] as? String
+            model.audioUrl = item["audioUrl"] as? String
+            model.color = item["color"] as? Int16 ?? Folder.ColorConfig.defalut
+            
+            model.playable = item["playable"] as? Bool ?? false
+            model.flipable = item["flipable"] as? Bool ?? false
+            model.tagable = item["tagable"] as? Bool ?? false
+            
+            model.orderBy = item["orderBy"] as? Int16 ?? 0
+            model.quizlet = item["quizlet"] as? Bool ?? false
+            
+            model.createdAt = item["createdAt"] as? NSDate ?? NSDate()
+            model.updatedAt = item["updatedAt"] as? NSDate ?? NSDate()
+            model.lastVisited = item["lastVisited"] as? String
+        })
+        
+        (dic["items"] as! [[String: Any]]).forEach({ item in
+            let model: Item = try! cdStore.saveContext.create()
+            
+            model.title = item["title"] as? String
+            model.url = item["url"] as? String
+            model.des = item["des"] as? String
+            model.imgPath = item["imgPath"] as? String
+            
+
+            model.taged = item["taged"] as? Bool ?? false
+            model.fliped = item["fliped"] as? Bool ?? false
+            
+            model.createdAt = item["createdAt"] as? NSDate ?? NSDate()
+            
+            if let title = item["folder"] as? String,
+                let folder = try? cdStore.saveContext.request(Folder.self).filtered(with: NSPredicate(format: "title == %@", title)).fetch().first {
+                model.folder = folder
+            }
+        })
+        
+        try? cdStore.operation { (context, save) throws -> Void in
+            save()
+        }
     }
     
     func createDemoDataIfNecessory() {
