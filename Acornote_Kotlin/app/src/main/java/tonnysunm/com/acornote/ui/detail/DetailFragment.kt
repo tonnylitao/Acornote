@@ -20,7 +20,7 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels {
         DetailViewModelFactory(
             requireActivity().application,
-            arguments?.getString("folderTitle") ?: throw IllegalArgumentException("#folderTitle is not defined." ))
+            arguments?.getInt("folderId") ?: throw IllegalArgumentException("#folderId is not defined." ))
     }
 
     override fun onCreateView(

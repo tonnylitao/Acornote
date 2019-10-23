@@ -1,13 +1,12 @@
 package tonnysunm.com.acornote.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import java.util.*
+import androidx.room.*
 
 @Entity(tableName = "folder_table")
 data class Folder(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+
     val title: String,
 
     @ColumnInfo(name = "created_at")
@@ -15,4 +14,11 @@ data class Folder(
 
     @ColumnInfo(name = "updated_at")
     val updatedAt: Long
+): SQLEntity
+
+data class FolderWrapper(
+    @Embedded
+    val folder: Folder,
+
+    val itemCount: Int
 )

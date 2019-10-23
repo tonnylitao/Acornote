@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         }
 
         this.context?.let { ctx ->
-            val adapter = FolderListAdapter(ctx)
+            val adapter = FolderListAdapter(ctx, viewModel.repository)
             binding.recyclerview.adapter = adapter
 
             viewModel.data.observe(this.viewLifecycleOwner, Observer {
@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
 
                     if (index != null) {
                         val item = adapter.itemOf(index)
-                        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(item.title)
+                        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(item.folder.id)
                         rv.findNavController().navigate(action)
 
                         return false

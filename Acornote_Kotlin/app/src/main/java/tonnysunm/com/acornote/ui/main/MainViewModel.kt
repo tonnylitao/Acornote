@@ -6,35 +6,31 @@ import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.*
-import tonnysunm.com.acornote.model.AppRoomDatabase
-import tonnysunm.com.acornote.model.Folder
-import tonnysunm.com.acornote.model.Item
-import tonnysunm.com.acornote.model.Repository
+import tonnysunm.com.acornote.model.*
 import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    val repository: Repository by lazy { Repository(application) }
 
-    val data: LiveData<List<Folder>> by lazy {
+    val data: LiveData<List<FolderWrapper>> by lazy {
         repository.allFolders
     }
 
-//    init {
-//        viewModelScope.launch {
-//            val data = withContext(Dispatchers.IO) {
-//                //api load data
-//                delay(5000)
-//
-//                Folder(title = "Folder Title11", createdAt = Date().time, updatedAt = Date().time)
-//            }
-//
-//            repository.insert(data)
-//        }
-//    }
+    init {
+        viewModelScope.launch {
+            val data = withContext(Dispatchers.IO) {
+                //api load data
+                delay(5000)
+            }
 
-    fun insert(word: Folder) = viewModelScope.launch {
-        repository.insert(word)
+            repository.insert(Folder(title = "Folder Title33", createdAt = Date().time, updatedAt = Date().time))
+            repository.insert(Item(folderId = 1, title = "Item Title112", createdAt = Date().time, updatedAt = Date().time))
+        }
+    }
+
+    fun insert(folder: Folder) = viewModelScope.launch {
+        repository.insert(folder)
     }
 
     override fun onCleared() {

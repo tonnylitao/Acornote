@@ -9,14 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.model.Folder
+import tonnysunm.com.acornote.model.FolderWrapper
+import tonnysunm.com.acornote.model.Repository
 import kotlin.math.log
 
-class FolderListAdapter internal constructor(
-    context: Context
-) : RecyclerView.Adapter<FolderListAdapter.FolderViewHolder>() {
+class FolderListAdapter(context: Context, private val repository: Repository): RecyclerView.Adapter<FolderListAdapter.FolderViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var items = emptyList<Folder>()
+    private var items = emptyList<FolderWrapper>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderViewHolder {
         val itemView = inflater.inflate(R.layout.recyclerview_folder, parent, false)
@@ -25,23 +25,26 @@ class FolderListAdapter internal constructor(
     }
 
     override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
-        val current = items[position]
-        holder.titleTxtView.text = current.title
+        val folderWrapper = items[position]
+        holder.titleTxtView.text = folderWrapper.folder.title
+
+        holder.countTxtView.text = folderWrapper.itemCount.toString() + " items"
     }
 
-    internal fun setFolders(words: List<Folder>) {
+    internal fun setFolders(words: List<FolderWrapper>) {
         this.items = words
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = items.size
 
-    fun itemOf(index: Int): Folder = items[index]
+    fun itemOf(index: Int): FolderWrapper = items[index]
 
 
     //
     inner class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTxtView: TextView = itemView.findViewById(R.id.title)
+        val countTxtView: TextView = itemView.findViewById(R.id.count)
 
     }
 }

@@ -1,20 +1,29 @@
 package tonnysunm.com.acornote.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "item_table")
+interface SQLEntity
+
+@Entity(
+    tableName = "item_table",
+    foreignKeys = [ForeignKey(
+        entity = Folder::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("folder_id")
+    )]
+)
 data class Item(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+
     val title: String,
 
-    @ColumnInfo(name = "folder_title")
-    val folderTitle: String,
+    @ColumnInfo(name = "folder_id", index = true)
+    val folderId: Int,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long,
 
     @ColumnInfo(name = "updated_at")
     val updatedAt: Long
-)
+): SQLEntity

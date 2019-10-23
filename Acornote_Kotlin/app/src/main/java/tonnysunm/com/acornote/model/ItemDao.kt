@@ -11,10 +11,9 @@ import androidx.room.Query
 interface ItemDao {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT * from item_table WHERE folder_title = (:folderTitle) ORDER BY updated_at DESC")
-    fun getItems(folderTitle: String): LiveData<List<Item>>
+    @Query("SELECT * from item_table WHERE folder_id = (:id) ORDER BY updated_at DESC")
+    fun getItems(id: Int): LiveData<List<Item>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(word: Item)
-
+    suspend fun insert(entity: Item)
 }

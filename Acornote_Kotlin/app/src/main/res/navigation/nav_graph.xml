@@ -19,7 +19,7 @@
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment">
         <argument
-            android:name="folderTitle"
-            app:argType="string"/>
+            android:name="folderId"
+            app:argType="integer"/>
     </fragment>
 </navigation>

@@ -1,20 +1,16 @@
 package tonnysunm.com.acornote.model
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 
 @Dao
 interface FolderDao {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT * from folder_table ORDER BY updated_at DESC")
-    fun getFolders(): LiveData<List<Folder>>
+    @Query("SELECT *, (select count(*) from item_table b where b.folder_id = a.id) as itemCount from folder_table a ORDER BY updated_at DESC")
+    fun getFolders(): LiveData<List<FolderWrapper>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(word: Folder)
-
+    suspend fun insert(entity: Folder)
 }

@@ -9,12 +9,14 @@ class Repository(private val application: Application) {
     private val itemDao: ItemDao by lazy { AppRoomDatabase.getDatabase(application).itemDao() }
 
     // Folder
-    val allFolders: LiveData<List<Folder>> = folderDao.getFolders()
+    val allFolders: LiveData<List<FolderWrapper>> = folderDao.getFolders()
 
-    suspend fun insert(word: Folder) {
-        folderDao.insert(word)
+    suspend fun <T: SQLEntity> insert(entity: T) {
+        if (entity is Folder) {
+            folderDao.insert(entity)
+        }else if (entity is Item) {
+            itemDao.insert(entity)
+        }
+
     }
-
-    // Item
-    fun allItems(folderTitle: String): LiveData<List<Item>> = itemDao.getItems(folderTitle)
 }
