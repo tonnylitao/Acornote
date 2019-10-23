@@ -368,10 +368,12 @@
 				TargetAttributes = {
 					E1810E4F1E2C6CCB0047844D = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V93X4GTH7Q;
 						LastSwiftMigration = 0920;
 					};
 					E197B13A1DC1D7A700CCABE8 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = V93X4GTH7Q;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -385,6 +387,7 @@
 					};
 					E1B210BE1DCD55B2003CB723 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = V93X4GTH7Q;
 						LastSwiftMigration = 0920;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -597,7 +600,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V93X4GTH7Q;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -616,7 +619,7 @@
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V93X4GTH7Q;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = TodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -755,7 +758,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V93X4GTH7Q;
 				INFOPLIST_FILE = Acornote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -779,7 +782,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V93X4GTH7Q;
 				INFOPLIST_FILE = Acornote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -798,7 +801,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ActivityProvoider/ActivityProvoider.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V93X4GTH7Q;
 				INFOPLIST_FILE = ActivityProvoider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";

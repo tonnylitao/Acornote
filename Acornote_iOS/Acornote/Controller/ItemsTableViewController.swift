@@ -674,8 +674,8 @@ extension ItemsTableViewController {
 extension ItemsTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.frc?.fetchedObjects?.count ?? 0
+        let count = self.frc?.fetchedObjects?.count ?? 0
+        return count
     }
     
     
@@ -797,7 +797,7 @@ extension ItemsTableViewController {
             self.selectTag = taged
             
             let request:NSFetchRequest<Item> = Item.fetchRequest()
-            request.predicate = NSPredicate(format: "taged == %@", taged as CVarArg)
+            request.predicate = NSPredicate(format: "taged == %d", taged)
             
             if orderBy == .createdAscend {
                 request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)] //降序
@@ -818,12 +818,12 @@ extension ItemsTableViewController {
             self.selectTag = taged
             
             let request:NSFetchRequest<Item> = Item.fetchRequest()
-            request.predicate = NSPredicate(format: "folder == %@ AND taged == %@", folder, taged as CVarArg)
+            request.predicate = NSPredicate(format: "folder == %@ AND taged == %d", folder, taged)
             
             if orderBy == .createdAscend {
-                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)] //降序
+                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
             }else {
-                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)] //降序
+                request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
             }
             let frc = NSFetchedResultsController(fetchRequest: request , managedObjectContext: cdStore.mainContext! as! NSManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             frc.delegate = self

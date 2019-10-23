@@ -50,7 +50,7 @@ class ItemLargeTableViewController: UIViewController, UITableViewDelegate, UITab
 
     
     
-    @IBAction func sound(_ sender: AnyObject) {
+    @IBAction func speak(_ sender: AnyObject) {
         guard let item = self.item else {
             return
         }
