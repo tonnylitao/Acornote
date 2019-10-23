@@ -19,4 +19,7 @@ class Repository(private val application: Application) {
         }
 
     }
+
+    // Item
+    fun items(folderTitle: Int): LiveData<List<Item>> = itemDao.getItems(folderTitle)
 }

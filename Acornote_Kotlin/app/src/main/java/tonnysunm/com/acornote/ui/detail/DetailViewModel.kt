@@ -20,5 +20,5 @@ class DetailViewModel(application: Application, folderId: Int) : AndroidViewMode
 
     private val repository: Repository by lazy { Repository(application) }
 
-    val data: LiveData<List<Item>> by lazy { repository.allItems(folderId) }
+    val data: LiveData<List<Item>> by lazy { repository.items(folderId) }
 }

@@ -21,52 +21,17 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding =  MainFragmentBinding.inflate(
-            inflater,
-            container,
-            false
-        ).apply {
-            this.lifecycleOwner = this@MainFragment
-            this.viewModel = this@MainFragment.viewModel
-        }
+        val binding =  MainFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = this.viewModel
 
-        this.context?.let { ctx ->
-            val adapter = FolderListAdapter(ctx, viewModel.repository)
-            binding.recyclerview.adapter = adapter
-
-            viewModel.data.observe(this.viewLifecycleOwner, Observer {
-                it.let { adapter.setFolders(it) }
-            })
-
-            binding.recyclerview.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    val index = rv.indexOf(e)
-
-                    if (index != null) {
-                        val item = adapter.itemOf(index)
-                        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(item.folder.id)
-                        rv.findNavController().navigate(action)
-
-                        return false
-                    }
-
-                    return false
-                }
-            })
-        }
+        val adapter = FolderListAdapter()
+        binding.recyclerview.adapter = adapter
+        viewModel.data.observe(this.viewLifecycleOwner, Observer {
+            adapter.setDataSource(it)
+        })
 
         return binding.root
     }
 
-}
-
-fun RecyclerView.indexOf(e: MotionEvent): Int? {
-    val childView = this.findChildViewUnder(e.x, e.y)
-
-    if (childView == null || e.action != MotionEvent.ACTION_UP) {
-        return null
-    }
-
-    val index = getChildAdapterPosition(childView)
-    return if (index == RecyclerView.NO_POSITION) null else index
 }

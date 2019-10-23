@@ -17,17 +17,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         repository.allFolders
     }
 
-    init {
-        viewModelScope.launch {
-            val data = withContext(Dispatchers.IO) {
-                //api load data
-                delay(5000)
-            }
-
-            repository.insert(Folder(title = "Folder Title33", createdAt = Date().time, updatedAt = Date().time))
-            repository.insert(Item(folderId = 1, title = "Item Title112", createdAt = Date().time, updatedAt = Date().time))
-        }
-    }
+//    init {
+//        viewModelScope.launch {
+//            val data = withContext(Dispatchers.IO) {
+//                //api load data
+//                delay(5000)
+//            }
+//
+//            repository.insert(Folder(title = "Folder Title33", createdAt = Date().time, updatedAt = Date().time))
+//            repository.insert(Item(folderId = 1, title = "Item Title112", createdAt = Date().time, updatedAt = Date().time))
+//        }
+//    }
 
     fun insert(folder: Folder) = viewModelScope.launch {
         repository.insert(folder)
