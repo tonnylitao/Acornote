@@ -11,6 +11,9 @@ interface FolderDao {
     @Query("SELECT *, (select count(*) from item_table b where b.folder_id = a.id) as itemCount from folder_table a ORDER BY updated_at DESC")
     fun getFolders(): LiveData<List<FolderWrapper>>
 
+    @Query("SELECT * from folder_table WHERE id = :id")
+    fun folder(id: Int): LiveData<Folder>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: Folder)
 }

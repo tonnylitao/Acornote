@@ -31,6 +31,11 @@ class MainFragment : Fragment() {
             adapter.setDataSource(it)
         })
 
+        binding.setOnAddFolder {
+            val action = MainFragmentDirections.actionMainFragmentToEditFolderFragment(-1)
+            it.findNavController().navigate(action)
+        }
+
         return binding.root
     }
 

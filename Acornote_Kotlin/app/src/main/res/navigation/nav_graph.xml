@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editFolderFragment"
+            app:destination="@id/editFolderFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -22,4 +25,14 @@
             android:name="folderId"
             app:argType="integer"/>
     </fragment>
+    <fragment
+        android:id="@+id/editFolderFragment"
+        android:name="tonnysunm.com.acornote.ui.detail.EditFolderFragment"
+        android:label="EditFolderFragment"
+        tools:layout="@layout/edit_folder_fragment" >
+        <argument
+            android:name="folderId"
+            app:argType="integer"/>
+    </fragment>
+
 </navigation>
