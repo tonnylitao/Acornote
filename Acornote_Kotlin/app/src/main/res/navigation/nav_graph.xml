@@ -23,7 +23,7 @@
         tools:layout="@layout/detail_fragment">
         <argument
             android:name="folderId"
-            app:argType="integer"/>
+            app:argType="long"/>
     </fragment>
     <fragment
         android:id="@+id/editFolderFragment"
@@ -32,7 +32,7 @@
         tools:layout="@layout/edit_folder_fragment" >
         <argument
             android:name="folderId"
-            app:argType="integer"/>
+            app:argType="long"/>
     </fragment>
 
 </navigation>

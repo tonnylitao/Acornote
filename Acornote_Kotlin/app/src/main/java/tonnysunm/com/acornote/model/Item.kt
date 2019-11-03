@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.model
 
 import androidx.room.*
+import java.util.*
 
 interface SQLEntity
 
@@ -14,18 +15,18 @@ interface SQLEntity
 )
 data class Item(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Long = 0,
 
     val title: String,
 
     val description: String,
 
     @ColumnInfo(name = "folder_id", index = true)
-    val folderId: Int,
+    val folderId: Long,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: Long,
+    val createdAt: Long = Date().time,
 
     @ColumnInfo(name = "updated_at")
-    val updatedAt: Long
+    var updatedAt: Long = Date().time
 ): SQLEntity

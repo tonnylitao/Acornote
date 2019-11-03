@@ -1,19 +1,20 @@
 package tonnysunm.com.acornote.model
 
 import androidx.room.*
+import java.util.*
 
 @Entity(tableName = "folder_table")
 data class Folder(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    var id: Long = 0,
 
-    val title: String,
+    var title: String,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: Long,
+    val createdAt: Long = Date().time,
 
     @ColumnInfo(name = "updated_at")
-    val updatedAt: Long
+    var updatedAt: Long = Date().time
 ): SQLEntity
 
 data class FolderWrapper(
@@ -22,3 +23,5 @@ data class FolderWrapper(
 
     val itemCount: Int
 )
+
+const val EmptyId: Long = -1

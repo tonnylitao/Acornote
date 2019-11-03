@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.MainFragmentBinding
+import tonnysunm.com.acornote.model.EmptyId
+import tonnysunm.com.acornote.model.Folder
 
 class MainFragment : Fragment() {
 
@@ -32,7 +36,7 @@ class MainFragment : Fragment() {
         })
 
         binding.setOnAddFolder {
-            val action = MainFragmentDirections.actionMainFragmentToEditFolderFragment(-1)
+            val action = MainFragmentDirections.actionMainFragmentToEditFolderFragment(EmptyId)
             it.findNavController().navigate(action)
         }
 

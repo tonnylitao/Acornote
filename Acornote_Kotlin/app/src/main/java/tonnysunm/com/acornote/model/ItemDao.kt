@@ -1,10 +1,7 @@
 package tonnysunm.com.acornote.model
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 
 @Dao
@@ -15,5 +12,8 @@ interface ItemDao {
     fun getItems(id: Int): LiveData<List<Item>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(entity: Item)
+    suspend fun insert(entity: Item): Long
+
+    @Update
+    suspend fun update(item: Item)
 }
