@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding =  MainFragmentBinding.inflate(inflater, container, false)
+        val binding = MainFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = this.viewModel
 
@@ -36,8 +36,9 @@ class MainFragment : Fragment() {
         })
 
         binding.setOnAddFolder {
-            val action = MainFragmentDirections.actionMainFragmentToEditFolderFragment(EmptyId)
-            it.findNavController().navigate(action)
+            it.findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToEditFolderFragment(EmptyId)
+            )
         }
 
         return binding.root

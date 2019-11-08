@@ -23,16 +23,31 @@
         tools:layout="@layout/detail_fragment">
         <argument
             android:name="folderId"
-            app:argType="long"/>
+            app:argType="long" />
+        <action
+            android:id="@+id/action_detailFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/editFolderFragment"
         android:name="tonnysunm.com.acornote.ui.detail.EditFolderFragment"
         android:label="EditFolderFragment"
-        tools:layout="@layout/edit_folder_fragment" >
+        tools:layout="@layout/edit_folder_fragment">
         <argument
             android:name="folderId"
-            app:argType="long"/>
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/editItemFragment"
+        android:name="tonnysunm.com.acornote.ui.detail.EditItemFragment"
+        android:label="EditItemFragment"
+        tools:layout="@layout/edit_item_fragment">
+        <argument
+            android:name="folderId"
+            app:argType="long" />
+        <argument
+            android:name="itemId"
+            app:argType="long" />
     </fragment>
 
 </navigation>

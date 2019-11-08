@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable name="onAddItem" type="android.view.View.OnClickListener"/>
         <variable name="viewModel" type="tonnysunm.com.acornote.ui.detail.DetailViewModel"/>
     </data>
 
@@ -21,5 +22,18 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:onClick="@{onAddItem}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

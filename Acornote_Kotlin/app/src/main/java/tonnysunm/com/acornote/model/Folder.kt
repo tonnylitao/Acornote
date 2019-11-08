@@ -15,7 +15,7 @@ data class Folder(
 
     @ColumnInfo(name = "updated_at")
     var updatedAt: Long = Date().time
-): SQLEntity
+) : SQLEntity
 
 data class FolderWrapper(
     @Embedded
@@ -24,4 +24,4 @@ data class FolderWrapper(
     val itemCount: Int
 )
 
-const val EmptyId: Long = -1
+const val EmptyId: Long = 0

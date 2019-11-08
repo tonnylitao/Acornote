@@ -9,12 +9,18 @@ import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.ListItemBinding
 import tonnysunm.com.acornote.model.Item
 
-class ItemListAdapter: RecyclerView.Adapter<ItemListAdapter.ViewHolder>() {
+class ItemListAdapter : RecyclerView.Adapter<ItemListAdapter.ViewHolder>() {
 
     private var dataSource = emptyList<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ListItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     internal fun setDataSource(words: List<Item>) {
@@ -31,7 +37,8 @@ class ItemListAdapter: RecyclerView.Adapter<ItemListAdapter.ViewHolder>() {
 
     /* ViewHolder */
 
-    inner class ViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
                 binding.data?.let {

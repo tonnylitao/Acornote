@@ -7,13 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListFolderBinding
 import tonnysunm.com.acornote.model.FolderWrapper
 
-class FolderListAdapter: RecyclerView.Adapter<FolderListAdapter.ViewHolder>() {
+class FolderListAdapter : RecyclerView.Adapter<FolderListAdapter.ViewHolder>() {
 
     private var dataSource = emptyList<FolderWrapper>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ListFolderBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ListFolderBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     internal fun setDataSource(words: List<FolderWrapper>) {
@@ -31,7 +36,8 @@ class FolderListAdapter: RecyclerView.Adapter<FolderListAdapter.ViewHolder>() {
 
     /* ViewHolder */
 
-    inner class ViewHolder(private val binding: ListFolderBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ListFolderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
                 binding.data?.folder?.id?.let {

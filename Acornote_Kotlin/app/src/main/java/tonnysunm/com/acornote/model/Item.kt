@@ -15,14 +15,14 @@ interface SQLEntity
 )
 data class Item(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    var id: Long = 0,
 
-    val title: String,
+    var title: String,
 
-    val description: String,
+    var description: String? = null,
 
     @ColumnInfo(name = "folder_id", index = true)
-    val folderId: Long,
+    var folderId: Long,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
