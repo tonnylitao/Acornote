@@ -3,41 +3,43 @@ package tonnysunm.com.acornote.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListFolderBinding
 import tonnysunm.com.acornote.model.FolderWrapper
 
-class FolderListAdapter : RecyclerView.Adapter<FolderListAdapter.ViewHolder>() {
+class FolderListAdapter :
+    PagedListAdapter<FolderWrapper, FolderListAdapter.ViewHolder>(DiffCallback) {
 
-    private var dataSource = emptyList<FolderWrapper>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(
             ListFolderBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
         )
-    }
-
-    internal fun setDataSource(words: List<FolderWrapper>) {
-        this.dataSource = words
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = dataSource.size
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataSource[position])
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<FolderWrapper>() {
+
+            override fun areItemsTheSame(old: FolderWrapper, new: FolderWrapper) =
+                old.folder.id == new.folder.id
+
+            override fun areContentsTheSame(old: FolderWrapper, new: FolderWrapper) = old == new
+        }
+    }
 
     /* ViewHolder */
 
     inner class ViewHolder(private val binding: ListFolderBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.setClickListener { view ->
                 binding.data?.folder?.id?.let {

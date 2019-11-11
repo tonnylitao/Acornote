@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.*
@@ -44,8 +45,8 @@ class EditFolderFragment : Fragment() {
             val title = binding.textView.text.toString()
 
             binding.progressbar.visibility = View.VISIBLE
-
-            viewModel.viewModelScope.launch {
+            
+            lifecycleScope.launch {
                 viewModel.updateOrInsertFolder(title)
 
                 view.findNavController().popBackStack()

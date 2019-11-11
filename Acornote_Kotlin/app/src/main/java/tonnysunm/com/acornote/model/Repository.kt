@@ -3,6 +3,7 @@ package tonnysunm.com.acornote.model
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import java.util.*
 
 class Repository(private val application: Application) {
@@ -35,11 +36,11 @@ class Repository(private val application: Application) {
     }
 
     // Folder
-    val allFolders = folderDao.getFolders()
+    val folders = folderDao.getFolders()
 
     fun getFolder(id: Long?): LiveData<Folder> {
         if (id != null) {
-            val liveData = folderDao.folder(id)
+            val liveData = folderDao.getFolder(id)
             if (liveData.value != null) {
                 return liveData
             }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
@@ -48,7 +49,7 @@ class EditItemFragment : Fragment() {
 
             binding.progressbar.visibility = View.VISIBLE
 
-            viewModel.viewModelScope.launch {
+            lifecycleScope.launch {
                 viewModel.updateOrInsertItem(title, description)
 
                 view.findNavController().popBackStack()

@@ -7,9 +7,6 @@ import tonnysunm.com.acornote.ui.main.MainFragment
 
 /*TODO
 
-Navigation
-Recycle view
-Room
 
 */
 

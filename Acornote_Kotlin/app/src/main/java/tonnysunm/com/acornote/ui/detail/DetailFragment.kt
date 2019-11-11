@@ -35,10 +35,10 @@ class DetailFragment : Fragment() {
         binding.viewModel = this.viewModel
 
         val adapter = ItemListAdapter()
-        binding.recyclerview.adapter = adapter
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
-            adapter.setDataSource(it)
+            adapter.submitList(it)
         })
+        binding.recyclerview.adapter = adapter
 
         binding.setOnAddItem {
             it.findNavController().navigate(
