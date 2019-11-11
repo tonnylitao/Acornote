@@ -2,12 +2,14 @@
 <layout>
 
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="data"
-            type="tonnysunm.com.acornote.model.FolderWrapper"/>
+            type="tonnysunm.com.acornote.model.FolderWrapper" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,8 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="true"
-            android:onClick="@{clickListener}"
-            >
+            android:onClick="@{clickListener}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@{data.folder.title +' '+ data.folder.id}"
+                    android:text="@{data.folder.title}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/color"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +63,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text='@{data.itemCount + " items"}'
+                    android:text='@{data.noteCount + " notes"}'
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/color"

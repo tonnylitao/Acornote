@@ -21,7 +21,7 @@ data class FolderWrapper(
     @Embedded
     val folder: Folder,
 
-    val itemCount: Int
+    val noteCount: Int
 )
 
 const val EmptyId: Long = 0

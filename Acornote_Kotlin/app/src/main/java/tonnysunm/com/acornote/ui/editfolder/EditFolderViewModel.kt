@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.detail
+package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
 import androidx.lifecycle.*

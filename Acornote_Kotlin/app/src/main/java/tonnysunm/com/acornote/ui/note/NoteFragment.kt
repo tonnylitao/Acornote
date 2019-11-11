@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.detail
+package tonnysunm.com.acornote.ui.note
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import tonnysunm.com.acornote.databinding.DetailFragmentBinding
 import tonnysunm.com.acornote.model.EmptyId
 
-class DetailFragment : Fragment() {
+class NoteFragment : Fragment() {
     val folderId: Long by lazy {
         arguments?.getLong("folderId")
             ?: throw IllegalArgumentException("#folderId is not defined.")
@@ -19,8 +19,7 @@ class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels {
         DetailViewModelFactory(
-            requireActivity().application,
-            folderId
+            requireActivity().application, folderId
         )
     }
 
@@ -34,15 +33,13 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = this.viewModel
 
-        val adapter = ItemListAdapter()
-        viewModel.data.observe(this.viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        val adapter = NoteListAdapter()
+        viewModel.data.observe(this.viewLifecycleOwner, Observer { adapter.submitList(it) })
         binding.recyclerview.adapter = adapter
 
-        binding.setOnAddItem {
+        binding.setOnAddNote {
             it.findNavController().navigate(
-                DetailFragmentDirections.actionDetailFragmentToEditItemFragment(folderId, EmptyId)
+                NoteFragmentDirections.actionDetailFragmentToEditNoteFragment(folderId, EmptyId)
             )
         }
 

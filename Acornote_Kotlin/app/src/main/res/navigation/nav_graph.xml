@@ -18,19 +18,19 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="tonnysunm.com.acornote.ui.detail.DetailFragment"
+        android:name="tonnysunm.com.acornote.ui.note.NoteFragment"
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment">
         <argument
             android:name="folderId"
             app:argType="long" />
         <action
-            android:id="@+id/action_detailFragment_to_editItemFragment"
-            app:destination="@id/editItemFragment" />
+            android:id="@+id/action_detailFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/editFolderFragment"
-        android:name="tonnysunm.com.acornote.ui.detail.EditFolderFragment"
+        android:name="tonnysunm.com.acornote.ui.note.EditFolderFragment"
         android:label="EditFolderFragment"
         tools:layout="@layout/edit_folder_fragment">
         <argument
@@ -38,15 +38,15 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/editItemFragment"
-        android:name="tonnysunm.com.acornote.ui.detail.EditItemFragment"
-        android:label="EditItemFragment"
-        tools:layout="@layout/edit_item_fragment">
+        android:id="@+id/editNoteFragment"
+        android:name="tonnysunm.com.acornote.ui.note.EditNoteFragment"
+        android:label="EditNoteFragment"
+        tools:layout="@layout/edit_note_fragment">
         <argument
             android:name="folderId"
             app:argType="long" />
         <argument
-            android:name="itemId"
+            android:name="noteId"
             app:argType="long" />
     </fragment>
 

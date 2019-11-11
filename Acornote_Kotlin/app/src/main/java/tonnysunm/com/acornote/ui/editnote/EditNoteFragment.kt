@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.detail
+package tonnysunm.com.acornote.ui.note
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import tonnysunm.com.acornote.databinding.EditItemFragmentBinding
+import tonnysunm.com.acornote.databinding.EditNoteFragmentBinding
 import tonnysunm.com.acornote.model.EmptyId
 
-class EditItemFragment : Fragment() {
+class EditNoteFragment : Fragment() {
 
-    private val viewModel: EditItemViewModel by viewModels {
+    private val viewModel: EditNoteViewModel by viewModels {
         val folderId = arguments?.getLong("folderId")
             ?: throw IllegalArgumentException("folderId is null.")
 
@@ -24,7 +22,7 @@ class EditItemFragment : Fragment() {
             if (it != EmptyId) it else null
         }
 
-        EditItemViewModelFactory(requireActivity().application, id, folderId)
+        EditNoteViewModelFactory(requireActivity().application, id, folderId)
     }
 
     override fun onCreateView(
@@ -33,7 +31,7 @@ class EditItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = EditItemFragmentBinding.inflate(inflater, container, false)
+        val binding = EditNoteFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
@@ -50,7 +48,7 @@ class EditItemFragment : Fragment() {
             binding.progressbar.visibility = View.VISIBLE
 
             lifecycleScope.launch {
-                viewModel.updateOrInsertItem(title, description)
+                viewModel.updateOrInsertNote(title, description)
 
                 view.findNavController().popBackStack()
             }

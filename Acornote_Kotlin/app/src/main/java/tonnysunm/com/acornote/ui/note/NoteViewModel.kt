@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.detail
+package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
-import tonnysunm.com.acornote.model.Item
+import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository
 
 
@@ -24,7 +24,7 @@ class DetailViewModel(application: Application, folderId: Long) : AndroidViewMod
 
     private val repository: Repository by lazy { Repository(application) }
 
-    val data: LiveData<PagedList<Item>> by lazy {
-        repository.items(folderId).toLiveData(pageSize = 5)
+    val data: LiveData<PagedList<Note>> by lazy {
+        repository.notes(folderId).toLiveData(pageSize = 5)
     }
 }

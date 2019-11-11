@@ -3,7 +3,6 @@ package tonnysunm.com.acornote.model
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import java.util.*
 
 class Repository(private val application: Application) {
@@ -11,13 +10,13 @@ class Repository(private val application: Application) {
     private val folderDao: FolderDao by lazy {
         AppRoomDatabase.getDatabase(application).folderDao()
     }
-    private val itemDao: ItemDao by lazy { AppRoomDatabase.getDatabase(application).itemDao() }
+    private val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
 
     suspend fun <T : SQLEntity> insert(entity: T): Long {
         if (entity is Folder) {
             return folderDao.insert(entity)
-        } else if (entity is Item) {
-            return itemDao.insert(entity)
+        } else if (entity is Note) {
+            return noteDao.insert(entity)
         }
 
 
@@ -28,9 +27,9 @@ class Repository(private val application: Application) {
         if (entity is Folder) {
             entity.updatedAt = updatedAt
             folderDao.update(entity)
-        } else if (entity is Item) {
+        } else if (entity is Note) {
             entity.updatedAt = updatedAt
-            itemDao.update(entity)
+            noteDao.update(entity)
         }
 
     }
@@ -52,19 +51,19 @@ class Repository(private val application: Application) {
     }
 
 
-    // Item
-    fun items(folderTitle: Long) = itemDao.getItems(folderTitle)
+    // Note
+    fun notes(folderTitle: Long) = noteDao.getNotes(folderTitle)
 
-    fun getItem(id: Long?, folderId: Long): LiveData<Item> {
+    fun getNote(id: Long?, folderId: Long): LiveData<Note> {
         if (id != null) {
-            val liveData = itemDao.item(id)
+            val liveData = noteDao.note(id)
             if (liveData.value != null) {
                 return liveData
             }
         }
 
-        return MutableLiveData<Item>().apply {
-            value = Item(title = "", folderId = folderId)
+        return MutableLiveData<Note>().apply {
+            value = Note(title = "", folderId = folderId)
         }
     }
 }

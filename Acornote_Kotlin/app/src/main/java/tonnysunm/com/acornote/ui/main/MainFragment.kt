@@ -25,9 +25,7 @@ class MainFragment : Fragment() {
         binding.viewModel = this.viewModel
 
         val adapter = FolderListAdapter()
-        viewModel.data.observe(this.viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.data.observe(this.viewLifecycleOwner, Observer { adapter.submitList(it) })
         binding.recyclerview.adapter = adapter
 
         binding.setOnAddFolder {

@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="onCancel" type="android.view.View.OnClickListener"/>
-        <variable name="onSure" type="android.view.View.OnClickListener"/>
 
-        <variable name="viewModel" type="tonnysunm.com.acornote.ui.detail.EditItemViewModel"/>
+        <variable
+            name="onCancel"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onSure"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="tonnysunm.com.acornote.ui.note.EditNoteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +24,7 @@
         android:background="#19D2B9"
         app:layout_constraintEnd_toEndOf="@+id/audio"
         app:layout_constraintStart_toEndOf="@+id/audio"
-        tools:context=".ui.main.EditItemFragment">
+        tools:context=".ui.main.EditNoteFragment">
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -69,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:text="@{viewModel.itemLiveData.title}"
+            android:text="@{viewModel.noteLiveData.title}"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/audio"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:text="@{viewModel.itemLiveData.description}"
+            android:text="@{viewModel.noteLiveData.description}"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/audio"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="onCancel" type="android.view.View.OnClickListener"/>
-        <variable name="onSure" type="android.view.View.OnClickListener"/>
 
-        <variable name="viewModel" type="tonnysunm.com.acornote.ui.detail.EditFolderViewModel"/>
+        <variable
+            name="onCancel"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onSure"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="tonnysunm.com.acornote.ui.note.EditFolderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
