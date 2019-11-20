@@ -8,7 +8,7 @@
         android:id="@+id/mainFragment"
         android:name="tonnysunm.com.acornote.ui.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -20,7 +20,7 @@
         android:id="@+id/detailFragment"
         android:name="tonnysunm.com.acornote.ui.note.NoteFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment">
+        tools:layout="@layout/fragment_note">
         <argument
             android:name="folderId"
             app:argType="long" />

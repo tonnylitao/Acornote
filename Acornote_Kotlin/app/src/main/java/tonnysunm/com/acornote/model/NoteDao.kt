@@ -12,6 +12,9 @@ interface NoteDao {
     @Query("SELECT * from note_table WHERE folder_id = (:folderId) ORDER BY updated_at DESC")
     fun getNotes(folderId: Long): DataSource.Factory<Int, Note>
 
+    @Query("SELECT * from note_table ORDER BY updated_at DESC")
+    fun getAllNotes(): DataSource.Factory<Int, Note>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: Note): Long
 

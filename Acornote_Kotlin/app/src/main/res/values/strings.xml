@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Acornote_Kotlin</string>
+    <string name="app_name">Acornote</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -7,4 +7,7 @@
     <string name="hello">Hello</string>
     <string name="titleTextview">TextView</string>
     <string name="todo">TODO</string>
+    <string name="menu_all">All</string>
+    <string name="menu_favourite">Favourite</string>
+    <string name="action_settings">Settings</string>
 </resources>

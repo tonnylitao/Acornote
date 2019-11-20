@@ -11,16 +11,16 @@ import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository
 
 
-class DetailViewModelFactory(private val application: Application, private val folderId: Long) :
+class DetailViewModelFactory(private val application: Application, private val folderId: Long?) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        DetailViewModel(application, folderId) as T
+        NoteViewModel(application, folderId) as T
 
 }
 
-class DetailViewModel(application: Application, folderId: Long) : AndroidViewModel(application) {
+class NoteViewModel(application: Application, folderId: Long?) : AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
