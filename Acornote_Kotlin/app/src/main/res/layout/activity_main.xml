@@ -9,9 +9,10 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_main"
+        layout="@layout/app_bar_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -20,22 +21,14 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <androidx.fragment.app.FragmentContainerView
+            android:name="tonnysunm.com.acornote.ui.folder.FolderListFragment"
+            android:id="@+id/folders_fragment"
+            tools:layout="@layout/fragment_main"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/navigation_drawer_header_include"
-                layout="@layout/menu_header" />
-
-            <fragment
-                android:id="@+id/folders_fragment"
-                android:name="tonnysunm.com.acornote.ui.main.MainFragment"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-        </LinearLayout>
+            android:layout_width="match_parent" />
 
     </com.google.android.material.navigation.NavigationView>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

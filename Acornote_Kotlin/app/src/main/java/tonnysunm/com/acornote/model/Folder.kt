@@ -10,6 +10,8 @@ data class Folder(
 
     var title: String,
 
+    var favourite: Boolean = false,
+
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
 

@@ -24,6 +24,8 @@ data class Note(
     @ColumnInfo(name = "folder_id", index = true)
     var folderId: Long?,
 
+    var favourite: Boolean = false,
+
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
 

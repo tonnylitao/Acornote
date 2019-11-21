@@ -52,9 +52,7 @@ class Repository(private val application: Application) {
 
 
     // Note
-    fun notes(folderId: Long?) =
-        if (folderId != null) noteDao.getNotes(folderId)
-        else noteDao.getAllNotes()
+    fun notes(where: String) = noteDao.getNotes(where)
 
     fun getNote(id: Long?, folderId: Long): LiveData<Note> {
         if (id != null) {

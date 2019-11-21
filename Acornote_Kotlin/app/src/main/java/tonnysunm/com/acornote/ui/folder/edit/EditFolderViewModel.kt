@@ -1,6 +1,7 @@
-package tonnysunm.com.acornote.ui.note
+package tonnysunm.com.acornote.ui.folder
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import tonnysunm.com.acornote.model.Folder
 import tonnysunm.com.acornote.model.Repository

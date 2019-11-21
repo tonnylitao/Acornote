@@ -7,19 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
-import tonnysunm.com.acornote.model.EmptyId
 
-class NoteFragment : Fragment() {
-    val folderId: Long? by lazy {
-        arguments?.getLong("folderId")
+class NoteListFragment : Fragment() {
+    private val whereSQL: String by lazy {
+        arguments?.getString("whereSQL") ?: ""
     }
 
-    private val viewModel: NoteViewModel by viewModels {
-        DetailViewModelFactory(
-            requireActivity().application, folderId
-        )
+    private val listViewModel: NoteListViewModel by viewModels {
+        DetailViewModelFactory(requireActivity().application, whereSQL)
     }
 
     override fun onCreateView(
@@ -30,10 +26,10 @@ class NoteFragment : Fragment() {
 
         val binding = FragmentNoteBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.viewModel = this.viewModel
+        binding.viewModel = this.listViewModel
 
         val adapter = NoteListAdapter()
-        viewModel.data.observe(this.viewLifecycleOwner, Observer { adapter.submitList(it) })
+        listViewModel.data.observe(this.viewLifecycleOwner, Observer { adapter.submitList(it) })
         binding.recyclerview.adapter = adapter
 
         binding.setOnAddNote {

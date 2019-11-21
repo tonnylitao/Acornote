@@ -11,14 +11,14 @@
 
         <variable
             name="viewModel"
-            type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
+            type="tonnysunm.com.acornote.ui.note.NoteListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.DetailFragment">
+        tools:context=".ui.folder.DetailFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"

@@ -11,20 +11,20 @@ import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository
 
 
-class DetailViewModelFactory(private val application: Application, private val folderId: Long?) :
+class DetailViewModelFactory(private val application: Application, private val where: String) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        NoteViewModel(application, folderId) as T
+        NoteListViewModel(application, where) as T
 
 }
 
-class NoteViewModel(application: Application, folderId: Long?) : AndroidViewModel(application) {
+class NoteListViewModel(application: Application, where: String) : AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
     val data: LiveData<PagedList<Note>> by lazy {
-        repository.notes(folderId).toLiveData(pageSize = 5)
+        repository.notes(where).toLiveData(pageSize = 5)
     }
 }

@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.note
+package tonnysunm.com.acornote.ui.folder
 
 import android.os.Bundle
 import android.view.LayoutInflater

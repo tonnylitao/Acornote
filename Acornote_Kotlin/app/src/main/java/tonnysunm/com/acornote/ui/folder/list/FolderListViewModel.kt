@@ -1,21 +1,20 @@
-package tonnysunm.com.acornote.ui.main
+package tonnysunm.com.acornote.ui.folder
 
 import android.app.Application
-import android.view.View
+import android.util.Log
 import androidx.lifecycle.*
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.*
 import tonnysunm.com.acornote.model.*
-import java.util.*
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class FolderListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
     val data: LiveData<PagedList<FolderWrapper>> by lazy {
+        Log.d("TAG", repository.folders.toString())
+        
         repository.folders.toLiveData(pageSize = 5)
     }
 

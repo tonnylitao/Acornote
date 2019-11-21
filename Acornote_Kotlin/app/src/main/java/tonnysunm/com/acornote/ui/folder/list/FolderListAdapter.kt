@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.main
+package tonnysunm.com.acornote.ui.folder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -43,7 +43,7 @@ class FolderListAdapter :
         init {
             binding.setClickListener { view ->
                 binding.data?.folder?.id?.let {
-                    val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
+                    val action = FolderListFragmentDirections.actionMainFragmentToDetailFragment(it)
                     view.findNavController().navigate(action)
                 }
             }

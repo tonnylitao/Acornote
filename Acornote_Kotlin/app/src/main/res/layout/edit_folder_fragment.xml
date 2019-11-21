@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="tonnysunm.com.acornote.ui.note.EditFolderViewModel" />
+            type="tonnysunm.com.acornote.ui.folder.EditFolderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
         android:background="#19D2B9"
         app:layout_constraintEnd_toEndOf="@+id/audio"
         app:layout_constraintStart_toEndOf="@+id/audio"
-        tools:context=".ui.main.EditFolderFragment">
+        tools:context=".ui.folder.EditFolderFragment">
 
         <ProgressBar
             android:id="@+id/progressbar"
