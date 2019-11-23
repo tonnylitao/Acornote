@@ -8,23 +8,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.model.Repository
 
 
-class DetailViewModelFactory(private val application: Application, private val where: String) :
+class DetailViewModelFactory(private val application: Application, private val filter: NoteFilter) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        NoteListViewModel(application, where) as T
+        NoteListViewModel(application, filter) as T
 
 }
 
-class NoteListViewModel(application: Application, where: String) : AndroidViewModel(application) {
+class NoteListViewModel(application: Application, filter: NoteFilter) :
+    AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
     val data: LiveData<PagedList<Note>> by lazy {
-        repository.notes(where).toLiveData(pageSize = 5)
+        repository.notes(filter).toLiveData(pageSize = 5)
     }
 }

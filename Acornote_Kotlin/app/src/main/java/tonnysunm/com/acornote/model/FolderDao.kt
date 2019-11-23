@@ -12,7 +12,7 @@ interface FolderDao {
 
     // Room executes all queries on a separate thread. So there is no suspend.
     @Query("SELECT *, (select count(*) from note_table b where b.folder_id = a.id) as noteCount from folder_table a ORDER BY updated_at DESC")
-    fun getFolders(): DataSource.Factory<Int, FolderWrapper>
+    fun getFolders(): LiveData<List<FolderWrapper>>
 
     @Query("SELECT * from folder_table WHERE id = :id LIMIT 1")
     fun getFolder(id: Long): LiveData<Folder>

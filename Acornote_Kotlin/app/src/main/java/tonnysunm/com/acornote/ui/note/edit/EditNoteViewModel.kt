@@ -10,7 +10,7 @@ import java.lang.IllegalStateException
 class EditNoteViewModelFactory(
     private val application: Application,
     private val id: Long?,
-    private val folderId: Long
+    private val folderId: Long?
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -18,7 +18,7 @@ class EditNoteViewModelFactory(
         EditNoteViewModel(application, id, folderId) as T
 }
 
-class EditNoteViewModel(application: Application, private val id: Long?, val folderId: Long) :
+class EditNoteViewModel(application: Application, private val id: Long?, val folderId: Long?) :
     AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }

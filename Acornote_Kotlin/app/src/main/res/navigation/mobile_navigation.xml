@@ -11,8 +11,10 @@
         android:label="All"
         tools:layout="@layout/fragment_note">
         <argument
-            android:name="whereSQL"
-            app:argType="string" />
+            android:name="filter"
+            app:argType="string"
+            android:defaultValue="whatever means show all notes" />
+
     </fragment>
 
     <fragment
@@ -21,9 +23,9 @@
         android:label="Favourite"
         tools:layout="@layout/fragment_note">
         <argument
-            android:name="whereSQL"
+            android:name="filter"
             app:argType="string"
-            android:defaultValue="favourite == true" />
+            android:defaultValue="favourite" />
     </fragment>
 
     <fragment
@@ -31,18 +33,19 @@
         android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
         tools:layout="@layout/fragment_note">
         <argument
-            android:name="whereSQL"
+            android:name="filter"
             app:argType="string" />
     </fragment>
 
     <fragment
-        android:id="@+id/edit_folder"
+        android:id="@+id/nav_edit_folder"
         android:name="tonnysunm.com.acornote.ui.folder.EditFolderFragment"
         android:label="Edit"
+        android:fitsSystemWindows="true"
         tools:layout="@layout/edit_folder_fragment">
         <argument
-            android:name="whereSQL"
-            app:argType="string" />
+            android:name="folderId"
+            app:argType="long" />
     </fragment>
 
 </navigation>

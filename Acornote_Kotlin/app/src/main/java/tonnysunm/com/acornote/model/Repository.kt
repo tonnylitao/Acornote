@@ -3,6 +3,7 @@ package tonnysunm.com.acornote.model
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import java.util.*
 
 class Repository(private val application: Application) {
@@ -52,9 +53,13 @@ class Repository(private val application: Application) {
 
 
     // Note
-    fun notes(where: String) = noteDao.getNotes(where)
+    fun notes(filter: NoteFilter) = when (filter) {
+        is NoteFilter.All -> noteDao.getAll()
+        is NoteFilter.Favourite -> noteDao.getFavourite()
+        is NoteFilter.ByFolder -> noteDao.getByFolder(filter.id)
+    }
 
-    fun getNote(id: Long?, folderId: Long): LiveData<Note> {
+    fun getNote(id: Long?, folderId: Long?): LiveData<Note> {
         if (id != null) {
             val liveData = noteDao.note(id)
             if (liveData.value != null) {
@@ -67,3 +72,4 @@ class Repository(private val application: Application) {
         }
     }
 }
+

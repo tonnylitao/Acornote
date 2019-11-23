@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="onAddFolder"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="tonnysunm.com.acornote.ui.drawer.DrawerViewModel" />
+    </data>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/menu_header"
+        app:menu="@menu/drawer">
+
+
+        <Button
+            android:id="@+id/add_folder"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:onClick="@{onAddFolder}"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
+            android:text="Add Folder" />
+
+
+    </com.google.android.material.navigation.NavigationView>
+
+</layout>

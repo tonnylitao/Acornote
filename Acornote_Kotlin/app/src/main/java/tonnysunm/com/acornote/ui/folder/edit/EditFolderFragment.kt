@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.EditFolderFragmentBinding
 import tonnysunm.com.acornote.model.EmptyId
+
 
 class EditFolderFragment : Fragment() {
 
@@ -52,6 +55,18 @@ class EditFolderFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
 }
