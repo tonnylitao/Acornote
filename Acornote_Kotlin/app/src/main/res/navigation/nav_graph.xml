@@ -10,7 +10,7 @@
         android:label="detail_fragment"
         tools:layout="@layout/fragment_note">
         <argument
-            android:name="folderId"
+            android:name="@string/folderIdKey"
             app:argType="long" />
         <action
             android:id="@+id/action_detailFragment_to_editNoteFragment"
@@ -22,7 +22,7 @@
         android:label="EditFolderFragment"
         tools:layout="@layout/edit_folder_fragment">
         <argument
-            android:name="folderId"
+            android:name="@string/folderIdKey"
             app:argType="long" />
     </fragment>
     <fragment
@@ -31,7 +31,7 @@
         android:label="EditNoteFragment"
         tools:layout="@layout/edit_note_fragment">
         <argument
-            android:name="folderId"
+            android:name="@string/folderIdKey"
             app:argType="long" />
         <argument
             android:name="noteId"

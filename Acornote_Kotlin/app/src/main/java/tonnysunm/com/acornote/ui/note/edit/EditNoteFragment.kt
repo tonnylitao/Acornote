@@ -9,13 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
+import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.EditNoteFragmentBinding
 import tonnysunm.com.acornote.model.EmptyId
 
 class EditNoteFragment : Fragment() {
 
     private val viewModel: EditNoteViewModel by viewModels {
-        val folderId = arguments?.getLong("folderId")
+        val folderId = arguments?.getLong(getString(R.string.folderIdKey))
             ?: throw IllegalArgumentException("folderId is null.")
 
         val id = arguments?.getLong("id")?.let {

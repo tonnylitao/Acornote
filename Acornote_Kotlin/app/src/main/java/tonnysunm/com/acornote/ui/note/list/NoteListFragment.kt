@@ -6,19 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
 import tonnysunm.com.acornote.model.NoteFilter
 
 class NoteListFragment : Fragment() {
     private val filter: NoteFilter by lazy {
         val filter = arguments?.getString("filter") ?: ""
-        val maybeId = filter.toLongOrNull() ?: 0
+        val folderId = arguments?.getLong(getString(R.string.folderIdKey)) ?: 0
 
         when {
             filter == "favourite" -> NoteFilter.Favourite
-            maybeId > 0 -> NoteFilter.ByFolder(maybeId)
+            folderId > 0 -> NoteFilter.ByFolder(folderId)
             else -> NoteFilter.All
         }
     }
@@ -51,5 +53,14 @@ class NoteListFragment : Fragment() {
 
         return binding.root
     }
+//
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//
+//        listViewModel.folder?.observe(viewLifecycleOwner, Observer {
+//
+//            (activity as? AppCompatActivity)?.supportActionBar?.title = it.title
+//        })
+//    }
 
 }

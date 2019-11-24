@@ -33,7 +33,10 @@
         android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
         tools:layout="@layout/fragment_note">
         <argument
-            android:name="filter"
+            android:name="@string/folderIdKey"
+            app:argType="long" />
+        <argument
+            android:name="folderTitle"
             app:argType="string" />
     </fragment>
 
@@ -44,7 +47,7 @@
         android:fitsSystemWindows="true"
         tools:layout="@layout/edit_folder_fragment">
         <argument
-            android:name="folderId"
+            android:name="@string/folderIdKey"
             app:argType="long" />
     </fragment>
 

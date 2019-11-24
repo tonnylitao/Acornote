@@ -40,11 +40,10 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.nav_all,
                 R.id.nav_favourite
-//                R.id.nav_folder
+//                R.id.nav_folder //for isTopLevelDestination = NavigationUI.matchDestinations(destination,
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-//        findViewById<NavigationView>(R.id.nav_view).setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
