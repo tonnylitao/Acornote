@@ -5,12 +5,14 @@ import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import androidx.navigation.ui.*
-import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.launch
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.drawer.DrawerViewModel
 import tonnysunm.com.acornote.ui.note.EditNoteViewModel
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,16 +37,16 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navController = findNavController(R.id.nav_host_fragment)
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_all,
-                R.id.nav_favourite
-//                R.id.nav_folder //for isTopLevelDestination = NavigationUI.matchDestinations(destination,
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+//        val navController = findNavController(R.id.nav_host_fragment)
+//        appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.nav_all,
+//                R.id.nav_favourite
+////                R.id.nav_folder //for isTopLevelDestination = NavigationUI.matchDestinations(destination,
+//            ), drawerLayout
+//        )
+//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,8 +56,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        fun navigateUp(): Boolean {
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            val navController = findNavController(R.id.nav_host_fragment)
+
+            val currentDestination = navController.currentDestination ?: return false
+
+            return if (R.id.nav_folder == currentDestination.id) {
+                drawerLayout.openDrawer(GravityCompat.START)
+                true
+            } else {
+                navController.navigateUp()
+            }
+        }
+
+        return navigateUp() || super.onSupportNavigateUp()
     }
+
 
     //////
 
@@ -69,5 +87,4 @@ class MainActivity : AppCompatActivity() {
         //            viewModel2.updateOrInsertNote()
 //        }
     }
-
 }

@@ -3,6 +3,7 @@ package tonnysunm.com.acornote.model
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import tonnysunm.com.acornote.model.NoteFilter as NoteFilter
 
 
 @Dao
@@ -15,7 +16,7 @@ interface NoteDao {
     @Query("SELECT * from note_table WHERE favourite == 1 ORDER BY updated_at DESC")
     fun getFavourite(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table WHERE id == :id ORDER BY updated_at DESC")
+    @Query("SELECT * from note_table WHERE folder_id == :id ORDER BY updated_at DESC")
     fun getByFolder(id: Long): DataSource.Factory<Int, Note>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -29,10 +30,23 @@ interface NoteDao {
 }
 
 
-sealed class NoteFilter {
-    object All : NoteFilter()
+sealed class NoteFilter(val title: String) {
+    object All : NoteFilter("All")
 
-    object Favourite : NoteFilter()
-    
-    data class ByFolder(val id: Long) : NoteFilter()
+    object Favourite : NoteFilter("Favourite")
+
+    data class ByFolder(val id: Long, val folderTitle: String) : NoteFilter(folderTitle)
+
+//    val title: String
+//        get() = when (this) {
+//            All -> "All"
+//            Favourite -> "Favourite"
+//            is ByFolder ->
+//        }
+
+    val folderId: Long?
+        get() = when (this) {
+            is ByFolder -> this.id
+            else -> null
+        }
 }

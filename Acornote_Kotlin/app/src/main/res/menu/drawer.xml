@@ -7,7 +7,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all"
-            android:title="All" />
+            android:title="All"
+            android:checked="true" />
         <item
             android:id="@+id/nav_favourite"
             android:title="Favourite" />
@@ -18,7 +19,7 @@
         android:id="@+id/menu_group_folders"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_group_folders_item_one"
+            android:id="@+id/menu_group_folders_title"
             android:enabled="false"
             android:title="Folders" />
     </group>

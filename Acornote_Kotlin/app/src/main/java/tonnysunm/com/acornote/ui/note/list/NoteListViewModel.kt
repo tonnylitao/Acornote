@@ -1,11 +1,8 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
-import android.icu.text.CaseMap
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import tonnysunm.com.acornote.model.Folder
@@ -28,14 +25,11 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
 
     private val repository: Repository by lazy { Repository(application) }
 
-//    val folder: LiveData<Folder>? by lazy {
-//        when (filter) {
-//            is NoteFilter.ByFolder -> repository.getFolder(filter.id)
-//            else -> null
-//        }
-//    }
+    val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
+        MutableLiveData<NoteFilter>().apply { value = filter }
+    }
 
-    val data: LiveData<PagedList<Note>> by lazy {
-        repository.notes(filter).toLiveData(pageSize = 5)
+    val data: LiveData<PagedList<Note>> = Transformations.switchMap(noteFilterLiveData) {
+        return@switchMap repository.notes(it).toLiveData(pageSize = 5)
     }
 }

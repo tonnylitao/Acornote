@@ -3,35 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_all">
-
-    <fragment
-        android:id="@+id/nav_all"
-        android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
-        android:label="All"
-        tools:layout="@layout/fragment_note">
-        <argument
-            android:name="filter"
-            app:argType="string"
-            android:defaultValue="whatever means show all notes" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_favourite"
-        android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
-        android:label="Favourite"
-        tools:layout="@layout/fragment_note">
-        <argument
-            android:name="filter"
-            app:argType="string"
-            android:defaultValue="favourite" />
-    </fragment>
+    app:startDestination="@+id/nav_folder">
 
     <fragment
         android:id="@+id/nav_folder"
         android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
         tools:layout="@layout/fragment_note">
+        <argument
+            android:name="filter"
+            app:argType="string" />
         <argument
             android:name="@string/folderIdKey"
             app:argType="long" />

@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.model
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
@@ -50,9 +51,18 @@ class Repository(private val application: Application) {
 
     // Note
     fun notes(filter: NoteFilter) = when (filter) {
-        is NoteFilter.All -> noteDao.getAll()
-        is NoteFilter.Favourite -> noteDao.getFavourite()
-        is NoteFilter.ByFolder -> noteDao.getByFolder(filter.id)
+        is NoteFilter.All -> {
+            Log.d("ROOM", "get all")
+            noteDao.getAll()
+        }
+        is NoteFilter.Favourite -> {
+            Log.d("ROOM", "get favourite")
+            noteDao.getFavourite()
+        }
+        is NoteFilter.ByFolder -> {
+            Log.d("ROOM", "get folder by " + filter.id)
+            noteDao.getByFolder(filter.id)
+        }
     }
 
     fun getNote(id: Long?, folderId: Long?): LiveData<Note> {
