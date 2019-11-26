@@ -30,11 +30,13 @@ class EditNoteViewModel(
         repository.getNote(id)
     }
 
+    val noteEditing = NoteEditing()
+
     suspend fun updateOrInsertNote(
         folderId: Long,
         favourite: Boolean,
         title: String,
-        description: String
+        description: String?
     ) {
         val note = noteLiveData.value ?: throw IllegalStateException("note is not set")
 
@@ -50,5 +52,11 @@ class EditNoteViewModel(
             note.id = id
             repository.update(note)
         }
+    }
+
+
+    inner class NoteEditing {
+        val title = MutableLiveData<String>()
+        val description = MutableLiveData<String>()
     }
 }

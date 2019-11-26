@@ -23,7 +23,7 @@
         <item
             android:id="@+id/menu_group_folders_title"
             android:enabled="false"
-            android:title="Folders" />
+            android:title="FOLDERS" />
     </group>
 
 </menu>

@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
+import java.lang.IllegalStateException
 
 class EditNoteFragment : Fragment() {
 
@@ -35,14 +37,18 @@ class EditNoteFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.setOnCancel {
-            activity?.finish()
+            //            activity?.finish()
+
+            Log.d("TAG", "${viewModel.noteLiveData.value}")
         }
 
         binding.setOnSure { view ->
             view.isEnabled = false
 
-            val title = binding.titleView.text.toString()
-            val description = (binding.descriptionView.text ?: "").toString()
+            val title = viewModel.noteEditing.title.value
+                ?: throw IllegalStateException("title is null")
+
+            val description = viewModel.noteEditing.description.value
 
             binding.progressbar.visibility = View.VISIBLE
 
@@ -54,6 +60,11 @@ class EditNoteFragment : Fragment() {
                 activity?.finish()
             }
         }
+
+        viewModel.noteLiveData.observe(viewLifecycleOwner, Observer {
+            viewModel.noteEditing.title.value = it.title
+            viewModel.noteEditing.description.value = it.description
+        })
 
         return binding.root
     }

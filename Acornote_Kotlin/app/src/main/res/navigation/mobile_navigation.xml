@@ -24,8 +24,7 @@
         android:id="@+id/nav_edit_folder"
         android:name="tonnysunm.com.acornote.ui.folder.EditFolderFragment"
         android:label="Edit"
-        android:fitsSystemWindows="true"
-        tools:layout="@layout/edit_folder_fragment">
+        tools:layout="@layout/fragment_edit_folder">
         <argument
             android:name="@string/folderIdKey"
             app:argType="long" />

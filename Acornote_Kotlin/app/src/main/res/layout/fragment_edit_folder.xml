@@ -67,6 +67,7 @@
             android:layout_height="50dp"
             android:background="@android:color/transparent"
             android:onClick="@{onSure}"
+            android:clickable="@{viewModel.folderLiveData.title.length() > 0}"
             android:src="@drawable/ic_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:text="@{viewModel.folderLiveData.title}"
+            android:text="@={viewModel.folderLiveData.title}"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/audio"
             app:layout_constraintEnd_toEndOf="parent"

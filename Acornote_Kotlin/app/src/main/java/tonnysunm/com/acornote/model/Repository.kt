@@ -43,9 +43,7 @@ class Repository(private val application: Application) {
             return folderDao.getFolder(id)
         }
 
-        return MutableLiveData<Folder>().apply {
-            value = Folder(title = "")
-        }
+        return MutableLiveData(Folder(title = ""))
     }
 
 
@@ -73,9 +71,7 @@ class Repository(private val application: Application) {
             }
         }
 
-        return MutableLiveData<Note>().apply {
-            value = Note(title = "", folderId = null)
-        }
+        return MutableLiveData(Note(title = "", folderId = null))
     }
 
     fun notesAllCount() = noteDao.notesAllCount()

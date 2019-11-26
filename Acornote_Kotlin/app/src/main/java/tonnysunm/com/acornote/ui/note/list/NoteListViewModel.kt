@@ -27,7 +27,7 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
     private val repository: Repository by lazy { Repository(application) }
 
     val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
-        MutableLiveData<NoteFilter>().apply { value = filter }
+        MutableLiveData(filter)
     }
 
 //    val createVisibilityLiveData: LiveData<Int> = Transformations.map(noteFilterLiveData) {

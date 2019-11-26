@@ -73,6 +73,7 @@ class DrawerFragment : Fragment() {
                     index,
                     folderWrapper.folder.title // + "_" + folderWrapper.folder.id + "_" + folderWrapper.noteCount
                 ).setActionView(R.layout.drawer_item)
+                    .setCheckable(true)
 
                 val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
                 textView.text = folderWrapper.noteCount.toString()

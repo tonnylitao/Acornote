@@ -11,7 +11,8 @@ interface SQLEntity
         entity = Folder::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("folder_id")
-    )]
+    )],
+    indices = [Index(value = ["title"], unique = true)]
 )
 data class Note(
     @PrimaryKey(autoGenerate = true)

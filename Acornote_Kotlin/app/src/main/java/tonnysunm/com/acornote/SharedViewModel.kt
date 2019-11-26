@@ -7,9 +7,7 @@ import tonnysunm.com.acornote.model.NoteFilter
 class SharedViewModel : ViewModel() {
 
     val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
-        MutableLiveData<NoteFilter>().apply {
-            value = NoteFilter.All
-        }
+        MutableLiveData<NoteFilter>(NoteFilter.All)
     }
 
 }
