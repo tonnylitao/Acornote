@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository
@@ -9,30 +10,39 @@ import java.lang.IllegalStateException
 
 class EditNoteViewModelFactory(
     private val application: Application,
-    private val id: Long?,
-    private val folderId: Long?
+    private val id: Long?
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        EditNoteViewModel(application, id, folderId) as T
+        EditNoteViewModel(application, id) as T
 }
 
-class EditNoteViewModel(application: Application, private val id: Long?, val folderId: Long?) :
+class EditNoteViewModel(
+    application: Application,
+    private val id: Long?
+) :
     AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
     val noteLiveData: LiveData<Note> by lazy {
-        repository.getNote(id, folderId = folderId)
+        repository.getNote(id)
     }
 
-    suspend fun updateOrInsertNote(title: String, description: String) {
+    suspend fun updateOrInsertNote(
+        folderId: Long?,
+        favourite: Boolean,
+        title: String,
+        description: String
+    ) {
+        Log.d("TAG", "$folderId $favourite $title")
         val note = noteLiveData.value ?: throw IllegalStateException("note is not set")
 
         note.folderId = folderId
         note.title = title
         note.description = description
+        note.favourite = favourite
 
         if (id == null) {
             repository.insert(note)

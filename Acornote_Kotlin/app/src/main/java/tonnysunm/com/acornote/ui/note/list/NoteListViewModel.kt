@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -28,6 +29,13 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
     val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
         MutableLiveData<NoteFilter>().apply { value = filter }
     }
+
+//    val createVisibilityLiveData: LiveData<Int> = Transformations.map(noteFilterLiveData) {
+//        return@map when (it) {
+//            NoteFilter.All, is NoteFilter.ByFolder -> View.VISIBLE
+//            else -> View.GONE
+//        }
+//    }
 
     val data: LiveData<PagedList<Note>> = Transformations.switchMap(noteFilterLiveData) {
         return@switchMap repository.notes(it).toLiveData(pageSize = 5)

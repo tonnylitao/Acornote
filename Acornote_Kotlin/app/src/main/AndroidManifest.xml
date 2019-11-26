@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name="tonnysunm.com.acornote.EditNoteActivity"
+            android:name="tonnysunm.com.acornote.ui.note.edit.EditNoteActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

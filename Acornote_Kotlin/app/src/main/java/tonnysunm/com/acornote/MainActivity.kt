@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: DrawerViewModel by viewModels()
 
     private val viewModel2: EditNoteViewModel by viewModels {
-        EditNoteViewModelFactory(this.application, null, null)
+        EditNoteViewModelFactory(this.application, null)
     }
 
     private fun dev_createDemo() {

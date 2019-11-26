@@ -22,7 +22,7 @@ data class Note(
     var description: String? = null,
 
     @ColumnInfo(name = "folder_id", index = true)
-    var folderId: Long?,
+    var folderId: Long? = null,
 
     var favourite: Boolean = false,
 

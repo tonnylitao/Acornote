@@ -65,7 +65,7 @@ class Repository(private val application: Application) {
         }
     }
 
-    fun getNote(id: Long?, folderId: Long?): LiveData<Note> {
+    fun getNote(id: Long?): LiveData<Note> {
         if (id != null) {
             val liveData = noteDao.note(id)
             if (liveData.value != null) {
@@ -74,7 +74,7 @@ class Repository(private val application: Application) {
         }
 
         return MutableLiveData<Note>().apply {
-            value = Note(title = "", folderId = folderId)
+            value = Note(title = "")
         }
     }
 }

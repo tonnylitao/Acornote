@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +11,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
-import tonnysunm.com.acornote.databinding.EditNoteFragmentBinding
+import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
 
 class EditNoteFragment : Fragment() {
 
     private val viewModel: EditNoteViewModel by viewModels {
-        val folderId = arguments?.getLong(getString(R.string.folderIdKey))
-            ?: throw IllegalArgumentException("folderId is null.")
-
-        val id = arguments?.getLong("id")?.let {
+        val id = activity?.intent?.extras?.getLong("id")?.let {
             if (it != EmptyId) it else null
         }
 
-        EditNoteViewModelFactory(requireActivity().application, id, folderId)
+        EditNoteViewModelFactory(requireActivity().application, id)
     }
 
     override fun onCreateView(
@@ -32,12 +30,12 @@ class EditNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = EditNoteFragmentBinding.inflate(inflater, container, false)
+        val binding = FragmentEditNoteBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
         binding.setOnCancel {
-            it.findNavController().popBackStack()
+            activity?.finish()
         }
 
         binding.setOnSure { view ->
@@ -48,10 +46,12 @@ class EditNoteFragment : Fragment() {
 
             binding.progressbar.visibility = View.VISIBLE
 
+            val folderId = activity?.intent?.extras?.getLong(getString(R.string.folderIdKey))
+            val favourite = activity?.intent?.extras?.getBoolean("favourite") ?: false
             lifecycleScope.launch {
-                viewModel.updateOrInsertNote(title, description)
+                viewModel.updateOrInsertNote(folderId, favourite, title, description)
 
-                view.findNavController().popBackStack()
+                activity?.finish()
             }
         }
 

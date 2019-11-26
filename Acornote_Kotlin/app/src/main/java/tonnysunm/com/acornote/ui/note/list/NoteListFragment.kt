@@ -1,5 +1,6 @@
 package tonnysunm.com.acornote.ui.note
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -12,26 +13,15 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import tonnysunm.com.acornote.ui.note.edit.EditNoteActivity
 import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.SharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
+import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.NoteFilter
 
 class NoteListFragment : Fragment() {
-    private val filter: NoteFilter by lazy {
-        val filter = arguments?.getString("filter") ?: ""
-        val folderId = arguments?.getLong(getString(R.string.folderIdKey)) ?: 0
-        val folderTitle = arguments?.getString("folderTitle") ?: ""
-
-        when {
-            filter == "favourite" -> NoteFilter.Favourite
-            folderId > 0 -> NoteFilter.ByFolder(folderId, folderTitle)
-            else -> NoteFilter.All
-        }
-    }
-
     private lateinit var mainModel: SharedViewModel
 
     private val mArrowDrawable: DrawerArrowDrawable by lazy {
@@ -39,7 +29,17 @@ class NoteListFragment : Fragment() {
     }
 
     private val mViewModel: NoteListViewModel by viewModels {
-        DetailViewModelFactory(requireActivity().application, filter)
+        val filter = arguments?.getString("filter") ?: ""
+        val folderId = arguments?.getLong(getString(R.string.folderIdKey)) ?: 0
+        val folderTitle = arguments?.getString("folderTitle") ?: ""
+
+        val noteFilter = when {
+            filter == "favourite" -> NoteFilter.Favourite
+            folderId > 0 -> NoteFilter.ByFolder(folderId, folderTitle)
+            else -> NoteFilter.All
+        }
+
+        DetailViewModelFactory(requireActivity().application, noteFilter)
     }
 
     override fun onCreateView(
@@ -59,9 +59,17 @@ class NoteListFragment : Fragment() {
         binding.recyclerview.adapter = adapter
 
         binding.setOnAddNote {
-            //            it.findNavController().navigate(
-//                NoteFragmentDirections.actionDetailFragmentToEditNoteFragment(folderId, EmptyId)
-//            )
+
+            val intent = Intent(activity, EditNoteActivity::class.java).apply {
+                val noteFilter = mViewModel.noteFilterLiveData.value
+                putExtra(getString(R.string.folderIdKey), noteFilter?.folderId ?: EmptyId)
+
+                if (noteFilter == NoteFilter.Favourite) {
+                    putExtra("favourite", true)
+                }
+            }
+
+            startActivity(intent)
         }
 
         return binding.root
