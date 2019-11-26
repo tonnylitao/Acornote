@@ -62,7 +62,7 @@ class NoteListFragment : Fragment() {
 
             val intent = Intent(activity, EditNoteActivity::class.java).apply {
                 val noteFilter = mViewModel.noteFilterLiveData.value
-                putExtra(getString(R.string.folderIdKey), noteFilter?.folderId ?: EmptyId)
+                putExtra(getString(R.string.folderIdKey), noteFilter?.folderId)
 
                 if (noteFilter == NoteFilter.Favourite) {
                     putExtra("favourite", true)

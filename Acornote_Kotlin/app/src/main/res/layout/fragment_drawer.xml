@@ -22,7 +22,6 @@
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/drawer">
 
-
         <Button
             android:id="@+id/add_folder"
             android:layout_width="match_parent"

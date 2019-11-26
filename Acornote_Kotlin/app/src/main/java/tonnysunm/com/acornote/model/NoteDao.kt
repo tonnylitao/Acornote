@@ -27,6 +27,12 @@ interface NoteDao {
 
     @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
     fun note(id: Long): LiveData<Note>
+
+    @Query("SELECT count(*) from note_table")
+    fun notesAllCount(): LiveData<Int>
+
+    @Query("SELECT count(*) from note_table WHERE favourite == 1")
+    fun notesFavouriteCount(): LiveData<Int>
 }
 
 

@@ -74,8 +74,13 @@ class Repository(private val application: Application) {
         }
 
         return MutableLiveData<Note>().apply {
-            value = Note(title = "")
+            value = Note(title = "", folderId = null)
         }
     }
+
+    fun notesAllCount() = noteDao.notesAllCount()
+
+    fun notesFavouriteCount() = noteDao.notesFavouriteCount()
+
 }
 

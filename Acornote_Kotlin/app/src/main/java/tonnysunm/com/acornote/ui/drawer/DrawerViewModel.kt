@@ -9,6 +9,14 @@ class DrawerViewModel(application: Application) : AndroidViewModel(application) 
 
     private val repository: Repository by lazy { Repository(application) }
 
+    val allNotesCountLiveData: LiveData<Int> by lazy {
+        repository.notesAllCount()
+    }
+
+    val favouriteCountLiveData: LiveData<Int> by lazy {
+        repository.notesFavouriteCount()
+    }
+
     val data: LiveData<List<FolderWrapper>> by lazy {
         repository.folders
     }

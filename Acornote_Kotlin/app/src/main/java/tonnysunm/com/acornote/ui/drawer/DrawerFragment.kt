@@ -2,8 +2,10 @@ package tonnysunm.com.acornote.ui.drawer
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -33,6 +35,21 @@ class DrawerFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = this.mViewModel
 
+
+        mViewModel.allNotesCountLiveData.observe(viewLifecycleOwner, Observer {
+            val item = binding.navView.menu.findItem(R.id.nav_all)
+
+            val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
+            textView.text = it.toString()
+        })
+
+        mViewModel.favouriteCountLiveData.observe(viewLifecycleOwner, Observer {
+            val item = binding.navView.menu.findItem(R.id.nav_favourite)
+
+            val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
+            textView.text = it.toString()
+        })
+
         mViewModel.data.observe(viewLifecycleOwner, Observer {
 
             val itemIds = mutableListOf<Int>()
@@ -50,12 +67,15 @@ class DrawerFragment : Fragment() {
 
             //
             it.forEachIndexed { index, folderWrapper ->
-                binding.navView.menu.add(
+                val item = binding.navView.menu.add(
                     R.id.menu_group_folders,
                     folderWrapper.folder.id.toInt(),
                     index,
                     folderWrapper.folder.title // + "_" + folderWrapper.folder.id + "_" + folderWrapper.noteCount
-                )
+                ).setActionView(R.layout.drawer_item)
+
+                val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
+                textView.text = folderWrapper.noteCount.toString()
             }
 
             binding.navView.invalidate()

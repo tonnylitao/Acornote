@@ -31,15 +31,15 @@ class EditNoteViewModel(
     }
 
     suspend fun updateOrInsertNote(
-        folderId: Long?,
+        folderId: Long,
         favourite: Boolean,
         title: String,
         description: String
     ) {
-        Log.d("TAG", "$folderId $favourite $title")
         val note = noteLiveData.value ?: throw IllegalStateException("note is not set")
 
-        note.folderId = folderId
+        note.folderId = if (folderId > 0) folderId else null
+
         note.title = title
         note.description = description
         note.favourite = favourite
