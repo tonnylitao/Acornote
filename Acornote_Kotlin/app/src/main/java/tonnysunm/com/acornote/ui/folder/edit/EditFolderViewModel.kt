@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.folder
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import tonnysunm.com.acornote.model.Folder
 import tonnysunm.com.acornote.model.Repository
@@ -44,5 +43,9 @@ class EditFolderViewModel(application: Application, private val folderId: Long?)
 
     inner class FolderEditing {
         val title = MutableLiveData<String>()
+
+        val favourite = MutableLiveData<Boolean>()
+
+        val flippable = MutableLiveData<Boolean>()
     }
 }

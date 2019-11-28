@@ -12,6 +12,8 @@ data class Folder(
 
     var favourite: Boolean = false,
 
+    var flippable: Boolean = false,
+
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
 

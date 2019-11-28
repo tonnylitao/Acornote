@@ -1,15 +1,13 @@
 package tonnysunm.com.acornote.ui.folder
 
-import android.content.Context
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -53,8 +51,8 @@ class EditFolderFragment : Fragment() {
             it.findNavController().popBackStack()
         }
 
-        binding.setOnSure { view ->
-            view.isEnabled = false
+        binding.setOnSure {
+            it.isEnabled = false
 
             val title = binding.textView.text.toString()
 
@@ -65,8 +63,8 @@ class EditFolderFragment : Fragment() {
 
             lifecycleScope.launch {
                 val id = viewModel.updateOrInsertFolder(title)
-                
-                activity?.let {
+
+                (activity as? MainActivity)?.let {
                     val mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
                     mainModel.noteFilterLiveData.value = NoteFilter.ByFolder(
                         id = id,
@@ -74,9 +72,15 @@ class EditFolderFragment : Fragment() {
                     )
                 }
 
-                view.findNavController().popBackStack()
+                it.findNavController().popBackStack()
             }
         }
+
+        viewModel.folderLiveData.observe(viewLifecycleOwner, Observer {
+            viewModel.folderEditing.title.value = it.title
+            viewModel.folderEditing.favourite.value = it.favourite
+            viewModel.folderEditing.flippable.value = it.flippable
+        })
 
         activity?.showSoftKeyboard(binding.textView)
 

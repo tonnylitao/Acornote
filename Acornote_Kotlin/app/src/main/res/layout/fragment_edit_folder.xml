@@ -92,31 +92,35 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_link"
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
-            app:layout_constraintEnd_toStartOf="@+id/audio"
+            app:layout_constraintEnd_toStartOf="@+id/favourite"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/audio"
+        <ToggleButton
+            android:id="@+id/favourite"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_flag_on"
+            android:background="@drawable/toggle_selector"
+            android:checked="@={viewModel.folderEditing.favourite}"
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
             app:layout_constraintEnd_toStartOf="@+id/flippable"
             app:layout_constraintStart_toEndOf="@+id/link" />
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/flippable"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_flip_on"
+            android:checked="@={viewModel.folderEditing.flippable}"
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
-            app:layout_constraintEnd_toStartOf="@+id/emoji"
-            app:layout_constraintStart_toEndOf="@+id/audio" />
+            app:layout_constraintEnd_toStartOf="@+id/audio"
+            app:layout_constraintStart_toEndOf="@+id/favourite" />
 
         <ImageButton
-            android:id="@+id/emoji"
+            android:id="@+id/audio"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@android:color/transparent"
@@ -131,6 +135,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_end="16dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

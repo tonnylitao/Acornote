@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.ui.drawer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +19,7 @@ import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.SharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentDrawerBinding
+import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
 
 
@@ -35,6 +37,9 @@ class DrawerFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = this.mViewModel
 
+        (activity as? MainActivity)?.let {
+            mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
+        }
 
         mViewModel.allNotesCountLiveData.observe(viewLifecycleOwner, Observer {
             val item = binding.navView.menu.findItem(R.id.nav_all)
@@ -67,13 +72,19 @@ class DrawerFragment : Fragment() {
 
             //
             it.forEachIndexed { index, folderWrapper ->
+                val itemId = folderWrapper.folder.id.toInt()
+
                 val item = binding.navView.menu.add(
                     R.id.menu_group_folders,
-                    folderWrapper.folder.id.toInt(),
+                    itemId,
                     index,
                     folderWrapper.folder.title // + "_" + folderWrapper.folder.id + "_" + folderWrapper.noteCount
                 ).setActionView(R.layout.drawer_item)
                     .setCheckable(true)
+
+                mainModel.noteFilterLiveData.value?.let { filter ->
+                    item.isChecked = item.isChecked(filter)
+                }
 
                 val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
                 textView.text = folderWrapper.noteCount.toString()
@@ -89,39 +100,47 @@ class DrawerFragment : Fragment() {
             activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.nav_edit_folder)
         }
 
-        return binding.root
-    }
+        val navView = binding.navView
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
-        (activity as? MainActivity)?.let {
-            mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
-        }
+        mainModel.noteFilterLiveData.observe(viewLifecycleOwner, Observer {
+            updateMenuChecked(it)
+        })
 
-        val navView = view as? NavigationView
-        navView?.setNavigationItemSelectedListener { item ->
 
-            mainModel.noteFilterLiveData.value = when (item.itemId) {
-                R.id.nav_all -> NoteFilter.All
-                R.id.nav_favourite -> NoteFilter.Favourite
-                else -> mViewModel.data.value?.find { it.folder.id.toInt() == item.itemId }?.folder?.run {
-                    NoteFilter.ByFolder(id, title)
-                }
-            }
+        navView.setNavigationItemSelectedListener { item ->
+
+            mainModel.noteFilterLiveData.value = item.noteFilter
 
             //
             val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout
             drawer?.closeDrawers()
 
-            //
-            val menu = navView.menu
-            menu.forEach { menuItem ->
-                menuItem.isChecked = menuItem == item
-            }
             true
         }
 
+
+        return binding.root
+
     }
 
+    private fun updateMenuChecked(filter: NoteFilter) {
+        val menu = (view as? NavigationView)?.menu
+        menu?.forEach { menuItem ->
+            menuItem.isChecked = menuItem.isChecked(filter)
+        }
+    }
+}
+
+private val MenuItem.noteFilter: NoteFilter
+    get() = when (itemId) {
+        R.id.nav_all -> NoteFilter.All
+        R.id.nav_favourite -> NoteFilter.Favourite
+        else -> NoteFilter.ByFolder(itemId.toLong(), title.toString())
+    }
+
+private fun MenuItem.isChecked(filter: NoteFilter) = when (itemId) {
+    R.id.nav_all -> filter == NoteFilter.All
+    R.id.nav_favourite -> filter == NoteFilter.Favourite
+    else -> itemId == filter.folderId?.toInt()
 }

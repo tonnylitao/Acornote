@@ -1,21 +1,19 @@
 package tonnysunm.com.acornote
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.*
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.drawer.DrawerViewModel
 import tonnysunm.com.acornote.ui.note.EditNoteViewModel
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
+
 
 /*TODO
 
@@ -71,6 +69,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         return navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            super.onBackPressed()
+        } else {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
     }
 
 
