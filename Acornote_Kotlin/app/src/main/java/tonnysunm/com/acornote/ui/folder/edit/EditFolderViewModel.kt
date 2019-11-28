@@ -27,16 +27,22 @@ class EditFolderViewModel(application: Application, private val folderId: Long?)
         repository.getFolder(folderId)
     }
 
-    suspend fun updateOrInsertFolder(title: String) {
+    val folderEditing = FolderEditing()
+
+    suspend fun updateOrInsertFolder(title: String): Long {
         val folder = folderLiveData.value ?: throw IllegalStateException("folder is not set")
 
         folder.title = title
 
-        if (folderId == null) {
+        return if (folderId == null) {
             repository.insert(folder)
         } else {
             folder.id = folderId
             repository.update(folder)
         }
+    }
+
+    inner class FolderEditing {
+        val title = MutableLiveData<String>()
     }
 }

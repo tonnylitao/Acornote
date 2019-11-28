@@ -1,10 +1,12 @@
 package tonnysunm.com.acornote.ui.note
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -37,9 +39,9 @@ class EditNoteFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.setOnCancel {
-            //            activity?.finish()
 
-            Log.d("TAG", "${viewModel.noteLiveData.value}")
+
+            activity?.finish()
         }
 
         binding.setOnSure { view ->
@@ -65,6 +67,8 @@ class EditNoteFragment : Fragment() {
             viewModel.noteEditing.title.value = it.title
             viewModel.noteEditing.description.value = it.description
         })
+
+        binding.titleView.requestFocus()
 
         return binding.root
     }

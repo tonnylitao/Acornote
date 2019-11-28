@@ -24,7 +24,7 @@ class Repository(private val application: Application) {
         throw IllegalArgumentException("type is not right.")
     }
 
-    suspend fun <T : SQLEntity> update(entity: T, updatedAt: Long = Date().time) {
+    suspend fun <T : SQLEntity> update(entity: T, updatedAt: Long = Date().time): Long {
         if (entity is Folder) {
             entity.updatedAt = updatedAt
             folderDao.update(entity)
@@ -33,6 +33,7 @@ class Repository(private val application: Application) {
             noteDao.update(entity)
         }
 
+        throw IllegalArgumentException("entity type is not right.")
     }
 
     // Folder
