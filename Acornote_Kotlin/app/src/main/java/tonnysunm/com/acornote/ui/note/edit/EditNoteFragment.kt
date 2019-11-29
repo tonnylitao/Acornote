@@ -1,17 +1,15 @@
 package tonnysunm.com.acornote.ui.note
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
@@ -40,9 +38,10 @@ class EditNoteFragment : Fragment() {
 
         binding.setOnCancel {
 
-
             activity?.finish()
         }
+
+        val intent = activity?.intent
 
         binding.setOnSure { view ->
             view.isEnabled = false
@@ -54,8 +53,8 @@ class EditNoteFragment : Fragment() {
 
             binding.progressbar.visibility = View.VISIBLE
 
-            val folderId = activity?.intent?.extras?.getLong(getString(R.string.folderIdKey)) ?: 0
-            val favourite = activity?.intent?.extras?.getBoolean("favourite") ?: false
+            val folderId = intent?.extras?.getLong(getString(R.string.folderIdKey)) ?: 0
+            val favourite = intent?.extras?.getBoolean("favourite") ?: false
             lifecycleScope.launch {
                 viewModel.updateOrInsertNote(folderId, favourite, title, description)
 
@@ -66,11 +65,26 @@ class EditNoteFragment : Fragment() {
         viewModel.noteLiveData.observe(viewLifecycleOwner, Observer {
             viewModel.noteEditing.title.value = it.title
             viewModel.noteEditing.description.value = it.description
+
+            intent?.let { intent ->
+                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
+                    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { title ->
+                        val regex = Regex("“.*”")
+                        val match = regex.find(title)
+
+                        val startChar: Char = "“".first()
+                        val endChar: Char = "”".first()
+                        viewModel.noteEditing.title.value =
+                            match?.value?.trimStart(startChar)?.trimEnd(endChar)
+                    }
+                }
+            }
         })
 
         binding.titleView.requestFocus()
 
         return binding.root
     }
+
 
 }
