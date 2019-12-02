@@ -18,12 +18,12 @@
     </group>
 
     <group
-        android:id="@+id/menu_group_folders"
+        android:id="@+id/menu_group_labels"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_group_folders_title"
+            android:id="@+id/menu_group_labels_title"
             android:enabled="false"
-            android:title="FOLDERS" />
+            android:title="LABELS" />
     </group>
 
 </menu>

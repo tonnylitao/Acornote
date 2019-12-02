@@ -53,10 +53,10 @@ class EditNoteFragment : Fragment() {
 
             binding.progressbar.visibility = View.VISIBLE
 
-            val folderId = intent?.extras?.getLong(getString(R.string.folderIdKey)) ?: 0
+            val labelId = intent?.extras?.getLong(getString(R.string.labelIdKey)) ?: 0
             val favourite = intent?.extras?.getBoolean("favourite") ?: false
             lifecycleScope.launch {
-                viewModel.updateOrInsertNote(folderId, favourite, title, description)
+                viewModel.updateOrInsertNote(labelId, favourite, title, description)
 
                 activity?.finish()
             }

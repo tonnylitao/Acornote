@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.folder
+package tonnysunm.com.acornote.ui.label
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,19 +14,19 @@ import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.SharedViewModel
-import tonnysunm.com.acornote.databinding.FragmentEditFolderBinding
+import tonnysunm.com.acornote.databinding.FragmentEditLabelBinding
 import tonnysunm.com.acornote.extensions.hideSoftKeyboard
 import tonnysunm.com.acornote.extensions.showSoftKeyboard
 import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.NoteFilter
 
 
-class EditFolderFragment : Fragment() {
+class EditLabelFragment : Fragment() {
 
-    private val viewModel: EditFolderViewModel by viewModels {
-        val id = arguments?.getLong("folderId")
+    private val viewModel: EditLabelViewModel by viewModels {
+        val id = arguments?.getLong("labelId")
 
-        EditFolderViewModelFactory(
+        EditLabelViewModelFactory(
             requireActivity().application,
             if (id != EmptyId) id else null
         )
@@ -38,7 +38,7 @@ class EditFolderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentEditFolderBinding.inflate(inflater, container, false)
+        val binding = FragmentEditLabelBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
@@ -62,13 +62,13 @@ class EditFolderFragment : Fragment() {
             activity?.hideSoftKeyboard(binding.textView)
 
             lifecycleScope.launch {
-                val id = viewModel.updateOrInsertFolder(title)
+                val id = viewModel.updateOrInsertLabel(title)
 
                 (activity as? MainActivity)?.let {
                     val mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
-                    mainModel.noteFilterLiveData.value = NoteFilter.ByFolder(
+                    mainModel.noteFilterLiveData.value = NoteFilter.ByLabel(
                         id = id,
-                        folderTitle = title
+                        labelTitle = title
                     )
                 }
 
@@ -76,10 +76,10 @@ class EditFolderFragment : Fragment() {
             }
         }
 
-        viewModel.folderLiveData.observe(viewLifecycleOwner, Observer {
-            viewModel.folderEditing.title.value = it.title
-            viewModel.folderEditing.favourite.value = it.favourite
-            viewModel.folderEditing.flippable.value = it.flippable
+        viewModel.labelLiveData.observe(viewLifecycleOwner, Observer {
+            viewModel.labelEditing.title.value = it.title
+            viewModel.labelEditing.favourite.value = it.favourite
+            viewModel.labelEditing.flippable.value = it.flippable
         })
 
         activity?.showSoftKeyboard(binding.textView)

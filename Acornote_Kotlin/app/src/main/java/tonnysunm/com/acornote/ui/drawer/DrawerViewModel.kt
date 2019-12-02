@@ -17,8 +17,8 @@ class DrawerViewModel(application: Application) : AndroidViewModel(application) 
         repository.notesFavouriteCount()
     }
 
-    val data: LiveData<List<FolderWrapper>> by lazy {
-        repository.folders
+    val data: LiveData<List<LabelWrapper>> by lazy {
+        repository.labels
     }
 
     override fun onCleared() {

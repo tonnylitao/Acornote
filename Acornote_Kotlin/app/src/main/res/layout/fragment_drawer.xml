@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="onAddFolder"
+            name="onAddLabel"
             type="android.view.View.OnClickListener" />
 
         <variable
@@ -23,14 +23,14 @@
         app:menu="@menu/drawer">
 
         <Button
-            android:id="@+id/add_folder"
+            android:id="@+id/add_label"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:onClick="@{onAddFolder}"
+            android:onClick="@{onAddLabel}"
             android:layout_gravity="bottom"
             android:background="@android:color/white"
             android:textColor="@android:color/black"
-            android:text="Add Folder" />
+            android:text="Add Label" />
 
 
     </com.google.android.material.navigation.NavigationView>

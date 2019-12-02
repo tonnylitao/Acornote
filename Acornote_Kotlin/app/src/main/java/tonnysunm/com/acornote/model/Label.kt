@@ -3,8 +3,8 @@ package tonnysunm.com.acornote.model
 import androidx.room.*
 import java.util.*
 
-@Entity(tableName = "folder_table", indices = [Index(value = ["title"], unique = true)])
-data class Folder(
+@Entity(tableName = "label_table", indices = [Index(value = ["title"], unique = true)])
+data class Label(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
 
@@ -21,9 +21,9 @@ data class Folder(
     var updatedAt: Long = Date().time
 ) : SQLEntity
 
-data class FolderWrapper(
+data class LabelWrapper(
     @Embedded
-    val folder: Folder,
+    val label: Label,
 
     val noteCount: Int
 )

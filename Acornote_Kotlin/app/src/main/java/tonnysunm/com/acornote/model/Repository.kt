@@ -8,14 +8,14 @@ import java.util.*
 
 class Repository(private val application: Application) {
 
-    private val folderDao: FolderDao by lazy {
-        AppRoomDatabase.getDatabase(application).folderDao()
+    private val labelDao: LabelDao by lazy {
+        AppRoomDatabase.getDatabase(application).labelDao()
     }
     private val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
 
     suspend fun <T : SQLEntity> insert(entity: T): Long {
-        if (entity is Folder) {
-            return folderDao.insert(entity)
+        if (entity is Label) {
+            return labelDao.insert(entity)
         } else if (entity is Note) {
             return noteDao.insert(entity)
         }
@@ -25,9 +25,9 @@ class Repository(private val application: Application) {
     }
 
     suspend fun <T : SQLEntity> update(entity: T, updatedAt: Long = Date().time): Long {
-        if (entity is Folder) {
+        if (entity is Label) {
             entity.updatedAt = updatedAt
-            folderDao.update(entity)
+            labelDao.update(entity)
         } else if (entity is Note) {
             entity.updatedAt = updatedAt
             noteDao.update(entity)
@@ -36,15 +36,15 @@ class Repository(private val application: Application) {
         throw IllegalArgumentException("entity type is not right.")
     }
 
-    // Folder
-    val folders = folderDao.getFolders()
+    // Label
+    val labels = labelDao.getLabels()
 
-    fun getFolder(id: Long?): LiveData<Folder> {
+    fun getLabel(id: Long?): LiveData<Label> {
         if (id != null) {
-            return folderDao.getFolder(id)
+            return labelDao.getLabel(id)
         }
 
-        return MutableLiveData(Folder(title = ""))
+        return MutableLiveData(Label(title = ""))
     }
 
 
@@ -58,9 +58,9 @@ class Repository(private val application: Application) {
             Log.d("ROOM", "get favourite")
             noteDao.getFavourite()
         }
-        is NoteFilter.ByFolder -> {
-            Log.d("ROOM", "get folder by " + filter.id)
-            noteDao.getByFolder(filter.id)
+        is NoteFilter.ByLabel -> {
+            Log.d("ROOM", "get label by " + filter.id)
+            noteDao.getByLabel(filter.id)
         }
     }
 
@@ -72,7 +72,7 @@ class Repository(private val application: Application) {
             }
         }
 
-        return MutableLiveData(Note(title = "", folderId = null))
+        return MutableLiveData(Note(title = "", labelId = null))
     }
 
     fun notesAllCount() = noteDao.notesAllCount()

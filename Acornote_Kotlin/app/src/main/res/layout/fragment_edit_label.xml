@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="tonnysunm.com.acornote.ui.folder.EditFolderViewModel" />
+            type="tonnysunm.com.acornote.ui.label.EditLabelViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
         android:background="#19D2B9"
         app:layout_constraintEnd_toEndOf="@+id/audio"
         app:layout_constraintStart_toEndOf="@+id/audio"
-        tools:context=".ui.folder.EditFolderFragment">
+        tools:context=".ui.label.EditLabelFragment">
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -67,7 +67,7 @@
             android:layout_height="50dp"
             android:background="@android:color/transparent"
             android:onClick="@{onSure}"
-            android:clickable="@{viewModel.folderEditing.title.length() > 0}"
+            android:clickable="@{viewModel.labelEditing.title.length() > 0}"
             android:src="@drawable/ic_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:text="@={viewModel.folderEditing.title}"
+            android:text="@={viewModel.labelEditing.title}"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/audio"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/toggle_selector"
-            android:checked="@={viewModel.folderEditing.favourite}"
+            android:checked="@={viewModel.labelEditing.favourite}"
             android:textOff=""
             android:textOn=""
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
@@ -112,7 +112,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@android:color/transparent"
-            android:checked="@={viewModel.folderEditing.flippable}"
+            android:checked="@={viewModel.labelEditing.flippable}"
             android:textOff=""
             android:textOn=""
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"

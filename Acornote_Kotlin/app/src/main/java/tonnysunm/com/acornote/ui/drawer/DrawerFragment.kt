@@ -59,8 +59,8 @@ class DrawerFragment : Fragment() {
 
             val itemIds = mutableListOf<Int>()
             binding.navView.menu.forEach { item ->
-                if (item.groupId == R.id.menu_group_folders &&
-                    item.itemId != R.id.menu_group_folders_title
+                if (item.groupId == R.id.menu_group_labels &&
+                    item.itemId != R.id.menu_group_labels_title
                 ) {
                     itemIds.add(item.itemId)
                 }
@@ -71,14 +71,14 @@ class DrawerFragment : Fragment() {
             }
 
             //
-            it.forEachIndexed { index, folderWrapper ->
-                val itemId = folderWrapper.folder.id.toInt()
+            it.forEachIndexed { index, labelWrapper ->
+                val itemId = labelWrapper.label.id.toInt()
 
                 val item = binding.navView.menu.add(
-                    R.id.menu_group_folders,
+                    R.id.menu_group_labels,
                     itemId,
                     index,
-                    folderWrapper.folder.title // + "_" + folderWrapper.folder.id + "_" + folderWrapper.noteCount
+                    labelWrapper.label.title // + "_" + labelWrapper.label.id + "_" + labelWrapper.noteCount
                 ).setActionView(R.layout.drawer_item)
                     .setCheckable(true)
 
@@ -87,17 +87,17 @@ class DrawerFragment : Fragment() {
                 }
 
                 val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
-                textView.text = folderWrapper.noteCount.toString()
+                textView.text = labelWrapper.noteCount.toString()
             }
 
             binding.navView.invalidate()
         })
 
-        binding.setOnAddFolder {
+        binding.setOnAddLabel {
             val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout
             drawer?.closeDrawers()
 
-            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.nav_edit_folder)
+            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.nav_edit_label)
         }
 
         val navView = binding.navView
@@ -136,11 +136,11 @@ private val MenuItem.noteFilter: NoteFilter
     get() = when (itemId) {
         R.id.nav_all -> NoteFilter.All
         R.id.nav_favourite -> NoteFilter.Favourite
-        else -> NoteFilter.ByFolder(itemId.toLong(), title.toString())
+        else -> NoteFilter.ByLabel(itemId.toLong(), title.toString())
     }
 
 private fun MenuItem.isChecked(filter: NoteFilter) = when (itemId) {
     R.id.nav_all -> filter == NoteFilter.All
     R.id.nav_favourite -> filter == NoteFilter.Favourite
-    else -> itemId == filter.folderId?.toInt()
+    else -> itemId == filter.labelId?.toInt()
 }

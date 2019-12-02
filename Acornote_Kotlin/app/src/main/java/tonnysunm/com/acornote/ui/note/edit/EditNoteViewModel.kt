@@ -33,14 +33,14 @@ class EditNoteViewModel(
     val noteEditing = NoteEditing()
 
     suspend fun updateOrInsertNote(
-        folderId: Long,
+        labelId: Long,
         favourite: Boolean,
         title: String,
         description: String?
     ) {
         val note = noteLiveData.value ?: throw IllegalStateException("note is not set")
 
-        note.folderId = if (folderId > 0) folderId else null
+        note.labelId = if (labelId > 0) labelId else null
 
         note.title = title
         note.description = description

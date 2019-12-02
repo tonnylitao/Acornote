@@ -8,9 +8,9 @@ interface SQLEntity
 @Entity(
     tableName = "note_table",
     foreignKeys = [ForeignKey(
-        entity = Folder::class,
+        entity = Label::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("folder_id")
+        childColumns = arrayOf("label_id")
     )],
     indices = [Index(value = ["title"], unique = true)]
 )
@@ -22,8 +22,8 @@ data class Note(
 
     var description: String? = null,
 
-    @ColumnInfo(name = "folder_id", index = true)
-    var folderId: Long?,
+    @ColumnInfo(name = "label_id", index = true)
+    var labelId: Long?,
 
     var favourite: Boolean = false,
 

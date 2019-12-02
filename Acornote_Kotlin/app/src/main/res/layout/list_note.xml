@@ -38,7 +38,7 @@
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text='@{data.folderId + " " + data.id + " " + data.description + " "+ data.favourite}'
+            android:text='@{data.labelId + " " + data.id + " " + data.description + " "+ data.favourite}'
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"

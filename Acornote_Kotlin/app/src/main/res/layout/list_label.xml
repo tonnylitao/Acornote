@@ -11,7 +11,7 @@
 
         <variable
             name="data"
-            type="tonnysunm.com.acornote.model.FolderWrapper" />
+            type="tonnysunm.com.acornote.model.LabelWrapper" />
     </data>
 
     <LinearLayout
@@ -43,7 +43,7 @@
                     android:layout_marginRight="8dp"
 
                     android:layout_marginBottom="8dp"
-                    android:text="@{data.folder.title}"
+                    android:text="@{data.label.title}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/count"
                     app:layout_constraintStart_toStartOf="parent"

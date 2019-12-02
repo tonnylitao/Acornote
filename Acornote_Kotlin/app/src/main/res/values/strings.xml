@@ -13,5 +13,5 @@
     <string name="action_delete">Delete</string>
 
     <string name="favouriteFilter">favourite == true</string>
-    <string name="folderIdKey">folderId</string>
+    <string name="labelIdKey">labelId</string>
 </resources>

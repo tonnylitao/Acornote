@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_folder">
+    app:startDestination="@+id/nav_label">
 
     <fragment
-        android:id="@+id/nav_folder"
+        android:id="@+id/nav_label"
         android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
         tools:layout="@layout/fragment_note">
         <argument
             android:name="filter"
             app:argType="string" />
         <argument
-            android:name="@string/folderIdKey"
+            android:name="@string/labelIdKey"
             app:argType="long" />
         <argument
-            android:name="folderTitle"
+            android:name="labelTitle"
             app:argType="string" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_edit_folder"
-        android:name="tonnysunm.com.acornote.ui.folder.EditFolderFragment"
+        android:id="@+id/nav_edit_label"
+        android:name="tonnysunm.com.acornote.ui.label.EditLabelFragment"
         android:label="Edit"
-        tools:layout="@layout/fragment_edit_folder">
+        tools:layout="@layout/fragment_edit_label">
         <argument
-            android:name="@string/folderIdKey"
+            android:name="@string/labelIdKey"
             app:argType="long" />
     </fragment>
 

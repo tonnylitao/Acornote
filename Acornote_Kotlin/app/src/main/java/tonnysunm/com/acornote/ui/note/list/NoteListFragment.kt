@@ -30,12 +30,12 @@ class NoteListFragment : Fragment() {
 
     private val mViewModel: NoteListViewModel by viewModels {
         val filter = arguments?.getString("filter") ?: ""
-        val folderId = arguments?.getLong(getString(R.string.folderIdKey)) ?: 0
-        val folderTitle = arguments?.getString("folderTitle") ?: ""
+        val labelId = arguments?.getLong(getString(R.string.labelIdKey)) ?: 0
+        val labelTitle = arguments?.getString("labelTitle") ?: ""
 
         val noteFilter = when {
             filter == "favourite" -> NoteFilter.Favourite
-            folderId > 0 -> NoteFilter.ByFolder(folderId, folderTitle)
+            labelId > 0 -> NoteFilter.ByLabel(labelId, labelTitle)
             else -> NoteFilter.All
         }
 
@@ -62,7 +62,7 @@ class NoteListFragment : Fragment() {
 
             val intent = Intent(activity, EditNoteActivity::class.java).apply {
                 val noteFilter = mViewModel.noteFilterLiveData.value
-                putExtra(getString(R.string.folderIdKey), noteFilter?.folderId)
+                putExtra(getString(R.string.labelIdKey), noteFilter?.labelId)
 
                 if (noteFilter == NoteFilter.Favourite) {
                     putExtra("favourite", true)

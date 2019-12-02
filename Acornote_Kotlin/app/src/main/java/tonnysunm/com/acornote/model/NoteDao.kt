@@ -13,11 +13,11 @@ interface NoteDao {
     @Query("SELECT * from note_table ORDER BY updated_at DESC")
     fun getAll(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table n LEFT JOIN folder_table f WHERE n.favourite == 1 OR f.favourite == 1 ORDER BY updated_at DESC")
+    @Query("SELECT * from note_table n LEFT JOIN label_table f WHERE n.favourite == 1 OR f.favourite == 1 ORDER BY updated_at DESC")
     fun getFavourite(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table WHERE folder_id == :id ORDER BY updated_at DESC")
-    fun getByFolder(id: Long): DataSource.Factory<Int, Note>
+    @Query("SELECT * from note_table WHERE label_id == :id ORDER BY updated_at DESC")
+    fun getByLabel(id: Long): DataSource.Factory<Int, Note>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: Note): Long
@@ -41,18 +41,18 @@ sealed class NoteFilter(val title: String) {
 
     object Favourite : NoteFilter("Favourite")
 
-    data class ByFolder(val id: Long, val folderTitle: String) : NoteFilter(folderTitle)
+    data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
 
 //    val title: String
 //        get() = when (this) {
 //            All -> "All"
 //            Favourite -> "Favourite"
-//            is ByFolder ->
+//            is ByLabel ->
 //        }
 
-    val folderId: Long?
+    val labelId: Long?
         get() = when (this) {
-            is ByFolder -> this.id
+            is ByLabel -> this.id
             else -> null
         }
 }

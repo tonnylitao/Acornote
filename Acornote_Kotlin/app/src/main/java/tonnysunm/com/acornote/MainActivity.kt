@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 //            setOf(
 //                R.id.nav_all,
 //                R.id.nav_favourite
-////                R.id.nav_folder //for isTopLevelDestination = NavigationUI.matchDestinations(destination,
+////                R.id.nav_label //for isTopLevelDestination = NavigationUI.matchDestinations(destination,
 //            ), drawerLayout
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             val currentDestination = navController.currentDestination ?: return false
 
-            return if (R.id.nav_folder == currentDestination.id) {
+            return if (R.id.nav_label == currentDestination.id) {
                 drawerLayout.openDrawer(GravityCompat.START)
                 true
             } else {
