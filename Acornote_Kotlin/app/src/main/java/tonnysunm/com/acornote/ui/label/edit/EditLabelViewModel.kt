@@ -44,8 +44,6 @@ class EditLabelViewModel(application: Application, private val labelId: Long?) :
     inner class LabelEditing {
         val title = MutableLiveData<String>()
 
-        val favourite = MutableLiveData<Boolean>()
-
         val flippable = MutableLiveData<Boolean>()
     }
 }

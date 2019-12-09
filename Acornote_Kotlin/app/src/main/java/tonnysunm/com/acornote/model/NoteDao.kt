@@ -13,7 +13,7 @@ interface NoteDao {
     @Query("SELECT * from note_table ORDER BY updated_at DESC")
     fun getAll(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table n LEFT JOIN label_table f WHERE n.favourite == 1 OR f.favourite == 1 ORDER BY updated_at DESC")
+    @Query("SELECT * from note_table  WHERE favourite == 1 ORDER BY updated_at DESC")
     fun getFavourite(): DataSource.Factory<Int, Note>
 
     @Query("SELECT * from note_table WHERE label_id == :id ORDER BY updated_at DESC")

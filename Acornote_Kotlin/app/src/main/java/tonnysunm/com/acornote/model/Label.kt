@@ -10,8 +10,6 @@ data class Label(
 
     var title: String,
 
-    var favourite: Boolean = false,
-
     var flippable: Boolean = false,
 
     @ColumnInfo(name = "created_at")

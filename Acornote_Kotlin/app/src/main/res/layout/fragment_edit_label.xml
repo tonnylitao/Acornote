@@ -92,20 +92,9 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_link"
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
-            app:layout_constraintEnd_toStartOf="@+id/favourite"
+            app:layout_constraintEnd_toStartOf="@+id/flippable"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ToggleButton
-            android:id="@+id/favourite"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/toggle_selector"
-            android:checked="@={viewModel.labelEditing.favourite}"
-            android:textOff=""
-            android:textOn=""
-            app:layout_constraintBottom_toTopOf="@+id/bottom_line"
-            app:layout_constraintEnd_toStartOf="@+id/flippable"
-            app:layout_constraintStart_toEndOf="@+id/link" />
 
         <ToggleButton
             android:id="@+id/flippable"
@@ -117,7 +106,7 @@
             android:textOn=""
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
             app:layout_constraintEnd_toStartOf="@+id/audio"
-            app:layout_constraintStart_toEndOf="@+id/favourite" />
+            app:layout_constraintStart_toEndOf="@+id/link" />
 
         <ImageButton
             android:id="@+id/audio"

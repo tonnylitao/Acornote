@@ -78,7 +78,6 @@ class EditLabelFragment : Fragment() {
 
         viewModel.labelLiveData.observe(viewLifecycleOwner, Observer {
             viewModel.labelEditing.title.value = it.title
-            viewModel.labelEditing.favourite.value = it.favourite
             viewModel.labelEditing.flippable.value = it.flippable
         })
 
