@@ -14,7 +14,7 @@ This repository constains design and source code:
 * Kotlin
 * React Native
 
-##Basic
+## Basic
 * Learn, memorize, active or deep-learn any new things with `context`
 * Context contains useful resource, such as words, sentence, audio, url, image...
 * Put context in the first place
@@ -50,19 +50,19 @@ A Folder is a context, we create folders in below cases
 ## A book titled 'Because of Winn-Dixie' folder
 ![Items](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/item.jpg)
 
-####Items in this folder
+#### Items in this folder
 * A new vocabulary with image
 * A native expression with a url link to a post
 * A good sentence
 
-####Functions
+#### Functions
 * Search images for vocabularies
 * Click item to pronounce, or speech all one by one
 * Flip a item, similar to quizlet
 * Link to goodreads.com
 
 
-##TODO
+## TODO
 * Android development
 * Kotlin development
 * ReactNative development
