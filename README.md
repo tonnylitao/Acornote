@@ -10,9 +10,7 @@ This repository constains design and source code:
 
 * Sketch design, by [Sunm](https://dribbble.com/sunmlu)
 * iOS (99% finished)
-* [Android](Acornote_Android/README.md)
 * Kotlin
-* React Native
 
 ## Basic
 * Learn, memorize, active or deep-learn any new things with `context`
@@ -21,13 +19,13 @@ This repository constains design and source code:
 * Keep app extrame simple
 * Use the state of art, such as text pronunciation, image searching, quizlet...
 
-##App logic
+## App logic
 * Use Folders to represent context
 * A Folder may refer to a url, may be audio playable, flipable, or markable
 * A Folder contains many items
 * A item may be is a new word, an interesting sentence, a sudden inspiration...
 
-##Folders
+## Folders
 <img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg?a" width="400">
 
 A Folder is a context, we create folders in below cases
