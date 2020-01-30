@@ -9,8 +9,8 @@ We are lifelong learners, struggled for many years in Notes, Evernote, Quizlet, 
 This repository constains design and source code:
 
 * Sketch design, by [Sunm](https://dribbble.com/sunmlu)
-* iOS (99% finished)
-* Kotlin
+* iOS app in Swift (99% finished)
+* Android app in Kotlin (ongoing)
 
 ## Basic
 * Learn, memorize, active or deep-learn any new things with `context`
@@ -61,9 +61,6 @@ A Folder is a context, we create folders in below cases
 
 
 ## TODO
-* Android development
-* Kotlin development
-* ReactNative development
 * iOS code refactor
 * iOS data backup regularly
 * iOS image scanner
