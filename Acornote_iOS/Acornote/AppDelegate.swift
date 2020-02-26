@@ -30,107 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        #if DEBUG
-//            importDB()
-//        #endif
-        
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = .rgb(56, 59, 69)
         UINavigationBar.appearance().tintColor = .white
-        //clear navigationBar bottom line
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
         UIReferenceLibraryViewController.dictionaryHasDefinition(forTerm: "")
         
-//        createDemoDataIfNecessory();
-        
+#if DEBUG
+//        importDB()
 //        importFromPlist()
+        createDemoDataIfNecessory();
+#endif
         
         return true
-    }
-    
-    func importFromPlist() {
-        let texts:String = Bundle.main.path(forResource: "db", ofType: "")!
-        
-        let dic = NSDictionary(contentsOfFile: texts)!
-        (dic["folders"] as! [[String: Any]]).forEach({ item in
-            let model: Folder = try! cdStore.saveContext.create()
-            model.title = item["title"] as? String
-            model.url = item["url"] as? String
-            model.audioUrl = item["audioUrl"] as? String
-            model.color = item["color"] as? Int16 ?? Folder.ColorConfig.defalut
-            
-            model.playable = item["playable"] as? Bool ?? false
-            model.flipable = item["flipable"] as? Bool ?? false
-            model.tagable = item["tagable"] as? Bool ?? false
-            
-            model.orderBy = item["orderBy"] as? Int16 ?? 0
-            model.quizlet = item["quizlet"] as? Bool ?? false
-            
-            model.createdAt = item["createdAt"] as? NSDate ?? NSDate()
-            model.updatedAt = item["updatedAt"] as? NSDate ?? NSDate()
-            model.lastVisited = item["lastVisited"] as? String
-        })
-        
-        (dic["items"] as! [[String: Any]]).forEach({ item in
-            let model: Item = try! cdStore.saveContext.create()
-            
-            model.title = item["title"] as? String
-            model.url = item["url"] as? String
-            model.des = item["des"] as? String
-            model.imgPath = item["imgPath"] as? String
-            
-
-            model.taged = item["taged"] as? Bool ?? false
-            model.fliped = item["fliped"] as? Bool ?? false
-            
-            model.createdAt = item["createdAt"] as? NSDate ?? NSDate()
-            
-            if let title = item["folder"] as? String,
-                let folder = try? cdStore.saveContext.request(Folder.self).filtered(with: NSPredicate(format: "title == %@", title)).fetch().first {
-                model.folder = folder
-            }
-        })
-        
-        try? cdStore.operation { (context, save) throws -> Void in
-            save()
-        }
-    }
-    
-    func createDemoDataIfNecessory() {
-        let projects = try! cdStore.saveContext.request(Folder.self).fetch()
-        if projects.count == 0 {
-            [("demo", "Everyday Essential Words")].forEach({ (file, name) in
-                let model: Folder = try! cdStore.saveContext.create()
-                model.createdAt = NSDate()
-                model.playable = true
-                model.title = name
-                model.color = Folder.ColorConfig.defalut
-                //                model.url = "https://dict.eudic.net/webting/desktopplay/8b472527-01ec-11e6-a7a6-000c29ffef9b"
-                
-                let texts:String = try! String(contentsOfFile: Bundle.main.path(forResource: file, ofType: "")!, encoding: .utf8)
-                let arr = texts.components(separatedBy: .newlines)
-                
-                for i in 0..<arr.count/2 {
-                    let item: Item = try! cdStore.saveContext.create()
-                    item.title = arr[2*i].trimmingCharacters(in: .whitespacesAndNewlines)
-                    let des = arr[2*i+1].trimmingCharacters(in: .whitespacesAndNewlines)
-                    if des != "."{
-                        item.des = des
-                    }
-                    item.createdAt = NSDate()
-                    item.folder = model
-                    model.updatedAt = NSDate()
-                }
-            })
-            
-            let ctx = (cdStore.saveContext as! NSManagedObjectContext)
-            ctx.performAndWait({
-                try! ctx.save()
-            })
-        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -258,6 +173,89 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let p = (path as NSString).appendingPathComponent("db")
         
         try? data.write(to: URL(fileURLWithPath: p))
+    }
+    
+    func importFromPlist() {
+        let texts:String = Bundle.main.path(forResource: "db", ofType: "")!
+        
+        let dic = NSDictionary(contentsOfFile: texts)!
+        (dic["folders"] as! [[String: Any]]).forEach({ item in
+            let model: Folder = try! cdStore.saveContext.create()
+            model.title = item["title"] as? String
+            model.url = item["url"] as? String
+            model.audioUrl = item["audioUrl"] as? String
+            model.color = item["color"] as? Int16 ?? Folder.ColorConfig.defalut
+            
+            model.playable = item["playable"] as? Bool ?? false
+            model.flipable = item["flipable"] as? Bool ?? false
+            model.tagable = item["tagable"] as? Bool ?? false
+            
+            model.orderBy = item["orderBy"] as? Int16 ?? 0
+            model.quizlet = item["quizlet"] as? Bool ?? false
+            
+            model.createdAt = item["createdAt"] as? NSDate ?? NSDate()
+            model.updatedAt = item["updatedAt"] as? NSDate ?? NSDate()
+            model.lastVisited = item["lastVisited"] as? String
+        })
+        
+        (dic["items"] as! [[String: Any]]).forEach({ item in
+            let model: Item = try! cdStore.saveContext.create()
+            
+            model.title = item["title"] as? String
+            model.url = item["url"] as? String
+            model.des = item["des"] as? String
+            model.imgPath = item["imgPath"] as? String
+            
+
+            model.taged = item["taged"] as? Bool ?? false
+            model.fliped = item["fliped"] as? Bool ?? false
+            
+            model.createdAt = item["createdAt"] as? NSDate ?? NSDate()
+            
+            if let title = item["folder"] as? String,
+                let folder = try? cdStore.saveContext.request(Folder.self).filtered(with: NSPredicate(format: "title == %@", title)).fetch().first {
+                model.folder = folder
+            }
+        })
+        
+        try? cdStore.operation { (context, save) throws -> Void in
+            save()
+        }
+    }
+    
+    func createDemoDataIfNecessory() {
+        let projects = try! cdStore.saveContext.request(Folder.self).fetch()
+        if projects.count == 0 {
+            [("demo", "Everyday Essential Words")].forEach({ (file, name) in
+                let model: Folder = try! cdStore.saveContext.create()
+                model.createdAt = NSDate()
+                model.playable = true
+                model.flipable = true
+                model.title = name
+                model.color = Folder.ColorConfig.defalut
+                //                model.url = "https://dict.eudic.net/webting/desktopplay/8b472527-01ec-11e6-a7a6-000c29ffef9b"
+                
+                let texts:String = try! String(contentsOfFile: Bundle.main.path(forResource: file, ofType: "")!, encoding: .utf8)
+                let arr = texts.components(separatedBy: .newlines)
+                
+                for i in 0..<arr.count/2 {
+                    let item: Item = try! cdStore.saveContext.create()
+                    item.title = arr[2*i].trimmingCharacters(in: .whitespacesAndNewlines)
+                    let des = arr[2*i+1].trimmingCharacters(in: .whitespacesAndNewlines)
+                    if des != "."{
+                        item.des = des
+                    }
+                    item.createdAt = NSDate()
+                    item.folder = model
+                    model.updatedAt = NSDate()
+                }
+            })
+            
+            let ctx = (cdStore.saveContext as! NSManagedObjectContext)
+            ctx.performAndWait({
+                try! ctx.save()
+            })
+        }
     }
     #endif
 }
