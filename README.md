@@ -1,4 +1,4 @@
-# Collecting acorns like a squirrel.
+# Collecting acorns like squirrel.
 
 ![Icon](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/icon.svg?a)
 
