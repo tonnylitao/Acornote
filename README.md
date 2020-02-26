@@ -44,18 +44,18 @@ A Folder is a context, we create folders in following situations:
 
 ---
 
-## A book titled 'Because of Winn-Dixie' folder
+## A folder for the book 'Because of Winn-Dixie'
 ![Items](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/item.jpg)
 
-#### Items in this folder
-* A new vocabulary with image
-* A native expression with a url link to a post
-* A good sentence
+#### Items in folder
+* vocabularies with image
+* native expressions with url link
+* good sentences
 
-#### Functions
+#### Features
 * Search images for vocabularies
-* Click item to pronounce, or speech all one by one
-* Flip a item, similar to quizlet
+* Click item to speak, or speak all one by one
+* Flip an item, similar to quizlet
 * Link to goodreads.com
 
 
