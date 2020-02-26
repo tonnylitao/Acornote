@@ -28,19 +28,18 @@ This repository constains design and source code:
 ## Folders
 <img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg?a" width="400">
 
-A Folder is a context, we create folders in below cases
+A Folder is a context, we create folders in following situations:
 
 * A book
-* A movie
+* A movie or a video in YT
 * Vocabulary in specific field, such as food
 * A post from Medium
 * Oral English expression
-* A audio with transcript: BBC, VOA,...
-* Url bookmarks for sketch, Swift,...
-* What we will eat today?
+* An audio with transcript: ESL, BBC English,...
+* Url bookmarks for Sketch, Swift,...
+* Receipt
 * Shopping list
-* TODO list about our apps, our websites...
-* Cook recipe
+* TODO list
 * ...
 
 ---
@@ -65,7 +64,7 @@ A Folder is a context, we create folders in below cases
 * iOS data backup regularly
 * iOS image scanner
 
-You can read more at [Medium](https://medium.com/tonny-sunm/developing-own-app-to-take-notes-2d84413b9b32). Welcome your ideas about note taking.
+You can read more at [Medium](https://medium.com/tonny-sunm/developing-own-app-to-take-notes-2d84413b9b32). Welcome your ideas about notes taking.
 
 
 <img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/tonnysunm.jpg" width="400">
