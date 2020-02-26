@@ -2,9 +2,9 @@
 
 ![Icon](https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/icon.svg?a)
 
-A note app by [Tonny&Sunm](https://tonnysunm.github.io). It will be continually updated.
+A note app by [Tonny&Sunm](https://tonnysunm.github.io).
 
-We are lifelong learners, struggled for many years in Notes, Evernote, Quizlet, Memrise...Those apps did not provide advanced features for us, as designer and developer, we canot bear them any longer, so we create own note app - acorn note.
+We are happy to be lifelong learners, but sometime struggled in Notes, Evernote, Quizlet, Memrise and other notes app, you named it. The complicated features are not what we want. As designer and developer, why not create our own notes app, just for fun.
 
 This repository constains design and source code:
 
@@ -12,18 +12,18 @@ This repository constains design and source code:
 * iOS app in Swift (99% finished)
 * Android app in Kotlin (ongoing)
 
-## Basic
-* Learn, memorize, active or deep-learn any new things with `context`
-* Context contains useful resource, such as words, sentence, audio, url, image...
+## Draft ideas
 * Put context in the first place
-* Keep app extrame simple
+* Learn, memorize, active or deep-learn any new things in `context`
+* Context contains useful resource, such as words, sentence, audio, url, image...
+* Keep this app simple
 * Use the state of art, such as text pronunciation, image searching, quizlet...
 
-## App logic
+## App structure
 * Use Folders to represent context
-* A Folder may refer to a url, may be audio playable, flipable, or markable
-* A Folder contains many items
-* A item may be is a new word, an interesting sentence, a sudden inspiration...
+* A Folder may contains a url, may be audio playable, flipable, or markable
+* A Folder contains multiple items
+* A item is an idea, it may be a vocabulary, an interesting sentence, a sudden inspiration...
 
 ## Folders
 <img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/folder.jpg?a" width="400">
