@@ -67,6 +67,8 @@ A Folder is a context, we create folders in following situations:
 You can read more at [Medium](https://medium.com/tonny-sunm/developing-own-app-to-take-notes-2d84413b9b32). Welcome your ideas about notes taking.
 
 
+But, after I experienced Keep Notes in my new Pixel 4. I got some new ideas, so the ongoing android app probably be huge different with the almost finished iOS app. Anyway, coding is for fun.
+
 <img src="https://rawgit.com/TonnyTao/Acornote/master/Acornote_Sketch/tonnysunm.jpg" width="400">
 
 ---
