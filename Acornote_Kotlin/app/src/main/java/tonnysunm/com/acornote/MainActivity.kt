@@ -14,10 +14,7 @@ import tonnysunm.com.acornote.ui.drawer.DrawerViewModel
 import tonnysunm.com.acornote.ui.note.EditNoteViewModel
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
 
-
 /*TODO
-
-
 */
 
 class MainActivity : AppCompatActivity() {
