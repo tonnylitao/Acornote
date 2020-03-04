@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.drawer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -19,7 +18,6 @@ import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.SharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentDrawerBinding
-import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
 
 

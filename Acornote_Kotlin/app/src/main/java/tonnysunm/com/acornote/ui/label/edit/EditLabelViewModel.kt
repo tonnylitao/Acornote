@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.label
+package tonnysunm.com.acornote.ui.label.edit
 
 import android.app.Application
 import androidx.lifecycle.*

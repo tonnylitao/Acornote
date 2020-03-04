@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="tonnysunm.com.acornote.ui.note.NoteListViewModel" />
+            type="tonnysunm.com.acornote.ui.note.list.NoteListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

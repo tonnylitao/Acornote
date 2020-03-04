@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_label"
-        android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
+        android:name="tonnysunm.com.acornote.ui.note.list.NoteListFragment"
         tools:layout="@layout/fragment_note">
         <argument
             android:name="filter"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/nav_edit_label"
-        android:name="tonnysunm.com.acornote.ui.label.EditLabelFragment"
+        android:name="tonnysunm.com.acornote.ui.label.edit.EditLabelFragment"
         android:label="Edit"
         tools:layout="@layout/fragment_edit_label">
         <argument

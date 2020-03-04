@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.note
+package tonnysunm.com.acornote.ui.note.list
 
 import android.content.Intent
 import android.graphics.Color
@@ -18,7 +18,6 @@ import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.SharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
-import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.NoteFilter
 
 class NoteListFragment : Fragment() {

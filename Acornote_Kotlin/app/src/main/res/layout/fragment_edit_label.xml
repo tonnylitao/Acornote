@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="tonnysunm.com.acornote.ui.label.EditLabelViewModel" />
+            type="tonnysunm.com.acornote.ui.label.edit.EditLabelViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
         android:background="#19D2B9"
         app:layout_constraintEnd_toEndOf="@+id/audio"
         app:layout_constraintStart_toEndOf="@+id/audio"
-        tools:context=".ui.label.EditLabelFragment">
+        tools:context=".ui.label.edit.EditLabelFragment">
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -45,7 +45,8 @@
             android:onClick="@{onCancel}"
             android:src="@drawable/ic_cancel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
         <View
             android:id="@+id/view"
@@ -70,7 +71,8 @@
             android:clickable="@{viewModel.labelEditing.title.length() > 0}"
             android:src="@drawable/ic_ok"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -93,7 +95,8 @@
             android:src="@drawable/ic_link"
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
             app:layout_constraintEnd_toStartOf="@+id/flippable"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="TODO" />
 
 
         <ToggleButton
@@ -116,7 +119,8 @@
             android:src="@drawable/ic_audio_on"
             app:layout_constraintBottom_toTopOf="@+id/bottom_line"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/flippable" />
+            app:layout_constraintStart_toEndOf="@+id/flippable"
+            android:contentDescription="TODO" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/bottom_line"

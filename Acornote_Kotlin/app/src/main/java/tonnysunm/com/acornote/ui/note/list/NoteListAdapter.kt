@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.note
+package tonnysunm.com.acornote.ui.note.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,7 +40,7 @@ class NoteListAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.setClickListener { _ ->
+            binding.setClickListener {
                 binding.data?.id?.let {
 
                 }

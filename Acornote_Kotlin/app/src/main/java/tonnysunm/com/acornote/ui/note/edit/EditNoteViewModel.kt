@@ -1,7 +1,6 @@
-package tonnysunm.com.acornote.ui.note
+package tonnysunm.com.acornote.ui.note.edit
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository

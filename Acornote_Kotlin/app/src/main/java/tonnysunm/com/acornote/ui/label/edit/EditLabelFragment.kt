@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote.ui.label
+package tonnysunm.com.acornote.ui.label.edit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -64,7 +64,7 @@ class EditLabelFragment : Fragment() {
             lifecycleScope.launch {
                 val id = viewModel.updateOrInsertLabel(title)
 
-                (activity as? MainActivity)?.let {
+                (activity as? MainActivity)?.let { it ->
                     val mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
                     mainModel.noteFilterLiveData.value = NoteFilter.ByLabel(
                         id = id,

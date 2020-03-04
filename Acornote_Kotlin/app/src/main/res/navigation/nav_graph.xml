@@ -6,7 +6,7 @@
     app:startDestination="@id/detailFragment">
     <fragment
         android:id="@+id/detailFragment"
-        android:name="tonnysunm.com.acornote.ui.note.NoteListFragment"
+        android:name="tonnysunm.com.acornote.ui.note.list.NoteListFragment"
         android:label="detail_fragment"
         tools:layout="@layout/fragment_note">
         <argument
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/editLabelFragment"
-        android:name="tonnysunm.com.acornote.ui.label.EditLabelFragment"
+        android:name="tonnysunm.com.acornote.ui.label.edit.EditLabelFragment"
         android:label="EditLabelFragment"
         tools:layout="@layout/fragment_edit_label">
         <argument
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/editNoteFragment"
-        android:name="tonnysunm.com.acornote.ui.note.EditNoteFragment"
+        android:name="tonnysunm.com.acornote.ui.note.edit.EditNoteFragment"
         android:label="EditNoteFragment"
         tools:layout="@layout/fragment_edit_note">
         <argument
