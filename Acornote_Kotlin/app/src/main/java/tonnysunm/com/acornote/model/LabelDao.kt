@@ -9,7 +9,7 @@ import androidx.room.Update
 interface LabelDao {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT *, (select count(*) from note_table b where b.label_id = a.id) as noteCount from label_table a ORDER BY updated_at DESC")
+    @Query("SELECT *, (select count(*) from note_table b where b.label_id = a.id) as noteCount from label_table a ORDER BY created_at DESC")
     fun getLabels(): LiveData<List<LabelWrapper>>
 
     @Query("SELECT * from label_table WHERE id = :id LIMIT 1")

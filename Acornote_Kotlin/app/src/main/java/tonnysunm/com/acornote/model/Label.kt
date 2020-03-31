@@ -10,13 +10,8 @@ data class Label(
 
     var title: String,
 
-    var flippable: Boolean = false,
-
     @ColumnInfo(name = "created_at")
-    val createdAt: Long = Date().time,
-
-    @ColumnInfo(name = "updated_at")
-    var updatedAt: Long = Date().time
+    val createdAt: Long = Date().time
 ) : SQLEntity
 
 data class LabelWrapper(

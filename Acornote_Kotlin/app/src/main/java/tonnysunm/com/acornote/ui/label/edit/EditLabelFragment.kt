@@ -78,7 +78,6 @@ class EditLabelFragment : Fragment() {
 
         viewModel.labelLiveData.observe(viewLifecycleOwner, Observer {
             viewModel.labelEditing.title.value = it.title
-            viewModel.labelEditing.flippable.value = it.flippable
         })
 
         activity?.showSoftKeyboard(binding.textView)

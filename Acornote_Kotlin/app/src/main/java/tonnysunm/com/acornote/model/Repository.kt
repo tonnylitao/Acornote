@@ -26,7 +26,6 @@ class Repository(private val application: Application) {
 
     suspend fun <T : SQLEntity> update(entity: T, updatedAt: Long = Date().time): Long {
         if (entity is Label) {
-            entity.updatedAt = updatedAt
             labelDao.update(entity)
         } else if (entity is Note) {
             entity.updatedAt = updatedAt
