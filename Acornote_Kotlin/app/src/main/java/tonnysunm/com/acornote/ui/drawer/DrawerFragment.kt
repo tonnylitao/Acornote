@@ -1,18 +1,19 @@
 package tonnysunm.com.acornote.ui.drawer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
 import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.R
@@ -95,7 +96,7 @@ class DrawerFragment : Fragment() {
             val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout
             drawer?.closeDrawers()
 
-            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.nav_edit_label)
+//            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.nav_edit_label)
         }
 
         val navView = binding.navView
@@ -104,7 +105,6 @@ class DrawerFragment : Fragment() {
         mainModel.noteFilterLiveData.observe(viewLifecycleOwner, Observer {
             updateMenuChecked(it)
         })
-
 
         navView.setNavigationItemSelectedListener { item ->
 
@@ -117,9 +117,7 @@ class DrawerFragment : Fragment() {
             true
         }
 
-
         return binding.root
-
     }
 
     private fun updateMenuChecked(filter: NoteFilter) {

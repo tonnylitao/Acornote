@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,10 +23,6 @@ import tonnysunm.com.acornote.model.NoteFilter
 
 class NoteListFragment : Fragment() {
     private lateinit var mainModel: SharedViewModel
-
-    private val mArrowDrawable: DrawerArrowDrawable by lazy {
-        DrawerArrowDrawable(context).apply { color = Color.WHITE }
-    }
 
     private val mViewModel: NoteListViewModel by viewModels {
         val filter = arguments?.getString("filter") ?: ""
@@ -80,13 +77,6 @@ class NoteListFragment : Fragment() {
 
         val activity = activity as? MainActivity ?: throw Exception("Invalid Activity")
         val actionBar = activity.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        val delegate = (activity as AppCompatActivity).drawerToggleDelegate
-        delegate?.setActionBarUpIndicator(
-            mArrowDrawable,
-            androidx.navigation.ui.R.string.nav_app_bar_open_drawer_description
-        )
-        mArrowDrawable.progress = 0f
 
         //
         mainModel = ViewModelProvider(activity).get(SharedViewModel::class.java)

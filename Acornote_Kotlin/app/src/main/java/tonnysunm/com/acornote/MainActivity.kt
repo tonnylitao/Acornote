@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -11,6 +12,7 @@ import androidx.navigation.findNavController
 import tonnysunm.com.acornote.ui.drawer.DrawerViewModel
 import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModel
 import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModelFactory
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(DrawerArrowDrawable(this))
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -55,9 +61,7 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
     }
-
-
-    //////
+//////
 
     private val viewModel: DrawerViewModel by viewModels()
 

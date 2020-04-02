@@ -3,5 +3,6 @@
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#fff</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="drawer_label_title">#898989</color>s
+    <color name="drawer_label_title">#898989</color>
+
 </resources>
