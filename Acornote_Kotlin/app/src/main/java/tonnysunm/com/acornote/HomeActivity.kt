@@ -3,26 +3,31 @@ package tonnysunm.com.acornote
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.invoke
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.drawer.DrawerViewModel
 import tonnysunm.com.acornote.ui.note.edit.EditNoteActivity
 import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModel
 import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModelFactory
 
+class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
-class MainActivity : AppCompatActivity() {
-    
+    private val homeSharedModel: HomeSharedViewModel by lazy {
+        ViewModelProvider(this).get(HomeSharedViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
 
         //
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -32,19 +37,26 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(DrawerArrowDrawable(this))
 
-        //
+        //fab
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this, EditNoteActivity::class.java).apply {
-                //val noteFilter = mViewModel.noteFilterLiveData.value
-                //putExtra(getString(R.string.labelIdKey), noteFilter?.labelId)
 
-//                if (noteFilter == NoteFilter.Star) {
-//                    putExtra("star", true)
-//                }
+            val startForResult = prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == RESULT_OK) {
+                }
             }
-            startActivity(intent)
+
+            startForResult(Intent(this, EditNoteActivity::class.java).apply {
+                when (val noteFilter = homeSharedModel.noteFilterLiveData.value) {
+                    NoteFilter.Star ->
+                        putExtra(getString(R.string.starKey), true)
+                    is NoteFilter.ByLabel ->
+                        putExtra(getString(R.string.labelIdKey), noteFilter.labelId)
+                }
+
+            })
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

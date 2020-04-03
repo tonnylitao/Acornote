@@ -31,6 +31,9 @@ interface NoteDao {
     @Query("SELECT count(*) from note_table")
     fun notesAllCount(): LiveData<Int>
 
+    @Query("SELECT count(*) from note_table")
+    fun notesCount(): Int
+
     @Query("SELECT count(*) from note_table WHERE star == 1")
     fun notesStarCount(): LiveData<Int>
 }

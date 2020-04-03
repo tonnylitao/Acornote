@@ -10,11 +10,11 @@ class DrawerViewModel(application: Application) : AndroidViewModel(application) 
     private val repository: Repository by lazy { Repository(application) }
 
     val allNotesCountLiveData: LiveData<Int> by lazy {
-        repository.notesAllCount()
+        repository.noteDao.notesAllCount()
     }
 
     val starCountLiveData: LiveData<Int> by lazy {
-        repository.notesStarCount()
+        repository.noteDao.notesStarCount()
     }
 
     val data: LiveData<List<LabelWrapper>> by lazy {

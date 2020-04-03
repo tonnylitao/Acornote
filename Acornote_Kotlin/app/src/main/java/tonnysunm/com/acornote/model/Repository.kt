@@ -11,7 +11,7 @@ class Repository(private val application: Application) {
     private val labelDao: LabelDao by lazy {
         AppRoomDatabase.getDatabase(application).labelDao()
     }
-    private val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
+    val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
 
     suspend fun <T : SQLEntity> insert(entity: T): Long {
         if (entity is Label) {
@@ -73,10 +73,6 @@ class Repository(private val application: Application) {
 
         return MutableLiveData(Note(title = "", labelId = null, order = 0.0))
     }
-
-    fun notesAllCount() = noteDao.notesAllCount()
-
-    fun notesStarCount() = noteDao.notesStarCount()
-
+    
 }
 

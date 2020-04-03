@@ -1,7 +1,9 @@
 package tonnysunm.com.acornote.ui.note.edit
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository
@@ -33,7 +35,6 @@ class EditNoteViewModel(
     val noteEditing = NoteEditing()
 
     suspend fun updateOrInsertNote(
-        lifecycle: LifecycleOwner,
         labelId: Long,
         star: Boolean,
         title: String,
@@ -48,13 +49,13 @@ class EditNoteViewModel(
         note.star = star
 
         if (id == null) {
-            repository.notesAllCount().observe(lifecycle, Observer {
-                note.order = (it + 1).times(1_000.0)
+            viewModelScope.launch(Dispatchers.IO) {
+                val count = repository.noteDao.notesCount()
+                note.order = (count + 1).times(1_000.0)
 
-                viewModelScope.launch {
-                    repository.insert(note)
-                }
-            })
+                repository.insert(note)
+                Log.d("MSG", "insert")
+            }
         } else {
             note.id = id
             repository.update(note)

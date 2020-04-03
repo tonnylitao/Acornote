@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import tonnysunm.com.acornote.model.NoteFilter
 
-class SharedViewModel : ViewModel() {
+class HomeSharedViewModel : ViewModel() {
 
-    val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
+    val noteFilterLiveData by lazy {
         MutableLiveData<NoteFilter>(NoteFilter.All)
     }
 

@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.MainActivity
-import tonnysunm.com.acornote.SharedViewModel
+import tonnysunm.com.acornote.HomeActivity
+import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentEditLabelBinding
 import tonnysunm.com.acornote.extensions.hideSoftKeyboard
 import tonnysunm.com.acornote.extensions.showSoftKeyboard
@@ -64,8 +64,8 @@ class EditLabelFragment : Fragment() {
             lifecycleScope.launch {
                 val id = viewModel.updateOrInsertLabel(title)
 
-                (activity as? MainActivity)?.let { it ->
-                    val mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
+                (activity as? HomeActivity)?.let { it ->
+                    val mainModel = ViewModelProvider(it).get(HomeSharedViewModel::class.java)
                     mainModel.noteFilterLiveData.value = NoteFilter.ByLabel(
                         id = id,
                         labelTitle = title

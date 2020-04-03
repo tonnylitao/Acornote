@@ -12,15 +12,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import tonnysunm.com.acornote.MainActivity
+import kotlinx.android.synthetic.main.fragment_notes.*
+import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.R
-import tonnysunm.com.acornote.SharedViewModel
+import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
 import tonnysunm.com.acornote.model.NoteFilter
 
+private val TAG = "NoteListFragment"
 
 class NoteListFragment : Fragment() {
-    private lateinit var mainModel: SharedViewModel
 
     private val mViewModel: NoteListViewModel by viewModels {
         val filter = arguments?.getString("filter") ?: ""
@@ -68,22 +69,27 @@ class NoteListFragment : Fragment() {
             }
         )
 
+        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                val manager = recyclerview.layoutManager
+                manager?.smoothScrollToPosition(recyclerview, null, positionStart)
+            }
+        })
+
         return binding.root
     }
 
-    //
+    private val homeSharedModel: HomeSharedViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val activity = activity as? MainActivity ?: throw Exception("Invalid Activity")
-        val actionBar = activity.supportActionBar
-
-        //
-        mainModel = ViewModelProvider(activity).get(SharedViewModel::class.java)
-
-        mainModel.noteFilterLiveData.observe(this.viewLifecycleOwner, Observer {
+        homeSharedModel.noteFilterLiveData.observe(this.viewLifecycleOwner, Observer {
             mViewModel.noteFilterLiveData.value = it
 
+            val actionBar = (activity as? HomeActivity)?.supportActionBar
             actionBar?.title = it.title
         })
     }

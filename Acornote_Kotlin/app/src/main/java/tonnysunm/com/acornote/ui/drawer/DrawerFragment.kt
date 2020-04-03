@@ -1,13 +1,11 @@
 package tonnysunm.com.acornote.ui.drawer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -15,9 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
-import tonnysunm.com.acornote.MainActivity
 import tonnysunm.com.acornote.R
-import tonnysunm.com.acornote.SharedViewModel
+import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentDrawerBinding
 import tonnysunm.com.acornote.model.NoteFilter
 
@@ -26,7 +23,7 @@ class DrawerFragment : Fragment() {
 
     private val mViewModel: DrawerViewModel by viewModels()
 
-    private lateinit var mainModel: SharedViewModel
+    private lateinit var homeSharedModel: HomeSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +33,7 @@ class DrawerFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = this.mViewModel
 
-        (activity as? MainActivity)?.let {
-            mainModel = ViewModelProvider(it).get(SharedViewModel::class.java)
-        }
+        homeSharedModel = ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
 
         mViewModel.allNotesCountLiveData.observe(viewLifecycleOwner, Observer {
             val item = binding.navView.menu.findItem(R.id.nav_all)
@@ -81,7 +76,7 @@ class DrawerFragment : Fragment() {
                 ).setActionView(R.layout.drawer_item)
                     .setCheckable(true)
 
-                mainModel.noteFilterLiveData.value?.let { filter ->
+                homeSharedModel.noteFilterLiveData.value?.let { filter ->
                     item.isChecked = item.isChecked(filter)
                 }
 
@@ -102,13 +97,13 @@ class DrawerFragment : Fragment() {
         val navView = binding.navView
 
 
-        mainModel.noteFilterLiveData.observe(viewLifecycleOwner, Observer {
+        homeSharedModel.noteFilterLiveData.observe(viewLifecycleOwner, Observer {
             updateMenuChecked(it)
         })
 
         navView.setNavigationItemSelectedListener { item ->
 
-            mainModel.noteFilterLiveData.value = item.noteFilter
+            homeSharedModel.noteFilterLiveData.value = item.noteFilter
 
             //
             val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout

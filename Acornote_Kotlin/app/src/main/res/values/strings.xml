@@ -13,5 +13,6 @@
     <string name="action_delete">Delete</string>
 
     <string name="starFilter">star == true</string>
+    <string name="starKey">star</string>
     <string name="labelIdKey">labelId</string>
 </resources>
