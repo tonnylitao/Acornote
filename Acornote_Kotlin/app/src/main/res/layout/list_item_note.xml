@@ -29,6 +29,7 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="5dp"
             android:gravity="center|start"
             android:text="@{data.title}"
@@ -37,7 +38,6 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/description"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
@@ -47,12 +47,12 @@
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:gravity="center|start"
             android:text='@{data.description}'
             android:visibility="@{descriptionIsNullOrEmpty ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="This is d" />
@@ -61,11 +61,40 @@
             android:id="@+id/imageButton"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:background="@color/colorAccent"
             android:contentDescription="@string/todo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/circle"
+            android:visibility="@{data.star ? View.VISIBLE : View.GONE}"
+            android:padding="3dp"
+            android:src="@drawable/ic_star"
+            android:tint="@android:color/darker_gray"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintRight_toLeftOf="@+id/pin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginEnd="5dp" />
+
+        <ImageView
+            android:id="@+id/pin"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/circle"
+            android:padding="3dp"
+            android:visibility="@{data.pinned ? View.VISIBLE : View.GONE}"
+            android:src="@drawable/ic_pin"
+            android:tint="@android:color/darker_gray"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

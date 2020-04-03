@@ -27,6 +27,8 @@ data class Note(
 
     var star: Boolean = false,
 
+    var pinned: Boolean = false,
+
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
 
