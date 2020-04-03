@@ -8,10 +8,10 @@
     <string name="titleTextview">TextView</string>
     <string name="todo">TODO</string>
     <string name="menu_all">All</string>
-    <string name="menu_favourite">Favourite</string>
+    <string name="menu_star">Star</string>
     <string name="action_settings">Settings</string>
     <string name="action_delete">Delete</string>
 
-    <string name="favouriteFilter">favourite == true</string>
+    <string name="starFilter">star == true</string>
     <string name="labelIdKey">labelId</string>
 </resources>

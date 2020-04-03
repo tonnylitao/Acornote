@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import tonnysunm.com.acornote.databinding.ListNoteBinding
+import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.Note
 
 
@@ -14,7 +14,7 @@ class NoteListAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
-            ListNoteBinding.inflate(
+            ListItemNoteBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -36,7 +36,7 @@ class NoteListAdapter :
 
     /* ViewHolder */
 
-    inner class ViewHolder(private val binding: ListNoteBinding) :
+    inner class ViewHolder(private val binding: ListItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -49,6 +49,8 @@ class NoteListAdapter :
 
         fun bind(note: Note) {
             binding.data = note
+            binding.descriptionIsNullOrEmpty = note.description?.trim().isNullOrEmpty()
+
             binding.executePendingBindings()
         }
     }

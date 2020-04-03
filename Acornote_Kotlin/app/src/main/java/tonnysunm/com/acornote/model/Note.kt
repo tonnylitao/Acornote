@@ -25,7 +25,7 @@ data class Note(
     @ColumnInfo(name = "label_id", index = true)
     var labelId: Long?,
 
-    var favourite: Boolean = false,
+    var star: Boolean = false,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,

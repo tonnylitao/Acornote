@@ -13,8 +13,8 @@ interface NoteDao {
     @Query("SELECT * from note_table ORDER BY updated_at DESC")
     fun getAll(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table  WHERE favourite == 1 ORDER BY updated_at DESC")
-    fun getFavourite(): DataSource.Factory<Int, Note>
+    @Query("SELECT * from note_table  WHERE star == 1 ORDER BY updated_at DESC")
+    fun getStar(): DataSource.Factory<Int, Note>
 
     @Query("SELECT * from note_table WHERE label_id == :id ORDER BY updated_at DESC")
     fun getByLabel(id: Long): DataSource.Factory<Int, Note>
@@ -31,22 +31,22 @@ interface NoteDao {
     @Query("SELECT count(*) from note_table")
     fun notesAllCount(): LiveData<Int>
 
-    @Query("SELECT count(*) from note_table WHERE favourite == 1")
-    fun notesFavouriteCount(): LiveData<Int>
+    @Query("SELECT count(*) from note_table WHERE star == 1")
+    fun notesStarCount(): LiveData<Int>
 }
 
 
 sealed class NoteFilter(val title: String) {
     object All : NoteFilter("All")
 
-    object Favourite : NoteFilter("Favourite")
+    object Star : NoteFilter("Star")
 
     data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
 
 //    val title: String
 //        get() = when (this) {
 //            All -> "All"
-//            Favourite -> "Favourite"
+//            Star -> "Star"
 //            is ByLabel ->
 //        }
 

@@ -53,9 +53,9 @@ class Repository(private val application: Application) {
             Log.d("ROOM", "get all")
             noteDao.getAll()
         }
-        is NoteFilter.Favourite -> {
-            Log.d("ROOM", "get favourite")
-            noteDao.getFavourite()
+        is NoteFilter.Star -> {
+            Log.d("ROOM", "get star")
+            noteDao.getStar()
         }
         is NoteFilter.ByLabel -> {
             Log.d("ROOM", "get label by " + filter.id)
@@ -76,7 +76,7 @@ class Repository(private val application: Application) {
 
     fun notesAllCount() = noteDao.notesAllCount()
 
-    fun notesFavouriteCount() = noteDao.notesFavouriteCount()
+    fun notesStarCount() = noteDao.notesStarCount()
 
 }
 

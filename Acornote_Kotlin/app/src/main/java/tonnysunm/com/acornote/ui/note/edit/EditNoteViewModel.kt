@@ -33,7 +33,7 @@ class EditNoteViewModel(
 
     suspend fun updateOrInsertNote(
         labelId: Long,
-        favourite: Boolean,
+        star: Boolean,
         title: String,
         description: String?
     ) {
@@ -43,7 +43,7 @@ class EditNoteViewModel(
 
         note.title = title
         note.description = description
-        note.favourite = favourite
+        note.star = star
 
         if (id == null) {
             repository.insert(note)

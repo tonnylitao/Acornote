@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
@@ -12,58 +14,58 @@
         <variable
             name="data"
             type="tonnysunm.com.acornote.model.Note" />
+
+        <variable
+            name="descriptionIsNullOrEmpty"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{clickListener}"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="8dp">
+        android:onClick="@{clickListener}">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center|start"
             android:text="@{data.title}"
+            android:textColor="#383838"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/description"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="Title" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text='@{data.labelId + " " + data.id + " " + data.description + " "+ data.favourite}'
+            android:gravity="center|start"
+            android:text='@{data.description}'
+            android:visibility="@{descriptionIsNullOrEmpty ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="This is description" />
+            tools:text="This is d" />
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:contentDescription="@string/todo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

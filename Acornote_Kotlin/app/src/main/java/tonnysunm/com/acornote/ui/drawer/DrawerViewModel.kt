@@ -13,8 +13,8 @@ class DrawerViewModel(application: Application) : AndroidViewModel(application) 
         repository.notesAllCount()
     }
 
-    val favouriteCountLiveData: LiveData<Int> by lazy {
-        repository.notesFavouriteCount()
+    val starCountLiveData: LiveData<Int> by lazy {
+        repository.notesStarCount()
     }
 
     val data: LiveData<List<LabelWrapper>> by lazy {

@@ -8,7 +8,7 @@
         android:id="@+id/detailFragment"
         android:name="tonnysunm.com.acornote.ui.note.list.NoteListFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/fragment_note">
+        tools:layout="@layout/fragment_notes">
         <argument
             android:name="@string/labelIdKey"
             app:argType="long" />

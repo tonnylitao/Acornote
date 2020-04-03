@@ -11,9 +11,9 @@
             app:actionLayout="@layout/drawer_item"
             android:checked="true" />
         <item
-            android:id="@+id/nav_favourite"
+            android:id="@+id/nav_star"
             app:actionLayout="@layout/drawer_item"
-            android:title="Favourite" />
+            android:title="Star" />
 
     </group>
 

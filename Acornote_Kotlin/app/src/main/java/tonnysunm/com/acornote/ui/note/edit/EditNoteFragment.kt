@@ -53,9 +53,9 @@ class EditNoteFragment : Fragment() {
             binding.progressbar.visibility = View.VISIBLE
 
             val labelId = intent?.extras?.getLong(getString(R.string.labelIdKey)) ?: 0
-            val favourite = intent?.extras?.getBoolean("favourite") ?: false
+            val star = intent?.extras?.getBoolean("star") ?: false
             lifecycleScope.launch {
-                viewModel.updateOrInsertNote(labelId, favourite, title, description)
+                viewModel.updateOrInsertNote(labelId, star, title, description)
 
                 activity?.finish()
             }
@@ -64,6 +64,7 @@ class EditNoteFragment : Fragment() {
         viewModel.noteLiveData.observe(viewLifecycleOwner, Observer {
             viewModel.noteEditing.title.value = it.title
             viewModel.noteEditing.description.value = it.description
+
 
             intent?.let { intent ->
                 if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {

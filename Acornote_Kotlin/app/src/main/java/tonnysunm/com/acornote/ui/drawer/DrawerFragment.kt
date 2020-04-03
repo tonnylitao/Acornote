@@ -47,8 +47,8 @@ class DrawerFragment : Fragment() {
             textView.text = it.toString()
         })
 
-        mViewModel.favouriteCountLiveData.observe(viewLifecycleOwner, Observer {
-            val item = binding.navView.menu.findItem(R.id.nav_favourite)
+        mViewModel.starCountLiveData.observe(viewLifecycleOwner, Observer {
+            val item = binding.navView.menu.findItem(R.id.nav_star)
 
             val textView = item.actionView.findViewById<TextView>(R.id.notes_count)
             textView.text = it.toString()
@@ -131,12 +131,12 @@ class DrawerFragment : Fragment() {
 private val MenuItem.noteFilter: NoteFilter
     get() = when (itemId) {
         R.id.nav_all -> NoteFilter.All
-        R.id.nav_favourite -> NoteFilter.Favourite
+        R.id.nav_star -> NoteFilter.Star
         else -> NoteFilter.ByLabel(itemId.toLong(), title.toString())
     }
 
 private fun MenuItem.isChecked(filter: NoteFilter) = when (itemId) {
     R.id.nav_all -> filter == NoteFilter.All
-    R.id.nav_favourite -> filter == NoteFilter.Favourite
+    R.id.nav_star -> filter == NoteFilter.Star
     else -> itemId == filter.labelId?.toInt()
 }
