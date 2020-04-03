@@ -71,7 +71,7 @@ class Repository(private val application: Application) {
             }
         }
 
-        return MutableLiveData(Note(title = "", labelId = null))
+        return MutableLiveData(Note(title = "", labelId = null, order = 0.0))
     }
 
     fun notesAllCount() = noteDao.notesAllCount()

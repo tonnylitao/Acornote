@@ -2,6 +2,7 @@ package tonnysunm.com.acornote.ui.note.edit
 
 import android.app.Application
 import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.Repository
 import java.lang.IllegalStateException
@@ -32,6 +33,7 @@ class EditNoteViewModel(
     val noteEditing = NoteEditing()
 
     suspend fun updateOrInsertNote(
+        lifecycle: LifecycleOwner,
         labelId: Long,
         star: Boolean,
         title: String,
@@ -46,7 +48,13 @@ class EditNoteViewModel(
         note.star = star
 
         if (id == null) {
-            repository.insert(note)
+            repository.notesAllCount().observe(lifecycle, Observer {
+                note.order = (it + 1).times(1_000.0)
+
+                viewModelScope.launch {
+                    repository.insert(note)
+                }
+            })
         } else {
             note.id = id
             repository.update(note)

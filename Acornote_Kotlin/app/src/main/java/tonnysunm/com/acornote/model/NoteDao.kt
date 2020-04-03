@@ -10,13 +10,13 @@ import tonnysunm.com.acornote.model.NoteFilter as NoteFilter
 interface NoteDao {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT * from note_table ORDER BY updated_at DESC")
+    @Query("SELECT * from note_table ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getAll(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table  WHERE star == 1 ORDER BY updated_at DESC")
+    @Query("SELECT * from note_table  WHERE star == 1 ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getStar(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table WHERE label_id == :id ORDER BY updated_at DESC")
+    @Query("SELECT * from note_table WHERE label_id == :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getByLabel(id: Long): DataSource.Factory<Int, Note>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

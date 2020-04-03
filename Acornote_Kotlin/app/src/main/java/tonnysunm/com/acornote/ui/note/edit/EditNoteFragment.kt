@@ -42,6 +42,7 @@ class EditNoteFragment : Fragment() {
 
         val intent = activity?.intent
 
+        val fragment = this
         binding.setOnSure { view ->
             view.isEnabled = false
 
@@ -55,7 +56,13 @@ class EditNoteFragment : Fragment() {
             val labelId = intent?.extras?.getLong(getString(R.string.labelIdKey)) ?: 0
             val star = intent?.extras?.getBoolean("star") ?: false
             lifecycleScope.launch {
-                viewModel.updateOrInsertNote(labelId, star, title, description)
+                viewModel.updateOrInsertNote(
+                    fragment,
+                    labelId,
+                    star,
+                    title,
+                    description
+                )
 
                 activity?.finish()
             }
