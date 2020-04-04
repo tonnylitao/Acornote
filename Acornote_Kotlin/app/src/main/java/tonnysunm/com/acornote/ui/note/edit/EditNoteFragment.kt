@@ -28,10 +28,6 @@ class EditNoteFragment : Fragment() {
         EditNoteViewModelFactory(requireActivity().application, id)
     }
 
-    private val homeSharedModel: HomeSharedViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

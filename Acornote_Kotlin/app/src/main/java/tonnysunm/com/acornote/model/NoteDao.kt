@@ -1,9 +1,12 @@
 package tonnysunm.com.acornote.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import tonnysunm.com.acornote.model.NoteFilter as NoteFilter
+import kotlin.math.log
+import kotlin.math.min
+import kotlin.math.max
 
 
 @Dao
@@ -36,6 +39,26 @@ interface NoteDao {
 
     @Query("SELECT count(*) from note_table WHERE star == 1")
     fun notesStarCount(): LiveData<Int>
+
+    @Query("UPDATE note_table set `order` = `order` + :delta WHERE  id = :id")
+    fun updateOrder(id: Long, delta: Long)
+
+    @Query(
+        "UPDATE note_table set `order` = `order` + :delta WHERE `order` >= :min and `order` <= :max and id != :target"
+    )
+    fun moveNotes(target: Long, delta: Long, min: Long, max: Long)
+
+    @Transaction
+    fun moveNote(target: Long, from: Long, to: Long) {
+        Log.d("SQL", "moveNote $target $from $to")
+        moveNotes(
+            target,
+            if (from > to) 1 else -1,
+            min(from, to),
+            max(from, to)
+        )
+        updateOrder(target, to - from)
+    }
 }
 
 

@@ -19,7 +19,7 @@ data class Note(
     var id: Long = 0,
 
     @ColumnInfo(index = true)
-    var order: Double,
+    var order: Long,
 
     var title: String,
 

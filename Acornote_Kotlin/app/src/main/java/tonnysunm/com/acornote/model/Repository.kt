@@ -71,8 +71,11 @@ class Repository(private val application: Application) {
             }
         }
 
-        return MutableLiveData(Note(title = "", labelId = null, order = 0.0))
+        return MutableLiveData(Note(title = "", labelId = null, order = 0))
     }
-    
+
+    suspend fun moveNote(labelId: Long, from: Note, delta: Int) {
+
+    }
 }
 

@@ -51,7 +51,7 @@ class EditNoteViewModel(
         if (id == null) {
             viewModelScope.launch(Dispatchers.IO) {
                 val count = repository.noteDao.notesCount()
-                note.order = (count + 1).times(1_000.0)
+                note.order = count.toLong()
 
                 repository.insert(note)
                 Log.d("MSG", "insert")
