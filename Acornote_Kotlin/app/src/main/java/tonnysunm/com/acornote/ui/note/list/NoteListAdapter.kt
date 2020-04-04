@@ -1,5 +1,6 @@
 package tonnysunm.com.acornote.ui.note.list
 
+import android.media.MediaRouter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -64,26 +65,17 @@ class NoteListAdapter :
 interface ItemTouchHelperAdapter {
     fun isLongPressDragEnabled(): Boolean
     fun onItemMove(fromPosition: Int, toPosition: Int): Boolean
-    fun onItemEndMove(toPosition: Int)
+    fun onItemEndMove()
 }
 
 class ItemTouchHelperCallback(adapter: ItemTouchHelperAdapter) :
-    ItemTouchHelper.Callback() {
+    ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
 
-    private val mAdapter: ItemTouchHelperAdapter = adapter
+    private val mAdapter = adapter
 
     private var toPosition: Int? = null
 
     override fun isLongPressDragEnabled() = mAdapter.isLongPressDragEnabled()
-
-    override fun getMovementFlags(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder
-    ): Int {
-        val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeFlags = ItemTouchHelper.ACTION_STATE_IDLE
-        return makeMovementFlags(dragFlags, swipeFlags)
-    }
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -94,13 +86,19 @@ class ItemTouchHelperCallback(adapter: ItemTouchHelperAdapter) :
 
         return mAdapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
     }
+//    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+//        if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+//            if (toPosition != null) {
+//                mAdapter.onItemEndMove()
+//            }
+//            mAdapter.onItemEndMove()
+//        }
+//    }
 
-    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (toPosition != null) {
-                mAdapter.onItemEndMove(toPosition!!)
-            }
-        }
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+
+        mAdapter.onItemEndMove()
     }
 
     override fun isItemViewSwipeEnabled() = false

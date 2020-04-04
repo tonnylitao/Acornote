@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,10 @@ import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
+import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
+import kotlin.math.max
+import kotlin.math.min
 
 
 private const val TAG = "NoteListFragment"
@@ -58,7 +62,7 @@ class NoteListFragment : Fragment() {
 
         val adapter = NoteListAdapter()
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
-            Log.d(TAG, "$it")
+            Log.d("TAG count", it.count().toString())
             adapter.submitList(it)
         })
         binding.recyclerview.adapter = adapter
@@ -95,34 +99,49 @@ class NoteListFragment : Fragment() {
 
         val touchHelper = ItemTouchHelper(
             ItemTouchHelperCallback(object : ItemTouchHelperAdapter {
-                var targetNoteId: Long? = null
-                var targetNoteOrder: Long? = null
+                var noteIds = mutableSetOf<Long>()
+                var notes = mutableSetOf<Note>()
 
                 override fun isLongPressDragEnabled() =
                     mViewModel.noteFilterLiveData.value == NoteFilter.All
 
                 override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-                    if (targetNoteId == null) {
-                        val note = adapter.getItem(fromPosition) ?: return false
-                        targetNoteId = note.id
-                        targetNoteOrder = note.order
+                    val fromNote = adapter.getItem(fromPosition) ?: return false
+                    val toNote = adapter.getItem(toPosition) ?: return false
+
+                    val order = toNote.order
+                    toNote.order = fromNote.order
+                    fromNote.order = order
+
+                    if (!noteIds.contains(fromNote.id)) {
+                        noteIds.add(fromNote.id)
+                        notes.add(fromNote)
+                    }
+
+                    if (!noteIds.contains(toNote.id)) {
+                        noteIds.add(toNote.id)
+                        notes.add(toNote)
                     }
 
                     adapter.notifyItemMoved(fromPosition, toPosition)
                     return true
                 }
 
-                override fun onItemEndMove(toPosition: Int) {
-                    val noteId = targetNoteId ?: return
-                    val noteOrder = targetNoteOrder ?: return
-                    val toNoteOrder = adapter.getItem(toPosition)?.order ?: return
-                    if (noteOrder == toNoteOrder) {
-                        return
-                    }
-
-                    targetNoteId = null
+                override fun onItemEndMove() {
                     mViewModel.viewModelScope.launch(Dispatchers.IO) {
-                        mViewModel.moveItem(noteId, noteOrder, toNoteOrder)
+
+                        if (notes.isNotEmpty()) {
+                            mViewModel.updateNotes(notes)
+
+                            //TODO bug: data saved into db success, but recylerView does not work well.
+                            mViewModel.viewModelScope.launch(Dispatchers.Main) {
+                                adapter.notifyDataSetChanged()
+                            }
+
+                            notes.clear()
+                            noteIds.clear()
+                        }
+
                     }
                 }
             })

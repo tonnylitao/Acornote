@@ -1,7 +1,10 @@
 package tonnysunm.com.acornote.ui.note.list
 
 import android.app.Application
+import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.*
+import androidx.paging.Config
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import tonnysunm.com.acornote.model.Note
@@ -41,4 +44,5 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
     suspend fun moveItem(target: Long, from: Long, to: Long) =
         repository.noteDao.moveNote(target, from, to)
 
+    suspend fun updateNotes(list: Set<Note>) = repository.noteDao.updateNotes(list)
 }

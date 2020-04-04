@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import kotlin.math.log
 import kotlin.math.min
 import kotlin.math.max
 
@@ -28,6 +27,9 @@ interface NoteDao {
     @Update
     suspend fun update(note: Note)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateNotes(note: Set<Note>)
+
     @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
     fun note(id: Long): LiveData<Note>
 
@@ -36,6 +38,9 @@ interface NoteDao {
 
     @Query("SELECT count(*) from note_table")
     fun notesCount(): Int
+
+    @Query("SELECT MAX(`order`) from note_table")
+    fun maxOrder(): Long
 
     @Query("SELECT count(*) from note_table WHERE star == 1")
     fun notesStarCount(): LiveData<Int>
