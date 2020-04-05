@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -19,13 +20,13 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
-import kotlin.math.max
-import kotlin.math.min
+import java.util.*
 
 
 private const val TAG = "NoteListFragment"
@@ -34,7 +35,7 @@ class NoteListFragment : Fragment() {
 
     private val labelId = arguments?.getLong(getString(R.string.labelIdKey))
 
-    private val mViewModel: NoteListViewModel by viewModels {
+    val mViewModel: NoteListViewModel by viewModels {
         val filter = arguments?.getString("filter") ?: ""
         val labelTitle = arguments?.getString("labelTitle") ?: ""
 
@@ -51,6 +52,9 @@ class NoteListFragment : Fragment() {
         ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
     }
 
+    private var isMoving = false
+    private var lastList: MutableList<Note>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,8 +66,11 @@ class NoteListFragment : Fragment() {
 
         val adapter = NoteListAdapter()
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
-            Log.d("TAG count", it.count().toString())
-            adapter.submitList(it)
+            lastList = it.toMutableList()
+
+            if (!isMoving) {
+                adapter.submitList(it)
+            }
         })
         binding.recyclerview.adapter = adapter
 
@@ -99,50 +106,41 @@ class NoteListFragment : Fragment() {
 
         val touchHelper = ItemTouchHelper(
             ItemTouchHelperCallback(object : ItemTouchHelperAdapter {
-                var noteIds = mutableSetOf<Long>()
-                var notes = mutableSetOf<Note>()
+                private var tempList: MutableList<Note>? = null //for swap to record postion
 
                 override fun isLongPressDragEnabled() =
                     mViewModel.noteFilterLiveData.value == NoteFilter.All
 
+                override fun onItemStartMove() {
+                    //it's a trick to support drag for pagedList
+                    tempList = lastList
+                }
+
                 override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-                    val fromNote = adapter.getItem(fromPosition) ?: return false
-                    val toNote = adapter.getItem(toPosition) ?: return false
+                    val fromNote = tempList?.get(fromPosition) ?: return false
+                    val toNote = tempList?.get(toPosition) ?: return false
 
                     val order = toNote.order
                     toNote.order = fromNote.order
                     fromNote.order = order
 
-                    if (!noteIds.contains(fromNote.id)) {
-                        noteIds.add(fromNote.id)
-                        notes.add(fromNote)
+                    isMoving = true
+
+                    //TODO write db in onItemEndMove
+                    mViewModel.viewModelScope.launch(Dispatchers.IO) {
+                        //will update mViewModel.data
+                        mViewModel.updateNotes(setOf(fromNote, toNote))
                     }
 
-                    if (!noteIds.contains(toNote.id)) {
-                        noteIds.add(toNote.id)
-                        notes.add(toNote)
-                    }
-
+                    Collections.swap(tempList, fromPosition, toPosition)
                     adapter.notifyItemMoved(fromPosition, toPosition)
+
                     return true
                 }
 
                 override fun onItemEndMove() {
-                    mViewModel.viewModelScope.launch(Dispatchers.IO) {
-
-                        if (notes.isNotEmpty()) {
-                            mViewModel.updateNotes(notes)
-
-                            //TODO bug: data saved into db success, but recylerView does not work well.
-                            mViewModel.viewModelScope.launch(Dispatchers.Main) {
-                                adapter.notifyDataSetChanged()
-                            }
-
-                            notes.clear()
-                            noteIds.clear()
-                        }
-
-                    }
+                    isMoving = false
+                    tempList = null
                 }
             })
         )

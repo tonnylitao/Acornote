@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import java.util.*
 
 class Repository(private val application: Application) {
@@ -48,7 +49,7 @@ class Repository(private val application: Application) {
 
 
     // Note
-    fun notes(filter: NoteFilter) = when (filter) {
+    fun notes(filter: NoteFilter): DataSource.Factory<Int, Note> = when (filter) {
         is NoteFilter.All -> {
             Log.d("ROOM", "get all")
             noteDao.getAll()

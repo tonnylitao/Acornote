@@ -53,7 +53,6 @@ class EditNoteViewModel(
                 note.order = repository.noteDao.maxOrder() + 1
 
                 repository.insert(note)
-                Log.d("MSG", "insert")
             }
         } else {
             note.id = id

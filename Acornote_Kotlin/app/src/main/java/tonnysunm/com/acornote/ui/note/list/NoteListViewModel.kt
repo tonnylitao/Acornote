@@ -37,8 +37,8 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
 //        }
 //    }
 
-    val data: LiveData<PagedList<Note>> = Transformations.switchMap(noteFilterLiveData) {
-        return@switchMap repository.notes(it).toLiveData(pageSize = 5)
+    val data: LiveData<PagedList<Note>> = noteFilterLiveData.switchMap {
+        repository.notes(it).toLiveData(pageSize = 5)
     }
 
     suspend fun moveItem(target: Long, from: Long, to: Long) =

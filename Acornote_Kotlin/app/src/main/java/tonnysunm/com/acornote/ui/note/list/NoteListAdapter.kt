@@ -3,11 +3,17 @@ package tonnysunm.com.acornote.ui.note.list
 import android.media.MediaRouter
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.findFragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.Note
 
@@ -28,28 +34,43 @@ class NoteListAdapter :
         }
     }
 
-    public override fun getItem(position: Int) = super.getItem(position)
+    public override fun getItem(position: Int): Note? {
+
+        val item = super.getItem(position) ?: return null
+//        Log.d("TAG", "getItem $position  ${item.title ?: ""}")
+
+        return item
+    }
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
 
-            override fun areItemsTheSame(old: Note, aNew: Note) = old.id == aNew.id
+            override fun areItemsTheSame(old: Note, aNew: Note): Boolean {
+                return old.id == aNew.id
+            }
 
-            override fun areContentsTheSame(old: Note, aNew: Note) = old == aNew
+            override fun areContentsTheSame(old: Note, aNew: Note): Boolean {
+                return old == aNew
+            }
         }
     }
 
 
-    /* ViewHolder */
+/* ViewHolder */
 
     inner class ViewHolder(private val binding: ListItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.setClickListener {
-                binding.data?.id?.let {
+            binding.clickListener = View.OnClickListener {
+                val note = binding.data ?: return@OnClickListener
 
-                }
+//                note.order = 1000
+//
+//                val viewModel: NoteListViewModel = it.findFragment<NoteListFragment>().mViewModel
+//                viewModel.viewModelScope.launch(Dispatchers.IO) {
+//                    viewModel.updateNotes(setOf(note))
+//                }
             }
         }
 
@@ -60,10 +81,13 @@ class NoteListAdapter :
             binding.executePendingBindings()
         }
     }
+
 }
 
 interface ItemTouchHelperAdapter {
     fun isLongPressDragEnabled(): Boolean
+
+    fun onItemStartMove()
     fun onItemMove(fromPosition: Int, toPosition: Int): Boolean
     fun onItemEndMove()
 }
@@ -86,19 +110,13 @@ class ItemTouchHelperCallback(adapter: ItemTouchHelperAdapter) :
 
         return mAdapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
     }
-//    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-//        if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
-//            if (toPosition != null) {
-//                mAdapter.onItemEndMove()
-//            }
-//            mAdapter.onItemEndMove()
-//        }
-//    }
 
-    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        super.clearView(recyclerView, viewHolder)
-
-        mAdapter.onItemEndMove()
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+            mAdapter.onItemStartMove()
+        } else if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+            mAdapter.onItemEndMove()
+        }
     }
 
     override fun isItemViewSwipeEnabled() = false
