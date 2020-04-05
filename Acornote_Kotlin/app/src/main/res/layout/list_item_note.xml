@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:gravity="center|start"
-            android:text='@{data.description}'
-            android:visibility="@{descriptionIsNullOrEmpty ? View.GONE : View.VISIBLE}"
+            android:text='@{data.description + data.order}'
+            android:visibility="@{descriptionIsNullOrEmpty ? View.VISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,19 +1,15 @@
 package tonnysunm.com.acornote.ui.note.list
 
-import android.media.MediaRouter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.findFragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.widget.Toast
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.list_label.view.*
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.Note
 
@@ -34,23 +30,20 @@ class NoteListAdapter :
         }
     }
 
-    public override fun getItem(position: Int): Note? {
-
-        val item = super.getItem(position) ?: return null
-//        Log.d("TAG", "getItem $position  ${item.title ?: ""}")
-
-        return item
-    }
+    public override fun getItem(position: Int) = super.getItem(position)
 
     companion object {
+        //heck for drag and drop to move items in PagedList
+        var disableAnimation = false
+
         private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
 
             override fun areItemsTheSame(old: Note, aNew: Note): Boolean {
-                return old.id == aNew.id
+                return disableAnimation || old.id == aNew.id
             }
 
             override fun areContentsTheSame(old: Note, aNew: Note): Boolean {
-                return old == aNew
+                return disableAnimation || old == aNew
             }
         }
     }
@@ -65,12 +58,7 @@ class NoteListAdapter :
             binding.clickListener = View.OnClickListener {
                 val note = binding.data ?: return@OnClickListener
 
-//                note.order = 1000
-//
-//                val viewModel: NoteListViewModel = it.findFragment<NoteListFragment>().mViewModel
-//                viewModel.viewModelScope.launch(Dispatchers.IO) {
-//                    viewModel.updateNotes(setOf(note))
-//                }
+                Toast.makeText(it.context, "${note.title}-${note.order}", Toast.LENGTH_SHORT).show()
             }
         }
 

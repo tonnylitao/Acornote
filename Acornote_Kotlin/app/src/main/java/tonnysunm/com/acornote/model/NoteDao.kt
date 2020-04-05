@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import java.util.*
 import kotlin.math.min
 import kotlin.math.max
 
@@ -28,7 +29,7 @@ interface NoteDao {
     suspend fun update(note: Note)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateNotes(note: Set<Note>)
+    suspend fun updateNotes(notes: Set<Note>): Int
 
     @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
     fun note(id: Long): LiveData<Note>
@@ -67,12 +68,19 @@ interface NoteDao {
 }
 
 
-sealed class NoteFilter(val title: String) {
-    object All : NoteFilter("All")
+sealed class NoteFilter(val title: String, var loadAt: Date) {
+    object All : NoteFilter("All", Date())
 
-    object Star : NoteFilter("Star")
+    object Star : NoteFilter("Star", Date())
 
-    data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
+    data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(
+        labelTitle, Date()
+    )
+
+    fun reload(): NoteFilter {
+        loadAt = Date()
+        return this
+    }
 
 //    val title: String
 //        get() = when (this) {

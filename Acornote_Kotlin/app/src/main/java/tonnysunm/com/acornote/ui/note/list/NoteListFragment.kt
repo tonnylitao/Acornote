@@ -13,12 +13,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.paging.DataSource
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import tonnysunm.com.acornote.HomeSharedViewModel
@@ -53,7 +55,6 @@ class NoteListFragment : Fragment() {
     }
 
     private var isMoving = false
-    private var lastList: MutableList<Note>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,10 +67,18 @@ class NoteListFragment : Fragment() {
 
         val adapter = NoteListAdapter()
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
-            lastList = it.toMutableList()
-
             if (!isMoving) {
                 adapter.submitList(it)
+
+                //delay for fix PagedStorageDiffHelper.computeDiff running in background thread
+                if (NoteListAdapter.disableAnimation) {
+                    mViewModel.viewModelScope.launch {
+                        delay(500)
+
+                        adapter.notifyDataSetChanged() //update viewholder's binding data
+                        NoteListAdapter.disableAnimation = false
+                    }
+                }
             }
         })
         binding.recyclerview.adapter = adapter
@@ -106,14 +115,15 @@ class NoteListFragment : Fragment() {
 
         val touchHelper = ItemTouchHelper(
             ItemTouchHelperCallback(object : ItemTouchHelperAdapter {
-                private var tempList: MutableList<Note>? = null //for swap to record postion
-
+                //for swap to get correct note from fromPosition and toPosition
+                private var tempList: MutableList<Note>? = null
+                
                 override fun isLongPressDragEnabled() =
                     mViewModel.noteFilterLiveData.value == NoteFilter.All
 
                 override fun onItemStartMove() {
-                    //it's a trick to support drag for pagedList
-                    tempList = lastList
+                    //get most updated data
+                    tempList = adapter.currentList?.toMutableList()
                 }
 
                 override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -126,21 +136,26 @@ class NoteListFragment : Fragment() {
 
                     isMoving = true
 
-                    //TODO write db in onItemEndMove
+                    //save into db
                     mViewModel.viewModelScope.launch(Dispatchers.IO) {
                         //will update mViewModel.data
-                        mViewModel.updateNotes(setOf(fromNote, toNote))
+                        val count = mViewModel.updateNotes(setOf(fromNote, toNote))
+                        Log.d("TAG", "updated $count")
                     }
 
-                    Collections.swap(tempList, fromPosition, toPosition)
+                    Collections.swap(tempList!!, fromPosition, toPosition)
                     adapter.notifyItemMoved(fromPosition, toPosition)
 
                     return true
                 }
 
                 override fun onItemEndMove() {
+                    Log.d("TAG", "onItemEndMove")
                     isMoving = false
                     tempList = null
+
+                    NoteListAdapter.disableAnimation = true
+                    mViewModel.noteFilterLiveData.postValue(mViewModel.noteFilterLiveData.value?.reload())
                 }
             })
         )
