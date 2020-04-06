@@ -54,8 +54,6 @@ class NoteListFragment : Fragment() {
         ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
     }
 
-    private var isMoving = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,17 +65,15 @@ class NoteListFragment : Fragment() {
 
         val adapter = NoteListAdapter()
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
-            if (!isMoving) {
-                adapter.submitList(it)
+            adapter.submitList(it)
 
-                //delay for fix PagedStorageDiffHelper.computeDiff running in background thread
-                if (NoteListAdapter.disableAnimation) {
-                    mViewModel.viewModelScope.launch {
-                        delay(500)
+            //delay for fix PagedStorageDiffHelper.computeDiff running in background thread
+            if (NoteListAdapter.disableAnimation) {
+                mViewModel.viewModelScope.launch {
+                    delay(500)
 
-                        adapter.notifyDataSetChanged() //update viewholder's binding data
-                        NoteListAdapter.disableAnimation = false
-                    }
+                    adapter.notifyDataSetChanged() //update viewholder's binding data
+                    NoteListAdapter.disableAnimation = false
                 }
             }
         })
@@ -115,15 +111,19 @@ class NoteListFragment : Fragment() {
 
         val touchHelper = ItemTouchHelper(
             ItemTouchHelperCallback(object : ItemTouchHelperAdapter {
-                //for swap to get correct note from fromPosition and toPosition
+                //get correct note from fromPosition and toPosition after swap
                 private var tempList: MutableList<Note>? = null
-                
+
+                private var toUpdateNotes: MutableList<Note>? = null
+
                 override fun isLongPressDragEnabled() =
                     mViewModel.noteFilterLiveData.value == NoteFilter.All
 
                 override fun onItemStartMove() {
-                    //get most updated data
+                    //get most the most updated data
                     tempList = adapter.currentList?.toMutableList()
+
+                    toUpdateNotes = mutableListOf()
                 }
 
                 override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -134,14 +134,9 @@ class NoteListFragment : Fragment() {
                     toNote.order = fromNote.order
                     fromNote.order = order
 
-                    isMoving = true
-
-                    //save into db
-                    mViewModel.viewModelScope.launch(Dispatchers.IO) {
-                        //will update mViewModel.data
-                        val count = mViewModel.updateNotes(setOf(fromNote, toNote))
-                        Log.d("TAG", "updated $count")
-                    }
+                    toUpdateNotes?.removeAll { it.id == fromNote.id || it.id == toNote.id }
+                    toUpdateNotes?.add(fromNote)
+                    toUpdateNotes?.add(toNote)
 
                     Collections.swap(tempList!!, fromPosition, toPosition)
                     adapter.notifyItemMoved(fromPosition, toPosition)
@@ -151,14 +146,27 @@ class NoteListFragment : Fragment() {
 
                 override fun onItemEndMove() {
                     Log.d("TAG", "onItemEndMove")
-                    isMoving = false
                     tempList = null
 
-                    NoteListAdapter.disableAnimation = true
-                    mViewModel.noteFilterLiveData.postValue(mViewModel.noteFilterLiveData.value?.reload())
+                    if (!toUpdateNotes.isNullOrEmpty()) {
+                        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+                            /*
+                            save into db will cause mViewMode.data being posted new value
+                            because of pagedList data did not change, so it will have animation after find the diff
+                            NoteListAdapter.disableAnimation will fix this animation*
+                            */
+                            NoteListAdapter.disableAnimation = true
+
+                            val count = mViewModel.updateNotes(toUpdateNotes!!)
+                            Log.d("TAG", "updated $count")
+
+                            toUpdateNotes = null
+                        }
+                    }
                 }
             })
         )
+
         touchHelper.attachToRecyclerView(binding.recyclerview)
 
         return binding.root

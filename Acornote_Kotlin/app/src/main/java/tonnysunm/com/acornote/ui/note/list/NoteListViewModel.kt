@@ -41,12 +41,5 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
         repository.notes(it).toLiveData(pageSize = 5)
     }
 
-    suspend fun reloadData(): LiveData<PagedList<Note>> {
-        return repository.notes(noteFilterLiveData.value!!).toLiveData(pageSize = 5)
-    }
-
-    suspend fun moveItem(target: Long, from: Long, to: Long) =
-        repository.noteDao.moveNote(target, from, to)
-
-    suspend fun updateNotes(list: Set<Note>) = repository.noteDao.updateNotes(list)
+    suspend fun updateNotes(list: MutableList<Note>) = repository.noteDao.updateNotes(list)
 }

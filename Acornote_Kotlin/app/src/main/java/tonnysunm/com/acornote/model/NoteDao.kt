@@ -29,7 +29,7 @@ interface NoteDao {
     suspend fun update(note: Note)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateNotes(notes: Set<Note>): Int
+    suspend fun updateNotes(notes: MutableList<Note>): Int
 
     @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
     fun note(id: Long): LiveData<Note>
@@ -68,19 +68,12 @@ interface NoteDao {
 }
 
 
-sealed class NoteFilter(val title: String, var loadAt: Date) {
-    object All : NoteFilter("All", Date())
+sealed class NoteFilter(val title: String) {
+    object All : NoteFilter("All")
 
-    object Star : NoteFilter("Star", Date())
+    object Star : NoteFilter("Star")
 
-    data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(
-        labelTitle, Date()
-    )
-
-    fun reload(): NoteFilter {
-        loadAt = Date()
-        return this
-    }
+    data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
 
 //    val title: String
 //        get() = when (this) {
