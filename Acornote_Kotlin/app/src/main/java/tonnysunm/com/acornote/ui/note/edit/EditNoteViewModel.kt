@@ -20,35 +20,26 @@ class EditNoteViewModelFactory(
         EditNoteViewModel(application, id) as T
 }
 
-class EditNoteViewModel(
-    application: Application,
-    private val id: Long?
-) :
+class EditNoteViewModel(application: Application, private val id: Long?) :
     AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
-    val noteLiveData: LiveData<Note> by lazy {
+    val data: LiveData<Note> by lazy {
         repository.getNote(id)
     }
 
-    val noteEditing = NoteEditing()
-
     suspend fun updateOrInsertNote(
-        labelId: Long,
-        star: Boolean,
-        title: String,
-        description: String?
+        labelId: Long?,
+        star: Boolean?
     ) {
-        val note = noteLiveData.value ?: throw IllegalStateException("note is not set")
+        val note = data.value ?: throw IllegalStateException("note is not set")
+        if (note.title.isEmpty()) throw IllegalStateException("title is null")
 
-        note.labelId = if (labelId > 0) labelId else null
-
-        note.title = title
-        note.description = description
+        note.labelId = labelId
         note.star = star
 
-        if (id == null) {
+        if (id == null || id == 0.toLong()) {
             viewModelScope.launch(Dispatchers.IO) {
                 note.order = repository.noteDao.maxOrder() + 1
 
@@ -58,11 +49,5 @@ class EditNoteViewModel(
             note.id = id
             repository.update(note)
         }
-    }
-
-
-    inner class NoteEditing {
-        val title = MutableLiveData<String>()
-        val description = MutableLiveData<String>()
     }
 }

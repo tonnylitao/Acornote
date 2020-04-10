@@ -21,7 +21,6 @@ class Repository(private val application: Application) {
             return noteDao.insert(entity)
         }
 
-
         throw IllegalArgumentException("type is not right.")
     }
 
@@ -64,19 +63,15 @@ class Repository(private val application: Application) {
         }
     }
 
-    fun getNote(id: Long?): LiveData<Note> {
-        if (id != null) {
-            val liveData = noteDao.note(id)
-            if (liveData.value != null) {
-                return liveData
-            }
-        }
-
-        return MutableLiveData(Note(title = "", labelId = null, order = 0))
-    }
-
-    suspend fun moveNote(labelId: Long, from: Note, delta: Int) {
-
+    fun getNote(id: Long?): LiveData<Note> = if (id != null && id > 0.toLong()) {
+        noteDao.note(id)
+    } else {
+        MutableLiveData(
+            Note(
+                title = "",
+                order = 0
+            )
+        )
     }
 }
 

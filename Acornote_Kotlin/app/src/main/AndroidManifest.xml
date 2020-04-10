@@ -14,11 +14,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="tonnysunm.com.acornote.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
+                <!--                <action android:name="android.intent.action.SEND" />-->
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,12 +26,13 @@
             android:name="tonnysunm.com.acornote.ui.note.edit.EditNoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
 
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />-->
+                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>

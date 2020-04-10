@@ -26,11 +26,11 @@ data class Note(
     var description: String? = null,
 
     @ColumnInfo(name = "label_id", index = true)
-    var labelId: Long?,
+    var labelId: Long? = null,
 
-    var star: Boolean = false,
+    var star: Boolean? = null,
 
-    var pinned: Boolean = false,
+    var pinned: Boolean? = null,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,

@@ -1,17 +1,27 @@
 package tonnysunm.com.acornote.ui.note.list
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.invoke
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.findFragment
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_label.view.*
+import kotlinx.android.synthetic.main.list_item_label.view.*
+import tonnysunm.com.acornote.HomeActivity
+import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.model.NoteFilter
+import tonnysunm.com.acornote.ui.note.edit.EditNoteActivity
+import tonnysunm.com.acornote.ui.note.edit.EditNoteFragment
 
 
 class NoteListAdapter :
@@ -49,7 +59,7 @@ class NoteListAdapter :
     }
 
 
-/* ViewHolder */
+    /* ViewHolder */
 
     inner class ViewHolder(private val binding: ListItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -58,7 +68,20 @@ class NoteListAdapter :
             binding.clickListener = View.OnClickListener {
                 val note = binding.data ?: return@OnClickListener
 
-                Toast.makeText(it.context, "${note.title}-${note.order}", Toast.LENGTH_SHORT).show()
+                val activity = it.findFragment<NoteListFragment>().activity as? HomeActivity
+                    ?: return@OnClickListener
+
+                val startForResult =
+                    activity.prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                        }
+                    }
+                startForResult(Intent(activity, EditNoteActivity::class.java).apply {
+                    putExtra("id", note.id)
+
+                    Log.d("TAG", "put ${note.id}")
+                })
+
             }
         }
 
@@ -71,6 +94,8 @@ class NoteListAdapter :
     }
 
 }
+
+/* ItemTouchHelperAdapter */
 
 interface ItemTouchHelperAdapter {
     fun isLongPressDragEnabled(): Boolean

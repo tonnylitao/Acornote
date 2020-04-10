@@ -1,30 +1,41 @@
 package tonnysunm.com.acornote.ui.note.edit
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import kotlinx.android.synthetic.main.fragment_edit_note.*
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
-import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
+import java.lang.Error
+import java.lang.Exception
 import java.lang.IllegalStateException
+import java.lang.Throwable
 
 class EditNoteFragment : Fragment() {
 
-    private val viewModel: EditNoteViewModel by viewModels {
-        val id = activity?.intent?.extras?.getLong("id")?.let {
-            if (it != EmptyId) it else null
-        }
+    private val id by lazy {
+        val id = activity?.intent?.getLongExtra("id", EmptyId)
+        if (id != null && id > 0.toLong()) id else null
+    }
 
+    private val viewModel: EditNoteViewModel by viewModels {
         EditNoteViewModelFactory(requireActivity().application, id)
     }
 
@@ -37,61 +48,69 @@ class EditNoteFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        binding.setOnCancel {
+        viewModel.data.observe(viewLifecycleOwner, Observer {
 
-            activity?.setResult(Activity.RESULT_CANCELED)
-            activity?.finish()
+//            intent?.let { intent ->
+//                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
+//                    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { title ->
+//                        val regex = Regex("“.*”")
+//                        val match = regex.find(title)
+//
+//                        val startChar: Char = "“".first()
+//                        val endChar: Char = "”".first()
+//                        viewModel.noteEditing.title.value =
+//                            match?.value?.trimStart(startChar)?.trimEnd(endChar)
+//                    }
+//                }
+//            }
+        })
+
+        if (id == null) {
+            binding.titleView.requestFocus()
         }
 
-        val intent = activity?.intent
+        binding.viewPager.adapter = ScreenSlidePagerAdapter(requireActivity())
 
-        binding.setOnSure { view ->
-            view.isEnabled = false
 
-            val title = viewModel.noteEditing.title.value
-                ?: throw IllegalStateException("title is null")
+        return binding.root
+    }
 
-            val description = viewModel.noteEditing.description.value
+    fun insertOrUpdateNote() {
+        val labelId = activity?.intent?.getLongExtra(getString(R.string.labelIdKey), 0)
+        val star = activity?.intent?.getBooleanExtra(getString(R.string.starKey), false)
 
-            binding.progressbar.visibility = View.VISIBLE
-
-            val labelId = intent?.extras?.getLong(getString(R.string.labelIdKey)) ?: 0
-            val star = intent?.extras?.getBoolean(getString(R.string.starKey)) ?: false
-            lifecycleScope.launch {
+        lifecycleScope.launch {
+            try {
                 viewModel.updateOrInsertNote(
-                    labelId,
-                    star,
-                    title,
-                    description
+                    labelId = if (labelId != null && labelId > 0) labelId else null,
+                    star = star
                 )
 
                 activity?.setResult(Activity.RESULT_OK)
                 activity?.finish()
+            } catch (e: Exception) {
+                activity?.setResult(Activity.RESULT_CANCELED)
+                activity?.finish()
             }
         }
+    }
 
-        viewModel.noteLiveData.observe(viewLifecycleOwner, Observer {
-            viewModel.noteEditing.title.value = it.title
-            viewModel.noteEditing.description.value = it.description
+    inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = 2
 
-
-            intent?.let { intent ->
-                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
-                    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { title ->
-                        val regex = Regex("“.*”")
-                        val match = regex.find(title)
-
-                        val startChar: Char = "“".first()
-                        val endChar: Char = "”".first()
-                        viewModel.noteEditing.title.value =
-                            match?.value?.trimStart(startChar)?.trimEnd(endChar)
-                    }
+        override fun createFragment(position: Int): Fragment = ScreenSlidePageFragment().apply {
+            if (position == 0) {
+                context?.resources?.getColor(R.color.colorAccent, null)?.let {
+                    view?.setBackgroundColor(it)
+                }
+            } else {
+                context?.resources?.getColor(R.color.drawer_label_title, null)?.let {
+                    view?.setBackgroundColor(it)
                 }
             }
-        })
 
-        binding.titleView.requestFocus()
-
-        return binding.root
+        }
     }
 }
+
+class ScreenSlidePageFragment : Fragment(R.layout.fragment_slide_page)
