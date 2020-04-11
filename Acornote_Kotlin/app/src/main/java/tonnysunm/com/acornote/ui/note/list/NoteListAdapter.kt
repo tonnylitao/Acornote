@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,14 +13,10 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_item_label.view.*
 import tonnysunm.com.acornote.HomeActivity
-import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.Note
-import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.note.edit.EditNoteActivity
-import tonnysunm.com.acornote.ui.note.edit.EditNoteFragment
 
 
 class NoteListAdapter :

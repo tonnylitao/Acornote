@@ -29,15 +29,9 @@ class EditNoteViewModel(application: Application, private val id: Long?) :
         repository.getNote(id)
     }
 
-    suspend fun updateOrInsertNote(
-        labelId: Long?,
-        star: Boolean?
-    ) {
+    suspend fun updateOrInsertNote() {
         val note = data.value ?: throw IllegalStateException("note is not set")
         if (note.title.isEmpty()) throw IllegalStateException("title is null")
-
-        note.labelId = labelId
-        note.star = star
 
         if (id == null || id == 0.toLong()) {
             viewModelScope.launch(Dispatchers.IO) {

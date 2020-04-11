@@ -17,18 +17,21 @@ import androidx.paging.DataSource
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
 import java.util.*
+import kotlin.math.log
 
 
 private const val TAG = "NoteListFragment"
@@ -97,8 +100,11 @@ class NoteListFragment : Fragment() {
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                val manager = recyclerview.layoutManager
-                manager?.smoothScrollToPosition(recyclerview, null, positionStart)
+                if (!HomeActivity.scrollToTop) return
+
+                HomeActivity.scrollToTop = false
+                val manager = recyclerview.layoutManager as? LinearLayoutManager
+                manager?.smoothScrollToPosition(recyclerview, null, 0)
             }
         })
 

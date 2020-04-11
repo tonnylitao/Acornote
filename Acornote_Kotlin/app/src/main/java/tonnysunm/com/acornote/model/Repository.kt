@@ -15,6 +15,8 @@ class Repository(private val application: Application) {
     val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
 
     suspend fun <T : SQLEntity> insert(entity: T): Long {
+        Log.d("Repository", "insert $entity")
+
         if (entity is Label) {
             return labelDao.insert(entity)
         } else if (entity is Note) {
@@ -25,6 +27,8 @@ class Repository(private val application: Application) {
     }
 
     suspend fun <T : SQLEntity> update(entity: T, updatedAt: Long = Date().time): Long {
+        Log.d("Repository", "update $entity")
+
         if (entity is Label) {
             labelDao.update(entity)
         } else if (entity is Note) {

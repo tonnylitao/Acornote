@@ -22,6 +22,10 @@ import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModelFactory
 
 class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
+    companion object {
+        var scrollToTop = false
+    }
+    
     private val homeSharedModel: HomeSharedViewModel by lazy {
         ViewModelProvider(this).get(HomeSharedViewModel::class.java)
     }

@@ -16,17 +16,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import kotlinx.android.synthetic.main.fragment_edit_note.*
 import kotlinx.coroutines.launch
+import tonnysunm.com.acornote.HomeActivity
+import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
+import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.ui.note.list.NoteListFragment
 import java.lang.Error
 import java.lang.Exception
 import java.lang.IllegalStateException
 import java.lang.Throwable
+import kotlin.math.log
 
 class EditNoteFragment : Fragment() {
 
@@ -35,8 +41,14 @@ class EditNoteFragment : Fragment() {
         if (id != null && id > 0.toLong()) id else null
     }
 
+    private var noteBeforeEditing: Note? = null
+
     private val viewModel: EditNoteViewModel by viewModels {
         EditNoteViewModelFactory(requireActivity().application, id)
+    }
+
+    private val homeSharedModel: HomeSharedViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -49,6 +61,10 @@ class EditNoteFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
+            if (it.id != 0.toLong()) {
+                this.noteBeforeEditing = it.copy()
+            }
+
 
 //            intent?.let { intent ->
 //                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
@@ -76,19 +92,33 @@ class EditNoteFragment : Fragment() {
     }
 
     fun insertOrUpdateNote() {
-        val labelId = activity?.intent?.getLongExtra(getString(R.string.labelIdKey), 0)
-        val star = activity?.intent?.getBooleanExtra(getString(R.string.starKey), false)
+        val labelId = activity?.intent?.extras?.get(getString(R.string.labelIdKey))
+        val star = activity?.intent?.extras?.get(getString(R.string.starKey))
 
+        val note = viewModel.data.value
+
+        if (labelId != null && labelId is Long && labelId > 0) {
+            note?.labelId = labelId
+        }
+        if (star != null) {
+            note?.star = star == true
+        }
+
+
+        val noteBeforeEditing = this.noteBeforeEditing
         lifecycleScope.launch {
             try {
-                viewModel.updateOrInsertNote(
-                    labelId = if (labelId != null && labelId > 0) labelId else null,
-                    star = star
-                )
+                val isInsert = note?.id == null || note?.id == 0.toLong()
+                HomeActivity.scrollToTop = isInsert
 
-                activity?.setResult(Activity.RESULT_OK)
-                activity?.finish()
+                if (isInsert || noteBeforeEditing != note) {
+                    viewModel.updateOrInsertNote()
+
+                    activity?.setResult(Activity.RESULT_OK)
+                    activity?.finish()
+                }
             } catch (e: Exception) {
+            } finally {
                 activity?.setResult(Activity.RESULT_CANCELED)
                 activity?.finish()
             }
