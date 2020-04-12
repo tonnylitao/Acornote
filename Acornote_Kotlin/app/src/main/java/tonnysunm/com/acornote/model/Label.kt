@@ -1,5 +1,7 @@
 package tonnysunm.com.acornote.model
 
+import android.util.Log
+import android.view.View
 import androidx.room.*
 import java.util.*
 
@@ -14,12 +16,21 @@ data class Label(
     val createdAt: Long = Date().time
 ) : SQLEntity
 
-data class LabelWrapper(
-    val id: String,
-
-    val title: String,
+data class LabelWithNoteCount(
+    @Embedded
+    val label: Label,
 
     val noteCount: Int
 )
+
+data class LabelWithCheckStatus(
+    val id: Long,
+    val title: String,
+
+    var noteId: Long,
+
+    var checked: Boolean
+)
+
 
 const val EmptyId: Long = 0

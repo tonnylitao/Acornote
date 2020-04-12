@@ -1,10 +1,14 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.invoke
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
@@ -19,7 +23,7 @@ import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.Note
-import java.lang.Exception
+import tonnysunm.com.acornote.ui.label.LabelListActivity
 
 class NoteFragment : Fragment() {
 
@@ -74,6 +78,16 @@ class NoteFragment : Fragment() {
 
         binding.viewPager.adapter = ScreenSlidePagerAdapter(requireActivity())
 
+        binding.editLabel = View.OnClickListener {
+            val startForResult =
+                requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                    if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                    }
+                }
+            startForResult(Intent(context, LabelListActivity::class.java).apply {
+                putExtra("id", id)
+            })
+        }
 
         return binding.root
     }
@@ -92,7 +106,7 @@ class NoteFragment : Fragment() {
 
         val noteBeforeEditing = this.noteBeforeEditing
 
-        val isInsert = note?.id == null || note?.id == 0.toLong()
+        val isInsert = note?.id == null || note.id == 0.toLong()
         val inUpdate = noteBeforeEditing != note
 
         if (!inUpdate && !inUpdate) {

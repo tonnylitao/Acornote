@@ -17,7 +17,7 @@ class DrawerViewModel(application: Application) : AndroidViewModel(application) 
         repository.noteDao.notesStarCount()
     }
 
-    val data: LiveData<List<LabelWrapper>> by lazy {
+    val data: LiveData<List<LabelWithNoteCount>> by lazy {
         repository.labels
     }
 

@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.databinding.ListItemLabelBinding
+import tonnysunm.com.acornote.model.LabelWithCheckStatus
 import tonnysunm.com.acornote.model.NoteLabel
 
 class LabelListAdapter :
-    PagedListAdapter<NoteLabel, LabelListAdapter.ViewHolder>(DiffCallback) {
+    PagedListAdapter<LabelWithCheckStatus, LabelListAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -30,12 +31,18 @@ class LabelListAdapter :
     public override fun getItem(position: Int) = super.getItem(position)
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<NoteLabel>() {
-            override fun areItemsTheSame(old: NoteLabel, aNew: NoteLabel): Boolean {
+        private val DiffCallback = object : DiffUtil.ItemCallback<LabelWithCheckStatus>() {
+            override fun areItemsTheSame(
+                old: LabelWithCheckStatus,
+                aNew: LabelWithCheckStatus
+            ): Boolean {
                 return old.id == aNew.id
             }
 
-            override fun areContentsTheSame(old: NoteLabel, aNew: NoteLabel): Boolean {
+            override fun areContentsTheSame(
+                old: LabelWithCheckStatus,
+                aNew: LabelWithCheckStatus
+            ): Boolean {
                 return old == aNew
             }
         }
@@ -49,17 +56,15 @@ class LabelListAdapter :
 
         init {
             binding.clickListener = View.OnClickListener {
-                val note = binding.data ?: return@OnClickListener
+                val data = binding.data ?: return@OnClickListener
 
-                val activity = it.findFragment<LabelListFragment>().activity as? HomeActivity
-                    ?: return@OnClickListener
-
-
+                val fragment = it.findFragment<LabelListFragment>()
+                fragment.viewModel.flipChecked(data)
             }
         }
 
-        fun bind(note: NoteLabel) {
-            binding.data = note
+        fun bind(item: LabelWithCheckStatus) {
+            binding.data = item
 
             binding.executePendingBindings()
         }

@@ -5,6 +5,7 @@
       <set>
         <option value="activate" />
         <option value="reformat" />
+        <option value="unnecessarySemicolon" />
       </set>
     </option>
     <option name="configurationPath" value="" />

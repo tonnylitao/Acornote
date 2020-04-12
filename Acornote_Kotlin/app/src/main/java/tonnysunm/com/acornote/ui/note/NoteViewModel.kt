@@ -1,14 +1,12 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteLabel
 import tonnysunm.com.acornote.model.Repository
-import java.lang.IllegalStateException
 import java.util.*
 
 
@@ -22,6 +20,8 @@ class EditNoteViewModelFactory(
         NoteViewModel(application, id) as T
 }
 
+private val TAG = "NoteViewModel"
+
 class NoteViewModel(application: Application, private val id: Long?) :
     AndroidViewModel(application) {
 
@@ -33,7 +33,7 @@ class NoteViewModel(application: Application, private val id: Long?) :
 
     suspend fun insertNote(labelId: Long?) {
         val note = data.value ?: throw IllegalStateException("note is not set")
-        if (note.title.isEmpty()) throw IllegalStateException("title is null")
+        if (note.title.trim().isEmpty()) throw IllegalStateException("title is null")
         if (id != null && id != 0.toLong()) throw IllegalStateException("id is not null")
 
         viewModelScope.launch(Dispatchers.IO) {

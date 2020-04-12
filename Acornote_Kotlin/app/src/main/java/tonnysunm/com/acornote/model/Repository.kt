@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import java.util.*
 
 class Repository(private val application: Application) {
 
@@ -19,7 +18,7 @@ class Repository(private val application: Application) {
     }
 
     // Label
-    val labels = labelDao.getLabels()
+    val labels = labelDao.getLabelsWithNoteCount()
 
     fun getLabel(id: Long?): LiveData<Label> {
         if (id != null) {

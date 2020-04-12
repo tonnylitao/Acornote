@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="editLabel"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="viewModel"
             type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
     </data>
@@ -114,7 +118,8 @@
                 android:contentDescription="TODO"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_label"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:onClick="@{editLabel}" />
         </androidx.appcompat.widget.Toolbar>
 
     </FrameLayout>

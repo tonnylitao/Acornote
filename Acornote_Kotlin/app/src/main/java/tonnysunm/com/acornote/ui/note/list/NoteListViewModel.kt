@@ -1,10 +1,7 @@
 package tonnysunm.com.acornote.ui.note.list
 
 import android.app.Application
-import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.*
-import androidx.paging.Config
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import tonnysunm.com.acornote.model.Note
@@ -24,7 +21,7 @@ class DetailViewModelFactory(private val application: Application, private val f
 class NoteListViewModel(application: Application, filter: NoteFilter) :
     AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    val repository: Repository by lazy { Repository(application) }
 
     val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
         MutableLiveData(filter)

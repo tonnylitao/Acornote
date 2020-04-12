@@ -4,7 +4,6 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.paging.DataSource
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
@@ -31,7 +27,6 @@ import tonnysunm.com.acornote.databinding.FragmentNotesBinding
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
 import java.util.*
-import kotlin.math.log
 
 
 private const val TAG = "NoteListFragment"
@@ -174,7 +169,7 @@ class NoteListFragment : Fragment() {
         )
 
         touchHelper.attachToRecyclerView(binding.recyclerview)
-
+        
         return binding.root
     }
 

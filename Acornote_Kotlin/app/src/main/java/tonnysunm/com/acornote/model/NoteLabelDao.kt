@@ -9,9 +9,9 @@ interface NoteLabelDao {
     @Query("SELECT * from note_label_table ORDER BY created_at DESC")
     fun getAll(): DataSource.Factory<Int, NoteLabel>
 
-    @Delete
-    suspend fun delete(entity: NoteLabel): Int
+    @Query("DELETE FROM note_label_table WHERE label_id = :labelId AND note_id = :noteId")
+    suspend fun delete(labelId: Long, noteId: Long)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: NoteLabel): Long
 }
