@@ -16,25 +16,36 @@
             android:name="tonnysunm.com.acornote.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.SEND" />-->
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!--                <action android:name="android.intent.action.SEND" />-->
             </intent-filter>
         </activity>
 
         <activity
-            android:name="tonnysunm.com.acornote.ui.note.edit.EditNoteActivity"
+            android:name="tonnysunm.com.acornote.ui.note.NoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />-->
+                <!--                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
                 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="tonnysunm.com.acornote.ui.label.LabelListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+
+            <intent-filter>
+                <!--                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>
     </application>

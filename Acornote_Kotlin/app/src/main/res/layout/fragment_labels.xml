@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="tonnysunm.com.acornote.ui.label.EditLabelViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/audio"
+        app:layout_constraintStart_toEndOf="@+id/audio"
+        tools:context=".ui.label.LabelListFragment">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50pt"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </EditText>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:background="@android:color/white"
+            tools:listitem="@layout/list_item_label"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

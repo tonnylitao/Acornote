@@ -66,13 +66,13 @@ class DrawerFragment : Fragment() {
 
             //
             it.forEachIndexed { index, labelWrapper ->
-                val itemId = labelWrapper.label.id.toInt()
+                val itemId = labelWrapper.id.toInt()
 
                 val item = binding.navView.menu.add(
                     R.id.menu_group_labels,
                     itemId,
                     index,
-                    labelWrapper.label.title // + "_" + labelWrapper.label.id + "_" + labelWrapper.noteCount
+                    labelWrapper.title // + "_" + labelWrapper.label.id + "_" + labelWrapper.noteCount
                 ).setActionView(R.layout.drawer_item)
                     .setCheckable(true)
 

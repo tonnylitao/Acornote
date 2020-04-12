@@ -6,13 +6,7 @@ import java.util.*
 interface SQLEntity
 
 @Entity(
-    tableName = "note_table",
-    foreignKeys = [ForeignKey(
-        entity = Label::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("label_id")
-    )],
-    indices = [Index(value = ["title"], unique = true)]
+    tableName = "note_table"
 )
 data class Note(
     @PrimaryKey(autoGenerate = true)
@@ -24,9 +18,6 @@ data class Note(
     var title: String,
 
     var description: String? = null,
-
-    @ColumnInfo(name = "label_id", index = true)
-    var labelId: Long? = null,
 
     var star: Boolean? = null,
 

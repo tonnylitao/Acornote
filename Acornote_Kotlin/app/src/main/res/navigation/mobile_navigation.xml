@@ -22,9 +22,9 @@
 
     <fragment
         android:id="@+id/nav_edit_label"
-        android:name="tonnysunm.com.acornote.ui.label.edit.EditLabelFragment"
+        android:name="tonnysunm.com.acornote.ui.label.LabelListFragment"
         android:label="Edit"
-        tools:layout="@layout/fragment_edit_label">
+        tools:layout="@layout/fragment_labels">
         <argument
             android:name="@string/labelIdKey"
             app:argType="long" />

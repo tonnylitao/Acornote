@@ -19,7 +19,7 @@ interface NoteDao {
     @Query("SELECT * from note_table  WHERE star == 1 ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getStar(): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note_table WHERE label_id == :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
+    @Query("SELECT a.* from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.updated_at DESC")
     fun getByLabel(id: Long): DataSource.Factory<Int, Note>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -28,7 +28,7 @@ interface NoteDao {
     @Update
     suspend fun update(note: Note)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     suspend fun updateNotes(notes: MutableList<Note>): Int
 
     @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
@@ -74,13 +74,6 @@ sealed class NoteFilter(val title: String) {
     object Star : NoteFilter("Star")
 
     data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
-
-//    val title: String
-//        get() = when (this) {
-//            All -> "All"
-//            Star -> "Star"
-//            is ByLabel ->
-//        }
 
     val labelId: Long?
         get() = when (this) {

@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/fragment_edit_note"
-        android:name="tonnysunm.com.acornote.ui.note.edit.EditNoteFragment"
+        android:name="tonnysunm.com.acornote.ui.note.NoteFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"

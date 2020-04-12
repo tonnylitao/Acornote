@@ -15,17 +15,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import tonnysunm.com.acornote.model.NoteFilter
-import tonnysunm.com.acornote.ui.drawer.DrawerViewModel
-import tonnysunm.com.acornote.ui.note.edit.EditNoteActivity
-import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModel
-import tonnysunm.com.acornote.ui.note.edit.EditNoteViewModelFactory
+import tonnysunm.com.acornote.ui.note.NoteActivity
 
 class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
     companion object {
         var scrollToTop = false
     }
-    
+
     private val homeSharedModel: HomeSharedViewModel by lazy {
         ViewModelProvider(this).get(HomeSharedViewModel::class.java)
     }
@@ -50,7 +47,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
 
-            startForResult(Intent(this, EditNoteActivity::class.java).apply {
+            startForResult(Intent(this, NoteActivity::class.java).apply {
                 when (val noteFilter = homeSharedModel.noteFilterLiveData.value) {
                     NoteFilter.Star ->
                         putExtra(getString(R.string.starKey), true)
@@ -96,12 +93,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 //////
-
-    private val viewModel: DrawerViewModel by viewModels()
-
-    private val viewModel2: EditNoteViewModel by viewModels {
-        EditNoteViewModelFactory(this.application, null)
-    }
 
     private fun dev_createDemo() {
 //        lifecycleScope.launch {

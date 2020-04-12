@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="tonnysunm.com.acornote.ui.note.edit.EditNoteViewModel" />
+            type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
     </data>
 
     <FrameLayout

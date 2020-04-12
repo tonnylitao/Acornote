@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.Note
-import tonnysunm.com.acornote.ui.note.edit.EditNoteActivity
+import tonnysunm.com.acornote.ui.note.NoteActivity
 
 
 class NoteListAdapter :
@@ -71,7 +71,7 @@ class NoteListAdapter :
                         if (it.resultCode == AppCompatActivity.RESULT_OK) {
                         }
                     }
-                startForResult(Intent(activity, EditNoteActivity::class.java).apply {
+                startForResult(Intent(activity, NoteActivity::class.java).apply {
                     putExtra("id", note.id)
 
                     Log.d("TAG", "put ${note.id}")

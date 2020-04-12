@@ -15,8 +15,9 @@ data class Label(
 ) : SQLEntity
 
 data class LabelWrapper(
-    @Embedded
-    val label: Label,
+    val id: String,
+
+    val title: String,
 
     val noteCount: Int
 )

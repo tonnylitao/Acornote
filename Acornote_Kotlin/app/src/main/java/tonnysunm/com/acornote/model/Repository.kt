@@ -9,34 +9,13 @@ import java.util.*
 
 class Repository(private val application: Application) {
 
-    private val labelDao: LabelDao by lazy {
+    val labelDao: LabelDao by lazy {
         AppRoomDatabase.getDatabase(application).labelDao()
     }
     val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
 
-    suspend fun <T : SQLEntity> insert(entity: T): Long {
-        Log.d("Repository", "insert $entity")
-
-        if (entity is Label) {
-            return labelDao.insert(entity)
-        } else if (entity is Note) {
-            return noteDao.insert(entity)
-        }
-
-        throw IllegalArgumentException("type is not right.")
-    }
-
-    suspend fun <T : SQLEntity> update(entity: T, updatedAt: Long = Date().time): Long {
-        Log.d("Repository", "update $entity")
-
-        if (entity is Label) {
-            labelDao.update(entity)
-        } else if (entity is Note) {
-            entity.updatedAt = updatedAt
-            noteDao.update(entity)
-        }
-
-        throw IllegalArgumentException("entity type is not right.")
+    val noteLabelDao: NoteLabelDao by lazy {
+        AppRoomDatabase.getDatabase(application).noteLabelDao()
     }
 
     // Label
