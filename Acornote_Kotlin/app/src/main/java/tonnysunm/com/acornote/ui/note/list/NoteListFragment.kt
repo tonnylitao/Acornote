@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -98,8 +97,8 @@ class NoteListFragment : Fragment() {
                 if (!HomeActivity.scrollToTop) return
 
                 HomeActivity.scrollToTop = false
-                val manager = recyclerview.layoutManager as? LinearLayoutManager
-                manager?.smoothScrollToPosition(recyclerview, null, 0)
+                val manager = binding.recyclerview.layoutManager as? LinearLayoutManager
+                manager?.smoothScrollToPosition(binding.recyclerview, null, 0)
             }
         })
 
@@ -169,7 +168,7 @@ class NoteListFragment : Fragment() {
         )
 
         touchHelper.attachToRecyclerView(binding.recyclerview)
-        
+
         return binding.root
     }
 

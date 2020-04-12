@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import tonnysunm.com.acornote.R
 
 import kotlinx.android.synthetic.main.activity_edit_label.*
-import tonnysunm.com.acornote.ui.note.NoteFragment
 
 class LabelListActivity : AppCompatActivity(R.layout.activity_edit_label) {
 
