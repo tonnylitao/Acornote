@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="data"
+            type="tonnysunm.com.acornote.model.ColorTag" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+
+        <tonnysunm.com.acornote.ui.colortag.ColorTagView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="15dp"
+            app:colorString="@{data.color}"
+            android:layout_gravity="center"
+            android:labelFor="@+id/editText" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@={data.name}"
+            android:importantForAutofill="no"
+            android:background="@android:color/transparent"
+            android:inputType="text" />
+    </LinearLayout>
+</layout>

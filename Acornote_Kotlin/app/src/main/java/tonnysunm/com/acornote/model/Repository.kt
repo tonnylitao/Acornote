@@ -8,14 +8,10 @@ import androidx.paging.DataSource
 
 class Repository(private val application: Application) {
 
-    val labelDao: LabelDao by lazy {
-        AppRoomDatabase.getDatabase(application).labelDao()
-    }
-    val noteDao: NoteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
-
-    val noteLabelDao: NoteLabelDao by lazy {
-        AppRoomDatabase.getDatabase(application).noteLabelDao()
-    }
+    val labelDao by lazy { AppRoomDatabase.getDatabase(application).labelDao() }
+    val noteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
+    val noteLabelDao by lazy { AppRoomDatabase.getDatabase(application).noteLabelDao() }
+    val colorTagDao by lazy { AppRoomDatabase.getDatabase(application).colorTagDao() }
 
     // Label
     val labels = labelDao.getLabelsWithNoteCount()
@@ -28,7 +24,6 @@ class Repository(private val application: Application) {
         return MutableLiveData(Label(title = ""))
     }
 
-
     // Note
     fun notes(filter: NoteFilter): DataSource.Factory<Int, Note> = when (filter) {
         is NoteFilter.All -> {
@@ -40,8 +35,12 @@ class Repository(private val application: Application) {
             noteDao.getStar()
         }
         is NoteFilter.ByLabel -> {
-            Log.d("ROOM", "get label by " + filter.id)
+            Log.d("ROOM", "get notes by label " + filter.id)
             noteDao.getByLabel(filter.id)
+        }
+        is NoteFilter.ByColorTag -> {
+            Log.d("ROOM", "get notes by colortag  " + filter.id)
+            noteDao.getByColorTag(filter.id)
         }
     }
 

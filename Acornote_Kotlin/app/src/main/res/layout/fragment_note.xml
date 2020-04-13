@@ -8,12 +8,17 @@
         <import type="android.view.View" />
 
         <variable
+            name="viewModel"
+            type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
+
+        <variable
             name="editLabel"
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="viewModel"
-            type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
+            name="editColor"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <FrameLayout
@@ -120,6 +125,17 @@
                 android:src="@drawable/ic_label"
                 android:padding="12dp"
                 android:onClick="@{editLabel}" />
+
+            <ImageButton
+                android:id="@+id/color"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_color"
+                android:padding="12dp"
+                android:onClick="@{editColor}" />
         </androidx.appcompat.widget.Toolbar>
 
     </FrameLayout>

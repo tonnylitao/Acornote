@@ -22,16 +22,13 @@
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/drawer">
 
-        <Button
-            android:id="@+id/add_label"
+        <fragment
+            android:id="@+id/color_tag_fragment"
+            android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:onClick="@{onAddLabel}"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black"
-            android:text="Add Label" />
-
+            tools:layout="@layout/fragment_colortags_horizontal" />
 
     </com.google.android.material.navigation.NavigationView>
 

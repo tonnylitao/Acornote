@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="ColorTagView">
+        <attr name="colorString" format="string" />
+    </declare-styleable>
+</resources>

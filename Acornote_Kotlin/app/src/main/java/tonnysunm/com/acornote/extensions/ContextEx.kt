@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 
 fun Activity.showSoftKeyboard(view: View) {
     if (view.requestFocus()) {
@@ -21,3 +22,6 @@ fun Activity.hideSoftKeyboard(view: View? = currentFocus) {
         inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
+
+fun Context.getColorString(id: Int): String =
+    String.format("#%06x", ContextCompat.getColor(this, id) and 0xffffff)

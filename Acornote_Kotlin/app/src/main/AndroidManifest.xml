@@ -48,6 +48,18 @@
                 <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+
+            <intent-filter>
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.SEND" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

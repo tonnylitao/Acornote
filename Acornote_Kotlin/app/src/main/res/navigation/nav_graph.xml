@@ -29,7 +29,7 @@
         android:id="@+id/editNoteFragment"
         android:name="tonnysunm.com.acornote.ui.note.NoteFragment"
         android:label="EditNoteFragment"
-        tools:layout="@layout/fragment_edit_note">
+        tools:layout="@layout/fragment_note">
         <argument
             android:name="@string/labelIdKey"
             app:argType="long" />

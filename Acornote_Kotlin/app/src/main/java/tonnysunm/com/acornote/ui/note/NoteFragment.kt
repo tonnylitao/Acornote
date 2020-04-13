@@ -20,9 +20,10 @@ import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
-import tonnysunm.com.acornote.databinding.FragmentEditNoteBinding
+import tonnysunm.com.acornote.databinding.FragmentNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.ui.colortag.ColorTagListActivity
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 
 class NoteFragment : Fragment() {
@@ -47,7 +48,7 @@ class NoteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentEditNoteBinding.inflate(inflater, container, false)
+        val binding = FragmentNoteBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
@@ -87,6 +88,15 @@ class NoteFragment : Fragment() {
             startForResult(Intent(context, LabelListActivity::class.java).apply {
                 putExtra("id", id)
             })
+        }
+
+        binding.editColor = View.OnClickListener {
+            val startForResult =
+                requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                    if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                    }
+                }
+            startForResult(Intent(context, ColorTagListActivity::class.java))
         }
 
         return binding.root

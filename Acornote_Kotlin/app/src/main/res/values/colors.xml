@@ -5,4 +5,13 @@
     <color name="colorAccent">#D81B60</color>
     <color name="drawer_label_title">#898989</color>
 
+    <color name="color_tag_black">#000000</color>
+    <color name="color_tag_gray">#A4A4A4</color>
+    <color name="color_tag_green">#56D769</color>
+    <color name="color_tag_blue">#3D94FE</color>
+    <color name="color_tag_orange">#FFAA47</color>
+    <color name="color_tag_purple">#BF75E5</color>
+    <color name="color_tag_red">#FF625C</color>
+    <color name="color_tag_yellow">#FFD64B</color>
+
 </resources>

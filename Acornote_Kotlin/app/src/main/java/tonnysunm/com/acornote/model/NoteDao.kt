@@ -4,9 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import java.util.*
-import kotlin.math.min
 import kotlin.math.max
+import kotlin.math.min
 
 
 @Dao
@@ -21,6 +20,9 @@ interface NoteDao {
 
     @Query("SELECT a.* from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.updated_at DESC")
     fun getByLabel(id: Long): DataSource.Factory<Int, Note>
+
+    @Query("SELECT * from note_table WHERE color_tag_id = :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
+    fun getByColorTag(id: Long): DataSource.Factory<Int, Note>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: Note): Long
@@ -75,9 +77,17 @@ sealed class NoteFilter(val title: String) {
 
     data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
 
+    data class ByColorTag(val id: Long) : NoteFilter("Color")
+
     val labelId: Long?
         get() = when (this) {
             is ByLabel -> this.id
+            else -> null
+        }
+
+    val colorTagId: Long?
+        get() = when (this) {
+            is ByColorTag -> this.id
             else -> null
         }
 }
