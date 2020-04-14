@@ -37,7 +37,7 @@ class ColorTagListAdapterHorizontal :
                 val data = binding.data ?: return@OnClickListener
 
                 val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
-                fragment.navigateToNotesByColorTag(data.id)
+                fragment.navigateToNotesBy(data)
             }
         }
 

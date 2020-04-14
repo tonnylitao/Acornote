@@ -39,8 +39,8 @@ class Repository(private val application: Application) {
             noteDao.getByLabel(filter.id)
         }
         is NoteFilter.ByColorTag -> {
-            Log.d("ROOM", "get notes by colortag  " + filter.id)
-            noteDao.getByColorTag(filter.id)
+            Log.d("ROOM", "get notes by colortag  " + filter.colorTag.id)
+            noteDao.getByColorTag(filter.colorTag.id)
         }
     }
 

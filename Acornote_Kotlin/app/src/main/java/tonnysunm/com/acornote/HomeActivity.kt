@@ -3,6 +3,7 @@ package tonnysunm.com.acornote
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,11 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_navigation.*
 import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
@@ -37,6 +39,17 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
         //set drawer icon
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(DrawerArrowDrawable(this))
+
+        homeSharedModel.noteFilterLiveData.observe(this, Observer {
+            titleView.text = it.title
+
+            if (it is NoteFilter.ByColorTag) {
+                colorTagView.colorString = it.colorTag.color
+                colorTagView.visibility = View.VISIBLE
+            } else {
+                colorTagView.visibility = View.GONE
+            }
+        })
 
         //fab
         val fab: FloatingActionButton = findViewById(R.id.fab)

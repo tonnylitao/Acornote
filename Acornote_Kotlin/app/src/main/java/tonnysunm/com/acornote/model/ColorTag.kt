@@ -11,5 +11,5 @@ data class ColorTag(
 
     var color: String,
 
-    var name: String?
+    var name: String
 ) : SQLEntity

@@ -23,6 +23,7 @@ class ColorTagView(context: Context, attrs: AttributeSet) : View(context, attrs)
         set(value) {
             _colorString = value
             paint.color = Color.parseColor(value ?: "#000000")
+            invalidate()
         }
 
     override fun onDraw(canvas: Canvas) {

@@ -77,7 +77,7 @@ sealed class NoteFilter(val title: String) {
 
     data class ByLabel(val id: Long, val labelTitle: String) : NoteFilter(labelTitle)
 
-    data class ByColorTag(val id: Long) : NoteFilter("Color")
+    data class ByColorTag(val colorTag: ColorTag) : NoteFilter(colorTag.name)
 
     val labelId: Long?
         get() = when (this) {
@@ -87,7 +87,7 @@ sealed class NoteFilter(val title: String) {
 
     val colorTagId: Long?
         get() = when (this) {
-            is ByColorTag -> this.id
+            is ByColorTag -> this.colorTag.id
             else -> null
         }
 }

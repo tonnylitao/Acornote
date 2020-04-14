@@ -18,7 +18,26 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextColor="@android:color/black" />
+            app:titleTextColor="@android:color/black"
+            app:contentInsetStart="0dp"
+            app:title="@null">
+
+            <tonnysunm.com.acornote.ui.colortag.ColorTagView
+                android:id="@+id/colorTagView"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:id="@+id/titleView"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:text="Title" />
+        </androidx.appcompat.widget.Toolbar>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
