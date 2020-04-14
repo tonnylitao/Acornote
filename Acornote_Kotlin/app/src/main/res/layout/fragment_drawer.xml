@@ -7,10 +7,6 @@
     <data>
 
         <variable
-            name="onAddLabel"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="viewModel"
             type="tonnysunm.com.acornote.ui.drawer.DrawerViewModel" />
     </data>

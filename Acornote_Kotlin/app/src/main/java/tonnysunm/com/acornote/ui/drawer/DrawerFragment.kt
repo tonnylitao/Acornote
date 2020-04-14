@@ -87,27 +87,20 @@ class DrawerFragment : Fragment() {
             binding.navView.invalidate()
         })
 
-        binding.setOnAddLabel {
-            val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout
-            drawer?.closeDrawers()
-
-//            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.nav_edit_label)
-        }
-
         val navView = binding.navView
 
-
         homeSharedModel.noteFilterLiveData.observe(viewLifecycleOwner, Observer {
+            val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout
+            if (drawer?.isOpen == true) {
+                drawer.closeDrawers()
+            }
+
             updateMenuChecked(it)
         })
 
         navView.setNavigationItemSelectedListener { item ->
 
             homeSharedModel.noteFilterLiveData.value = item.noteFilter
-
-            //
-            val drawer = activity?.findViewById(R.id.drawer_layout) as? DrawerLayout
-            drawer?.closeDrawers()
 
             true
         }

@@ -7,16 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.databinding.FragmentColortagsHorizontalBinding
+import tonnysunm.com.acornote.model.NoteFilter
 
 private val TAG = "ColorTagListFragmentHorizontal"
 
-open class ColorTagListFragmentHorizontal() : Fragment() {
+open class ColorTagListFragmentHorizontal : Fragment() {
 
     val viewModel: ColorTagViewModel by viewModels {
         ColorTagViewModelFactory(
             requireActivity().application
         )
+    }
+
+    private val homeSharedModel: HomeSharedViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -51,4 +58,7 @@ open class ColorTagListFragmentHorizontal() : Fragment() {
         return binding.root
     }
 
+    fun navigateToNotesByColorTag(id: Long) {
+        homeSharedModel.noteFilterLiveData.value = NoteFilter.ByColorTag(id)
+    }
 }

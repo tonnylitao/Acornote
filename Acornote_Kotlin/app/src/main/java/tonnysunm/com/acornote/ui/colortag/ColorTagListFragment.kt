@@ -19,6 +19,7 @@ open class ColorTagListFragment(private val vertical: Boolean = true) : Fragment
         )
     }
 
+   
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

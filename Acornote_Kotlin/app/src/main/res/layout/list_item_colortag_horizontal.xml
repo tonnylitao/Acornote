@@ -15,9 +15,10 @@
     </data>
 
     <LinearLayout
-        android:layout_width="60dp"
+        android:layout_width="48dp"
         android:layout_height="80dp"
-        android:padding="19dp">
+        android:gravity="center"
+        android:onClick="@{clickListener}">
 
         <tonnysunm.com.acornote.ui.colortag.ColorTagView
             android:layout_width="22dp"

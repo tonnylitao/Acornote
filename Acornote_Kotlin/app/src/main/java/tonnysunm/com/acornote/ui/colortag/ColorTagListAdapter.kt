@@ -9,6 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListItemColortagBinding
 import tonnysunm.com.acornote.model.ColorTag
 
+object DiffCallback : DiffUtil.ItemCallback<ColorTag>() {
+    override fun areItemsTheSame(old: ColorTag, aNew: ColorTag) = old.id == aNew.id
+    override fun areContentsTheSame(old: ColorTag, aNew: ColorTag) = old == aNew
+}
+
 class ColorTagListAdapter :
     PagedListAdapter<ColorTag, ColorTagListAdapter.ViewHolder>(DiffCallback) {
 
@@ -24,24 +29,6 @@ class ColorTagListAdapter :
     }
 
     public override fun getItem(position: Int) = super.getItem(position)
-
-    companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<ColorTag>() {
-            override fun areItemsTheSame(
-                old: ColorTag,
-                aNew: ColorTag
-            ): Boolean {
-                return old.id == aNew.id
-            }
-
-            override fun areContentsTheSame(
-                old: ColorTag,
-                aNew: ColorTag
-            ): Boolean {
-                return old == aNew
-            }
-        }
-    }
 
 
     /* ViewHolder */
