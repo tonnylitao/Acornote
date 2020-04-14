@@ -3,33 +3,23 @@ package tonnysunm.com.acornote.ui.colortag
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListItemColortagBinding
 import tonnysunm.com.acornote.model.ColorTag
 
-object DiffCallback : DiffUtil.ItemCallback<ColorTag>() {
-    override fun areItemsTheSame(old: ColorTag, aNew: ColorTag) = old.id == aNew.id
-    override fun areContentsTheSame(old: ColorTag, aNew: ColorTag) = old == aNew
-}
-
-class ColorTagListAdapter :
-    PagedListAdapter<ColorTag, ColorTagListAdapter.ViewHolder>(DiffCallback) {
+class ColorTagListAdapter(var array: List<ColorTag>) :
+    RecyclerView.Adapter<ColorTagListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             ListItemColortagBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
+    override fun getItemCount() = array.count()
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        holder.bind(array[position])
     }
-
-    public override fun getItem(position: Int) = super.getItem(position)
-
 
     /* ViewHolder */
 

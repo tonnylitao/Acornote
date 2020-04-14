@@ -91,12 +91,7 @@ class NoteFragment : Fragment() {
         }
 
         binding.editColor = View.OnClickListener {
-            val startForResult =
-                requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
-                    if (it.resultCode == AppCompatActivity.RESULT_OK) {
-                    }
-                }
-            startForResult(Intent(context, ColorTagListActivity::class.java))
+            
         }
 
         return binding.root

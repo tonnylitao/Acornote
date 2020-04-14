@@ -1,31 +1,48 @@
 package tonnysunm.com.acornote.ui.colortag
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.invoke
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.findFragment
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListItemColortagHorizontalBinding
+import tonnysunm.com.acornote.databinding.ListItemEditBinding
 import tonnysunm.com.acornote.model.ColorTag
 
-class ColorTagListAdapterHorizontal :
-    PagedListAdapter<ColorTag, ColorTagListAdapterHorizontal.ViewHolder>(DiffCallback) {
+private const val ColorTagType = 0
+private const val FooterType = 1
+
+class ColorTagListAdapterHorizontal(var array: List<ColorTag>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(
-            ListItemColortagHorizontalBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
+        if (viewType == ColorTagType)
+            ViewHolder(
+                ListItemColortagHorizontalBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
             )
-        )
+        else
+            EditViewHolder(
+                ListItemEditBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
+    override fun getItemViewType(position: Int) =
+        if (position < array.count()) ColorTagType else FooterType
+
+    override fun getItemCount() = array.count() + 1
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is ViewHolder) {
+            holder.bind(array[position])
         }
     }
-
-    public override fun getItem(position: Int) = super.getItem(position)
 
     /* ViewHolder */
 
@@ -44,6 +61,24 @@ class ColorTagListAdapterHorizontal :
         fun bind(item: ColorTag) {
             binding.data = item
             binding.executePendingBindings()
+        }
+    }
+
+    inner class EditViewHolder(binding: ListItemEditBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.clickListener = View.OnClickListener {
+                val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
+                val activity = fragment.activity ?: return@OnClickListener
+
+                val startForResult =
+                    activity.prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                        }
+                    }
+                startForResult(Intent(activity, ColorTagListActivity::class.java))
+            }
         }
     }
 

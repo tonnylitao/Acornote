@@ -38,9 +38,10 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val adapter = ColorTagListAdapterHorizontal()
+        val adapter = ColorTagListAdapterHorizontal(listOf())
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            adapter.array = it
+            adapter.notifyDataSetChanged()
         })
 
         binding.drawerColortagRecyclerView.adapter = adapter

@@ -19,7 +19,7 @@ open class ColorTagListFragment(private val vertical: Boolean = true) : Fragment
         )
     }
 
-   
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,9 +30,10 @@ open class ColorTagListFragment(private val vertical: Boolean = true) : Fragment
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val adapter = ColorTagListAdapter()
+        val adapter = ColorTagListAdapter(listOf())
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            adapter.array = it
+            adapter.notifyDataSetChanged()
         })
 
         binding.recyclerview.adapter = adapter

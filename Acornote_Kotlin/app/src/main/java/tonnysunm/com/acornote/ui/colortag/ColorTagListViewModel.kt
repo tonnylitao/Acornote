@@ -5,8 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
 import tonnysunm.com.acornote.model.ColorTag
 import tonnysunm.com.acornote.model.Repository
 
@@ -26,8 +24,7 @@ class ColorTagViewModel(application: Application) :
 
     private val repository: Repository by lazy { Repository(application) }
 
-    val data: LiveData<PagedList<ColorTag>> by lazy {
-        repository.colorTagDao.getAll().toLiveData(pageSize = 5)
+    val data: LiveData<List<ColorTag>> by lazy {
+        repository.colorTagDao.getAll()
     }
-
 }
