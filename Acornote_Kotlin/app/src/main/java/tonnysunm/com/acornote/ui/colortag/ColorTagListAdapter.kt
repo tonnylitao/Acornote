@@ -28,7 +28,7 @@ class ColorTagListAdapter(var array: List<ColorTag>) :
 
         init {
             binding.clickListener = View.OnClickListener {
-                val data = binding.data ?: return@OnClickListener
+//                val data = binding.data ?: return@OnClickListener
 
 //                val fragment = it.findFragment<ColorTagListFragment>()
 //                fragment.viewModel.flipChecked(data)

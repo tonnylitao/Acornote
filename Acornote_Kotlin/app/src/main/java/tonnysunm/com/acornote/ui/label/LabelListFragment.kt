@@ -2,7 +2,6 @@ package tonnysunm.com.acornote.ui.label
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import tonnysunm.com.acornote.databinding.FragmentLabelsBinding
 import tonnysunm.com.acornote.model.EmptyId
-import tonnysunm.com.acornote.model.NoteLabel
 
 private val TAG = "LabelListFragment"
 
 class LabelListFragment : Fragment() {
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
-        if (id != null && id > 0.toLong()) id else null
+        if (id != null && id > 0L) id else null
     }
 
     val viewModel: EditLabelViewModel by viewModels {

@@ -13,34 +13,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.HomeActivity
-import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.Note
-import tonnysunm.com.acornote.ui.colortag.ColorTagListActivity
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 
 class NoteFragment : Fragment() {
 
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
-        if (id != null && id > 0.toLong()) id else null
+        if (id != null && id > 0L) id else null
     }
 
     private var noteBeforeEditing: Note? = null
 
-    private val viewModel: NoteViewModel by viewModels {
+    val viewModel: NoteViewModel by viewModels {
         EditNoteViewModelFactory(requireActivity().application, id)
-    }
-
-    private val homeSharedModel: HomeSharedViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -53,7 +46,7 @@ class NoteFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
-            if (it.id != 0.toLong()) {
+            if (it.id != 0L) {
                 this.noteBeforeEditing = it.copy()
             }
 
@@ -91,7 +84,7 @@ class NoteFragment : Fragment() {
         }
 
         binding.editColor = View.OnClickListener {
-            
+
         }
 
         return binding.root
@@ -111,7 +104,7 @@ class NoteFragment : Fragment() {
 
         val noteBeforeEditing = this.noteBeforeEditing
 
-        val isInsert = note?.id == null || note.id == 0.toLong()
+        val isInsert = note?.id == null || note.id == 0L
         val inUpdate = noteBeforeEditing != note
 
         if (!inUpdate && !inUpdate) {

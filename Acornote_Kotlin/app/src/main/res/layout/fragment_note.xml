@@ -23,7 +23,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -138,6 +138,14 @@
                 android:onClick="@{editColor}" />
         </androidx.appcompat.widget.Toolbar>
 
+        <fragment
+            android:id="@+id/color_tag_fragment"
+            android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="?android:actionBarSize"
+            tools:layout="@layout/fragment_colortags_horizontal" />
     </FrameLayout>
 
 </layout>

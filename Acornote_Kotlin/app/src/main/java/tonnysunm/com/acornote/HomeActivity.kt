@@ -2,6 +2,7 @@ package tonnysunm.com.acornote
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import androidx.activity.invoke
@@ -43,6 +44,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
         homeSharedModel.noteFilterLiveData.observe(this, Observer {
             titleView.text = it.title
 
+            Log.d("TAG", "homeSharedModel.noteFilterLiveData")
             if (it is NoteFilter.ByColorTag) {
                 colorTagView.colorString = it.colorTag.color
                 colorTagView.visibility = View.VISIBLE

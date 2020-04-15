@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.HomeSharedViewModel
+import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentColortagsHorizontalBinding
 import tonnysunm.com.acornote.model.ColorTag
 import tonnysunm.com.acornote.model.NoteFilter
+import tonnysunm.com.acornote.ui.note.NoteFragment
 
 private val TAG = "ColorTagListFragmentHorizontal"
 
@@ -23,8 +26,13 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         )
     }
 
-    private val homeSharedModel: HomeSharedViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
+    private val homeSharedModel: HomeSharedViewModel? by lazy {
+        val activity = requireActivity()
+        if (activity is HomeActivity) {
+            ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
+        } else {
+            null
+        }
     }
 
     override fun onCreateView(
@@ -38,7 +46,20 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val adapter = ColorTagListAdapterHorizontal(listOf())
+        val adapter = ColorTagListAdapterHorizontal(null, listOf())
+
+        val editNoteFragment =
+            activity?.supportFragmentManager?.findFragmentById(R.id.fragment_edit_note) as? NoteFragment
+        editNoteFragment?.viewModel?.data?.observe(this.viewLifecycleOwner, Observer {
+            adapter.selectedColorTagId = it.colorTagId
+            adapter.notifyDataSetChanged()
+        })
+
+        homeSharedModel?.noteFilterLiveData?.observe(this.viewLifecycleOwner, Observer {
+            adapter.selectedColorTagId = it.colorTagId
+            adapter.notifyDataSetChanged()
+        })
+
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
             adapter.array = it
             adapter.notifyDataSetChanged()
@@ -61,6 +82,6 @@ open class ColorTagListFragmentHorizontal : Fragment() {
     }
 
     fun navigateToNotesBy(colorTag: ColorTag) {
-        homeSharedModel.noteFilterLiveData.value = NoteFilter.ByColorTag(colorTag)
+        homeSharedModel?.noteFilterLiveData?.value = NoteFilter.ByColorTag(colorTag)
     }
 }

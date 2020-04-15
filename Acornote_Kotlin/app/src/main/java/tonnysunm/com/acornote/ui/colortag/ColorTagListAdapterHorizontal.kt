@@ -8,15 +8,26 @@ import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.findFragment
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_note.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.databinding.ListItemColortagHorizontalBinding
 import tonnysunm.com.acornote.databinding.ListItemEditBinding
 import tonnysunm.com.acornote.model.ColorTag
+import tonnysunm.com.acornote.ui.note.NoteActivity
+import tonnysunm.com.acornote.ui.note.NoteFragment
 
 private const val ColorTagType = 0
 private const val FooterType = 1
 
-class ColorTagListAdapterHorizontal(var array: List<ColorTag>) :
+
+class ColorTagListAdapterHorizontal(
+    var selectedColorTagId: Long?,
+    var array: List<ColorTag>
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -54,11 +65,23 @@ class ColorTagListAdapterHorizontal(var array: List<ColorTag>) :
                 val data = binding.data ?: return@OnClickListener
 
                 val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
-                fragment.navigateToNotesBy(data)
+                val activity = fragment.activity
+                if (activity is HomeActivity) {
+                    fragment.navigateToNotesBy(data)
+                } else if (activity is NoteActivity) {
+                    val noteFgm = activity.fragment_edit_note as NoteFragment
+                    val viewModal = noteFgm.viewModel
+                    val colorTagId = data.id
+                    viewModal.viewModelScope.launch(Dispatchers.IO) {
+                        viewModal.updateColorTag(colorTagId)
+                    }
+                }
             }
         }
 
         fun bind(item: ColorTag) {
+            binding.checked = selectedColorTagId != null && item.id == selectedColorTagId
+
             binding.data = item
             binding.executePendingBindings()
         }

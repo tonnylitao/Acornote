@@ -34,7 +34,7 @@ class NoteViewModel(application: Application, private val id: Long?) :
     suspend fun insertNote(labelId: Long?) {
         val note = data.value ?: throw IllegalStateException("note is not set")
         if (note.title.trim().isEmpty()) throw IllegalStateException("title is null")
-        if (id != null && id != 0.toLong()) throw IllegalStateException("id is not null")
+        if (id != null && id != 0L) throw IllegalStateException("id is not null")
 
         viewModelScope.launch(Dispatchers.IO) {
             note.order = repository.noteDao.maxOrder() + 1
@@ -55,5 +55,17 @@ class NoteViewModel(application: Application, private val id: Long?) :
         note.id = id
         note.updatedAt = Date().time
         repository.noteDao.update(note)
+    }
+
+    suspend fun updateColorTag(colorTagId: Long) {
+        val note = data.value ?: throw IllegalStateException("note is not set")
+
+        if (id != null) {
+            note.colorTagId = colorTagId
+            repository.noteDao.update(note)
+        } else {
+            note.colorTagId = colorTagId
+            (data as? MutableLiveData<Note>)?.postValue(note)
+        }
     }
 }

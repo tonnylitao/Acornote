@@ -4,9 +4,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
+
+        <variable
+            name="checked"
+            type="Boolean" />
 
         <variable
             name="data"
@@ -14,7 +20,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="48dp"
         android:layout_height="80dp"
         android:gravity="center"
@@ -24,7 +30,18 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             app:colorString="@{data.color}"
-            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:labelFor="@+id/editText" />
-    </LinearLayout>
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:visibility="@{checked ? View.VISIBLE : View.GONE}"
+            android:background="@drawable/ic_check"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="TODO" />
+
+    </RelativeLayout>
 </layout>

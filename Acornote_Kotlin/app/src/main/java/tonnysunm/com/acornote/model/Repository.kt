@@ -44,7 +44,7 @@ class Repository(private val application: Application) {
         }
     }
 
-    fun getNote(id: Long?): LiveData<Note> = if (id != null && id > 0.toLong()) {
+    fun getNote(id: Long?): LiveData<Note> = if (id != null && id > 0L) {
         noteDao.note(id)
     } else {
         MutableLiveData(
