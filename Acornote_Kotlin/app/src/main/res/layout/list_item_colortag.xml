@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="data"
             type="tonnysunm.com.acornote.model.ColorTag" />
 

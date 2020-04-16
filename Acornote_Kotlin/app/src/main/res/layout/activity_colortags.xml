@@ -16,13 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Colors" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <fragment
-        android:id="@+id/fragment_edit_note"
+        android:id="@+id/fragment_edit_colortag"
         android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.colortag
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListItemColortagBinding
@@ -27,12 +26,7 @@ class ColorTagListAdapter(var array: List<ColorTag>) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.clickListener = View.OnClickListener {
-//                val data = binding.data ?: return@OnClickListener
 
-//                val fragment = it.findFragment<ColorTagListFragment>()
-//                fragment.viewModel.flipChecked(data)
-            }
         }
 
         fun bind(item: ColorTag) {

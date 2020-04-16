@@ -1,10 +1,9 @@
 package tonnysunm.com.acornote.ui.colortag
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.ColorTag
 import tonnysunm.com.acornote.model.Repository
 
@@ -26,5 +25,14 @@ class ColorTagViewModel(application: Application) :
 
     val data: LiveData<List<ColorTag>> by lazy {
         repository.colorTagDao.getAll()
+    }
+
+    fun saveColorTags() {
+        data.value?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.colorTagDao.update(it)
+            }
+        }
+
     }
 }

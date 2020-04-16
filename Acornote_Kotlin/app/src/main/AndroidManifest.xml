@@ -8,13 +8,14 @@
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label=""
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name="tonnysunm.com.acornote.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,7 +26,8 @@
         <activity
             android:name="tonnysunm.com.acornote.ui.note.NoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+            android:label="">
 
             <intent-filter>
                 <!--                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
@@ -40,7 +42,8 @@
         <activity
             android:name="tonnysunm.com.acornote.ui.label.LabelListActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+            android:label="">
 
             <intent-filter>
                 <!--                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
@@ -52,7 +55,8 @@
         <activity
             android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
+            android:label="Colors">
 
             <intent-filter>
                 <!--                <action android:name="android.intent.action.MAIN" />-->

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 
 @Dao
@@ -17,4 +18,7 @@ interface ColorTagDao {
 
     @Insert
     fun insert(entities: List<ColorTag>)
+
+    @Update
+    fun update(entities: List<ColorTag>)
 }
