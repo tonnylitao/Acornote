@@ -37,17 +37,6 @@ open class ColorTagListFragment(private val vertical: Boolean = true) : Fragment
 
         binding.recyclerview.adapter = adapter
 
-//        binding.editText.setOnEditorActionListener() { v, keyCode, _ ->
-//            if (keyCode == EditorInfo.IME_ACTION_DONE) {
-//                val textView = v as TextView
-////                viewModel.createLabel(textView.text.toString())
-//
-//                textView.text = null
-//                return@setOnEditorActionListener false
-//            }
-//            false
-//        }
-
         return binding.root
     }
 

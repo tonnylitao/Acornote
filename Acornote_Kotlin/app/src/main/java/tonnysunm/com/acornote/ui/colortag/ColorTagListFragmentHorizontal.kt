@@ -67,17 +67,6 @@ open class ColorTagListFragmentHorizontal : Fragment() {
 
         binding.drawerColortagRecyclerView.adapter = adapter
 
-//        binding.editText.setOnEditorActionListener() { v, keyCode, _ ->
-//            if (keyCode == EditorInfo.IME_ACTION_DONE) {
-//                val textView = v as TextView
-////                viewModel.createLabel(textView.text.toString())
-//
-//                textView.text = null
-//                return@setOnEditorActionListener false
-//            }
-//            false
-//        }
-
         return binding.root
     }
 

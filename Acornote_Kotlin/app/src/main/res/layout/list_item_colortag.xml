@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="tonnysunm.com.acornote.ui.colortag.ColorTagHelper" />
+
         <variable
             name="data"
             type="tonnysunm.com.acornote.model.ColorTag" />
@@ -29,6 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@={data.name}"
+            android:hint="@{ColorTagHelper.defaultColorName(data)}"
+            android:textColor="@{data.name.equals(ColorTagHelper.defaultColorName(data)) ? @color/color_tag_default : @android:color/black}"
             android:importantForAutofill="no"
             android:background="@android:color/transparent"
             android:inputType="text" />

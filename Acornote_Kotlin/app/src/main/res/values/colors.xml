@@ -5,6 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="drawer_label_title">#898989</color>
 
+    <color name="color_tag_default">#AFAFAF</color>
+
     <color name="color_tag_black">#000000</color>
     <color name="color_tag_gray">#A4A4A4</color>
     <color name="color_tag_green">#56D769</color>

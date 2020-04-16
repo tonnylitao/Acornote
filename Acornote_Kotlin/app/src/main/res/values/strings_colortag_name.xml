@@ -1,0 +1,10 @@
+<resources>
+    <string name="color_tag_black">Black</string>
+    <string name="color_tag_gray">Gray</string>
+    <string name="color_tag_green">Green</string>
+    <string name="color_tag_blue">Blue</string>
+    <string name="color_tag_orange">Orange</string>
+    <string name="color_tag_purple">Purple</string>
+    <string name="color_tag_red">Red</string>
+    <string name="color_tag_yellow">Yellow</string>
+</resources>

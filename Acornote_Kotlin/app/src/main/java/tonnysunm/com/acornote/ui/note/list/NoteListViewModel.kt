@@ -53,26 +53,35 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
                 val initialData = listOf(
                     ColorTag(
                         color = context.getColorString(R.color.color_tag_black),
-                        name = "Black"
+                        name = context.getString(R.string.color_tag_black)
                     ),
-                    ColorTag(color = context.getColorString(R.color.color_tag_gray), name = "Gray"),
+                    ColorTag(
+                        color = context.getColorString(R.color.color_tag_gray),
+                        name = context.getString(R.string.color_tag_gray)
+                    ),
                     ColorTag(
                         color = context.getColorString(R.color.color_tag_green),
-                        name = "Green"
+                        name = context.getString(R.string.color_tag_green)
                     ),
-                    ColorTag(color = context.getColorString(R.color.color_tag_blue), name = "Blue"),
+                    ColorTag(
+                        color = context.getColorString(R.color.color_tag_blue),
+                        name = context.getString(R.string.color_tag_blue)
+                    ),
                     ColorTag(
                         color = context.getColorString(R.color.color_tag_orange),
-                        name = "Orange"
+                        name = context.getString(R.string.color_tag_orange)
                     ),
                     ColorTag(
                         color = context.getColorString(R.color.color_tag_purple),
-                        name = "Purple"
+                        name = context.getString(R.string.color_tag_purple)
                     ),
-                    ColorTag(color = context.getColorString(R.color.color_tag_red), name = "Red"),
+                    ColorTag(
+                        color = context.getColorString(R.color.color_tag_red),
+                        name = context.getString(R.string.color_tag_red)
+                    ),
                     ColorTag(
                         color = context.getColorString(R.color.color_tag_yellow),
-                        name = "Yellow"
+                        name = context.getString(R.string.color_tag_yellow)
                     )
                 ).reversed()
                 repository.colorTagDao.insert(initialData)

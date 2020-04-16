@@ -25,3 +25,8 @@ fun Activity.hideSoftKeyboard(view: View? = currentFocus) {
 
 fun Context.getColorString(id: Int): String =
     String.format("#%06x", ContextCompat.getColor(this, id) and 0xffffff)
+
+fun Context.getStringResourceByName(aString: String): String? {
+    val resId: Int = resources.getIdentifier(aString, "string", packageName)
+    return getString(resId)
+}
