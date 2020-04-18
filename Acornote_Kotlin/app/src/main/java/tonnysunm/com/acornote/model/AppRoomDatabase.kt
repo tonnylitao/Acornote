@@ -1,11 +1,30 @@
 package tonnysunm.com.acornote.model
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+
+class DataTypeConverter {
+    companion object {
+        val gson = Gson()
+    }
+
+    @TypeConverter
+    fun fromString(value: String?): List<String>? {
+        val listType: Type = object : TypeToken<List<String?>?>() {}.type
+        return if (value != null) gson.fromJson(value, listType) else null
+    }
+
+    @TypeConverter
+    fun fromList(list: List<String?>?): String? {
+        return if (list != null) gson.toJson(list) else null
+    }
+}
 
 @Database(entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class], version = 1)
+@TypeConverters(DataTypeConverter::class)
 abstract class AppRoomDatabase : RoomDatabase() {
 
     abstract fun labelDao(): LabelDao

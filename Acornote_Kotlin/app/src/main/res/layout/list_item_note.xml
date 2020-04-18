@@ -63,6 +63,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/colorAccent"
+            android:visibility="@{(data.imageUrls == null || data.imageUrls.size == 0) ? View.GONE : View.VISIBLE}"
             android:contentDescription="@string/todo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

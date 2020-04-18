@@ -32,5 +32,7 @@ data class Note(
     val createdAt: Long = Date().time,
 
     @ColumnInfo(name = "updated_at")
-    var updatedAt: Long = Date().time
+    var updatedAt: Long = Date().time,
+
+    var imageUrls: List<String>? = null
 ) : SQLEntity
