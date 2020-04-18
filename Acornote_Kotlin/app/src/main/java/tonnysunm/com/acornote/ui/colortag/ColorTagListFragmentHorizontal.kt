@@ -51,7 +51,7 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         val editNoteFragment =
             activity?.supportFragmentManager?.findFragmentById(R.id.fragment_edit_note) as? NoteFragment
         editNoteFragment?.viewModel?.data?.observe(this.viewLifecycleOwner, Observer {
-            adapter.selectedColorTagId = it.colorTagId
+            adapter.selectedColorTagId = it?.colorTagId //? fix note been deleted
             adapter.notifyDataSetChanged()
         })
 

@@ -50,9 +50,7 @@ class NoteViewModel(application: Application, private val id: Long?) :
     suspend fun updateNote() {
         val note = data.value ?: throw IllegalStateException("note is not set")
         if (note.title.isEmpty()) throw IllegalStateException("title is null")
-        if (id == null) throw IllegalStateException("is is null")
 
-        note.id = id
         note.updatedAt = Date().time
         repository.noteDao.update(note)
     }
@@ -66,6 +64,14 @@ class NoteViewModel(application: Application, private val id: Long?) :
         } else {
             note.colorTagId = colorTagId
             (data as? MutableLiveData<Note>)?.postValue(note)
+        }
+    }
+
+    fun deleteNote() {
+        data.value?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.noteDao.delete(it)
+            }
         }
     }
 }

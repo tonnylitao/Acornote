@@ -7,6 +7,7 @@ import tonnysunm.com.acornote.R
 
 class NoteActivity : AppCompatActivity(R.layout.activity_note) {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

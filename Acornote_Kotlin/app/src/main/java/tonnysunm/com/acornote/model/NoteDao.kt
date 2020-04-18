@@ -33,6 +33,9 @@ interface NoteDao {
     @Update
     suspend fun updateNotes(notes: MutableList<Note>): Int
 
+    @Delete
+    suspend fun delete(note: Note)
+
     @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
     fun note(id: Long): LiveData<Note>
 

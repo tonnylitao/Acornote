@@ -1,15 +1,18 @@
 package tonnysunm.com.acornote.model
 
 import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import java.util.*
 
 @Entity(
     tableName = "note_label_table",
     foreignKeys = [ForeignKey(
+        onDelete = CASCADE,
         entity = Label::class,
         parentColumns = ["id"],
         childColumns = ["label_id"]
     ), ForeignKey(
+        onDelete = CASCADE,
         entity = Note::class,
         parentColumns = ["id"],
         childColumns = ["note_id"]

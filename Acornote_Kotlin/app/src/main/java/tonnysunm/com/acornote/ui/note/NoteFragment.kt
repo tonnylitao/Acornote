@@ -3,9 +3,7 @@ package tonnysunm.com.acornote.ui.note
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +12,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.R
@@ -24,6 +24,8 @@ import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 
 class NoteFragment : Fragment() {
+
+    var menu: Menu? = null
 
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
@@ -46,11 +48,13 @@ class NoteFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
-            if (it.id != 0L) {
-                this.noteBeforeEditing = it.copy()
+            if (it != null) { //been deleted
+                if (it.id != 0L) {
+                    this.noteBeforeEditing = it.copy()
+                }
+
+                updateMenuItems(it)
             }
-
-
 //            intent?.let { intent ->
 //                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
 //                    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { title ->
@@ -87,7 +91,65 @@ class NoteFragment : Fragment() {
 
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    private fun updateMenuItems(it: Note) {
+        val star = this.menu?.findItem(R.id.action_star)
+        star?.setIcon(if (it.star == true) R.drawable.ic_stared else R.drawable.ic_star)
+
+        val pin = this.menu?.findItem(R.id.action_pin)
+        pin?.setIcon(if (it.pinned == true) R.drawable.ic_pinned else R.drawable.ic_pin)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.note, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+        this.menu = menu
+
+        viewModel.data.value?.let {
+            updateMenuItems(it)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_star -> {
+            val note = viewModel.data.value
+            note?.star = viewModel.data.value?.star != true
+            if (note?.id == 0L) {
+                updateMenuItems(note)
+            } else {
+                viewModel.viewModelScope.launch(Dispatchers.IO) {
+                    viewModel.updateNote()
+                }
+            }
+            true
+        }
+        R.id.action_pin -> {
+            val note = viewModel.data.value
+            note?.pinned = viewModel.data.value?.pinned != true
+            if (note?.id == 0L) {
+                updateMenuItems(note)
+            } else {
+                viewModel.viewModelScope.launch(Dispatchers.IO) {
+                    viewModel.updateNote()
+                }
+            }
+            true
+        }
+        R.id.action_delete -> {
+            viewModel.deleteNote()
+
+            activity?.setResult(Activity.RESULT_CANCELED)
+            activity?.finish()
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     fun insertOrUpdateNote() {
@@ -113,7 +175,7 @@ class NoteFragment : Fragment() {
             return
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 if (isInsert) {
                     HomeActivity.scrollToTop = isInsert
@@ -132,7 +194,8 @@ class NoteFragment : Fragment() {
         }
     }
 
-    inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+    inner class ScreenSlidePagerAdapter(fa: FragmentActivity) :
+        FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment = ScreenSlidePageFragment().apply {
