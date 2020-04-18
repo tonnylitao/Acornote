@@ -1,9 +1,11 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
+import android.content.Intent
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteLabel
 import tonnysunm.com.acornote.model.Repository
@@ -12,29 +14,46 @@ import java.util.*
 
 class EditNoteViewModelFactory(
     private val application: Application,
-    private val id: Long?
+    private val intent: Intent
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        NoteViewModel(application, id) as T
+        NoteViewModel(application, intent) as T
 }
 
 private val TAG = "NoteViewModel"
 
-class NoteViewModel(application: Application, private val id: Long?) :
+class NoteViewModel(application: Application, private val intent: Intent) :
     AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
+    private val isCreateNewNote: Boolean
+        get() {
+            val id = intent.getLongExtra("id", EmptyId)
+            return id > EmptyId
+        }
+
     val data: LiveData<Note> by lazy {
-        repository.getNote(id)
+        val id = intent.getLongExtra("id", EmptyId)
+
+        if (id > EmptyId) {
+            repository.noteDao.note(id)
+        } else {
+            MutableLiveData(
+                Note(
+                    title = "",
+                    order = 0,
+                    star = intent.getBooleanExtra("star", false)
+                )
+            )
+        }
     }
 
     suspend fun insertNote(labelId: Long?) {
         val note = data.value ?: throw IllegalStateException("note is not set")
         if (note.title.trim().isEmpty()) throw IllegalStateException("title is null")
-        if (id != null && id != 0L) throw IllegalStateException("id is not null")
 
         viewModelScope.launch(Dispatchers.IO) {
             note.order = repository.noteDao.maxOrder() + 1
@@ -58,7 +77,7 @@ class NoteViewModel(application: Application, private val id: Long?) :
     suspend fun updateColorTag(colorTagId: Long) {
         val note = data.value ?: throw IllegalStateException("note is not set")
 
-        if (id != null) {
+        if (isCreateNewNote) {
             note.colorTagId = colorTagId
             repository.noteDao.update(note)
         } else {

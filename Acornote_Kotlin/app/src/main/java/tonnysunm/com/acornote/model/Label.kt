@@ -1,7 +1,5 @@
 package tonnysunm.com.acornote.model
 
-import android.util.Log
-import android.view.View
 import androidx.room.*
 import java.util.*
 
@@ -33,4 +31,4 @@ data class LabelWithCheckStatus(
 )
 
 
-const val EmptyId: Long = 0
+const val EmptyId = 0L

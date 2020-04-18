@@ -35,7 +35,7 @@ class NoteFragment : Fragment() {
     private var noteBeforeEditing: Note? = null
 
     val viewModel: NoteViewModel by viewModels {
-        EditNoteViewModelFactory(requireActivity().application, id)
+        EditNoteViewModelFactory(requireActivity().application, requireActivity().intent)
     }
 
     override fun onCreateView(
@@ -53,7 +53,7 @@ class NoteFragment : Fragment() {
                     this.noteBeforeEditing = it.copy()
                 }
 
-                updateMenuItems(it)
+                updateMenuItems(this.menu, it)
             }
 //            intent?.let { intent ->
 //                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
@@ -96,7 +96,9 @@ class NoteFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateMenuItems(it: Note) {
+    private fun updateMenuItems(menu: Menu?, it: Note?) {
+        if (menu == null || it == null) return
+
         val star = this.menu?.findItem(R.id.action_star)
         star?.setIcon(if (it.star == true) R.drawable.ic_stared else R.drawable.ic_star)
 
@@ -107,12 +109,10 @@ class NoteFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.note, menu)
 
-        super.onCreateOptionsMenu(menu, inflater)
         this.menu = menu
+        updateMenuItems(menu, viewModel.data.value)
 
-        viewModel.data.value?.let {
-            updateMenuItems(it)
-        }
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -120,7 +120,7 @@ class NoteFragment : Fragment() {
             val note = viewModel.data.value
             note?.star = viewModel.data.value?.star != true
             if (note?.id == 0L) {
-                updateMenuItems(note)
+                updateMenuItems(this.menu, note)
             } else {
                 viewModel.viewModelScope.launch(Dispatchers.IO) {
                     viewModel.updateNote()
@@ -132,7 +132,7 @@ class NoteFragment : Fragment() {
             val note = viewModel.data.value
             note?.pinned = viewModel.data.value?.pinned != true
             if (note?.id == 0L) {
-                updateMenuItems(note)
+                updateMenuItems(this.menu, note)
             } else {
                 viewModel.viewModelScope.launch(Dispatchers.IO) {
                     viewModel.updateNote()
