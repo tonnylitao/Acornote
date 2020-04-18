@@ -18,6 +18,5 @@
         android:paddingStart="16dp"
         android:paddingEnd="32dp"
         android:textSize="18dp"
-        android:text="Edit"
-        android:background="@android:color/white" />
+        android:text="Edit" />
 </layout>

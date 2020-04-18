@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="16dp"
-        android:background="@android:color/white"
         tools:listitem="@layout/list_item_note"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

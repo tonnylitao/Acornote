@@ -15,15 +15,11 @@
             name="data"
             type="tonnysunm.com.acornote.model.Note" />
 
-        <variable
-            name="descriptionIsNullOrEmpty"
-            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:onClick="@{clickListener}">
 
         <TextView
@@ -51,7 +47,7 @@
             android:layout_marginEnd="8dp"
             android:gravity="center|start"
             android:text='@{data.description}'
-            android:visibility="@{descriptionIsNullOrEmpty ? View.GONE : View.VISIBLE}"
+            android:visibility="@{data.hasDescription ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +59,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/colorAccent"
-            android:visibility="@{(data.imageUrls == null || data.imageUrls.size == 0) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{data.hasImage ? View.VISIBLE : View.GONE}"
             android:contentDescription="@string/todo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,7 +69,7 @@
             android:id="@+id/star"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:background="@drawable/circle"
+            android:background="@{data.hasImage ? @drawable/circle : null}"
             android:visibility="@{data.star ? View.VISIBLE : View.GONE}"
             android:padding="3dp"
             android:src="@drawable/ic_star"
@@ -88,7 +84,7 @@
             android:id="@+id/pin"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:background="@drawable/circle"
+            android:background="@{data.hasImage ? @drawable/circle : null}"
             android:padding="3dp"
             android:visibility="@{data.pinned ? View.VISIBLE : View.GONE}"
             android:src="@drawable/ic_pin"

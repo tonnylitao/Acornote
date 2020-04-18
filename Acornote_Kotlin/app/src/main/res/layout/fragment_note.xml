@@ -78,8 +78,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             app:contentInsetStart="5dp"
-            app:contentInsetEnd="5dp"
-            android:background="@android:color/white">
+            app:contentInsetEnd="5dp">
 
             <ImageButton
                 android:id="@+id/link"

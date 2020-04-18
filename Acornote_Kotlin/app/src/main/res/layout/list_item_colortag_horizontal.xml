@@ -27,16 +27,16 @@
         android:onClick="@{clickListener}">
 
         <tonnysunm.com.acornote.ui.colortag.ColorTagView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             app:colorString="@{data.color}"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:labelFor="@+id/editText" />
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:visibility="@{checked ? View.VISIBLE : View.GONE}"
             android:background="@drawable/ic_check"
             android:layout_centerVertical="true"

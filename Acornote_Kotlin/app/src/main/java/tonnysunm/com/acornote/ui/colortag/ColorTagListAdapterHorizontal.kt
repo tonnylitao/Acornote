@@ -80,7 +80,7 @@ class ColorTagListAdapterHorizontal(
         }
 
         fun bind(item: ColorTag) {
-            binding.checked = selectedColorTagId != null && item.id == selectedColorTagId
+            binding.checked = item.id == selectedColorTagId
 
             binding.data = item
             binding.executePendingBindings()

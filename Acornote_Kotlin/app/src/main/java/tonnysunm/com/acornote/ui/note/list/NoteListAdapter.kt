@@ -82,7 +82,6 @@ class NoteListAdapter :
 
         fun bind(note: Note) {
             binding.data = note
-            binding.descriptionIsNullOrEmpty = note.description?.trim().isNullOrEmpty()
 
             binding.executePendingBindings()
         }
