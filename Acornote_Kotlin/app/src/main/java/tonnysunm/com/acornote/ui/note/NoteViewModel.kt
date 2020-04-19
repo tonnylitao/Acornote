@@ -29,10 +29,10 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
     private val repository: Repository by lazy { Repository(application) }
 
-    private val isCreateNewNote: Boolean
+    val isCreateNewNote: Boolean
         get() {
             val id = intent.getLongExtra("id", EmptyId)
-            return id > EmptyId
+            return id == EmptyId
         }
 
     val data: LiveData<Note> by lazy {
@@ -79,10 +79,10 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
         if (isCreateNewNote) {
             note.colorTagId = colorTagId
-            repository.noteDao.update(note)
+            (data as? MutableLiveData<Note>)?.postValue(note)
         } else {
             note.colorTagId = colorTagId
-            (data as? MutableLiveData<Note>)?.postValue(note)
+            repository.noteDao.update(note)
         }
     }
 

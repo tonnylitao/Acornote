@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.findFragment
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -128,4 +129,12 @@ class ItemTouchHelperCallback(adapter: ItemTouchHelperAdapter) :
 
     override fun isItemViewSwipeEnabled() = false
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+}
+
+
+@BindingAdapter("android:layout_marginEnd")
+fun setLayoutMarginBottom(view: View, dimen: Float) {
+    val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+    layoutParams.marginEnd = dimen.toInt()
+    view.layoutParams = layoutParams
 }

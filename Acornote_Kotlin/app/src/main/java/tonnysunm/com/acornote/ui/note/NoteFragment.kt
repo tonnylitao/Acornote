@@ -25,7 +25,8 @@ import tonnysunm.com.acornote.ui.label.LabelListActivity
 
 class NoteFragment : Fragment() {
 
-    var menu: Menu? = null
+    private var binding: FragmentNoteBinding? = null
+    private var menu: Menu? = null
 
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
@@ -37,6 +38,7 @@ class NoteFragment : Fragment() {
     val viewModel: NoteViewModel by viewModels {
         EditNoteViewModelFactory(requireActivity().application, requireActivity().intent)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +56,12 @@ class NoteFragment : Fragment() {
                 }
 
                 updateMenuItems(this.menu, it)
+
+                if (binding.editing == null) {
+                    binding.editing = it.id == EmptyId
+                }
             }
+
 //            intent?.let { intent ->
 //                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
 //                    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { title ->
@@ -93,17 +100,20 @@ class NoteFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        this.binding = binding
         return binding.root
     }
 
-    private fun updateMenuItems(menu: Menu?, it: Note?) {
-        if (menu == null || it == null) return
+    private fun updateMenuItems(menu: Menu?, note: Note?) {
+        if (menu == null || note == null) return
 
-        val star = this.menu?.findItem(R.id.action_star)
-        star?.setIcon(if (it.star == true) R.drawable.ic_stared else R.drawable.ic_star)
+        val star = menu.findItem(R.id.action_star)
+        star?.setIcon(if (note.star == true) R.drawable.ic_stared else R.drawable.ic_star)
 
-        val pin = this.menu?.findItem(R.id.action_pin)
-        pin?.setIcon(if (it.pinned == true) R.drawable.ic_pinned else R.drawable.ic_pin)
+        val pin = menu.findItem(R.id.action_pin)
+        pin?.setIcon(if (note.pinned == true) R.drawable.ic_pinned else R.drawable.ic_pin)
+
+        menu.findItem(R.id.action_edit)?.isVisible = note.id != EmptyId
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -147,6 +157,10 @@ class NoteFragment : Fragment() {
             activity?.finish()
             true
         }
+        R.id.action_edit -> {
+            binding?.editing = true
+            true
+        }
         else -> {
             super.onOptionsItemSelected(item)
         }
@@ -154,15 +168,11 @@ class NoteFragment : Fragment() {
 
     fun insertOrUpdateNote() {
         val labelId = activity?.intent?.extras?.get(getString(R.string.labelIdKey))
-        val star = activity?.intent?.extras?.get(getString(R.string.starKey))
-
         val note = viewModel.data.value
 
         val validLabelId: Long? =
-            if (labelId != null && labelId is Long && labelId > 0) labelId else null
-        if (star != null) {
-            note?.star = star == true
-        }
+            if (labelId != null && labelId is Long && labelId > 0) labelId
+            else null
 
         val noteBeforeEditing = this.noteBeforeEditing
 

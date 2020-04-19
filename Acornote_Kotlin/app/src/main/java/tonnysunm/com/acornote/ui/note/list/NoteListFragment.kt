@@ -1,6 +1,5 @@
 package tonnysunm.com.acornote.ui.note.list
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -74,23 +72,7 @@ class NoteListFragment : Fragment() {
             }
         })
         binding.recyclerview.adapter = adapter
-
-        binding.recyclerview.addItemDecoration(
-            object : DividerItemDecoration(
-                activity,
-                VERTICAL
-            ) {
-                override fun getItemOffsets(
-                    outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
-                ) {
-                    val padding = parent.paddingLeft
-                    val bottom = drawable?.intrinsicHeight ?: 0
-
-                    outRect.set(Rect(0, padding, padding, padding + bottom))
-                }
-            }
-        )
-
+        
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (!HomeActivity.scrollToTop) return

@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="editing"
+            type="Boolean" />
+
+        <variable
             name="viewModel"
             type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
 
@@ -78,7 +82,8 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             app:contentInsetStart="5dp"
-            app:contentInsetEnd="5dp">
+            app:contentInsetEnd="5dp"
+            android:visibility="@{editing ? View.VISIBLE : View.GONE}">
 
             <ImageButton
                 android:id="@+id/link"
@@ -137,14 +142,20 @@
                 android:onClick="@{editColor}" />
         </androidx.appcompat.widget.Toolbar>
 
-        <fragment
-            android:id="@+id/color_tag_fragment"
-            android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="?android:actionBarSize"
-            tools:layout="@layout/fragment_colortags_horizontal" />
+            android:visibility="@{editing ? View.VISIBLE : View.GONE}">
+
+            <fragment
+                android:id="@+id/color_tag_fragment"
+                android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_colortags_horizontal" />
+        </FrameLayout>
     </FrameLayout>
 
 </layout>
