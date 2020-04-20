@@ -41,9 +41,17 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         if (id > EmptyId) {
             repository.noteDao.note(id)
         } else {
+            val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+
+            val textRemoveMediumLink = text?.let {
+                val regex = Regex("^“(.*)” by  https://link.medium.com/")
+                val match = regex.find(it)
+                match?.groups?.last()?.value
+            } ?: ""
+
             MutableLiveData(
                 Note(
-                    title = "",
+                    title = textRemoveMediumLink,
                     order = 0,
                     star = intent.getBooleanExtra("star", false)
                 )
