@@ -15,6 +15,9 @@ interface NoteDao {
     @Query("SELECT * from note_table ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getAll(): DataSource.Factory<Int, Note>
 
+    @Query("SELECT * from note_table  WHERE title NOT LIKE 'http%' ORDER BY RANDOM() LIMIT 1")
+    fun getRandom(): Note?
+
     @Query("SELECT * from note_table  WHERE star == 1 ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getStar(): DataSource.Factory<Int, Note>
 
@@ -70,6 +73,7 @@ interface NoteDao {
         )
         updateOrder(target, to - from)
     }
+
 }
 
 

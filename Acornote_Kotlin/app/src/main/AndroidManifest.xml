@@ -5,6 +5,10 @@
 
     <dist:module dist:instant="true" />
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -12,55 +16,71 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver android:name=".widget.ScreenWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+
+        <receiver android:name=".widget.ScreenActionReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
         <activity
-            android:name="tonnysunm.com.acornote.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="">
+            android:name=".HomeActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!--                <action android:name="android.intent.action.SEND" />-->
+                <!-- <action android:name="android.intent.action.SEND" /> -->
             </intent-filter>
         </activity>
-
         <activity
-            android:name="tonnysunm.com.acornote.ui.note.NoteActivity"
+            android:name=".ui.note.NoteActivity"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
-            android:label="">
-
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="tonnysunm.com.acornote.ui.label.LabelListActivity"
+            android:name=".ui.label.LabelListActivity"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
-            android:label="">
-
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
                 <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListActivity"
+            android:name=".ui.colortag.ColorTagListActivity"
+            android:label="Colors"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
-            android:label="Colors">
-
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />-->
-                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
                 <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>

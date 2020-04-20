@@ -27,4 +27,6 @@
     <string name="action_star">Star</string>
     <string name="action_pin">Pin</string>
     <string name="action_edit">Edit</string>
+    <string name="appwidget_text">Hello</string>
+    <string name="add_widget">Add widget</string>
 </resources>

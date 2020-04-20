@@ -1,12 +1,12 @@
 package tonnysunm.com.acornote.model
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 
-class Repository(private val application: Application) {
+class Repository(private val application: Context) {
 
     val labelDao by lazy { AppRoomDatabase.getDatabase(application).labelDao() }
     val noteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }

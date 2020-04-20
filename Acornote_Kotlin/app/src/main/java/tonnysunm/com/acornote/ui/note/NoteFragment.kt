@@ -3,6 +3,7 @@ package tonnysunm.com.acornote.ui.note
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,6 +31,7 @@ class NoteFragment : Fragment() {
 
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
+        Log.d("TAG", id.toString())
         if (id != null && id > 0L) id else null
     }
 
