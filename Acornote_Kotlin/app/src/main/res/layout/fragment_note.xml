@@ -115,7 +115,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="TODO"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_voice"
+                android:src="@drawable/ic_mic"
                 android:layout_marginEnd="5dp"
                 android:padding="12dp" />
 
