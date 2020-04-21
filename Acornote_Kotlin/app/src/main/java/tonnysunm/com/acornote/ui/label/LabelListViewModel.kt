@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.label
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
@@ -13,7 +12,7 @@ import tonnysunm.com.acornote.model.Repository
 
 class EditLabelViewModelFactory(
     private val application: Application,
-    private val noteId: Long?
+    private val noteId: Long
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -23,17 +22,13 @@ class EditLabelViewModelFactory(
 
 private val TAG = "EditLabelViewModel"
 
-class EditLabelViewModel(application: Application, noteId: Long?) :
+class EditLabelViewModel(application: Application, noteId: Long) :
     AndroidViewModel(application) {
 
     private val repository: Repository by lazy { Repository(application) }
 
     val data: LiveData<PagedList<LabelWithCheckStatus>> by lazy {
-        if (noteId != null) {
-            repository.labelDao.getLabelsWithNoteId(noteId).toLiveData(pageSize = 5)
-        } else {
-            repository.labelDao.getLabels().toLiveData(pageSize = 5)
-        }
+        repository.labelDao.getLabelsWithNoteId(noteId).toLiveData(pageSize = 5)
     }
 
     fun flipChecked(lwcs: LabelWithCheckStatus) {
@@ -48,6 +43,7 @@ class EditLabelViewModel(application: Application, noteId: Long?) :
             }
         }
     }
+
 
     fun createLabel(title: String) {
         viewModelScope.launch {

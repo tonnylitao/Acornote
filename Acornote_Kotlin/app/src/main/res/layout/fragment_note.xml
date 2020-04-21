@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="editing"
-            type="Boolean" />
-
-        <variable
             name="viewModel"
             type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
 
@@ -83,7 +79,7 @@
             android:layout_gravity="bottom"
             app:contentInsetStart="5dp"
             app:contentInsetEnd="5dp"
-            android:visibility="@{editing ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}">
 
             <ImageButton
                 android:id="@+id/link"
@@ -147,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="?android:actionBarSize"
-            android:visibility="@{editing ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}">
 
             <fragment
                 android:id="@+id/color_tag_fragment"

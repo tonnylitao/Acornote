@@ -3,7 +3,6 @@ package tonnysunm.com.acornote.ui.note
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,7 +30,6 @@ class NoteFragment : Fragment() {
 
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
-        Log.d("TAG", id.toString())
         if (id != null && id > 0L) id else null
     }
 
@@ -40,7 +38,6 @@ class NoteFragment : Fragment() {
     val viewModel: NoteViewModel by viewModels {
         EditNoteViewModelFactory(requireActivity().application, requireActivity().intent)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,15 +50,11 @@ class NoteFragment : Fragment() {
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
             if (it != null) { //been deleted
-                if (it.id != 0L) {
+                if (it.id != 0L && this.noteBeforeEditing == null) {
                     this.noteBeforeEditing = it.copy()
                 }
 
                 updateMenuItems(this.menu, it)
-
-                if (binding.editing == null) {
-                    binding.editing = it.id == EmptyId
-                }
             }
 
 //            intent?.let { intent ->
@@ -92,7 +85,7 @@ class NoteFragment : Fragment() {
                     }
                 }
             startForResult(Intent(context, LabelListActivity::class.java).apply {
-                putExtra("id", id)
+                putExtra("id", viewModel.data.value?.id)
             })
         }
 
@@ -160,7 +153,8 @@ class NoteFragment : Fragment() {
             true
         }
         R.id.action_edit -> {
-            binding?.editing = true
+            viewModel.data.value?.editing = true
+            binding?.invalidateAll()
             true
         }
         else -> {
@@ -169,19 +163,12 @@ class NoteFragment : Fragment() {
     }
 
     fun insertOrUpdateNote() {
-        val labelId = activity?.intent?.extras?.get(getString(R.string.labelIdKey))
-        val note = viewModel.data.value
+        val note = viewModel.data.value ?: return
 
-        val validLabelId: Long? =
-            if (labelId != null && labelId is Long && labelId > 0) labelId
-            else null
+        val isInsert = this.id == null
+        val inUpdate = this.noteBeforeEditing != note
 
-        val noteBeforeEditing = this.noteBeforeEditing
-
-        val isInsert = note?.id == null || note.id == 0L
-        val inUpdate = noteBeforeEditing != note
-
-        if (!inUpdate && !inUpdate) {
+        if (!isInsert && !inUpdate) {
             activity?.setResult(Activity.RESULT_CANCELED)
             activity?.finish()
             return
@@ -191,10 +178,10 @@ class NoteFragment : Fragment() {
             try {
                 if (isInsert) {
                     HomeActivity.scrollToTop = isInsert
-                    viewModel.insertNote(validLabelId)
-                } else if (inUpdate) {
-                    viewModel.updateNote()
                 }
+
+                note.editing = note.title.isEmpty()
+                viewModel.updateNote()
 
                 activity?.setResult(Activity.RESULT_OK)
                 activity?.finish()

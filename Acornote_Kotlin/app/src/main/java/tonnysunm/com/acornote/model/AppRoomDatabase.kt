@@ -23,7 +23,7 @@ class DataTypeConverter {
     }
 }
 
-@Database(entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class], version = 1)
+@Database(entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class], version = 2)
 @TypeConverters(DataTypeConverter::class)
 abstract class AppRoomDatabase : RoomDatabase() {
 
@@ -37,6 +37,14 @@ abstract class AppRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppRoomDatabase? = null
 
+//        private val MIGRATION_1_2 = object : Migration(1, 2) {
+//            override fun migrate(database: SupportSQLiteDatabase) {
+//                database.execSQL(
+//                    "ALTER TABLE note_table ADD COLUMN editing INTEGER DEFAULT 0"
+//                )
+//            }
+//        }
+
         fun getDatabase(context: Context): AppRoomDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
@@ -44,11 +52,14 @@ abstract class AppRoomDatabase : RoomDatabase() {
             }
 
             synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppRoomDatabase::class.java,
-                    "acornote_db"
-                ).build()
+                val instance = Room
+                    .databaseBuilder(
+                        context.applicationContext,
+                        AppRoomDatabase::class.java,
+                        "acornote_db"
+                    )
+//                    .addMigrations(MIGRATION_1_2)
+                    .build()
 
                 INSTANCE = instance
 

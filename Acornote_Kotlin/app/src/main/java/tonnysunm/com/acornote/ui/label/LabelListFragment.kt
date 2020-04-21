@@ -18,7 +18,8 @@ private val TAG = "LabelListFragment"
 class LabelListFragment : Fragment() {
     private val id by lazy {
         val id = activity?.intent?.getLongExtra("id", EmptyId)
-        if (id != null && id > 0L) id else null
+        Log.d(TAG, "$id")
+        if (id != null && id > 0L) id else 0L
     }
 
     val viewModel: EditLabelViewModel by viewModels {

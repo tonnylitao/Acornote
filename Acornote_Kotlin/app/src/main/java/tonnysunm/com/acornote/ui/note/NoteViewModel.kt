@@ -2,6 +2,7 @@ package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,36 +48,50 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                 val regex = Regex("^“(.*)” by  https://link.medium.com/")
                 val match = regex.find(it)
                 match?.groups?.last()?.value
-            } ?: ""
+            }
 
-            MutableLiveData(
-                Note(
-                    title = textRemoveMediumLink,
-                    order = 0,
-                    star = intent.getBooleanExtra("star", false)
-                )
-            )
-        }
-    }
+            val star = intent.getBooleanExtra("star", false)
 
-    suspend fun insertNote(labelId: Long?) {
-        val note = data.value ?: throw IllegalStateException("note is not set")
-        if (note.title.trim().isEmpty()) throw IllegalStateException("title is null")
+            repository.noteDao.noteEditing().switchMap {
+                if (it == null) {
+                    val note = Note(
+                        title = textRemoveMediumLink ?: "",
+                        order = 0,
+                        star = star,
+                        editing = true
+                    )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            note.order = repository.noteDao.maxOrder() + 1
+                    viewModelScope.launch(Dispatchers.IO) {
+                        note.order = repository.noteDao.maxOrder() + 1
 
-            val noteId = repository.noteDao.insert(note)
+                        val newId = repository.noteDao.insert(note)
+                        data.value?.id = newId
 
-            if (labelId != null) {
-                repository.noteLabelDao.insert(NoteLabel(noteId = noteId, labelId = labelId))
+                        val labelId = intent.getLongExtra("labelId", 0)
+                        if (labelId > 0) {
+                            repository.noteLabelDao.insert(
+                                NoteLabel(noteId = newId, labelId = labelId)
+                            )
+                        }
+
+                        Log.d("TAG", "insert new note $newId")
+                    }
+
+                    MutableLiveData(note)
+                } else {
+                    Log.d("TAG", "find editing note $it")
+                    if (!textRemoveMediumLink.isNullOrEmpty()) {
+                        it.title = textRemoveMediumLink
+                    }
+
+                    MutableLiveData(it)
+                }
             }
         }
     }
 
     suspend fun updateNote() {
         val note = data.value ?: throw IllegalStateException("note is not set")
-        if (note.title.isEmpty()) throw IllegalStateException("title is null")
 
         note.updatedAt = Date().time
         repository.noteDao.update(note)

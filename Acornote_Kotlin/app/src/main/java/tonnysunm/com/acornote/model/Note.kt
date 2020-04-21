@@ -35,7 +35,9 @@ data class Note(
     @ColumnInfo(name = "updated_at")
     var updatedAt: Long = Date().time,
 
-    var imageUrls: List<String>? = null
+    var imageUrls: List<String>? = null,
+
+    var editing: Boolean?
 ) : SQLEntity {
     @Ignore
     val hasImage: Boolean = imageUrls != null && imageUrls!!.isNotEmpty()

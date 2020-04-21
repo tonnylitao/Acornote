@@ -19,7 +19,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.app_bar_navigation.*
 import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.note.NoteActivity
-import tonnysunm.com.acornote.widget.ScreenActionReceiver
 
 class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -73,9 +72,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
             })
         }
-
-        val receiver = ScreenActionReceiver()
-        registerReceiver(receiver, receiver.getFilter())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -28,7 +28,7 @@ class Repository(private val application: Context) {
     fun notes(filter: NoteFilter): DataSource.Factory<Int, Note> = when (filter) {
         is NoteFilter.All -> {
             Log.d("ROOM", "get all")
-            noteDao.getAll()
+            noteDao.getPagingAll()
         }
         is NoteFilter.Star -> {
             Log.d("ROOM", "get star")

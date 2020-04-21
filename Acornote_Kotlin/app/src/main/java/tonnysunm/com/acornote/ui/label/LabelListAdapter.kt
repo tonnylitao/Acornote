@@ -7,10 +7,8 @@ import androidx.fragment.app.findFragment
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import tonnysunm.com.acornote.HomeActivity
 import tonnysunm.com.acornote.databinding.ListItemLabelBinding
 import tonnysunm.com.acornote.model.LabelWithCheckStatus
-import tonnysunm.com.acornote.model.NoteLabel
 
 class LabelListAdapter :
     PagedListAdapter<LabelWithCheckStatus, LabelListAdapter.ViewHolder>(DiffCallback) {
