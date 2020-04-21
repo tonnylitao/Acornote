@@ -1,6 +1,7 @@
 package tonnysunm.com.acornote.ui.note
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.*
@@ -42,12 +43,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         if (id > EmptyId) {
             repository.noteDao.note(id)
         } else {
-            val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+            val text: String? = intent.getStringExtra(Intent.EXTRA_TEXT)
+                ?: intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
+
 
             val textRemoveMediumLink = text?.let {
                 val regex = Regex("^“(.*)” by  https://link.medium.com/")
                 val match = regex.find(it)
-                match?.groups?.last()?.value
+                match?.groups?.last()?.value ?: it
             }
 
             val star = intent.getBooleanExtra("star", false)
@@ -67,11 +70,22 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         val newId = repository.noteDao.insert(note)
                         data.value?.id = newId
 
-                        val labelId = intent.getLongExtra("labelId", 0)
+                        val sharedPref =
+                            application.getSharedPreferences("acronote", Context.MODE_PRIVATE)
+                        val prefLabelId = sharedPref.getLong("default_label_id", 0)
+
+                        var labelId = intent.getLongExtra("labelId", 0)
+                        if (labelId == 0L) {
+                            labelId = prefLabelId
+                        }
+
                         if (labelId > 0) {
-                            repository.noteLabelDao.insert(
-                                NoteLabel(noteId = newId, labelId = labelId)
-                            )
+                            try {
+                                repository.noteLabelDao.insert(
+                                    NoteLabel(noteId = newId, labelId = labelId)
+                                )
+                            } catch (e: Exception) {
+                            }
                         }
 
                         Log.d("TAG", "insert new note $newId")

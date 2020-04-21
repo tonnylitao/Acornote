@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
+
+        <variable
+            name="editLabel"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="editColor"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="save"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?attr/actionBarSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@color/colorAccent"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Note"
+                    android:singleLine="false"
+                    android:layout_margin="16dp"
+                    android:layout_marginBottom="0dp"
+                    android:textSize="30sp"
+                    android:background="@null"
+                    android:text="@={viewModel.data.title}" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:textSize="20sp"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:text="@={viewModel.data.description}" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            app:contentInsetStart="5dp"
+            app:contentInsetEnd="5dp"
+            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}">
+
+            <ImageButton
+                android:id="@+id/link"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="false"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="centerInside"
+                android:padding="12dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_camera" />
+
+            <ImageButton
+                android:id="@+id/audio"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_album"
+                android:layout_marginEnd="5dp"
+                android:padding="12dp" />
+
+            <ImageButton
+                android:id="@+id/flippable"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_mic"
+                android:layout_marginEnd="5dp"
+                android:padding="12dp" />
+
+            <ImageButton
+                android:id="@+id/emoji"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_label"
+                android:padding="12dp"
+                android:onClick="@{editLabel}" />
+
+            <ImageButton
+                android:id="@+id/color"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_color"
+                android:padding="12dp"
+                android:onClick="@{editColor}" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SAVE ACORNOTE"
+            android:onClick="@{save}" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="?android:actionBarSize"
+            android:visibility="gone">
+
+            <fragment
+                android:id="@+id/color_tag_fragment"
+                android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_colortags_horizontal" />
+        </FrameLayout>
+    </LinearLayout>
+
+</layout>
