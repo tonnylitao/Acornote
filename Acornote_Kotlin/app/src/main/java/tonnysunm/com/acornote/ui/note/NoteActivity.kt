@@ -22,11 +22,6 @@ class NoteActivity : AppCompatActivity(R.layout.activity_note) {
         return true
     }
 
-    override fun onBackPressed() {
-        insertOrUpdateNote()
-        super.onBackPressed()
-    }
-
     private fun insertOrUpdateNote() {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_edit_note) as? NoteFragment

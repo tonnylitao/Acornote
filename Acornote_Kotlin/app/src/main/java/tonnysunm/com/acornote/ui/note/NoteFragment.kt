@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -95,6 +96,12 @@ class NoteFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                insertOrUpdateNote()
+            }
+        })
+
         this.binding = binding
         return binding.root
     }
@@ -163,6 +170,7 @@ class NoteFragment : Fragment() {
     }
 
     fun insertOrUpdateNote() {
+
         val note = viewModel.data.value ?: return
 
         val isInsert = this.id == null
