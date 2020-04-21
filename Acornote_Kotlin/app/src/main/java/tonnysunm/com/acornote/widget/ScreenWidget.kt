@@ -3,8 +3,10 @@ package tonnysunm.com.acornote.widget
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.widget.RemoteViews
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -20,26 +22,19 @@ class ScreenWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
 
-    override fun onEnabled(context: Context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    override fun onDisabled(context: Context) {
-        // Enter relevant functionality for when the last widget is disabled
-    }
+    override fun onEnabled(context: Context) {}
+    override fun onDisabled(context: Context) {}
 
     private fun updateAppWidget(
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetId: Int
     ) {
-
         //
         val repository = Repository(context)
         GlobalScope.launch(Dispatchers.IO) {
@@ -62,6 +57,23 @@ class ScreenWidget : AppWidgetProvider() {
                 }
             }
         }
+    }
 
+    //Receiver
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val ctx = context ?: return
+        val action = intent?.action ?: return
+
+        if (action == Intent.ACTION_USER_PRESENT) {
+            val manager = AppWidgetManager.getInstance(ctx)
+            val ids = manager.getAppWidgetIds(ComponentName(ctx, ScreenWidget::class.java))
+            onUpdate(context, manager, ids)
+        } else {
+            super.onReceive(context, intent)
+        }
+    }
+
+    fun getFilter() = IntentFilter().apply {
+        addAction(Intent.ACTION_USER_PRESENT)
     }
 }
