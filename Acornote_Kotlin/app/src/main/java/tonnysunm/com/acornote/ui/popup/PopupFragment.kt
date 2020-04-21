@@ -14,14 +14,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentPopupBinding
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
 import tonnysunm.com.acornote.ui.note.NoteViewModel
 
 
-class PopupFragment : Fragment(R.layout.fragment_popup) {
+class PopupFragment : Fragment() {
 
     private var binding: FragmentPopupBinding? = null
 
