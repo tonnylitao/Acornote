@@ -53,10 +53,6 @@ class NoteListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNotesBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = this.mViewModel
-
         val adapter = NoteListAdapter()
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
             adapter.submitList(it)
@@ -71,8 +67,15 @@ class NoteListFragment : Fragment() {
                 }
             }
         })
-        binding.recyclerview.adapter = adapter
-        
+
+        val fragment = this
+        val binding = FragmentNotesBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.mViewModel
+
+            recyclerview.adapter = adapter
+        }
+
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (!HomeActivity.scrollToTop) return

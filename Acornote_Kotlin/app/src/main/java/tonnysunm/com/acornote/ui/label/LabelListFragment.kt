@@ -34,29 +34,31 @@ class LabelListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        val binding = FragmentLabelsBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-
         val adapter = LabelListAdapter()
+
+        val fragment = this
+        val binding = FragmentLabelsBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.viewModel
+
+            recyclerview.adapter = adapter
+
+            editText.setOnEditorActionListener() { v, keyCode, _ ->
+                if (keyCode == EditorInfo.IME_ACTION_DONE) {
+                    val textView = v as TextView
+                    fragment.viewModel.createLabel(textView.text.toString())
+
+                    textView.text = null
+                    return@setOnEditorActionListener false
+                }
+                false
+            }
+        }
+
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
             Log.d(TAG, it.toString())
             adapter.submitList(it)
         })
-
-        binding.recyclerview.adapter = adapter
-
-        binding.editText.setOnEditorActionListener() { v, keyCode, _ ->
-            if (keyCode == EditorInfo.IME_ACTION_DONE) {
-                val textView = v as TextView
-                viewModel.createLabel(textView.text.toString())
-
-                textView.text = null
-                return@setOnEditorActionListener false
-            }
-            false
-        }
 
         return binding.root
     }

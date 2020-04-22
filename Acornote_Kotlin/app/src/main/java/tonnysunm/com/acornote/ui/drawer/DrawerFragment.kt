@@ -23,17 +23,19 @@ class DrawerFragment : Fragment() {
 
     private val mViewModel: DrawerViewModel by viewModels()
 
-    private lateinit var homeSharedModel: HomeSharedViewModel
+    private val homeSharedModel: HomeSharedViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentDrawerBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = this.mViewModel
-
-        homeSharedModel = ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
+        val fragment = this
+        val binding = FragmentDrawerBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.mViewModel
+        }
 
         mViewModel.allNotesCountLiveData.observe(viewLifecycleOwner, Observer {
             val item = binding.navView.menu.findItem(R.id.nav_all)

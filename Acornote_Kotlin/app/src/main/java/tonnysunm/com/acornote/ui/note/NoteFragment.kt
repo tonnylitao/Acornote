@@ -45,9 +45,34 @@ class NoteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNoteBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        val fragment = this
+
+        val binding = FragmentNoteBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.viewModel
+
+            if (id == null) {
+                titleView.requestFocus()
+            }
+
+            viewPager.adapter = ScreenSlidePagerAdapter(requireActivity())
+
+            editLabel = View.OnClickListener {
+                val startForResult =
+                    requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                        }
+                    }
+
+                startForResult(Intent(context, LabelListActivity::class.java).apply {
+                    putExtra("id", fragment.viewModel.data.value?.id)
+                })
+            }
+
+            editColor = View.OnClickListener {
+
+            }
+        }
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
             if (it != null) { //been deleted
@@ -72,27 +97,6 @@ class NoteFragment : Fragment() {
 //                }
 //            }
         })
-
-        if (id == null) {
-            binding.titleView.requestFocus()
-        }
-
-        binding.viewPager.adapter = ScreenSlidePagerAdapter(requireActivity())
-
-        binding.editLabel = View.OnClickListener {
-            val startForResult =
-                requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
-                    if (it.resultCode == AppCompatActivity.RESULT_OK) {
-                    }
-                }
-            startForResult(Intent(context, LabelListActivity::class.java).apply {
-                putExtra("id", viewModel.data.value?.id)
-            })
-        }
-
-        binding.editColor = View.OnClickListener {
-
-        }
 
         setHasOptionsMenu(true)
 

@@ -18,13 +18,10 @@ class NoteActivity : AppCompatActivity(R.layout.activity_note) {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        insertOrUpdateNote()
-        return true
-    }
-
-    private fun insertOrUpdateNote() {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_edit_note) as? NoteFragment
         fragment?.insertOrUpdateNote()
+
+        return true
     }
 }

@@ -19,7 +19,6 @@ import tonnysunm.com.acornote.ui.label.LabelListActivity
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
 import tonnysunm.com.acornote.ui.note.NoteViewModel
 
-
 class PopupFragment : Fragment() {
 
     private var binding: FragmentPopupBinding? = null
@@ -33,28 +32,29 @@ class PopupFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentPopupBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        val fragment = this
+        val binding = FragmentPopupBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.viewModel
 
-
-        binding.editLabel = View.OnClickListener {
-            val startForResult =
-                requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
-                    if (it.resultCode == AppCompatActivity.RESULT_OK) {
+            editLabel = View.OnClickListener {
+                val startForResult =
+                    requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                        }
                     }
-                }
-            startForResult(Intent(context, LabelListActivity::class.java).apply {
-                putExtra("id", viewModel.data.value?.id)
-            })
-        }
+                startForResult(Intent(context, LabelListActivity::class.java).apply {
+                    putExtra("id", fragment.viewModel.data.value?.id)
+                })
+            }
 
-        binding.editColor = View.OnClickListener {
+            editColor = View.OnClickListener {
 
-        }
+            }
 
-        binding.save = View.OnClickListener {
-            insertOrUpdateNote()
+            save = View.OnClickListener {
+                insertOrUpdateNote()
+            }
         }
 
         setHasOptionsMenu(true)
@@ -63,7 +63,7 @@ class PopupFragment : Fragment() {
         return binding.root
     }
 
-    fun insertOrUpdateNote() {
+    private fun insertOrUpdateNote() {
         val note = viewModel.data.value ?: return
 
         lifecycleScope.launch(Dispatchers.IO) {
