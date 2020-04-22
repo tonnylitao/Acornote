@@ -12,7 +12,7 @@ import kotlin.math.min
 interface NoteDao {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT * from note_table WHERE editing = 0 ORDER BY pinned DESC, `order` DESC, updated_at DESC")
+    @Query("SELECT * from note_table WHERE editing = 0 ORDER BY `order` DESC, updated_at DESC")
     fun getPagingAll(): DataSource.Factory<Int, Note>
 
     @Query("SELECT * from note_table WHERE editing = 0")

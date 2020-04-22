@@ -54,7 +54,17 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val adapter = NoteListAdapter()
+
+        val fragment = this
+        val binding = FragmentNotesBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.mViewModel
+
+            recyclerview.adapter = adapter
+        }
+
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
+            val adapter = binding.recyclerview.adapter as NoteListAdapter
             adapter.submitList(it)
 
             //delay for fix PagedStorageDiffHelper.computeDiff running in background thread
@@ -68,15 +78,8 @@ class NoteListFragment : Fragment() {
             }
         })
 
-        val fragment = this
-        val binding = FragmentNotesBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = fragment
-            viewModel = fragment.mViewModel
-
-            recyclerview.adapter = adapter
-        }
-
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+        adapter.registerAdapterDataObserver(object :
+            RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (!HomeActivity.scrollToTop) return
 

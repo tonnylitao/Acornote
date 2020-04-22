@@ -11,7 +11,7 @@ import tonnysunm.com.acornote.databinding.FragmentColortagsBinding
 
 private val TAG = "ColorTagListFragment"
 
-open class ColorTagListFragment(private val vertical: Boolean = true) : Fragment() {
+open class ColorTagListFragment() : Fragment() {
 
     val viewModel: ColorTagViewModel by viewModels {
         ColorTagViewModelFactory(
@@ -24,18 +24,19 @@ open class ColorTagListFragment(private val vertical: Boolean = true) : Fragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentColortagsBinding.inflate(inflater, container, false)
+        val fragment = this
+        val binding = FragmentColortagsBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = fragment
+            viewModel = fragment.viewModel
 
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+            recyclerview.adapter = ColorTagListAdapter(listOf())
+        }
 
-        val adapter = ColorTagListAdapter(listOf())
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
+            val adapter = binding.recyclerview.adapter as ColorTagListAdapter
             adapter.array = it
             adapter.notifyDataSetChanged()
         })
-
-        binding.recyclerview.adapter = adapter
 
         return binding.root
     }

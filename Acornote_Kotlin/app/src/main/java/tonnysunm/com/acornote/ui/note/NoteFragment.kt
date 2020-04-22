@@ -82,20 +82,6 @@ class NoteFragment : Fragment() {
 
                 updateMenuItems(this.menu, it)
             }
-
-//            intent?.let { intent ->
-//                if (intent.action == Intent.ACTION_SEND && "text/plain" == intent.type) {
-//                    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { title ->
-//                        val regex = Regex("“.*”")
-//                        val match = regex.find(title)
-//
-//                        val startChar: Char = "“".first()
-//                        val endChar: Char = "”".first()
-//                        viewModel.noteEditing.title.value =
-//                            match?.value?.trimStart(startChar)?.trimEnd(endChar)
-//                    }
-//                }
-//            }
         })
 
         setHasOptionsMenu(true)

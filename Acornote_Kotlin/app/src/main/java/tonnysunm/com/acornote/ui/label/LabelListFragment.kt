@@ -34,14 +34,14 @@ class LabelListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val adapter = LabelListAdapter()
+
 
         val fragment = this
         val binding = FragmentLabelsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = fragment
             viewModel = fragment.viewModel
 
-            recyclerview.adapter = adapter
+            recyclerview.adapter = LabelListAdapter()
 
             editText.setOnEditorActionListener() { v, keyCode, _ ->
                 if (keyCode == EditorInfo.IME_ACTION_DONE) {
@@ -56,7 +56,8 @@ class LabelListFragment : Fragment() {
         }
 
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
-            Log.d(TAG, it.toString())
+            val adapter = binding.recyclerview.adapter as LabelListAdapter
+
             adapter.submitList(it)
         })
 

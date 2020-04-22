@@ -27,7 +27,7 @@ class DetailViewModelFactory(private val application: Application, private val f
 class NoteListViewModel(application: Application, filter: NoteFilter) :
     AndroidViewModel(application) {
 
-    val repository: Repository by lazy { Repository(application) }
+    private val repository: Repository by lazy { Repository(application) }
 
     val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
         MutableLiveData(filter)

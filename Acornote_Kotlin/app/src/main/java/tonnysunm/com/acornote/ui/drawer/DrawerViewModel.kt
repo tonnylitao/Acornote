@@ -1,9 +1,12 @@
 package tonnysunm.com.acornote.ui.drawer
 
 import android.app.Application
-import androidx.lifecycle.*
-import kotlinx.coroutines.*
-import tonnysunm.com.acornote.model.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.cancel
+import tonnysunm.com.acornote.model.LabelWithNoteCount
+import tonnysunm.com.acornote.model.Repository
 
 class DrawerViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,6 +29,4 @@ class DrawerViewModel(application: Application) : AndroidViewModel(application) 
 
         viewModelScope.cancel()
     }
-
-
 }

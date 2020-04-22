@@ -3,7 +3,6 @@ package tonnysunm.com.acornote.ui.note
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -87,13 +86,10 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                             } catch (e: Exception) {
                             }
                         }
-
-                        Log.d("TAG", "insert new note $newId")
                     }
 
                     MutableLiveData(note)
                 } else {
-                    Log.d("TAG", "find editing note $it")
                     if (!textRemoveMediumLink.isNullOrEmpty()) {
                         it.title = textRemoveMediumLink
                     }
