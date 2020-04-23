@@ -19,6 +19,7 @@ import tonnysunm.com.acornote.ui.label.LabelListActivity
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
 import tonnysunm.com.acornote.ui.note.NoteViewModel
 
+
 class PopupFragment : Fragment() {
 
     private var binding: FragmentPopupBinding? = null
@@ -36,6 +37,17 @@ class PopupFragment : Fragment() {
         val binding = FragmentPopupBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = fragment
             viewModel = fragment.viewModel
+
+            switchTexts = View.OnClickListener {
+                val note = fragment.viewModel.data.value
+
+                val text = note?.title
+                note?.title = note?.description ?: ""
+                note?.description = text
+
+                //refresh UI
+                viewModel = fragment.viewModel
+            }
 
             editLabel = View.OnClickListener {
                 val startForResult =
@@ -80,5 +92,4 @@ class PopupFragment : Fragment() {
             }
         }
     }
-
 }

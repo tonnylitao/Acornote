@@ -100,6 +100,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         }
     }
 
+    val savable = data.switchMap {
+        MutableLiveData(it.title.isNotEmpty())
+    }
+
+    fun onTitleChanged(text: CharSequence) {
+        (savable as? MutableLiveData<Boolean>)?.value = text.isNotEmpty()
+    }
+
     suspend fun updateNote() {
         val note = data.value ?: throw IllegalStateException("note is not set")
 
@@ -127,3 +135,16 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         }
     }
 }
+
+inline fun <S, T> dependantLiveData(
+    vararg dependencies: LiveData<out S>,
+    defaultValue: T? = null,
+    crossinline mapper: (S) -> T?
+): LiveData<T> =
+    MediatorLiveData<T>().also { mediatorLiveData ->
+        dependencies.forEach { dependencyLiveData ->
+            mediatorLiveData.addSource(dependencyLiveData) {
+                mediatorLiveData.value = mapper(it)
+            }
+        }
+    }.apply { value = defaultValue }

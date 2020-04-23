@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.app_bar_navigation.*
 import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
+
 class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
     companion object {
@@ -54,7 +55,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
         //fab
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-
             val startForResult = prepareCall(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == RESULT_OK) {
                 }

@@ -2,7 +2,6 @@ package tonnysunm.com.acornote.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.util.*
 
@@ -39,9 +38,14 @@ data class Note(
 
     var editing: Boolean?
 ) : SQLEntity {
-    @Ignore
-    val hasImage: Boolean = imageUrls != null && imageUrls!!.isNotEmpty()
 
-    @Ignore
-    val hasDescription: Boolean = description != null && description!!.trim().isNotEmpty()
+    val hasImage: Boolean
+        get() {
+            return imageUrls != null && imageUrls!!.isNotEmpty()
+        }
+
+    val hasDescription: Boolean
+        get() {
+            return description != null && description!!.trim().isNotEmpty()
+        }
 }

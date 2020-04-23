@@ -7,9 +7,15 @@
 
         <import type="android.view.View" />
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="tonnysunm.com.acornote.ui.note.NoteViewModel" />
+
+        <variable
+            name="switchTexts"
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="editLabel"
@@ -61,7 +67,8 @@
                     android:layout_marginBottom="0dp"
                     android:textSize="30sp"
                     android:background="@null"
-                    android:text="@={viewModel.data.title}" />
+                    android:text="@={viewModel.data.title}"
+                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onTitleChanged(text)}" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionView"
@@ -82,43 +89,44 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            app:contentInsetStart="5dp"
+            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}"
             app:contentInsetEnd="5dp"
-            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}">
+            app:contentInsetStart="5dp">
 
             <ImageButton
                 android:id="@+id/link"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
                 android:adjustViewBounds="false"
                 android:background="@android:color/transparent"
+                android:onClick="@{switchTexts}"
                 android:contentDescription="TODO"
-                android:scaleType="centerInside"
                 android:padding="12dp"
-                android:layout_marginEnd="5dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_camera" />
 
             <ImageButton
                 android:id="@+id/audio"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="TODO"
+                android:padding="12dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_album"
-                android:layout_marginEnd="5dp"
-                android:padding="12dp" />
+                android:src="@drawable/ic_album" />
 
             <ImageButton
                 android:id="@+id/flippable"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="TODO"
+                android:padding="12dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_mic"
-                android:layout_marginEnd="5dp"
-                android:padding="12dp" />
+                android:src="@drawable/ic_mic" />
 
             <ImageButton
                 android:id="@+id/emoji"
@@ -126,10 +134,10 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:contentDescription="TODO"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_label"
+                android:onClick="@{editLabel}"
                 android:padding="12dp"
-                android:onClick="@{editLabel}" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_label" />
 
             <ImageButton
                 android:id="@+id/color"
@@ -137,16 +145,17 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:contentDescription="TODO"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_color"
+                android:onClick="@{editColor}"
                 android:padding="12dp"
-                android:onClick="@{editColor}" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_color" />
         </androidx.appcompat.widget.Toolbar>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SAVE ACORNOTE"
+            android:enabled="@{viewModel.savable}"
             android:onClick="@{save}" />
 
         <FrameLayout
