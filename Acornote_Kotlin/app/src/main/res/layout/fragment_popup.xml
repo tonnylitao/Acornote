@@ -104,7 +104,7 @@
                 android:contentDescription="TODO"
                 android:padding="12dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_camera" />
+                android:src="@drawable/ic_switch" />
 
             <ImageButton
                 android:id="@+id/audio"
