@@ -49,3 +49,5 @@ data class Note(
             return description != null && description!!.trim().isNotEmpty()
         }
 }
+
+fun String.textAsTitle() = split(" ").size <= 3

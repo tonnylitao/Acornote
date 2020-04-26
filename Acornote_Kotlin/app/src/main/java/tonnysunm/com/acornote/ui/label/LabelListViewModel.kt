@@ -23,7 +23,7 @@ class EditLabelViewModelFactory(
 
 private val TAG = "EditLabelViewModel"
 
-class EditLabelViewModel(val app: Application, noteId: Long) :
+class EditLabelViewModel(app: Application, noteId: Long) :
     AndroidViewModel(app) {
 
     private val repository: Repository by lazy { Repository(app) }
@@ -38,7 +38,7 @@ class EditLabelViewModel(val app: Application, noteId: Long) :
 
         viewModelScope.launch {
             val sharedPref =
-                app.getSharedPreferences("acronote", Context.MODE_PRIVATE)
+                getApplication<Application>().getSharedPreferences("acronote", Context.MODE_PRIVATE)
 
             if (!lwcs.checked) {
                 sharedPref.edit().putLong("default_label_id", lwcs.id).apply()

@@ -3,6 +3,7 @@ package tonnysunm.com.acornote
 import android.app.Application
 import tonnysunm.com.acornote.widget.ScreenWidget
 
+
 /**
  *
  */

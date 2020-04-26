@@ -1,6 +1,9 @@
 package tonnysunm.com.acornote.ui.popup
 
 import android.app.Activity
+import android.content.ClipDescription
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +14,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.FragmentPopupBinding
+import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.model.textAsTitle
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
 import tonnysunm.com.acornote.ui.note.NoteViewModel
@@ -91,5 +98,36 @@ class PopupFragment : Fragment() {
                 activity?.finish()
             }
         }
+    }
+
+    fun onWindowFocus() {
+        val fragment = this
+        viewModel.data.observe(viewLifecycleOwner, Observer {
+            val text = getCopyText()
+            if (it.title.isEmpty() && it.description == null && text != null) {
+                if (text.textAsTitle()) {
+                    it.title = text
+                } else {
+                    it.description = text
+                }
+
+                (viewModel.data as? MutableLiveData<Note>)?.postValue(it)
+            }
+
+            viewModel.data.removeObservers(fragment.viewLifecycleOwner)
+        })
+    }
+
+    private fun getCopyText(): String? {
+        val clipboard =
+            context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return null
+
+        if (clipboard.hasPrimaryClip() &&
+            clipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) == true
+        ) {
+            return clipboard.primaryClip?.getItemAt(0)?.text.toString()
+        }
+
+        return null
     }
 }

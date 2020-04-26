@@ -6,10 +6,7 @@ import android.content.Intent
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.model.EmptyId
-import tonnysunm.com.acornote.model.Note
-import tonnysunm.com.acornote.model.NoteLabel
-import tonnysunm.com.acornote.model.Repository
+import tonnysunm.com.acornote.model.*
 import java.util.*
 
 
@@ -28,7 +25,7 @@ private val TAG = "NoteViewModel"
 class NoteViewModel(application: Application, private val intent: Intent) :
     AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    val repository: Repository by lazy { Repository(application) }
 
     val isCreateNewNote: Boolean
         get() {
@@ -42,9 +39,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         if (id > EmptyId) {
             repository.noteDao.note(id)
         } else {
-            val text: String? = intent.getStringExtra(Intent.EXTRA_TEXT)
-                ?: intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
-
+            val text: String? = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
 
             val textRemoveMediumLink = text?.let {
                 val regex = Regex("^“(.*)” by  https://link.medium.com/")
@@ -57,11 +52,19 @@ class NoteViewModel(application: Application, private val intent: Intent) :
             repository.noteDao.noteEditing().switchMap {
                 if (it == null) {
                     val note = Note(
-                        title = textRemoveMediumLink ?: "",
+                        title = "",
                         order = 0,
                         star = star,
                         editing = true
                     )
+
+                    if (!textRemoveMediumLink.isNullOrEmpty()) {
+                        if (textRemoveMediumLink.textAsTitle()) {
+                            note.title = textRemoveMediumLink
+                        } else {
+                            note.description = textRemoveMediumLink
+                        }
+                    }
 
                     viewModelScope.launch(Dispatchers.IO) {
                         note.order = repository.noteDao.maxOrder() + 1
@@ -91,7 +94,13 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                     MutableLiveData(note)
                 } else {
                     if (!textRemoveMediumLink.isNullOrEmpty()) {
-                        it.title = textRemoveMediumLink
+                        if (textRemoveMediumLink.textAsTitle()) {
+                            it.title = textRemoveMediumLink
+                            it.description = null
+                        } else {
+                            it.title = ""
+                            it.description = textRemoveMediumLink
+                        }
                     }
 
                     MutableLiveData(it)

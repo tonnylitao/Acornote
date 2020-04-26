@@ -29,4 +29,11 @@
     <string name="action_edit">Edit</string>
     <string name="appwidget_text">Hello</string>
     <string name="add_widget">Add widget</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+
+    <string name="setting_overlay_title">Allow Acornote Later</string>
+    <string name="setting_overlay_on">When enabled, the float button appear and save the note temporarily</string>
+    <string name="setting_overlay_off">When disabled, the float button will disappear.</string>
 </resources>

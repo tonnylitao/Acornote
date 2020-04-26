@@ -182,10 +182,9 @@ class NoteFragment : Fragment() {
                 viewModel.updateNote()
 
                 activity?.setResult(Activity.RESULT_OK)
-                activity?.finish()
             } catch (e: Exception) {
-            } finally {
                 activity?.setResult(Activity.RESULT_CANCELED)
+            } finally {
                 activity?.finish()
             }
         }

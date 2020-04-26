@@ -30,6 +30,9 @@ interface NoteDao {
     @Query("SELECT * from note_table WHERE editing = 0 AND color_tag_id = :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getByColorTag(id: Long): DataSource.Factory<Int, Note>
 
+    @Query("SELECT count(*) from note_table WHERE title = :title")
+    fun getCountByString(title: String): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: Note): Long
 
@@ -82,7 +85,6 @@ interface NoteDao {
         )
         updateOrder(target, to - from)
     }
-
 }
 
 

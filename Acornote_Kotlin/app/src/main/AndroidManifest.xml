@@ -7,6 +7,9 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:name=".App"
@@ -16,6 +19,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".HomeActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!--                <action android:name="android.intent.action.SEND" />-->
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
 
         <receiver android:name=".widget.ScreenWidget">
             <intent-filter>
@@ -27,15 +52,12 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
-        <activity
-            android:name=".HomeActivity"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <!--        <service-->
+        <!--            android:name=".service.BubbleService"-->
+        <!--            android:enabled="true"-->
+        <!--            android:exported="false" />-->
+
+
         <activity
             android:name=".ui.note.NoteActivity"
             android:label=""
@@ -43,8 +65,8 @@
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
 
-                <!--                 <action android:name="android.intent.action.MAIN" /> -->
-                <!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
                 <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>
@@ -73,17 +95,40 @@
             </intent-filter>
         </activity>
 
+        <!--        <service-->
+        <!--            android:name=".service.BubbleService"-->
+        <!--            android:enabled="true"-->
+        <!--            android:exported="false"-->
+        <!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+
+        <activity
+            android:name=".ui.popup.InvisibleActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.Transparent"
+            android:label="Acornote Invisible">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ui.popup.PopupActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.Dialog">
+            android:theme="@style/AppTheme.Dialog"
+            android:label="Acornote Popup">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />-->
-                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
 
                 <action android:name="android.intent.action.PROCESS_TEXT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>

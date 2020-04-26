@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="settings_overlay"
+        app:title="@string/setting_overlay_title"
+        app:summaryOff="@string/setting_overlay_on"
+        app:summaryOn="@string/setting_overlay_on"
+         />
+
+</PreferenceScreen>
