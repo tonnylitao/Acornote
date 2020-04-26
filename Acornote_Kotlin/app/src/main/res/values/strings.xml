@@ -33,7 +33,6 @@
 
     <!-- Preference Titles -->
 
-    <string name="setting_overlay_title">Allow Acornote Later</string>
-    <string name="setting_overlay_on">When enabled, the float button appear and save the note temporarily</string>
-    <string name="setting_overlay_off">When disabled, the float button will disappear.</string>
+    <string name="setting_invisible_title">Allow Acornote Invisible</string>
+    <string name="setting_invisible_des">When enabled, Acornote can be created with last label without popup in other app.</string>
 </resources>

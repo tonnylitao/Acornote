@@ -14,6 +14,7 @@ import tonnysunm.com.acornote.model.Repository
 import java.io.*
 import java.lang.reflect.Type
 
+//~/Library/Android/sdk/platform-tools/adb connect 192.168.20.5:5555
 
 object BackupFile {
     private fun exportDataToJSON(context: Context) {
@@ -110,4 +111,12 @@ object BackupFile {
         return stringBuilder.toString()
     }
 
+//    private fun showOverlayIfNecessary() {
+//        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+//        val overlayEnabled = prefs.getBoolean("settings_overlay", false)
+//
+//        if (overlayEnabled && Settings.canDrawOverlays(this)) {
+//            startService(Intent(this, BubbleService::class.java))
+//        }
+//    }
 }

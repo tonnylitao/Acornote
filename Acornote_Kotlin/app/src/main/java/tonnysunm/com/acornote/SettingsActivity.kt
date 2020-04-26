@@ -1,14 +1,10 @@
 package tonnysunm.com.acornote
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import kotlinx.android.synthetic.main.activity_note.*
-import tonnysunm.com.acornote.service.BubbleService
 
 class SettingsActivity : AppCompatActivity(R.layout.settings_activity) {
 
@@ -16,7 +12,6 @@ class SettingsActivity : AppCompatActivity(R.layout.settings_activity) {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(toolbar)
-        //set drawer icon
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -26,19 +21,20 @@ class SettingsActivity : AppCompatActivity(R.layout.settings_activity) {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
-        private val INTENT_REQUEST_CODE = 10
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            preferenceManager.findPreference<SwitchPreferenceCompat>("settings_overlay")
+            preferenceManager.findPreference<SwitchPreferenceCompat>("settings_invisible")
                 ?.setOnPreferenceChangeListener { _, newValue ->
-                    val bool: Boolean = newValue as Boolean
+                    val enabled: Boolean = newValue as Boolean
 
-                    enableOverOnApps(bool)
+                    App.updateInvisibleComponent(requireContext(), enabled)
+
+                    true
                 }
         }
-
+        /*
         private fun enableOverOnApps(enabled: Boolean): Boolean {
             val activity = requireActivity()
 
@@ -85,6 +81,8 @@ class SettingsActivity : AppCompatActivity(R.layout.settings_activity) {
 
             super.onActivityResult(requestCode, resultCode, data)
         }
+
+        */
     }
 
 }

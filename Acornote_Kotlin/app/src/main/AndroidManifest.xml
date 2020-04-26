@@ -102,19 +102,6 @@
         <!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
 
         <activity
-            android:name=".ui.popup.InvisibleActivity"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.Transparent"
-            android:label="Acornote Invisible">
-            <intent-filter>
-                <action android:name="android.intent.action.PROCESS_TEXT" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".ui.popup.PopupActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -129,6 +116,19 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.popup.InvisibleActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.Transparent"
+            android:label="Acornote Invisible">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>

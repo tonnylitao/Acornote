@@ -2,7 +2,6 @@ package tonnysunm.com.acornote
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,11 +15,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.app_bar_navigation.*
 import tonnysunm.com.acornote.model.NoteFilter
-import tonnysunm.com.acornote.service.BubbleService
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
 
@@ -73,17 +70,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
                 }
 
             })
-        }
-
-        showOverlayIfNecessary()
-    }
-
-    private fun showOverlayIfNecessary() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val overlayEnabled = prefs.getBoolean("settings_overlay", false)
-
-        if (overlayEnabled && Settings.canDrawOverlays(this)) {
-            startService(Intent(this, BubbleService::class.java))
         }
     }
 

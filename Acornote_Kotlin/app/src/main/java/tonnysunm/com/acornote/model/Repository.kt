@@ -1,10 +1,12 @@
 package tonnysunm.com.acornote.model
 
 import android.content.Context
+import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import androidx.preference.PreferenceManager
 
 class Repository(private val application: Context) {
 
@@ -44,5 +46,13 @@ class Repository(private val application: Context) {
         }
     }
 
+//    private fun showOverlayIfNecessary() {
+//        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+//        val overlayEnabled = prefs.getBoolean("settings_overlay", false)
+//
+//        if (overlayEnabled && Settings.canDrawOverlays(this)) {
+//            startService(Intent(this, BubbleService::class.java))
+//        }
+//    }
 }
 
