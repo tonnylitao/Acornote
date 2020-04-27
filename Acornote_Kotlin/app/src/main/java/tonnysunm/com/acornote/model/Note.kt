@@ -1,8 +1,6 @@
 package tonnysunm.com.acornote.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.util.*
 
 interface SQLEntity
@@ -34,19 +32,30 @@ data class Note(
     @ColumnInfo(name = "updated_at")
     var updatedAt: Long = Date().time,
 
-    var imageUrls: List<String>? = null,
-
     var editing: Boolean?
 ) : SQLEntity {
 
+    val hasDescription: Boolean
+        get() {
+            return description != null && description!!.trim().isNotEmpty()
+        }
+}
+
+data class NoteWrapper(
+    @Embedded
+    val note: Note,
+
+    @Relation(parentColumn = "id", entityColumn = "note_id")
+    var imageUrls: List<Image>?
+) {
     val hasImage: Boolean
         get() {
             return imageUrls != null && imageUrls!!.isNotEmpty()
         }
 
-    val hasDescription: Boolean
+    val coverUrl: String?
         get() {
-            return description != null && description!!.trim().isNotEmpty()
+            return imageUrls?.firstOrNull()?.url
         }
 }
 

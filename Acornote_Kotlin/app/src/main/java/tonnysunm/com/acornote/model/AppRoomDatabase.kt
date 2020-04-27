@@ -23,7 +23,10 @@ class DataTypeConverter {
     }
 }
 
-@Database(entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class], version = 2)
+@Database(
+    entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class, Image::class],
+    version = 1
+)
 @TypeConverters(DataTypeConverter::class)
 abstract class AppRoomDatabase : RoomDatabase() {
 
@@ -31,6 +34,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
     abstract fun noteLabelDao(): NoteLabelDao
     abstract fun colorTagDao(): ColorTagDao
+    abstract fun imageDao(): ImageDao
 
     //
     companion object {

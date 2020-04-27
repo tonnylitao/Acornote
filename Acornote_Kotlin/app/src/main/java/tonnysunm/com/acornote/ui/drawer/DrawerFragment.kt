@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
-import tonnysunm.com.acornote.HomeSharedViewModel
+import tonnysunm.com.acornote.ui.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentDrawerBinding
 import tonnysunm.com.acornote.model.NoteFilter

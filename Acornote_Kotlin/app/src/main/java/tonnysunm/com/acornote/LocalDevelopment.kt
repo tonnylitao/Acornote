@@ -119,4 +119,17 @@ object BackupFile {
 //            startService(Intent(this, BubbleService::class.java))
 //        }
 //    }
+
+    fun initialImage() {
+        //        viewModelScope.launch(Dispatchers.IO) {
+//            Log.d("TAG", "find all images")
+//
+//            repository.imageDao.insert(
+//                Image(
+//                    url = "https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__aWxvdmVrZWxseQo_FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg",
+//                    noteId = 1
+//                )
+//            )
+//        }
+    }
 }

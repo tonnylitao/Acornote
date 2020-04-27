@@ -9,10 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.extensions.getColorString
-import tonnysunm.com.acornote.model.ColorTag
-import tonnysunm.com.acornote.model.Note
-import tonnysunm.com.acornote.model.NoteFilter
-import tonnysunm.com.acornote.model.Repository
+import tonnysunm.com.acornote.model.*
 
 
 class DetailViewModelFactory(private val application: Application, private val filter: NoteFilter) :
@@ -40,7 +37,7 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
 //        }
 //    }
 
-    val data: LiveData<PagedList<Note>> = noteFilterLiveData.switchMap {
+    val data: LiveData<PagedList<NoteWrapper>> = noteFilterLiveData.switchMap {
         repository.notes(it).toLiveData(pageSize = 5)
     }
 

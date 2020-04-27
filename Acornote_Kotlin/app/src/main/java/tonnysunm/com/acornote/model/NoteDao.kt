@@ -10,10 +10,10 @@ import kotlin.math.min
 
 @Dao
 interface NoteDao {
-
+    //'[' || GROUP_CONCAT(b.url || '') || ']'
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT * from note_table WHERE editing = 0 ORDER BY `order` DESC, updated_at DESC")
-    fun getPagingAll(): DataSource.Factory<Int, Note>
+    @Query("SELECT * FROM note_table WHERE editing = 0 ORDER BY `order` DESC, updated_at DESC")
+    fun getPagingAll(): DataSource.Factory<Int, NoteWrapper>
 
     @Query("SELECT * from note_table WHERE editing = 0")
     fun getAll(): List<Note>
@@ -21,14 +21,14 @@ interface NoteDao {
     @Query("SELECT * from note_table WHERE editing = 0 AND title NOT LIKE 'http%' ORDER BY RANDOM() LIMIT 1")
     fun getRandom(): Note?
 
-    @Query("SELECT * from note_table WHERE editing = 0 AND star == 1  ORDER BY pinned DESC, `order` DESC, updated_at DESC")
-    fun getStar(): DataSource.Factory<Int, Note>
+    @Query("SELECT * from note_table WHERE editing = 0 AND star == 1 ORDER BY pinned DESC, `order` DESC, updated_at DESC")
+    fun getStar(): DataSource.Factory<Int, NoteWrapper>
 
-    @Query("SELECT a.* from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE a.editing = 0 AND b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.updated_at DESC")
-    fun getByLabel(id: Long): DataSource.Factory<Int, Note>
+    @Query("SELECT * from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE a.editing = 0 AND b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.updated_at DESC")
+    fun getByLabel(id: Long): DataSource.Factory<Int, NoteWrapper>
 
     @Query("SELECT * from note_table WHERE editing = 0 AND color_tag_id = :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
-    fun getByColorTag(id: Long): DataSource.Factory<Int, Note>
+    fun getByColorTag(id: Long): DataSource.Factory<Int, NoteWrapper>
 
     @Query("SELECT count(*) from note_table WHERE title = :title")
     fun getCountByString(title: String): Int

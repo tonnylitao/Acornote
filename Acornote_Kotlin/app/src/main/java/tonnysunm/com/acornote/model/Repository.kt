@@ -1,12 +1,10 @@
 package tonnysunm.com.acornote.model
 
 import android.content.Context
-import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import androidx.preference.PreferenceManager
 
 class Repository(private val application: Context) {
 
@@ -14,6 +12,7 @@ class Repository(private val application: Context) {
     val noteDao by lazy { AppRoomDatabase.getDatabase(application).noteDao() }
     val noteLabelDao by lazy { AppRoomDatabase.getDatabase(application).noteLabelDao() }
     val colorTagDao by lazy { AppRoomDatabase.getDatabase(application).colorTagDao() }
+    val imageDao by lazy { AppRoomDatabase.getDatabase(application).imageDao() }
 
     // Label
     val labels = labelDao.getLabelsWithNoteCount()
@@ -27,7 +26,7 @@ class Repository(private val application: Context) {
     }
 
     // Note
-    fun notes(filter: NoteFilter): DataSource.Factory<Int, Note> = when (filter) {
+    fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWrapper> = when (filter) {
         is NoteFilter.All -> {
             Log.d("ROOM", "get all")
             noteDao.getPagingAll()

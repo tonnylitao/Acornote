@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import tonnysunm.com.acornote.HomeActivity
-import tonnysunm.com.acornote.HomeSharedViewModel
+import tonnysunm.com.acornote.ui.HomeActivity
+import tonnysunm.com.acornote.ui.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentColortagsHorizontalBinding
 import tonnysunm.com.acornote.model.ColorTag

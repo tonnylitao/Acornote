@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,14 +15,15 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import tonnysunm.com.acornote.HomeActivity
+import com.bumptech.glide.Glide
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
-import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.model.NoteWrapper
+import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
 
 class NoteListAdapter :
-    PagedListAdapter<Note, NoteListAdapter.ViewHolder>(DiffCallback) {
+    PagedListAdapter<NoteWrapper, NoteListAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -42,13 +44,13 @@ class NoteListAdapter :
         //heck for drag and drop to move items in PagedList
         var disableAnimation = false
 
-        private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
+        private val DiffCallback = object : DiffUtil.ItemCallback<NoteWrapper>() {
 
-            override fun areItemsTheSame(old: Note, aNew: Note): Boolean {
-                return disableAnimation || old.id == aNew.id
+            override fun areItemsTheSame(old: NoteWrapper, aNew: NoteWrapper): Boolean {
+                return disableAnimation || old.note.id == aNew.note.id
             }
 
-            override fun areContentsTheSame(old: Note, aNew: Note): Boolean {
+            override fun areContentsTheSame(old: NoteWrapper, aNew: NoteWrapper): Boolean {
                 return disableAnimation || old == aNew
             }
         }
@@ -73,15 +75,15 @@ class NoteListAdapter :
                         }
                     }
                 startForResult(Intent(activity, NoteActivity::class.java).apply {
-                    putExtra("id", note.id)
+                    putExtra("id", note.note.id)
 
-                    Log.d("TAG", "put ${note.id}")
+                    Log.d("TAG", "put ${note.note.id}")
                 })
 
             }
         }
 
-        fun bind(note: Note) {
+        fun bind(note: NoteWrapper) {
             binding.data = note
 
             binding.executePendingBindings()
@@ -137,4 +139,11 @@ fun setLayoutMarginBottom(view: View, dimen: Float) {
     val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
     layoutParams.marginEnd = dimen.toInt()
     view.layoutParams = layoutParams
+}
+
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageButton, imageUrl: String?) {
+    Glide.with(view.context)
+        .load(imageUrl)
+        .into(view)
 }

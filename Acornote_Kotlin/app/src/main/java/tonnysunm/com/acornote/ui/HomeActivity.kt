@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote
+package tonnysunm.com.acornote.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.app_bar_navigation.*
+import tonnysunm.com.acornote.R
+import tonnysunm.com.acornote.SettingsActivity
 import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
@@ -71,6 +73,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
             })
         }
+        
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

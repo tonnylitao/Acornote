@@ -1,4 +1,4 @@
-package tonnysunm.com.acornote
+package tonnysunm.com.acornote.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

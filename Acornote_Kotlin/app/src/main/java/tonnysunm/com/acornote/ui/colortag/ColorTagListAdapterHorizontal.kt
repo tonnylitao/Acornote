@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_note.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.HomeActivity
+import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.databinding.ListItemColortagHorizontalBinding
 import tonnysunm.com.acornote.databinding.ListItemEditBinding
 import tonnysunm.com.acornote.model.ColorTag

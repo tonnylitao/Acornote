@@ -17,7 +17,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.HomeActivity
+import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
 import tonnysunm.com.acornote.model.EmptyId

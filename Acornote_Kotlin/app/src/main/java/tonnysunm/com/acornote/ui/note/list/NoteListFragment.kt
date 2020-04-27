@@ -16,12 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.HomeActivity
-import tonnysunm.com.acornote.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
-import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteFilter
+import tonnysunm.com.acornote.ui.HomeActivity
+import tonnysunm.com.acornote.ui.HomeSharedViewModel
 import java.util.*
 
 
@@ -93,6 +92,7 @@ class NoteListFragment : Fragment() {
             mViewModel.noteFilterLiveData.value = it
         })
 
+        /*
         val touchHelper = ItemTouchHelper(
             ItemTouchHelperCallback(object : ItemTouchHelperAdapter {
                 //get correct note from fromPosition and toPosition after swap
@@ -152,6 +152,7 @@ class NoteListFragment : Fragment() {
         )
 
         touchHelper.attachToRecyclerView(binding.recyclerview)
+        */
 
         mViewModel.createColorTagsIfNecessary(this.requireContext())
 
