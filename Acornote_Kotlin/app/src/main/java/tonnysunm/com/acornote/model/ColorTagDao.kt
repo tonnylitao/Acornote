@@ -6,9 +6,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
-
 @Dao
-interface ColorTagDao {
+interface ColorTagDao : BaseDao<ColorTag> {
     // Room executes all queries on a separate thread. So there is no suspend.
     @Query("SELECT * FROM color_tag_table ORDER BY id DESC")
     fun getAll(): LiveData<List<ColorTag>>

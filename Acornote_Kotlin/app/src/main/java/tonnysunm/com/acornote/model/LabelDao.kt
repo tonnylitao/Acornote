@@ -5,11 +5,10 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 
 
 @Dao
-interface LabelDao {
+interface LabelDao : BaseDao<Label> {
 
     // Room executes all queries on a separate thread. So there is no suspend.
     @Query("SELECT a.*, count(b.id) AS noteCount FROM label_table a LEFT JOIN note_label_table b ON a.id = b.label_id GROUP BY a.id ORDER BY a.created_at DESC")
@@ -26,12 +25,6 @@ interface LabelDao {
 
     @Query("SELECT * from label_table WHERE id = :id LIMIT 1")
     fun getLabel(id: Long): LiveData<Label>
-
-    @Update
-    suspend fun update(label: Label)
-
-    @Insert
-    suspend fun insert(entity: Label): Long
 
     @Insert
     suspend fun insert(entities: List<Label>)

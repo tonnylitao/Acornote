@@ -2,6 +2,7 @@ package tonnysunm.com.acornote.model
 
 import android.content.Context
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -22,6 +23,8 @@ class DataTypeConverter {
         return if (list != null) gson.toJson(list) else null
     }
 }
+
+private val TAG = AppRoomDatabase::class.simpleName
 
 @Database(
     entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class, Image::class],
@@ -62,6 +65,17 @@ abstract class AppRoomDatabase : RoomDatabase() {
                         AppRoomDatabase::class.java,
                         "acornote_db"
                     )
+                    .addCallback(object : RoomDatabase.Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+//                            db.execSQL("")
+                        }
+
+                        override fun onOpen(db: SupportSQLiteDatabase) {
+                            super.onOpen(db)
+//                            db.execSQL("")
+                        }
+                    })
 //                    .addMigrations(MIGRATION_1_2)
                     .build()
 
