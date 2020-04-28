@@ -26,7 +26,7 @@ class NoteListFragment : Fragment() {
 
     private val labelId = arguments?.getInt(getString(R.string.labelIdKey))
 
-    val mViewModel: NoteListViewModel by viewModels {
+    val mViewModel by viewModels<NoteListViewModel> {
         val filter = arguments?.getString("filter") ?: ""
         val labelTitle = arguments?.getString("labelTitle") ?: ""
 

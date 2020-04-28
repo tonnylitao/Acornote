@@ -8,23 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import tonnysunm.com.acornote.ui.HomeActivity
-import tonnysunm.com.acornote.ui.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentColortagsHorizontalBinding
 import tonnysunm.com.acornote.model.ColorTag
 import tonnysunm.com.acornote.model.NoteFilter
+import tonnysunm.com.acornote.ui.HomeActivity
+import tonnysunm.com.acornote.ui.HomeSharedViewModel
 import tonnysunm.com.acornote.ui.note.NoteFragment
 
 private val TAG = "ColorTagListFragmentHorizontal"
 
 open class ColorTagListFragmentHorizontal : Fragment() {
 
-    val viewModel: ColorTagViewModel by viewModels {
-        ColorTagViewModelFactory(
-            requireActivity().application
-        )
-    }
+    val viewModel by viewModels<ColorTagViewModel>()
 
     private val homeSharedModel: HomeSharedViewModel? by lazy {
         val activity = requireActivity()
@@ -40,7 +36,7 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        
         val binding = FragmentColortagsHorizontalBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this

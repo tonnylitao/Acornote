@@ -13,11 +13,7 @@ private val TAG = "ColorTagListFragment"
 
 open class ColorTagListFragment() : Fragment() {
 
-    val viewModel: ColorTagViewModel by viewModels {
-        ColorTagViewModelFactory(
-            requireActivity().application
-        )
-    }
+    val viewModel by viewModels<ColorTagViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

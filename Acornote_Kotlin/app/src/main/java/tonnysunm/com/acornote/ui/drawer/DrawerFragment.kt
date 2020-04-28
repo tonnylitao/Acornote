@@ -21,7 +21,7 @@ import tonnysunm.com.acornote.ui.HomeSharedViewModel
 
 class DrawerFragment : Fragment() {
 
-    private val mViewModel: DrawerViewModel by viewModels()
+    private val mViewModel by viewModels<DrawerViewModel>()
 
     private val homeSharedModel: HomeSharedViewModel by lazy {
         ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)

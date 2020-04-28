@@ -22,11 +22,8 @@ class LabelListFragment : Fragment() {
         if (id != null && id > 0) id else 0
     }
 
-    val viewModel: EditLabelViewModel by viewModels {
-        EditLabelViewModelFactory(
-            requireActivity().application,
-            noteId
-        )
+    val viewModel by viewModels<EditLabelViewModel> {
+        EditLabelViewModelFactory(requireActivity().application, noteId)
     }
 
     override fun onCreateView(

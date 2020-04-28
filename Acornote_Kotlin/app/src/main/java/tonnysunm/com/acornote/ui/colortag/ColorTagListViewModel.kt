@@ -1,20 +1,13 @@
 package tonnysunm.com.acornote.ui.colortag
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.ColorTag
 import tonnysunm.com.acornote.model.Repository
-
-class ColorTagViewModelFactory(
-    private val application: Application
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        ColorTagViewModel(application) as T
-}
 
 private val TAG = "ColorTagViewModel"
 

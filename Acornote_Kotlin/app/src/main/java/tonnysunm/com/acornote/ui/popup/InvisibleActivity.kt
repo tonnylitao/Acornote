@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import tonnysunm.com.acornote.ui.note.EditNoteViewModelFactory
+import tonnysunm.com.acornote.library.ApplicationIntentViewModelFactory
 import tonnysunm.com.acornote.ui.note.NoteViewModel
 
 class InvisibleActivity : AppCompatActivity() {
 
-    private val viewModel: NoteViewModel by viewModels {
-        EditNoteViewModelFactory(this.application, this.intent)
+    private val viewModel by viewModels<NoteViewModel> {
+        ApplicationIntentViewModelFactory(this.application, this.intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

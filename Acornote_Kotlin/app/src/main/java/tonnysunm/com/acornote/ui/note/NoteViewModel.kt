@@ -10,17 +10,6 @@ import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.*
 import java.util.*
 
-
-class EditNoteViewModelFactory(
-    private val application: Application,
-    private val intent: Intent
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        NoteViewModel(application, intent) as T
-}
-
 private val TAG = "NoteViewModel"
 
 class NoteViewModel(application: Application, private val intent: Intent) :

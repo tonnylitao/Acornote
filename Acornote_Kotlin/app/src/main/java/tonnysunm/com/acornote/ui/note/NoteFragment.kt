@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
+import tonnysunm.com.acornote.library.ApplicationIntentViewModelFactory
 import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.ui.HomeActivity
@@ -36,8 +37,8 @@ class NoteFragment : Fragment() {
 
     private var noteBeforeEditing: Note? = null
 
-    val viewModel: NoteViewModel by viewModels {
-        EditNoteViewModelFactory(requireActivity().application, requireActivity().intent)
+    val viewModel by viewModels<NoteViewModel> {
+        ApplicationIntentViewModelFactory(requireActivity().application, requireActivity().intent)
     }
 
     override fun onCreateView(
