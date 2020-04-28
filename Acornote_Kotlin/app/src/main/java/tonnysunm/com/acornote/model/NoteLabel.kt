@@ -34,4 +34,4 @@ data class NoteLabel(
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time
-) : SQLEntity
+)

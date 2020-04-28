@@ -3,8 +3,6 @@ package tonnysunm.com.acornote.model
 import androidx.room.*
 import java.util.*
 
-interface SQLEntity
-
 @Entity(
     tableName = "note_table"
 )
@@ -33,7 +31,7 @@ data class Note(
     var updatedAt: Long = Date().time,
 
     var editing: Boolean?
-) : SQLEntity {
+) {
 
     val hasDescription: Boolean
         get() {

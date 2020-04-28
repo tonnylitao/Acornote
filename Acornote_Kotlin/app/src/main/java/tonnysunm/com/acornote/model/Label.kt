@@ -12,7 +12,7 @@ data class Label(
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time
-) : SQLEntity
+)
 
 data class LabelWithNoteCount(
     @Embedded

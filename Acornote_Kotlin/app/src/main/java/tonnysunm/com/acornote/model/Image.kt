@@ -26,4 +26,4 @@ data class Image(
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time
-) : SQLEntity
+)

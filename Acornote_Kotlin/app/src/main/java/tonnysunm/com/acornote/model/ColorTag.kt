@@ -14,7 +14,7 @@ data class ColorTag(
     var color: String,
 
     var name: String
-) : SQLEntity {
+) {
 
     companion object {
         private val colorNames = mapOf(
