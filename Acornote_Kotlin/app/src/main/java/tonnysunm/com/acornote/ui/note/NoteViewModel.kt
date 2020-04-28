@@ -3,6 +3,7 @@ package tonnysunm.com.acornote.ui.note
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ private val TAG = "NoteViewModel"
 class NoteViewModel(application: Application, private val intent: Intent) :
     AndroidViewModel(application) {
 
-    val repository: Repository by lazy { Repository(application) }
+    private val repository: Repository by lazy { Repository(application) }
 
     val isCreateNewNote: Boolean
         get() {
@@ -140,6 +141,49 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         data.value?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 repository.noteDao.delete(it)
+            }
+        }
+    }
+
+    fun createNote(text: String, block: (String) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            var tips = ""
+            try {
+                if (repository.noteDao.getCountByString(text) > 0) {
+                    tips = "Repeated"
+                } else {
+                    val order = repository.noteDao.maxOrder() + 1
+
+                    val note = Note(
+                        title = text,
+                        order = order,
+                        editing = false
+                    )
+
+                    val newId = repository.noteDao.insert(note)
+
+                    val sharedPref =
+                        getApplication<Application>().getSharedPreferences(
+                            "acronote",
+                            Context.MODE_PRIVATE
+                        )
+                    val labelId = sharedPref.getLong("default_label_id", 0)
+
+                    if (labelId > 0) {
+                        repository.noteLabelDao.insert(
+                            NoteLabel(noteId = newId, labelId = labelId)
+                        )
+                    }
+                    tips = "Save Success"
+                }
+
+            } catch (e: Exception) {
+                Log.d(TAG, e.toString())
+                tips = "Save Failed"
+            } finally {
+                viewModelScope.launch(Dispatchers.Main) {
+                    block(tips)
+                }
             }
         }
     }
