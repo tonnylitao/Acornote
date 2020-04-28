@@ -7,5 +7,5 @@ import androidx.room.Query
 @Dao
 interface ImageDao : BaseDao<Image> {
     @Query("SELECT * from image_table")
-    fun getAll(): List<Image>
+    suspend fun getAll(): List<Image>
 }

@@ -13,11 +13,11 @@ interface ColorTagDao : BaseDao<ColorTag> {
     fun getAll(): LiveData<List<ColorTag>>
 
     @Query("SELECT count(*) from color_tag_table")
-    fun notesCount(): Int
+    suspend fun notesCount(): Int
 
     @Insert
-    fun insert(entities: List<ColorTag>)
+    suspend fun insert(entities: List<ColorTag>)
 
     @Update
-    fun update(entities: List<ColorTag>)
+    suspend fun update(entities: List<ColorTag>)
 }

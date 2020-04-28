@@ -21,21 +21,22 @@ interface NoteDao : BaseDao<Note> {
     fun getStar(): DataSource.Factory<Int, NoteWrapper>
 
     @Transaction
-    @Query("SELECT * from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE a.editing = 0 AND b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.updated_at DESC")
+    @Query("SELECT a.* from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE a.editing = 0 AND b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.updated_at DESC")
     fun getByLabel(id: Long): DataSource.Factory<Int, NoteWrapper>
 
     @Transaction
     @Query("SELECT * from note_table WHERE editing = 0 AND color_tag_id = :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getByColorTag(id: Long): DataSource.Factory<Int, NoteWrapper>
 
+    //
     @Query("SELECT * from note_table WHERE editing = 0")
-    fun getAll(): List<Note>
+    suspend fun getAll(): List<Note>
 
     @Query("SELECT * from note_table WHERE editing = 0 AND title NOT LIKE 'http%' ORDER BY RANDOM() LIMIT 1")
-    fun getRandom(): Note?
+    suspend fun getRandom(): Note?
 
     @Query("SELECT count(*) from note_table WHERE title = :title")
-    fun getCountByString(title: String): Int
+    suspend fun getCountByString(title: String): Int
 
     @Insert
     suspend fun insert(entities: List<Note>)
@@ -53,24 +54,24 @@ interface NoteDao : BaseDao<Note> {
     fun notesAllCount(): LiveData<Int>
 
     @Query("SELECT count(*) from note_table WHERE editing = 0")
-    fun notesCount(): Int
+    suspend fun notesCount(): Int
 
     @Query("SELECT MAX(`order`) from note_table WHERE editing = 0")
-    fun maxOrder(): Long
+    suspend fun maxOrder(): Long
 
     @Query("SELECT count(*) from note_table WHERE editing = 0 AND star == 1")
     fun notesStarCount(): LiveData<Int>
 
     @Query("UPDATE note_table set `order` = `order` + :delta WHERE editing = 0 AND id = :id")
-    fun updateOrder(id: Long, delta: Long)
+    suspend fun updateOrder(id: Long, delta: Long)
 
     @Query(
         "UPDATE note_table set `order` = `order` + :delta WHERE editing = 0 AND `order` >= :min AND `order` <= :max AND id != :target"
     )
-    fun moveNotes(target: Long, delta: Long, min: Long, max: Long)
+    suspend fun moveNotes(target: Long, delta: Long, min: Long, max: Long)
 
     @Transaction
-    fun moveNote(target: Long, from: Long, to: Long) {
+    suspend fun moveNote(target: Long, from: Long, to: Long) {
         Log.d("SQL", "moveNote $target $from $to")
         moveNotes(
             target,

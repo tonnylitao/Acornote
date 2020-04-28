@@ -12,7 +12,7 @@ interface NoteLabelDao : BaseDao<NoteLabel> {
     fun getPagingAll(): DataSource.Factory<Int, NoteLabel>
 
     @Query("SELECT * from note_label_table")
-    fun getAll(): List<NoteLabel>
+    suspend fun getAll(): List<NoteLabel>
 
     @Query("DELETE FROM note_label_table WHERE label_id = :labelId AND note_id = :noteId")
     suspend fun delete(labelId: Long, noteId: Long)

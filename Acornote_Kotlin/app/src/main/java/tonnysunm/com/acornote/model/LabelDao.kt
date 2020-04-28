@@ -21,7 +21,7 @@ interface LabelDao : BaseDao<Label> {
 //    fun getPagingAll(): DataSource.Factory<Int, LabelWithCheckStatus>
 
     @Query("SELECT * FROM label_table")
-    fun getAll(): List<Label>
+    suspend fun getAll(): List<Label>
 
     @Query("SELECT * from label_table WHERE id = :id LIMIT 1")
     fun getLabel(id: Long): LiveData<Label>
