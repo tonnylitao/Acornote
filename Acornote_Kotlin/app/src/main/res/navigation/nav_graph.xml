@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_notes">
         <argument
             android:name="@string/labelIdKey"
-            app:argType="long" />
+            app:argType="integer" />
         <action
             android:id="@+id/action_detailFragment_to_editNoteFragment"
             app:destination="@id/editNoteFragment" />
@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_labels">
         <argument
             android:name="@string/labelIdKey"
-            app:argType="long" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/editNoteFragment"
@@ -32,10 +32,10 @@
         tools:layout="@layout/fragment_note">
         <argument
             android:name="@string/labelIdKey"
-            app:argType="long" />
+            app:argType="integer" />
         <argument
             android:name="noteId"
-            app:argType="long" />
+            app:argType="integer" />
     </fragment>
 
 </navigation>

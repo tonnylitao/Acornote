@@ -14,7 +14,7 @@ import java.util.*
     ), ForeignKey(
         onDelete = CASCADE,
         entity = Note::class,
-        parentColumns = ["id"],
+        parentColumns = ["rowid"],
         childColumns = ["note_id"]
     )],
     indices = [Index(
@@ -24,13 +24,13 @@ import java.util.*
 )
 data class NoteLabel(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Int = 0,
 
     @ColumnInfo(name = "label_id", index = true)
-    var labelId: Long,
+    var labelId: Int,
 
     @ColumnInfo(name = "note_id", index = true)
-    var noteId: Long,
+    var noteId: Int,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time

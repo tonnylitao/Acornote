@@ -17,7 +17,7 @@ class Repository(private val application: Context) {
     // Label
     val labels = labelDao.getLabelsWithNoteCount()
 
-    fun getLabel(id: Long?): LiveData<Label> {
+    fun getLabel(id: Int?): LiveData<Label> {
         if (id != null) {
             return labelDao.getLabel(id)
         }

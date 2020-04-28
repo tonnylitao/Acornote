@@ -13,10 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
-import tonnysunm.com.acornote.ui.HomeSharedViewModel
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentDrawerBinding
 import tonnysunm.com.acornote.model.NoteFilter
+import tonnysunm.com.acornote.ui.HomeSharedViewModel
 
 
 class DrawerFragment : Fragment() {
@@ -122,13 +122,13 @@ private val MenuItem.noteFilter: NoteFilter
     get() = when (itemId) {
         R.id.nav_all -> NoteFilter.All
         R.id.nav_star -> NoteFilter.Star
-        else -> NoteFilter.ByLabel(itemId.toLong(), title.toString())
+        else -> NoteFilter.ByLabel(itemId, title.toString())
     }
 
 private fun MenuItem.isChecked(filter: NoteFilter) = when (itemId) {
     R.id.nav_all -> filter == NoteFilter.All
     R.id.nav_star -> filter == NoteFilter.Star
-    else -> itemId == filter.labelId?.toInt()
+    else -> itemId == filter.labelId
 }
 
 class AllowChildInterceptTouchEventDrawerLayout(context: Context, attrs: AttributeSet) :

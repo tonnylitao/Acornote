@@ -30,12 +30,12 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
     val isCreateNewNote: Boolean
         get() {
-            val id = intent.getLongExtra("id", EmptyId)
+            val id = intent.getIntExtra("id", EmptyId)
             return id == EmptyId
         }
 
     val data: LiveData<Note> by lazy {
-        val id = intent.getLongExtra("id", EmptyId)
+        val id = intent.getIntExtra("id", EmptyId)
 
         if (id > EmptyId) {
             repository.noteDao.note(id)
@@ -68,17 +68,17 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                     }
 
                     viewModelScope.launch(Dispatchers.IO) {
-                        note.order = repository.noteDao.maxOrder() + 1
+                        note.order = (repository.noteDao.maxOrder() ?: 0) + 1
 
-                        val newId = repository.noteDao.insert(note)
+                        val newId = repository.noteDao.insert(note).toInt()
                         data.value?.id = newId
 
                         val sharedPref =
                             application.getSharedPreferences("acronote", Context.MODE_PRIVATE)
-                        val prefLabelId = sharedPref.getLong("default_label_id", 0)
+                        val prefLabelId = sharedPref.getInt("default_label_id", 0)
 
-                        var labelId = intent.getLongExtra("labelId", 0)
-                        if (labelId == 0L) {
+                        var labelId = intent.getIntExtra("labelId", 0)
+                        if (labelId == 0) {
                             labelId = prefLabelId
                         }
 
@@ -125,7 +125,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         repository.noteDao.update(note)
     }
 
-    suspend fun updateColorTag(colorTagId: Long) {
+    suspend fun updateColorTag(colorTagId: Int) {
         val note = data.value ?: throw IllegalStateException("note is not set")
 
         if (isCreateNewNote) {
@@ -152,7 +152,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                 if (repository.noteDao.getCountByString(text) > 0) {
                     tips = "Repeated"
                 } else {
-                    val order = repository.noteDao.maxOrder() + 1
+                    val order = (repository.noteDao.maxOrder() ?: 0) + 1
 
                     val note = Note(
                         title = text,
@@ -160,14 +160,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         editing = false
                     )
 
-                    val newId = repository.noteDao.insert(note)
+                    val newId = repository.noteDao.insert(note).toInt()
 
                     val sharedPref =
                         getApplication<Application>().getSharedPreferences(
                             "acronote",
                             Context.MODE_PRIVATE
                         )
-                    val labelId = sharedPref.getLong("default_label_id", 0)
+                    val labelId = sharedPref.getInt("default_label_id", 0)
 
                     if (labelId > 0) {
                         repository.noteLabelDao.insert(

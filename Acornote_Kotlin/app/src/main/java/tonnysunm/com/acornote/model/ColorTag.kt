@@ -9,7 +9,7 @@ import java.util.*
 @Entity(tableName = "color_tag_table", indices = [Index(value = ["color"], unique = true)])
 data class ColorTag(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Int = 0,
 
     var color: String,
 

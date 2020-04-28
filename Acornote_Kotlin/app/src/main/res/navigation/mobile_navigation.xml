@@ -14,7 +14,7 @@
             app:argType="string" />
         <argument
             android:name="@string/labelIdKey"
-            app:argType="long" />
+            app:argType="integer" />
         <argument
             android:name="labelTitle"
             app:argType="string" />
@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_labels">
         <argument
             android:name="@string/labelIdKey"
-            app:argType="long" />
+            app:argType="integer" />
     </fragment>
 
 </navigation>

@@ -17,11 +17,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
 import tonnysunm.com.acornote.model.EmptyId
 import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 
 class NoteFragment : Fragment() {
@@ -30,8 +30,8 @@ class NoteFragment : Fragment() {
     private var menu: Menu? = null
 
     private val id by lazy {
-        val id = activity?.intent?.getLongExtra("id", EmptyId)
-        if (id != null && id > 0L) id else null
+        val id = activity?.intent?.getIntExtra("id", EmptyId)
+        if (id != null && id > 0) id else null
     }
 
     private var noteBeforeEditing: Note? = null
@@ -76,7 +76,7 @@ class NoteFragment : Fragment() {
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
             if (it != null) { //been deleted
-                if (it.id != 0L && this.noteBeforeEditing == null) {
+                if (it.id != 0 && this.noteBeforeEditing == null) {
                     this.noteBeforeEditing = it.copy()
                 }
 
@@ -121,7 +121,7 @@ class NoteFragment : Fragment() {
         R.id.action_star -> {
             val note = viewModel.data.value
             note?.star = viewModel.data.value?.star != true
-            if (note?.id == 0L) {
+            if (note?.id == 0) {
                 updateMenuItems(this.menu, note)
             } else {
                 viewModel.viewModelScope.launch(Dispatchers.IO) {
@@ -133,7 +133,7 @@ class NoteFragment : Fragment() {
         R.id.action_pin -> {
             val note = viewModel.data.value
             note?.pinned = viewModel.data.value?.pinned != true
-            if (note?.id == 0L) {
+            if (note?.id == 0) {
                 updateMenuItems(this.menu, note)
             } else {
                 viewModel.viewModelScope.launch(Dispatchers.IO) {

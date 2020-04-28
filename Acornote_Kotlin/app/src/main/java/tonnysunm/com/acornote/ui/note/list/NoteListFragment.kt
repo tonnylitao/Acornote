@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.note.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
@@ -21,14 +18,13 @@ import tonnysunm.com.acornote.databinding.FragmentNotesBinding
 import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.HomeSharedViewModel
-import java.util.*
 
 
 private const val TAG = "NoteListFragment"
 
 class NoteListFragment : Fragment() {
 
-    private val labelId = arguments?.getLong(getString(R.string.labelIdKey))
+    private val labelId = arguments?.getInt(getString(R.string.labelIdKey))
 
     val mViewModel: NoteListViewModel by viewModels {
         val filter = arguments?.getString("filter") ?: ""

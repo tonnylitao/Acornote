@@ -6,7 +6,7 @@ import java.util.*
 @Entity(tableName = "label_table", indices = [Index(value = ["title"], unique = true)])
 data class Label(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Int = 0,
 
     var title: String,
 
@@ -22,13 +22,13 @@ data class LabelWithNoteCount(
 )
 
 data class LabelWithCheckStatus(
-    val id: Long,
+    val id: Int,
     val title: String,
 
-    var noteId: Long,
+    var noteId: Int,
 
     var checked: Boolean
 )
 
 
-const val EmptyId = 0L
+const val EmptyId = 0

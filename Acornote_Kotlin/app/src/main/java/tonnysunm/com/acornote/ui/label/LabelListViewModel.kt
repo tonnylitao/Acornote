@@ -2,7 +2,6 @@ package tonnysunm.com.acornote.ui.label
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
@@ -14,7 +13,7 @@ import tonnysunm.com.acornote.model.Repository
 
 class EditLabelViewModelFactory(
     private val application: Application,
-    private val noteId: Long
+    private val noteId: Int
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -24,7 +23,7 @@ class EditLabelViewModelFactory(
 
 private val TAG = "EditLabelViewModel"
 
-class EditLabelViewModel(app: Application, noteId: Long) :
+class EditLabelViewModel(app: Application, noteId: Int) :
     AndroidViewModel(app) {
 
     private val repository: Repository by lazy { Repository(app) }
@@ -42,7 +41,7 @@ class EditLabelViewModel(app: Application, noteId: Long) :
                 getApplication<Application>().getSharedPreferences("acronote", Context.MODE_PRIVATE)
 
             if (!lwcs.checked) {
-                sharedPref.edit().putLong("default_label_id", lwcs.id).apply()
+                sharedPref.edit().putInt("default_label_id", lwcs.id).apply()
 
                 repository.noteLabelDao.insert(NoteLabel(labelId = labelId, noteId = noteId))
             } else {

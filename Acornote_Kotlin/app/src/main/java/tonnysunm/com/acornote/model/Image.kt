@@ -8,7 +8,7 @@ import java.util.*
     foreignKeys = [ForeignKey(
         onDelete = ForeignKey.CASCADE,
         entity = Note::class,
-        parentColumns = ["id"],
+        parentColumns = ["rowid"],
         childColumns = ["note_id"]
     )],
     indices = [Index(
@@ -17,12 +17,12 @@ import java.util.*
 )
 data class Image(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Int = 0,
 
     var url: String,
 
     @ColumnInfo(name = "note_id")
-    var noteId: Long,
+    var noteId: Int,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time

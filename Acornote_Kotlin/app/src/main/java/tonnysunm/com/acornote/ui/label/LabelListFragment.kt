@@ -16,16 +16,16 @@ import tonnysunm.com.acornote.model.EmptyId
 private val TAG = "LabelListFragment"
 
 class LabelListFragment : Fragment() {
-    private val id by lazy {
-        val id = activity?.intent?.getLongExtra("id", EmptyId)
+    private val noteId by lazy {
+        val id = activity?.intent?.getIntExtra("id", EmptyId)
         Log.d(TAG, "$id")
-        if (id != null && id > 0L) id else 0L
+        if (id != null && id > 0) id else 0
     }
 
     val viewModel: EditLabelViewModel by viewModels {
         EditLabelViewModelFactory(
             requireActivity().application,
-            id
+            noteId
         )
     }
 

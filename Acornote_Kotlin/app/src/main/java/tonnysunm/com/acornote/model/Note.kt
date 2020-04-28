@@ -3,12 +3,14 @@ package tonnysunm.com.acornote.model
 import androidx.room.*
 import java.util.*
 
+@Fts4
 @Entity(
     tableName = "note_table"
 )
 data class Note(
+    @ColumnInfo(name = "rowid")
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Int = 0,
 
     @ColumnInfo(index = true)
     var order: Long,
@@ -22,7 +24,7 @@ data class Note(
     var pinned: Boolean? = null,
 
     @ColumnInfo(name = "color_tag_id", index = true)
-    var colorTagId: Long? = null,
+    var colorTagId: Int? = null,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
@@ -43,7 +45,7 @@ data class NoteWrapper(
     @Embedded
     val note: Note,
 
-    @Relation(parentColumn = "id", entityColumn = "note_id")
+    @Relation(parentColumn = "rowid", entityColumn = "note_id")
     var imageUrls: List<Image>?
 ) {
     val hasImage: Boolean

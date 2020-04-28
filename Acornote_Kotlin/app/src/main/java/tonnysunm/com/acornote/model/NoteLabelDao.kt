@@ -15,7 +15,7 @@ interface NoteLabelDao : BaseDao<NoteLabel> {
     suspend fun getAll(): List<NoteLabel>
 
     @Query("DELETE FROM note_label_table WHERE label_id = :labelId AND note_id = :noteId")
-    suspend fun delete(labelId: Long, noteId: Long)
+    suspend fun delete(labelId: Int, noteId: Int)
 
     @Insert
     suspend fun insert(entities: List<NoteLabel>)
