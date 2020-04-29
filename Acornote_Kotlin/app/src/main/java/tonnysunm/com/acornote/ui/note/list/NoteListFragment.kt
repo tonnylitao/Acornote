@@ -15,6 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
+import tonnysunm.com.acornote.library.AndroidViewModelFactory
 import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.HomeSharedViewModel
@@ -36,7 +37,7 @@ class NoteListFragment : Fragment() {
             else -> NoteFilter.All
         }
 
-        DetailViewModelFactory(requireActivity().application, noteFilter)
+        AndroidViewModelFactory(requireActivity().application, noteFilter, NoteFilter::class.java)
     }
 
     private val homeSharedModel: HomeSharedViewModel by lazy {

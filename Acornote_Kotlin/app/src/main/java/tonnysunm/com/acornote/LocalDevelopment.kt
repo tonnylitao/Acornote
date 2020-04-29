@@ -14,6 +14,9 @@ import tonnysunm.com.acornote.model.Repository
 import java.io.*
 import java.lang.reflect.Type
 
+//for ADB WIFI
+//~/Library/Android/sdk/platform-tools/adb devices -l
+//~/Library/Android/sdk/platform-tools/adb -s 99171FFAZ00B73 tcpip 5555
 //~/Library/Android/sdk/platform-tools/adb connect 192.168.20.5:5555
 
 object BackupFile {
