@@ -12,13 +12,15 @@ import tonnysunm.com.acornote.extensions.getColorString
 import tonnysunm.com.acornote.model.*
 
 
-class DetailViewModelFactory(private val application: Application, private val filter: NoteFilter) :
+class DetailViewModelFactory(
+    private val application: Application,
+    private val parameter: NoteFilter
+) :
     ViewModelProvider.NewInstanceFactory() {
 
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        NoteListViewModel(application, filter) as T
-
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = modelClass
+        .getConstructor(Application::class.java, NoteFilter::class.java)
+        .newInstance(application, parameter)
 }
 
 class NoteListViewModel(application: Application, filter: NoteFilter) :

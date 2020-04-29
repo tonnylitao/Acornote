@@ -2,7 +2,9 @@ package tonnysunm.com.acornote.ui.label
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.launch
@@ -10,16 +12,6 @@ import tonnysunm.com.acornote.model.Label
 import tonnysunm.com.acornote.model.LabelWithCheckStatus
 import tonnysunm.com.acornote.model.NoteLabel
 import tonnysunm.com.acornote.model.Repository
-
-class EditLabelViewModelFactory(
-    private val application: Application,
-    private val noteId: Int
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        EditLabelViewModel(application, noteId) as T
-}
 
 private val TAG = "EditLabelViewModel"
 

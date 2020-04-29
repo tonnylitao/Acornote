@@ -20,7 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.FragmentPopupBinding
-import tonnysunm.com.acornote.library.ApplicationIntentViewModelFactory
+import tonnysunm.com.acornote.library.AndroidViewModelFactory
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.textAsTitle
 import tonnysunm.com.acornote.ui.label.LabelListActivity
@@ -32,7 +32,10 @@ class PopupFragment : Fragment() {
     private var binding: FragmentPopupBinding? = null
 
     val viewModel by viewModels<NoteViewModel> {
-        ApplicationIntentViewModelFactory(requireActivity().application, requireActivity().intent)
+        AndroidViewModelFactory(
+            requireActivity().application,
+            requireActivity().intent
+        )
     }
 
     override fun onCreateView(

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import tonnysunm.com.acornote.databinding.FragmentLabelsBinding
+import tonnysunm.com.acornote.library.AndroidViewModelFactory
 import tonnysunm.com.acornote.model.EmptyId
 
 private val TAG = "LabelListFragment"
@@ -23,7 +24,7 @@ class LabelListFragment : Fragment() {
     }
 
     val viewModel by viewModels<EditLabelViewModel> {
-        EditLabelViewModelFactory(requireActivity().application, noteId)
+        AndroidViewModelFactory(requireActivity().application, noteId)
     }
 
     override fun onCreateView(
