@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +27,7 @@ class NoteListFragment : Fragment() {
 
     private val labelId = arguments?.getInt(getString(R.string.labelIdKey))
 
-    val mViewModel by viewModels<NoteListViewModel> {
+    private val mViewModel by viewModels<NoteListViewModel> {
         val filter = arguments?.getString("filter") ?: ""
         val labelTitle = arguments?.getString("labelTitle") ?: ""
 
@@ -40,9 +40,7 @@ class NoteListFragment : Fragment() {
         AndroidViewModelFactory(requireActivity().application, noteFilter, NoteFilter::class.java)
     }
 
-    private val homeSharedModel: HomeSharedViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
-    }
+    private val homeSharedModel by activityViewModels<HomeSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

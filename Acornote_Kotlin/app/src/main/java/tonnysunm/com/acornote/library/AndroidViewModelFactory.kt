@@ -16,14 +16,15 @@ class AndroidViewModelFactory<P : Any>(
 ) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        
+
         if (parameterClass == null && parameter::class.java.name.contains("$")) {
             throw IllegalArgumentException("parameterClass is must for Sealed Class ${parameter::class.java.name}")
         }
 
-        modelClass
-            .getConstructor(Application::class.java, parameterClass ?: parameter::class.java)
-            .newInstance(application, parameter)
+        return modelClass.getConstructor(
+            Application::class.java,
+            parameterClass ?: parameter::class.java
+        ).newInstance(application, parameter)
     }
 
 }

@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentDrawerBinding
@@ -23,9 +23,7 @@ class DrawerFragment : Fragment() {
 
     private val mViewModel by viewModels<DrawerViewModel>()
 
-    private val homeSharedModel: HomeSharedViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
-    }
+    private val homeSharedModel by activityViewModels<HomeSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

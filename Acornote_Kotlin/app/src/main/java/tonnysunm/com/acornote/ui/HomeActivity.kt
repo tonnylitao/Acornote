@@ -7,13 +7,13 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.app_bar_navigation.*
@@ -29,9 +29,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
         var scrollToTop = false
     }
 
-    private val homeSharedModel: HomeSharedViewModel by lazy {
-        ViewModelProvider(this).get(HomeSharedViewModel::class.java)
-    }
+    private val homeSharedModel by viewModels<HomeSharedViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +71,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
             })
         }
-        
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
