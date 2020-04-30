@@ -9,6 +9,8 @@ class AndroidViewModelFactory(private vararg val args: Any) :
 
     override fun <T : ViewModel> create(modelClass: Class<T>) =
         modelClass.kotlin.primaryConstructor?.call(*args)
-            ?: throw IllegalArgumentException("$modelClass primaryConstructor is null")
+            ?: throw IllegalArgumentException(
+                "$modelClass primaryConstructor is null"
+            )
 }
 
