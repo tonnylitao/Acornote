@@ -13,10 +13,9 @@ import tonnysunm.com.acornote.model.LabelWithCheckStatus
 import tonnysunm.com.acornote.model.NoteLabel
 import tonnysunm.com.acornote.model.Repository
 
-private val TAG = "EditLabelViewModel"
+private const val TAG = "EditLabelViewModel"
 
-class EditLabelViewModel(app: Application, noteId: Int) :
-    AndroidViewModel(app) {
+class EditLabelViewModel(app: Application, noteId: Int) : AndroidViewModel(app) {
 
     private val repository: Repository by lazy { Repository(app) }
 

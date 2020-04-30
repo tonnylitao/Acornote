@@ -14,7 +14,7 @@ import java.util.*
     ), ForeignKey(
         onDelete = CASCADE,
         entity = Note::class,
-        parentColumns = ["rowid"],
+        parentColumns = ["id"],
         childColumns = ["note_id"]
     )],
     indices = [Index(

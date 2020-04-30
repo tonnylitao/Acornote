@@ -3,17 +3,13 @@ package tonnysunm.com.acornote.model
 import androidx.room.*
 import java.util.*
 
-@Fts4
-@Entity(
-    tableName = "note_table"
-)
+@Entity(tableName = "note_table")
 data class Note(
-    @ColumnInfo(name = "rowid")
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var id: Int = 0, //keep Note.id == NoteFTS.rowid, Note.title == NoteFTS.title, Note.description == NoteFTS.description
 
     @ColumnInfo(index = true)
-    var order: Long,
+    var order: Int,
 
     var title: String,
 
@@ -45,7 +41,7 @@ data class NoteWrapper(
     @Embedded
     val note: Note,
 
-    @Relation(parentColumn = "rowid", entityColumn = "note_id")
+    @Relation(parentColumn = "id", entityColumn = "note_id")
     var imageUrls: List<Image>?
 ) {
     val hasImage: Boolean

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "12a45753cd78fad7e7d970e04027c91c",
+    "identityHash": "cbb97300231de529d67f877974338672",
     "entities": [
       {
         "tableName": "label_table",
@@ -46,24 +46,12 @@
         "foreignKeys": []
       },
       {
-        "ftsVersion": "FTS4",
-        "ftsOptions": {
-          "tokenizer": "simple",
-          "tokenizerArgs": [],
-          "contentTable": "",
-          "languageIdColumnName": "",
-          "matchInfo": "FTS4",
-          "notIndexedColumns": [],
-          "prefixSizes": [],
-          "preferredOrder": "ASC"
-        },
-        "contentSyncTriggers": [],
         "tableName": "note_table",
-        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`order` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `star` INTEGER, `pinned` INTEGER, `color_tag_id` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `editing` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `order` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `star` INTEGER, `pinned` INTEGER, `color_tag_id` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `editing` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "rowid",
+            "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -124,16 +112,33 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "rowid"
+            "id"
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_note_table_order",
+            "unique": false,
+            "columnNames": [
+              "order"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_note_table_order` ON `${TABLE_NAME}` (`order`)"
+          },
+          {
+            "name": "index_note_table_color_tag_id",
+            "unique": false,
+            "columnNames": [
+              "color_tag_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_note_table_color_tag_id` ON `${TABLE_NAME}` (`color_tag_id`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
         "tableName": "note_label_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `label_id` INTEGER NOT NULL, `note_id` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, FOREIGN KEY(`label_id`) REFERENCES `label_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`note_id`) REFERENCES `note_table`(`rowid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `label_id` INTEGER NOT NULL, `note_id` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, FOREIGN KEY(`label_id`) REFERENCES `label_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`note_id`) REFERENCES `note_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -213,7 +218,7 @@
               "note_id"
             ],
             "referencedColumns": [
-              "rowid"
+              "id"
             ]
           }
         ]
@@ -261,7 +266,7 @@
       },
       {
         "tableName": "image_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT NOT NULL, `note_id` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, FOREIGN KEY(`note_id`) REFERENCES `note_table`(`rowid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT NOT NULL, `note_id` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, FOREIGN KEY(`note_id`) REFERENCES `note_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -313,7 +318,7 @@
               "note_id"
             ],
             "referencedColumns": [
-              "rowid"
+              "id"
             ]
           }
         ]
@@ -322,7 +327,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '12a45753cd78fad7e7d970e04027c91c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cbb97300231de529d67f877974338672')"
     ]
   }
 }

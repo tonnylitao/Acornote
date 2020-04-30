@@ -28,6 +28,9 @@ interface NoteDao : BaseDao<Note> {
     @Query("SELECT *, rowid from note_table WHERE editing = 0 AND color_tag_id = :id ORDER BY pinned DESC, `order` DESC, updated_at DESC")
     fun getByColorTag(id: Int): DataSource.Factory<Int, NoteWrapper>
 
+//    @Query("SELECT a.* FROM note_table a LEFT JOIN note_fts_table b ON a.id = b.rowid WHERE note_fts_table MATCH :query")
+//    fun search(query: String?): LiveData<List<Note?>?>?
+
     //
     @Query("SELECT *, rowid from note_table WHERE editing = 0")
     suspend fun getAll(): List<Note>
@@ -57,21 +60,21 @@ interface NoteDao : BaseDao<Note> {
     suspend fun notesCount(): Int
 
     @Query("SELECT MAX(`order`) from note_table WHERE editing = 0")
-    suspend fun maxOrder(): Long?
+    suspend fun maxOrder(): Int?
 
     @Query("SELECT count(*) from note_table WHERE editing = 0 AND star == 1")
     fun notesStarCount(): LiveData<Int>
 
     @Query("UPDATE note_table set `order` = `order` + :delta WHERE editing = 0 AND rowid = :id")
-    suspend fun updateOrder(id: Int, delta: Long)
+    suspend fun updateOrder(id: Int, delta: Int)
 
     @Query(
         "UPDATE note_table set `order` = `order` + :delta WHERE editing = 0 AND `order` >= :min AND `order` <= :max AND rowid != :target"
     )
-    suspend fun moveNotes(target: Int, delta: Long, min: Long, max: Long)
+    suspend fun moveNotes(target: Int, delta: Int, min: Int, max: Int)
 
     @Transaction
-    suspend fun moveNote(target: Int, from: Long, to: Long) {
+    suspend fun moveNote(target: Int, from: Int, to: Int) {
         Log.d("SQL", "moveNote $target $from $to")
         moveNotes(
             target,

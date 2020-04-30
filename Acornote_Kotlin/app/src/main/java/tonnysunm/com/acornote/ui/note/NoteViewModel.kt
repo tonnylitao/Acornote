@@ -17,7 +17,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
     private val repository: Repository by lazy { Repository(application) }
 
-    val isCreateNewNote: Boolean
+    private val isCreateNewNote: Boolean
         get() {
             val id = intent.getIntExtra("id", EmptyId)
             return id == EmptyId

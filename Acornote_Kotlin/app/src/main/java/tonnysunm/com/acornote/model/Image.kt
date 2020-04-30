@@ -8,7 +8,7 @@ import java.util.*
     foreignKeys = [ForeignKey(
         onDelete = ForeignKey.CASCADE,
         entity = Note::class,
-        parentColumns = ["rowid"],
+        parentColumns = ["id"],
         childColumns = ["note_id"]
     )],
     indices = [Index(
