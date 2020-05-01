@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0140eb2fb102b5c58b7645bddcb9bb58",
+    "identityHash": "c2cb0fb2ef889004fb1f9beeadc56a91",
     "entities": [
       {
         "tableName": "label_table",
@@ -47,7 +47,7 @@
       },
       {
         "tableName": "note_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `order` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `star` INTEGER, `pinned` INTEGER, `color_tag_id` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `editing` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `order` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `star` INTEGER, `pinned` INTEGER, `color_tag_id` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `editing` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -107,7 +107,7 @@
             "fieldPath": "editing",
             "columnName": "editing",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -368,7 +368,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0140eb2fb102b5c58b7645bddcb9bb58')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c2cb0fb2ef889004fb1f9beeadc56a91')"
     ]
   }
 }

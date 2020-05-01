@@ -1,11 +1,15 @@
 package tonnysunm.com.acornote.model
 
+import android.content.ContentValues
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+import java.util.*
 
 class DataTypeConverter {
     companion object {
@@ -73,7 +77,47 @@ abstract class AppRoomDatabase : RoomDatabase() {
 
                         override fun onOpen(db: SupportSQLiteDatabase) {
                             super.onOpen(db)
-//                            db.execSQL("")
+
+                            val cursor =
+                                db.query("SELECT count(*) FROM note_table WHERE editing = 0")
+
+                            cursor.use {
+
+                                if (it.moveToFirst() && it.getInt(0) == 0) {
+                                    Log.d(TAG, "insert default data")
+
+                                    db.insert(
+                                        "note_table",
+                                        SQLiteDatabase.CONFLICT_NONE,
+                                        ContentValues().apply {
+                                            put("id", 1)
+                                            put("title", "Hello Jetpack")
+                                            put(
+                                                "description",
+                                                "Jetpack is a suite of libraries, tools, and guidance to help developers write high-quality apps more easily. These components help you follow best practices, free you from writing boilerplate code, and simplify complex tasks, so you can focus on the code you care about."
+                                            )
+                                            put("`order`", 1)
+                                            put("created_at", Date().time)
+                                            put("updated_at", Date().time)
+                                            put("editing", 0)
+                                        }
+                                    )
+
+                                    db.insert(
+                                        "image_table",
+                                        SQLiteDatabase.CONFLICT_NONE,
+                                        ContentValues().apply {
+                                            put("note_id", 1)
+                                            put("created_at", Date().time)
+                                            put(
+                                                "url",
+                                                "https://www.kindpng.com/picc/m/14-142436_android-jetpack-logo-hd-png-download.png"
+                                            )
+                                        }
+                                    )
+
+                                }
+                            }
                         }
                     })
 //                    .addMigrations(MIGRATION_1_2)

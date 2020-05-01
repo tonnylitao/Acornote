@@ -28,7 +28,7 @@ data class Note(
     @ColumnInfo(name = "updated_at")
     var updatedAt: Long = Date().time,
 
-    var editing: Boolean?
+    var editing: Boolean = true
 ) {
 
     val hasDescription: Boolean
