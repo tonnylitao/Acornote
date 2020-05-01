@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cbb97300231de529d67f877974338672",
+    "identityHash": "0140eb2fb102b5c58b7645bddcb9bb58",
     "entities": [
       {
         "tableName": "label_table",
@@ -322,12 +322,53 @@
             ]
           }
         ]
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "note_table",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "DESC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_note_fts_table_BEFORE_UPDATE BEFORE UPDATE ON `note_table` BEGIN DELETE FROM `note_fts_table` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_note_fts_table_BEFORE_DELETE BEFORE DELETE ON `note_table` BEGIN DELETE FROM `note_fts_table` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_note_fts_table_AFTER_UPDATE AFTER UPDATE ON `note_table` BEGIN INSERT INTO `note_fts_table`(`docid`, `title`, `description`) VALUES (NEW.`rowid`, NEW.`title`, NEW.`description`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_note_fts_table_AFTER_INSERT AFTER INSERT ON `note_table` BEGIN INSERT INTO `note_fts_table`(`docid`, `title`, `description`) VALUES (NEW.`rowid`, NEW.`title`, NEW.`description`); END"
+        ],
+        "tableName": "note_fts_table",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`title` TEXT NOT NULL, `description` TEXT, content=`note_table`, order=DESC)",
+        "fields": [
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cbb97300231de529d67f877974338672')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0140eb2fb102b5c58b7645bddcb9bb58')"
     ]
   }
 }

@@ -32,10 +32,7 @@ class PopupFragment : Fragment() {
     private var binding: FragmentPopupBinding? = null
 
     val viewModel by viewModels<NoteViewModel> {
-        AndroidViewModelFactory(
-            requireActivity().application,
-            requireActivity().intent
-        )
+        AndroidViewModelFactory(requireActivity().application, requireActivity().intent)
     }
 
     override fun onCreateView(

@@ -36,11 +36,8 @@ class NoteListFragment : Fragment() {
             (labelId ?: 0) > 0 -> NoteFilter.ByLabel(labelId!!, labelTitle)
             else -> NoteFilter.All
         }
-        
-        AndroidViewModelFactory(
-            requireActivity().application, noteFilter
-//            , NoteFilter::class.java
-        )
+
+        AndroidViewModelFactory(requireActivity().application, noteFilter)
     }
 
     private val homeSharedModel by activityViewModels<HomeSharedViewModel>()

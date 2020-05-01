@@ -143,6 +143,8 @@ fun setLayoutMarginBottom(view: View, dimen: Float) {
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageButton, imageUrl: String?) {
+    if (view.visibility == View.GONE || imageUrl == null) return
+
     Glide.with(view.context)
         .load(imageUrl)
         .into(view)

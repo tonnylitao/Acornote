@@ -27,7 +27,7 @@ class DataTypeConverter {
 private val TAG = AppRoomDatabase::class.simpleName
 
 @Database(
-    entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class, Image::class],
+    entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class, Image::class, NoteFts::class],
     version = 1
 )
 @TypeConverters(DataTypeConverter::class)

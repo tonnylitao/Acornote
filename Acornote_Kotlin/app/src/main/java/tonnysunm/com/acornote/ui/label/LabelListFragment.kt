@@ -24,10 +24,7 @@ class LabelListFragment : Fragment() {
     }
 
     val viewModel by viewModels<EditLabelViewModel> {
-        AndroidViewModelFactory(
-            requireActivity().application, noteId
-//            , Int::class.java
-        )
+        AndroidViewModelFactory(requireActivity().application, noteId)
     }
 
     override fun onCreateView(

@@ -2,6 +2,7 @@ package tonnysunm.com.acornote.ui.label
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -34,16 +35,19 @@ class EditLabelViewModel(app: Application, noteId: Int) : AndroidViewModel(app) 
             if (!lwcs.checked) {
                 sharedPref.edit().putInt("default_label_id", lwcs.id).apply()
 
-                repository.noteLabelDao.insert(NoteLabel(labelId = labelId, noteId = noteId))
+                val id =
+                    repository.noteLabelDao.insert(NoteLabel(labelId = labelId, noteId = noteId))
+                Log.d("TAG", "insert noteLabel $id")
             } else {
                 sharedPref.edit().remove("default_label_id").apply()
 
                 repository.noteLabelDao.delete(labelId, noteId)
+
+                Log.d("TAG", "delete noteLabel")
             }
         }
     }
-
-
+    
     fun createLabel(title: String) {
         viewModelScope.launch {
             repository.labelDao.insert(Label(title = title))
