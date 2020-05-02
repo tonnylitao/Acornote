@@ -26,7 +26,7 @@ class Repository(private val application: Context) {
     }
 
     // Note
-    fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWithImages> = when (filter) {
+    fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWithImageUrl> = when (filter) {
         is NoteFilter.All -> {
             Log.d("ROOM", "get all")
             noteDao.getPagingAll()

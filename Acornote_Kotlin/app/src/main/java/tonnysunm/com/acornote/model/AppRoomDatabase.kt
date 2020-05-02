@@ -110,6 +110,18 @@ abstract class AppRoomDatabase : RoomDatabase() {
                                             put("note_id", 1)
                                             put(
                                                 "url",
+                                                "https://www.stripes.com/polopoly_fs/1.565654.1548264011!/image/image.jpg_gen/derivatives/landscape_900/image.jpg"
+                                            )
+                                        }
+                                    )
+
+                                    db.insert(
+                                        "image_table",
+                                        SQLiteDatabase.CONFLICT_NONE,
+                                        ContentValues().apply {
+                                            put("note_id", 1)
+                                            put(
+                                                "url",
                                                 "https://www.kindpng.com/picc/m/14-142436_android-jetpack-logo-hd-png-download.png"
                                             )
                                         }

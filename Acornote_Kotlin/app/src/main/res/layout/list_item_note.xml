@@ -13,7 +13,7 @@
 
         <variable
             name="data"
-            type="tonnysunm.com.acornote.model.NoteWithImages" />
+            type="tonnysunm.com.acornote.model.NoteWithImageUrl" />
 
     </data>
 
@@ -62,11 +62,11 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:contentDescription="@string/todo"
-            android:visibility="@{data.hasImage ? View.VISIBLE : View.GONE}"
+            android:visibility="@{data.imageUrl != null ? View.VISIBLE : View.GONE}"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             app:layout_constraintEnd_toEndOf="@+id/imgView_right_guideline"
             app:layout_constraintTop_toTopOf="parent"
-            app:imageUrl="@{data.coverUrl}"
+            app:imageUrl="@{data.imageUrl}"
             android:padding="0dp" />
 
         <ImageView
@@ -75,7 +75,7 @@
             android:layout_height="18dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:background="@{data.hasImage ? @drawable/circle : null}"
+            android:background="@{data.imageUrl != null ? @drawable/circle : null}"
             android:padding="3dp"
             android:src="@drawable/ic_star"
             android:tint="@android:color/darker_gray"
@@ -91,7 +91,7 @@
             android:layout_height="18dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:background="@{data.hasImage ? @drawable/circle : null}"
+            android:background="@{data.imageUrl != null ? @drawable/circle : null}"
             android:padding="3dp"
             android:src="@drawable/ic_pin"
             android:tint="@android:color/darker_gray"

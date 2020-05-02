@@ -42,22 +42,19 @@ data class Note(
         }
 }
 
+data class NoteWithImageUrl(
+    @Embedded
+    val note: Note,
+
+    var imageUrl: String?
+)
+
 data class NoteWithImages(
     @Embedded
     val note: Note,
 
     @Relation(parentColumn = "id", entityColumn = "note_id")
     var images: List<Image>?
-) {
-    val hasImage: Boolean
-        get() {
-            return images != null && images!!.isNotEmpty()
-        }
-
-    val coverUrl: String?
-        get() {
-            return images?.firstOrNull()?.url
-        }
-}
+)
 
 fun String.textAsTitle() = split(" ").size <= 3

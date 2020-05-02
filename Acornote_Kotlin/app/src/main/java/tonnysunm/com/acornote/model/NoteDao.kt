@@ -15,24 +15,17 @@ import kotlin.math.min
 interface NoteDao : BaseDao<Note> {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Transaction
-    @Query("SELECT * FROM note_table WHERE editing = 0 ORDER BY `order` DESC, id DESC")
-    fun getPagingAll(): DataSource.Factory<Int, NoteWithImages>
+    @Query("SELECT a.*, b.url as imageUrl FROM note_table a LEFT JOIN image_table b ON b.id = (SELECT id FROM image_table WHERE note_id = a.id ORDER BY id ASC LIMIT 1) WHERE a.editing = 0 GROUP BY a.id ORDER BY a.`order` DESC, a.id DESC")
+    fun getPagingAll(): DataSource.Factory<Int, NoteWithImageUrl>
 
-    @Transaction
-    @Query("SELECT * from note_table WHERE editing = 0 AND star == 1 ORDER BY pinned DESC, `order` DESC, id DESC")
-    fun getStar(): DataSource.Factory<Int, NoteWithImages>
+    @Query("SELECT a.*, b.url as imageUrl from note_table a LEFT JOIN image_table b ON b.id = (SELECT id FROM image_table WHERE note_id = a.id ORDER BY id ASC LIMIT 1) WHERE a.editing = 0 AND a.star == 1 GROUP BY a.id ORDER BY a.pinned DESC, a.`order` DESC, a.id DESC")
+    fun getStar(): DataSource.Factory<Int, NoteWithImageUrl>
 
-    @Transaction
-    @Query("SELECT a.* from note_table a INNER JOIN note_label_table b ON a.id = b.note_id WHERE a.editing = 0 AND b.label_id = :id ORDER BY a.pinned DESC, a.`order` DESC, a.id DESC")
-    fun getByLabel(id: Int): DataSource.Factory<Int, NoteWithImages>
+    @Query("SELECT a.*, b.url as imageUrl from note_table a LEFT JOIN image_table b ON b.id = (SELECT id FROM image_table WHERE note_id = a.id ORDER BY id ASC LIMIT 1) WHERE editing = 0 AND color_tag_color = :color GROUP BY a.id ORDER BY pinned DESC, `order` DESC, id DESC")
+    fun getByColorTag(color: String): DataSource.Factory<Int, NoteWithImageUrl>
 
-    @Transaction
-    @Query("SELECT * from note_table WHERE editing = 0 AND color_tag_color = :color ORDER BY pinned DESC, `order` DESC, id DESC")
-    fun getByColorTag(color: String): DataSource.Factory<Int, NoteWithImages>
-
-//    @Query("SELECT a.* FROM note_table a LEFT JOIN note_fts_table b ON a.id = b.rowid WHERE note_fts_table MATCH :query")
-//    fun search(query: String?): LiveData<List<Note?>?>?
+    @Query("SELECT a.*, c.url as imageUrl from note_table a INNER JOIN note_label_table b ON a.id = b.note_id LEFT JOIN image_table c ON c.id = (SELECT id FROM image_table WHERE note_id = a.id ORDER BY id ASC LIMIT 1) WHERE a.editing = 0 AND b.label_id = :id GROUP BY a.id ORDER BY a.pinned DESC, a.`order` DESC, a.id DESC")
+    fun getByLabel(id: Int): DataSource.Factory<Int, NoteWithImageUrl>
 
     //
     @Query("SELECT * from note_table WHERE editing = 0")

@@ -27,7 +27,7 @@ class NoteListViewModel(application: Application, filter: NoteFilter) :
 //        }
 //    }
 
-    val data: LiveData<PagedList<NoteWithImages>> = noteFilterLiveData.switchMap {
+    val data: LiveData<PagedList<NoteWithImageUrl>> = noteFilterLiveData.switchMap {
         repository.notes(it).toLiveData(pageSize = 5)
     }
 
