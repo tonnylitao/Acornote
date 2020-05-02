@@ -74,7 +74,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         if (labelId > 0) {
                             try {
                                 repository.noteLabelDao.insert(
-                                    NoteLabel(noteId = newId, labelId = labelId)
+                                    NoteLabelCrossRef(noteId = newId, labelId = labelId)
                                 )
                             } catch (e: Exception) {
                             }
@@ -114,14 +114,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         repository.noteDao.update(note)
     }
 
-    suspend fun updateColorTag(colorTagId: Int) {
+    suspend fun updateColorTag(colorTag: ColorTag) {
         val note = data.value ?: throw IllegalStateException("note is not set")
 
         if (isCreateNewNote) {
-            note.colorTagId = colorTagId
+            note.colorTag = colorTag
             (data as? MutableLiveData<Note>)?.postValue(note)
         } else {
-            note.colorTagId = colorTagId
+            note.colorTag = colorTag
             repository.noteDao.update(note)
         }
     }
@@ -160,7 +160,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
                     if (labelId > 0) {
                         repository.noteLabelDao.insert(
-                            NoteLabel(noteId = newId, labelId = labelId)
+                            NoteLabelCrossRef(noteId = newId, labelId = labelId)
                         )
                     }
                     tips = "Save Success"

@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.Label
 import tonnysunm.com.acornote.model.Note
-import tonnysunm.com.acornote.model.NoteLabel
+import tonnysunm.com.acornote.model.NoteLabelCrossRef
 import tonnysunm.com.acornote.model.Repository
 import java.io.*
 import java.lang.reflect.Type
@@ -68,8 +68,8 @@ object BackupFile {
 
             (Gson().fromJson(
                 obj?.get("noteLabels"),
-                object : TypeToken<List<NoteLabel>?>() {}.type
-            ) as? List<NoteLabel>)?.let {
+                object : TypeToken<List<NoteLabelCrossRef>?>() {}.type
+            ) as? List<NoteLabelCrossRef>)?.let {
                 repository.noteLabelDao.insert(it)
             }
         }
@@ -87,7 +87,7 @@ object BackupFile {
 
     fun writeStringAsFile(
         context: Context,
-        fileContents: String?,
+        fileContents: String,
         fileName: String?
     ) {
         try {
@@ -99,7 +99,7 @@ object BackupFile {
         }
     }
 
-    fun readFileAsString(context: Context, fileName: String?): String? {
+    fun readFileAsString(context: Context, fileName: String): String? {
         val stringBuilder = StringBuilder()
         var line: String? = null
         var `in`: BufferedReader? = null

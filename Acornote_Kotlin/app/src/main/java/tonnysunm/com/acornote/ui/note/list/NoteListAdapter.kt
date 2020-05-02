@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
-import tonnysunm.com.acornote.model.NoteWrapper
+import tonnysunm.com.acornote.model.NoteWithImages
 import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
 
 class NoteListAdapter :
-    PagedListAdapter<NoteWrapper, NoteListAdapter.ViewHolder>(DiffCallback) {
+    PagedListAdapter<NoteWithImages, NoteListAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -44,13 +44,13 @@ class NoteListAdapter :
         //heck for drag and drop to move items in PagedList
         var disableAnimation = false
 
-        private val DiffCallback = object : DiffUtil.ItemCallback<NoteWrapper>() {
+        private val DiffCallback = object : DiffUtil.ItemCallback<NoteWithImages>() {
 
-            override fun areItemsTheSame(old: NoteWrapper, aNew: NoteWrapper): Boolean {
+            override fun areItemsTheSame(old: NoteWithImages, aNew: NoteWithImages): Boolean {
                 return disableAnimation || old.note.id == aNew.note.id
             }
 
-            override fun areContentsTheSame(old: NoteWrapper, aNew: NoteWrapper): Boolean {
+            override fun areContentsTheSame(old: NoteWithImages, aNew: NoteWithImages): Boolean {
                 return disableAnimation || old == aNew
             }
         }
@@ -83,7 +83,7 @@ class NoteListAdapter :
             }
         }
 
-        fun bind(note: NoteWrapper) {
+        fun bind(note: NoteWithImages) {
             binding.data = note
 
             binding.executePendingBindings()

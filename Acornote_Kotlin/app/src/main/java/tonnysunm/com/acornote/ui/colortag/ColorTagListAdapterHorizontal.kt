@@ -25,7 +25,7 @@ private const val FooterType = 1
 
 
 class ColorTagListAdapterHorizontal(
-    var selectedColorTagId: Int?,
+    var selectedColorTagColor: String?,
     var array: List<ColorTag>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -71,16 +71,15 @@ class ColorTagListAdapterHorizontal(
                 } else if (activity is NoteActivity) {
                     val noteFgm = activity.fragment_edit_note as NoteFragment
                     val viewModal = noteFgm.viewModel
-                    val colorTagId = data.id
                     viewModal.viewModelScope.launch(Dispatchers.IO) {
-                        viewModal.updateColorTag(colorTagId)
+                        viewModal.updateColorTag(data)
                     }
                 }
             }
         }
 
         fun bind(item: ColorTag) {
-            binding.checked = item.id == selectedColorTagId
+            binding.checked = item.color == selectedColorTagColor
 
             binding.data = item
             binding.executePendingBindings()

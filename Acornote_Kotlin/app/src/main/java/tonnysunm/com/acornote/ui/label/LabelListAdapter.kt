@@ -1,6 +1,5 @@
 package tonnysunm.com.acornote.ui.label
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,10 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tonnysunm.com.acornote.databinding.ListItemLabelBinding
-import tonnysunm.com.acornote.model.LabelWithCheckStatus
+import tonnysunm.com.acornote.model.LabelWithChecked
 
 class LabelListAdapter :
-    PagedListAdapter<LabelWithCheckStatus, LabelListAdapter.ViewHolder>(DiffCallback) {
+    PagedListAdapter<LabelWithChecked, LabelListAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -30,17 +29,17 @@ class LabelListAdapter :
     public override fun getItem(position: Int) = super.getItem(position)
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<LabelWithCheckStatus>() {
+        private val DiffCallback = object : DiffUtil.ItemCallback<LabelWithChecked>() {
             override fun areItemsTheSame(
-                old: LabelWithCheckStatus,
-                aNew: LabelWithCheckStatus
+                old: LabelWithChecked,
+                aNew: LabelWithChecked
             ): Boolean {
-                return old.id == aNew.id
+                return old.label.id == aNew.label.id
             }
 
             override fun areContentsTheSame(
-                old: LabelWithCheckStatus,
-                aNew: LabelWithCheckStatus
+                old: LabelWithChecked,
+                aNew: LabelWithChecked
             ): Boolean {
                 return old == aNew
             }
@@ -62,7 +61,7 @@ class LabelListAdapter :
             }
         }
 
-        fun bind(item: LabelWithCheckStatus) {
+        fun bind(item: LabelWithChecked) {
             binding.data = item
 
             binding.executePendingBindings()

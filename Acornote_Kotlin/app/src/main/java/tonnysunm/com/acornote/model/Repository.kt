@@ -26,7 +26,7 @@ class Repository(private val application: Context) {
     }
 
     // Note
-    fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWrapper> = when (filter) {
+    fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWithImages> = when (filter) {
         is NoteFilter.All -> {
             Log.d("ROOM", "get all")
             noteDao.getPagingAll()
@@ -40,8 +40,8 @@ class Repository(private val application: Context) {
             noteDao.getByLabel(filter.id)
         }
         is NoteFilter.ByColorTag -> {
-            Log.d("ROOM", "get notes by colortag  " + filter.colorTag.id)
-            noteDao.getByColorTag(filter.colorTag.id)
+            Log.d("ROOM", "get notes by colortag  " + filter.colorTag.color)
+            noteDao.getByColorTag(filter.colorTag.color)
         }
     }
 

@@ -10,33 +10,37 @@ import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.Label
-import tonnysunm.com.acornote.model.LabelWithCheckStatus
-import tonnysunm.com.acornote.model.NoteLabel
+import tonnysunm.com.acornote.model.LabelWithChecked
+import tonnysunm.com.acornote.model.NoteLabelCrossRef
 import tonnysunm.com.acornote.model.Repository
 
 private const val TAG = "EditLabelViewModel"
 
-class EditLabelViewModel(app: Application, noteId: Int) : AndroidViewModel(app) {
+class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(app) {
 
     private val repository: Repository by lazy { Repository(app) }
 
-    val data: LiveData<PagedList<LabelWithCheckStatus>> by lazy {
+    val data: LiveData<PagedList<LabelWithChecked>> by lazy {
         repository.labelDao.getLabelsWithNoteId(noteId).toLiveData(pageSize = 5)
     }
 
-    fun flipChecked(lwcs: LabelWithCheckStatus) {
-        val labelId = lwcs.id
-        val noteId = lwcs.noteId
+    fun flipChecked(lwcs: LabelWithChecked) {
+        val labelId = lwcs.label.id
 
         viewModelScope.launch {
             val sharedPref =
                 getApplication<Application>().getSharedPreferences("acronote", Context.MODE_PRIVATE)
 
             if (!lwcs.checked) {
-                sharedPref.edit().putInt("default_label_id", lwcs.id).apply()
+                sharedPref.edit().putInt("default_label_id", lwcs.label.id).apply()
 
                 val id =
-                    repository.noteLabelDao.insert(NoteLabel(labelId = labelId, noteId = noteId))
+                    repository.noteLabelDao.insert(
+                        NoteLabelCrossRef(
+                            labelId = labelId,
+                            noteId = noteId
+                        )
+                    )
                 Log.d("TAG", "insert noteLabel $id")
             } else {
                 sharedPref.edit().remove("default_label_id").apply()
@@ -47,7 +51,7 @@ class EditLabelViewModel(app: Application, noteId: Int) : AndroidViewModel(app) 
             }
         }
     }
-    
+
     fun createLabel(title: String) {
         viewModelScope.launch {
             repository.labelDao.insert(Label(title = title))

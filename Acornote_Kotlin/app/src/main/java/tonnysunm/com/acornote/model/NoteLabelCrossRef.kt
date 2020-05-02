@@ -1,11 +1,13 @@
 package tonnysunm.com.acornote.model
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
-import java.util.*
 
 @Entity(
     tableName = "note_label_table",
+    primaryKeys = ["label_id", "note_id"],
     foreignKeys = [ForeignKey(
         onDelete = CASCADE,
         entity = Label::class,
@@ -16,22 +18,12 @@ import java.util.*
         entity = Note::class,
         parentColumns = ["id"],
         childColumns = ["note_id"]
-    )],
-    indices = [Index(
-        value = ["label_id", "note_id"],
-        unique = true
     )]
 )
-data class NoteLabel(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
-
+data class NoteLabelCrossRef(
     @ColumnInfo(name = "label_id", index = true)
     var labelId: Int,
 
     @ColumnInfo(name = "note_id", index = true)
-    var noteId: Int,
-
-    @ColumnInfo(name = "created_at")
-    val createdAt: Long = Date().time
+    var noteId: Int
 )

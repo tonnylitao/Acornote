@@ -31,7 +31,7 @@ class DataTypeConverter {
 private val TAG = AppRoomDatabase::class.simpleName
 
 @Database(
-    entities = [Label::class, Note::class, NoteLabel::class, ColorTag::class, Image::class, NoteFts::class],
+    entities = [Label::class, Note::class, NoteLabelCrossRef::class, ColorTag::class, Image::class, NoteFts::class],
     version = 1
 )
 @TypeConverters(DataTypeConverter::class)
@@ -39,7 +39,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
 
     abstract fun labelDao(): LabelDao
     abstract fun noteDao(): NoteDao
-    abstract fun noteLabelDao(): NoteLabelDao
+    abstract fun noteLabelDao(): NoteLabelCrossRefDao
     abstract fun colorTagDao(): ColorTagDao
     abstract fun imageDao(): ImageDao
 
@@ -108,7 +108,6 @@ abstract class AppRoomDatabase : RoomDatabase() {
                                         SQLiteDatabase.CONFLICT_NONE,
                                         ContentValues().apply {
                                             put("note_id", 1)
-                                            put("created_at", Date().time)
                                             put(
                                                 "url",
                                                 "https://www.kindpng.com/picc/m/14-142436_android-jetpack-logo-hd-png-download.png"

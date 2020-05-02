@@ -2,15 +2,14 @@ package tonnysunm.com.acornote.model
 
 import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "color_tag_table", indices = [Index(value = ["color"], unique = true)])
+@Entity(
+    tableName = "color_tag_table"
+)
 data class ColorTag(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
-
+    @PrimaryKey
     var color: String,
 
     var name: String

@@ -13,7 +13,7 @@
 
         <variable
             name="data"
-            type="tonnysunm.com.acornote.model.NoteWrapper" />
+            type="tonnysunm.com.acornote.model.NoteWithImages" />
 
     </data>
 

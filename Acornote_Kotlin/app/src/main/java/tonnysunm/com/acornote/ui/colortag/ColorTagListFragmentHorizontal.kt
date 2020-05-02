@@ -36,7 +36,7 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        
+
         val binding = FragmentColortagsHorizontalBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this
@@ -47,12 +47,12 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         val editNoteFragment =
             activity?.supportFragmentManager?.findFragmentById(R.id.fragment_edit_note) as? NoteFragment
         editNoteFragment?.viewModel?.data?.observe(this.viewLifecycleOwner, Observer {
-            adapter.selectedColorTagId = it?.colorTagId //? fix note been deleted
+            adapter.selectedColorTagColor = it?.colorTag?.color //? fix note been deleted
             adapter.notifyDataSetChanged()
         })
 
         homeSharedModel?.noteFilterLiveData?.observe(this.viewLifecycleOwner, Observer {
-            adapter.selectedColorTagId = it.colorTagId
+            adapter.selectedColorTagColor = it.colorTagColor
             adapter.notifyDataSetChanged()
         })
 

@@ -11,7 +11,7 @@
 
         <variable
             name="data"
-            type="tonnysunm.com.acornote.model.LabelWithCheckStatus" />
+            type="tonnysunm.com.acornote.model.LabelWithChecked" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
             android:layout_marginBottom="8dp"
             android:textSize="18sp"
             android:textColor="@android:color/black"
-            android:text="@{data.title}"
+            android:text="@{data.label.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/checkbox"
             app:layout_constraintStart_toStartOf="parent"

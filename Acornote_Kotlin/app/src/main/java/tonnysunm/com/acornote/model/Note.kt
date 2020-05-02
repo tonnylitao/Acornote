@@ -3,10 +3,15 @@ package tonnysunm.com.acornote.model
 import androidx.room.*
 import java.util.*
 
-@Entity(tableName = "note_table")
+@Entity(
+    tableName = "note_table",
+    indices = [
+        Index(value = ["color_tag_color"])
+    ]
+)
 data class Note(
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0, //keep Note.id == NoteFTS.rowid, Note.title == NoteFTS.title, Note.description == NoteFTS.description
+    var id: Int = 0,
 
     @ColumnInfo(index = true)
     var order: Int,
@@ -19,8 +24,9 @@ data class Note(
 
     var pinned: Boolean? = null,
 
-    @ColumnInfo(name = "color_tag_id", index = true)
-    var colorTagId: Int? = null,
+    @SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
+    @Embedded(prefix = "color_tag_")
+    var colorTag: ColorTag? = null,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long = Date().time,
@@ -30,28 +36,27 @@ data class Note(
 
     var editing: Boolean = true
 ) {
-
     val hasDescription: Boolean
         get() {
             return description != null && description!!.trim().isNotEmpty()
         }
 }
 
-data class NoteWrapper(
+data class NoteWithImages(
     @Embedded
     val note: Note,
 
     @Relation(parentColumn = "id", entityColumn = "note_id")
-    var imageUrls: List<Image>?
+    var images: List<Image>?
 ) {
     val hasImage: Boolean
         get() {
-            return imageUrls != null && imageUrls!!.isNotEmpty()
+            return images != null && images!!.isNotEmpty()
         }
 
     val coverUrl: String?
         get() {
-            return imageUrls?.firstOrNull()?.url
+            return images?.firstOrNull()?.url
         }
 }
 
