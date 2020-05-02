@@ -10,7 +10,7 @@ import androidx.room.Query
 interface LabelDao : BaseDao<Label> {
 
     // Room executes all queries on a separate thread. So there is no suspend.
-    @Query("SELECT a.*, count(*) AS noteCount FROM label_table a LEFT JOIN note_label_table b ON a.id = b.label_id LEFT JOIN note_table c ON b.note_id = c.id AND c.editing = 0 GROUP BY a.id ORDER BY a.id DESC")
+    @Query("SELECT a.*, count(*) AS noteCount FROM label_table a LEFT JOIN note_label_table b ON a.id = b.label_id LEFT JOIN note_table c ON b.note_id = c.id WHERE c.editing = 0 GROUP BY a.id ORDER BY a.id DESC")
     fun getLabelsWithNoteCount(): LiveData<List<LabelWithNoteCount>>
 
     @Query("SELECT a.*, count(b.note_id) > 0 AS checked FROM label_table a LEFT JOIN note_label_table b ON a.id = b.label_id AND b.note_id = :noteId GROUP BY a.id ORDER BY a.id DESC")

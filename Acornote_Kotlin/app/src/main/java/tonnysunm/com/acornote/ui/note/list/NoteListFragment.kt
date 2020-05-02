@@ -149,8 +149,6 @@ class NoteListFragment : Fragment() {
         touchHelper.attachToRecyclerView(binding.recyclerview)
         */
 
-        mViewModel.createColorTagsIfNecessary(this.requireContext())
-
         return binding.root
     }
 

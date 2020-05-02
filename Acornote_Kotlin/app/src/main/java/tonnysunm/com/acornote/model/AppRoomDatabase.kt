@@ -71,13 +71,15 @@ abstract class AppRoomDatabase : RoomDatabase() {
                     )
                     .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
+                            val values = ColorTag.colorNames.entries.joinToString(",") {
+                                "('${it.key}', '${it.value}')"
+                            }
+                            db.execSQL("INSERT INTO color_tag_table (color, name) VALUES $values;")
+
                             super.onCreate(db)
-//                            db.execSQL("")
                         }
 
                         override fun onOpen(db: SupportSQLiteDatabase) {
-                            super.onOpen(db)
-
                             val cursor =
                                 db.query("SELECT count(*) FROM note_table WHERE editing = 0")
 
@@ -129,6 +131,8 @@ abstract class AppRoomDatabase : RoomDatabase() {
 
                                 }
                             }
+
+                            super.onOpen(db)
                         }
                     })
 //                    .addMigrations(MIGRATION_1_2)

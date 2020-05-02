@@ -16,7 +16,7 @@ data class ColorTag(
 ) {
 
     companion object {
-        private val colorNames = mapOf(
+        val colorNames = mapOf(
             "#000000" to "Black",
             "#A4A4A4" to "Gray",
             "#56D769" to "Green",

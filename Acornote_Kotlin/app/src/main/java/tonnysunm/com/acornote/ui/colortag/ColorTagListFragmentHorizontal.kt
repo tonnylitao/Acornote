@@ -57,6 +57,7 @@ open class ColorTagListFragmentHorizontal : Fragment() {
         })
 
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
+            //TODO is empty
             adapter.array = it
             adapter.notifyDataSetChanged()
         })
