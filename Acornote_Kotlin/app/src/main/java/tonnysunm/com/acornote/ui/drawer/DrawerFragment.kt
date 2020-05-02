@@ -100,7 +100,7 @@ class DrawerFragment : Fragment() {
 
         navView.setNavigationItemSelectedListener { item ->
 
-            homeSharedModel.noteFilterLiveData.value = item.noteFilter
+            homeSharedModel.setFilter(item.noteFilter)
 
             true
         }

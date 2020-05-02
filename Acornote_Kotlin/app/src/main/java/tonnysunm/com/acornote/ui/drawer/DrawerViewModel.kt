@@ -10,18 +10,18 @@ import tonnysunm.com.acornote.model.Repository
 
 class DrawerViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    private val _repository: Repository by lazy { Repository(application) }
 
     val allNotesCountLiveData: LiveData<Int> by lazy {
-        repository.noteDao.notesAllCount()
+        _repository.noteDao.notesAllCount()
     }
 
     val starCountLiveData: LiveData<Int> by lazy {
-        repository.noteDao.notesStarCount()
+        _repository.noteDao.notesStarCount()
     }
 
     val data: LiveData<List<LabelWithNoteCount>> by lazy {
-        repository.labels
+        _repository.labels
     }
 
     override fun onCleared() {

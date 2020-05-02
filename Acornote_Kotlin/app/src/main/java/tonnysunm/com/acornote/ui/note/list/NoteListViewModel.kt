@@ -12,25 +12,20 @@ import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.model.NoteWithImageUrl
 import tonnysunm.com.acornote.model.Repository
 
-class NoteListViewModel(application: Application, filter: NoteFilter) :
+class NoteListViewModel(application: Application) :
     AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    private val _repository: Repository by lazy { Repository(application) }
 
-    val noteFilterLiveData: MutableLiveData<NoteFilter> by lazy {
-        MutableLiveData(filter)
+    private val _noteFilterLiveData: MutableLiveData<NoteFilter> = MutableLiveData(NoteFilter.All)
+
+    val data: LiveData<PagedList<NoteWithImageUrl>> = _noteFilterLiveData.switchMap {
+        _repository.notes(it).toLiveData(pageSize = 5)
     }
 
-//    val createVisibilityLiveData: LiveData<Int> = Transformations.map(noteFilterLiveData) {
-//        return@map when (it) {
-//            NoteFilter.All, is NoteFilter.ByLabel -> View.VISIBLE
-//            else -> View.GONE
-//        }
-//    }
-
-    val data: LiveData<PagedList<NoteWithImageUrl>> = noteFilterLiveData.switchMap {
-        repository.notes(it).toLiveData(pageSize = 5)
+    fun setFilter(filter: NoteFilter) {
+        _noteFilterLiveData.value = filter
     }
 
-    suspend fun updateNotes(list: MutableList<Note>) = repository.noteDao.updateNotes(list)
+    suspend fun updateNotes(list: MutableList<Note>) = _repository.noteDao.updateNotes(list)
 }

@@ -15,7 +15,7 @@ private val TAG = "NoteViewModel"
 class NoteViewModel(application: Application, private val intent: Intent) :
     AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    private val _repository: Repository by lazy { Repository(application) }
 
     private val isCreateNewNote: Boolean
         get() {
@@ -27,7 +27,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         val id = intent.getIntExtra("id", EmptyId)
 
         if (id > EmptyId) {
-            repository.noteDao.note(id)
+            _repository.noteDao.note(id)
         } else {
             val text: String? = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
 
@@ -39,7 +39,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
             val star = intent.getBooleanExtra("star", false)
 
-            repository.noteDao.noteEditing().switchMap {
+            _repository.noteDao.noteEditing().switchMap {
                 if (it == null) {
                     val note = Note(
                         title = "",
@@ -57,9 +57,9 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                     }
 
                     viewModelScope.launch(Dispatchers.IO) {
-                        note.order = (repository.noteDao.maxOrder() ?: 0) + 1
+                        note.order = (_repository.noteDao.maxOrder() ?: 0) + 1
 
-                        val newId = repository.noteDao.insert(note).toInt()
+                        val newId = _repository.noteDao.insert(note).toInt()
                         data.value?.id = newId
 
                         val sharedPref =
@@ -73,7 +73,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
                         if (labelId > 0) {
                             try {
-                                repository.noteLabelDao.insert(
+                                _repository.noteLabelDao.insert(
                                     NoteLabelCrossRef(noteId = newId, labelId = labelId)
                                 )
                             } catch (e: Exception) {
@@ -111,7 +111,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         val note = data.value ?: throw IllegalStateException("note is not set")
 
         note.updatedAt = Date().time
-        repository.noteDao.update(note)
+        _repository.noteDao.update(note)
     }
 
     suspend fun updateColorTag(colorTag: ColorTag) {
@@ -122,14 +122,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
             (data as? MutableLiveData<Note>)?.postValue(note)
         } else {
             note.colorTag = colorTag
-            repository.noteDao.update(note)
+            _repository.noteDao.update(note)
         }
     }
 
     fun deleteNote() {
         data.value?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                repository.noteDao.delete(it)
+                _repository.noteDao.delete(it)
             }
         }
     }
@@ -138,10 +138,10 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         viewModelScope.launch(Dispatchers.IO) {
             var tips = ""
             try {
-                if (repository.noteDao.getCountByString(text) > 0) {
+                if (_repository.noteDao.getCountByString(text) > 0) {
                     tips = "Repeated"
                 } else {
-                    val order = (repository.noteDao.maxOrder() ?: 0) + 1
+                    val order = (_repository.noteDao.maxOrder() ?: 0) + 1
 
                     val note = Note(
                         title = text,
@@ -149,7 +149,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         editing = false
                     )
 
-                    val newId = repository.noteDao.insert(note).toInt()
+                    val newId = _repository.noteDao.insert(note).toInt()
 
                     val sharedPref =
                         getApplication<Application>().getSharedPreferences(
@@ -159,7 +159,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                     val labelId = sharedPref.getInt("default_label_id", 0)
 
                     if (labelId > 0) {
-                        repository.noteLabelDao.insert(
+                        _repository.noteLabelDao.insert(
                             NoteLabelCrossRef(noteId = newId, labelId = labelId)
                         )
                     }

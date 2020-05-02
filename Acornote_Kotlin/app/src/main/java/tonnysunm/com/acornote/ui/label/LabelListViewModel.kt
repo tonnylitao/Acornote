@@ -19,10 +19,10 @@ private const val TAG = "EditLabelViewModel"
 
 class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(app) {
 
-    private val repository: Repository by lazy { Repository(app) }
+    private val _repository: Repository by lazy { Repository(app) }
 
     val data: LiveData<PagedList<LabelWithChecked>> by lazy {
-        repository.labelDao.getLabelsWithNoteId(noteId).toLiveData(pageSize = 5)
+        _repository.labelDao.getLabelsWithNoteId(noteId).toLiveData(pageSize = 5)
     }
 
     fun flipChecked(lwcs: LabelWithChecked) {
@@ -38,7 +38,7 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
                 }
 
                 val id =
-                    repository.noteLabelDao.insert(
+                    _repository.noteLabelDao.insert(
                         NoteLabelCrossRef(
                             labelId = labelId,
                             noteId = noteId
@@ -50,7 +50,7 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
                     remove("default_label_id")
                 }
 
-                repository.noteLabelDao.delete(labelId, noteId)
+                _repository.noteLabelDao.delete(labelId, noteId)
 
                 Log.d("TAG", "delete noteLabel")
             }
@@ -59,7 +59,7 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
 
     fun createLabel(title: String) {
         viewModelScope.launch {
-            repository.labelDao.insert(Label(title = title))
+            _repository.labelDao.insert(Label(title = title))
         }
     }
 }

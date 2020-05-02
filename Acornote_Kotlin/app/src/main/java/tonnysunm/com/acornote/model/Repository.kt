@@ -2,8 +2,6 @@ package tonnysunm.com.acornote.model
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 
 class Repository(private val application: Context) {
@@ -16,14 +14,6 @@ class Repository(private val application: Context) {
 
     // Label
     val labels = labelDao.getLabelsWithNoteCount()
-
-    fun getLabel(id: Int?): LiveData<Label> {
-        if (id != null) {
-            return labelDao.getLabel(id)
-        }
-
-        return MutableLiveData(Label(title = ""))
-    }
 
     // Note
     fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWithImageUrl> = when (filter) {

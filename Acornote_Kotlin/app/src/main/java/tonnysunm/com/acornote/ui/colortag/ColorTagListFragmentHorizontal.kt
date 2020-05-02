@@ -68,6 +68,6 @@ open class ColorTagListFragmentHorizontal : Fragment() {
     }
 
     fun navigateToNotesBy(colorTag: ColorTag) {
-        homeSharedModel?.noteFilterLiveData?.value = NoteFilter.ByColorTag(colorTag)
+        homeSharedModel?.setFilter(NoteFilter.ByColorTag(colorTag))
     }
 }

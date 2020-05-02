@@ -14,16 +14,16 @@ private val TAG = "ColorTagViewModel"
 class ColorTagViewModel(application: Application) :
     AndroidViewModel(application) {
 
-    private val repository: Repository by lazy { Repository(application) }
+    private val _repository: Repository by lazy { Repository(application) }
 
     val data: LiveData<List<ColorTag>> by lazy {
-        repository.colorTagDao.getAll()
+        _repository.colorTagDao.getAll()
     }
 
     fun saveColorTags() {
         data.value?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                repository.colorTagDao.update(it)
+                _repository.colorTagDao.update(it)
             }
         }
 

@@ -13,31 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNotesBinding
 import tonnysunm.com.acornote.library.AndroidViewModelFactory
-import tonnysunm.com.acornote.model.NoteFilter
 import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.HomeSharedViewModel
-
 
 private const val TAG = "NoteListFragment"
 
 class NoteListFragment : Fragment() {
 
-    private val labelId = arguments?.getInt(getString(R.string.labelIdKey))
-
     private val mViewModel by viewModels<NoteListViewModel> {
-        val filter = arguments?.getString("filter") ?: ""
-        val labelTitle = arguments?.getString("labelTitle") ?: ""
-
-        val noteFilter = when {
-            filter == getString(R.string.starKey) -> NoteFilter.Star
-            (labelId ?: 0) > 0 -> NoteFilter.ByLabel(labelId!!, labelTitle)
-            else -> NoteFilter.All
-        }
-
-        AndroidViewModelFactory(requireActivity().application, noteFilter)
+        AndroidViewModelFactory(requireActivity().application)
     }
 
     private val homeSharedModel by activityViewModels<HomeSharedViewModel>()
@@ -49,11 +35,7 @@ class NoteListFragment : Fragment() {
     ): View {
         val adapter = NoteListAdapter()
 
-        val fragment = this
         val binding = FragmentNotesBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = fragment
-            viewModel = fragment.mViewModel
-
             recyclerview.adapter = adapter
         }
 
@@ -84,7 +66,7 @@ class NoteListFragment : Fragment() {
         })
 
         homeSharedModel.noteFilterLiveData.observe(this.viewLifecycleOwner, Observer {
-            mViewModel.noteFilterLiveData.value = it
+            mViewModel.setFilter(it)
         })
 
         /*
