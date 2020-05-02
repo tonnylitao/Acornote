@@ -3,6 +3,7 @@ package tonnysunm.com.acornote.ui.label
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -32,7 +33,9 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
                 getApplication<Application>().getSharedPreferences("acronote", Context.MODE_PRIVATE)
 
             if (!lwcs.checked) {
-                sharedPref.edit().putInt("default_label_id", lwcs.label.id).apply()
+                sharedPref.edit {
+                    putInt("default_label_id", lwcs.label.id)
+                }
 
                 val id =
                     repository.noteLabelDao.insert(
@@ -43,7 +46,9 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
                     )
                 Log.d("TAG", "insert noteLabel $id")
             } else {
-                sharedPref.edit().remove("default_label_id").apply()
+                sharedPref.edit {
+                    remove("default_label_id")
+                }
 
                 repository.noteLabelDao.delete(labelId, noteId)
 

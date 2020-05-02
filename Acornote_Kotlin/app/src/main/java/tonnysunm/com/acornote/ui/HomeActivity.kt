@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -12,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -47,9 +48,9 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
 
             if (it is NoteFilter.ByColorTag) {
                 colorTagView.colorString = it.colorTag.color
-                colorTagView.visibility = View.VISIBLE
+                colorTagView.isVisible = true
             } else {
-                colorTagView.visibility = View.GONE
+                colorTagView.isGone = true
             }
         })
 

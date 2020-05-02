@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.findFragment
 import androidx.paging.PagedListAdapter
@@ -146,7 +147,7 @@ fun setLayoutMarginBottom(view: View, dimen: Float) {
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageButton, imageUrl: String?) {
-    if (view.visibility == View.GONE || imageUrl == null) return
+    if (view.isGone || imageUrl == null) return
 
     GlideApp.with(view.context)
         .load(imageUrl)
