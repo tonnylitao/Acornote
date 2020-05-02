@@ -5,10 +5,7 @@ import androidx.room.Query
 
 @Dao
 interface NoteLabelCrossRefDao : BaseDao<NoteLabelCrossRef> {
-    // Room executes all queries on a separate thread. So there is no suspend.
-//    @Query("SELECT * from note_label_table ORDER BY id DESC")
-//    fun getPagingAll(): DataSource.Factory<Int, NoteLabel>
-
+    
     @Query("SELECT * from note_label_table")
     suspend fun getAll(): List<NoteLabelCrossRef>
 

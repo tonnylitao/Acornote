@@ -15,7 +15,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import tonnysunm.com.acornote.GlideApp
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.NoteWithImageUrl
 import tonnysunm.com.acornote.ui.HomeActivity
@@ -148,7 +148,7 @@ fun setLayoutMarginBottom(view: View, dimen: Float) {
 fun loadImage(view: ImageButton, imageUrl: String?) {
     if (view.visibility == View.GONE || imageUrl == null) return
 
-    Glide.with(view.context)
+    GlideApp.with(view.context)
         .load(imageUrl)
         .into(view)
 }

@@ -58,15 +58,15 @@ class NoteListFragment : Fragment() {
         }
 
         mViewModel.data.observe(this.viewLifecycleOwner, Observer {
-            val adapter = binding.recyclerview.adapter as NoteListAdapter
-            adapter.submitList(it)
+            val adp = binding.recyclerview.adapter as NoteListAdapter
+            adp.submitList(it)
 
             //delay for fix PagedStorageDiffHelper.computeDiff running in background thread
             if (NoteListAdapter.disableAnimation) {
                 mViewModel.viewModelScope.launch {
                     delay(500)
 
-                    adapter.notifyDataSetChanged() //update viewholder's binding data
+                    adp.notifyDataSetChanged() //update viewholder's binding data
                     NoteListAdapter.disableAnimation = false
                 }
             }
