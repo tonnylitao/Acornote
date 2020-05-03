@@ -98,4 +98,5 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.3.72'
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
 }

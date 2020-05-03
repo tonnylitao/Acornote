@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <data>
+
+        <variable
+            name="data"
+            type="tonnysunm.com.acornote.model.Image" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+    </data>
 
     <ImageView
-        android:id="@+id/imgView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        android:contentDescription="image" />
-</ScrollView>
+        android:layout_height="match_parent"
+        android:onClick="@{click}"
+        app:imageUrl="@{data.url}"
+        android:contentDescription="imgage" />
+
+</layout>

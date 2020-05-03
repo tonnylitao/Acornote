@@ -19,8 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
+import tonnysunm.com.acornote.databinding.FragmentSlidePageBinding
 import tonnysunm.com.acornote.library.AndroidViewModelFactory
 import tonnysunm.com.acornote.model.EmptyId
+import tonnysunm.com.acornote.model.Image
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.label.LabelListActivity
@@ -56,8 +58,6 @@ class NoteFragment : Fragment() {
                 titleView.requestFocus()
             }
 
-            viewPager.adapter = ScreenSlidePagerAdapter(requireActivity())
-
             editLabel = View.OnClickListener {
                 val startForResult =
                     requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
@@ -82,12 +82,28 @@ class NoteFragment : Fragment() {
                 }
 
                 updateMenuItems(this.menu, it)
+
+                binding.viewPager.adapter = ImagePageViewAdapter(
+                    requireActivity(), listOf(
+                        Image(
+                            id = 0,
+                            url = "https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__aWxvdmVrZWxseQo_FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg",
+                            noteId = 1
+                        ),
+                        Image(
+                            id = 0,
+                            url = "https://www.kindpng.com/picc/m/14-142436_android-jetpack-logo-hd-png-download.png",
+                            noteId = 1
+                        )
+                    )
+                )
             }
         })
 
         setHasOptionsMenu(true)
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+        requireActivity().onBackPressedDispatcher.addCallback(object :
+            OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 insertOrUpdateNote()
             }
@@ -191,23 +207,27 @@ class NoteFragment : Fragment() {
         }
     }
 
-    inner class ScreenSlidePagerAdapter(fa: FragmentActivity) :
+    inner class ImagePageViewAdapter(fa: FragmentActivity, private val images: List<Image>) :
         FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int = 2
 
-        override fun createFragment(position: Int): Fragment = ScreenSlidePageFragment().apply {
-            if (position == 0) {
-                context?.resources?.getColor(R.color.colorAccent, null)?.let {
-                    view?.setBackgroundColor(it)
-                }
-            } else {
-                context?.resources?.getColor(R.color.drawer_label_title, null)?.let {
-                    view?.setBackgroundColor(it)
-                }
+        override fun getItemCount() = images.size
+
+        override fun createFragment(position: Int) = ImageSlidePageFragment(images[position])
+    }
+
+    class ImageSlidePageFragment(val image: Image) : Fragment() {
+        
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View {
+            val binding = FragmentSlidePageBinding.inflate(inflater, container, false).apply {
+                data = image
             }
 
+            return binding.root
         }
     }
 }
 
-class ScreenSlidePageFragment : Fragment(R.layout.fragment_slide_page)

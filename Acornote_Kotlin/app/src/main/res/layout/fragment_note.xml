@@ -21,9 +21,10 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -40,8 +41,7 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:background="@color/colorAccent"
-                    android:visibility="gone"
+                    android:orientation="horizontal"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </androidx.viewpager2.widget.ViewPager2>
@@ -152,6 +152,6 @@
                 android:layout_height="wrap_content"
                 tools:layout="@layout/fragment_colortags_horizontal" />
         </FrameLayout>
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>
