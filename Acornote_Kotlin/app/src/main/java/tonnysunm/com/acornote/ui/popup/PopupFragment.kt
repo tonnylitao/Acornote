@@ -21,7 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.FragmentPopupBinding
 import tonnysunm.com.acornote.library.AndroidViewModelFactory
-import tonnysunm.com.acornote.model.Note
+import tonnysunm.com.acornote.model.NoteWithImages
 import tonnysunm.com.acornote.model.textAsTitle
 import tonnysunm.com.acornote.ui.label.LabelListActivity
 import tonnysunm.com.acornote.ui.note.NoteViewModel
@@ -46,7 +46,7 @@ class PopupFragment : Fragment() {
             viewModel = fragment.viewModel
 
             switchTexts = View.OnClickListener {
-                val note = fragment.viewModel.data.value
+                val note = fragment.viewModel.data.value?.note
 
                 val text = note?.title
                 note?.title = note?.description ?: ""
@@ -63,7 +63,7 @@ class PopupFragment : Fragment() {
                         }
                     }
                 startForResult(Intent(context, LabelListActivity::class.java).apply {
-                    putExtra("id", fragment.viewModel.data.value?.id)
+                    putExtra("id", fragment.viewModel.data.value?.note?.id)
                 })
             }
 
@@ -83,7 +83,7 @@ class PopupFragment : Fragment() {
     }
 
     private fun insertOrUpdateNote() {
-        val note = viewModel.data.value ?: return
+        val note = viewModel.data.value?.note ?: return
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -103,15 +103,16 @@ class PopupFragment : Fragment() {
     fun onWindowFocus() {
         val fragment = this
         viewModel.data.observe(viewLifecycleOwner, Observer {
+            val note = it.note
             val text = getCopyText()
-            if (it.title.isEmpty() && it.description == null && text != null) {
+            if (note.title.isEmpty() && note.description == null && text != null) {
                 if (text.textAsTitle()) {
-                    it.title = text
+                    note.title = text
                 } else {
-                    it.description = text
+                    note.description = text
                 }
 
-                (viewModel.data as? MutableLiveData<Note>)?.postValue(it)
+                (viewModel.data as? MutableLiveData<NoteWithImages>)?.postValue(it)
             }
 
             viewModel.data.removeObservers(fragment.viewLifecycleOwner)

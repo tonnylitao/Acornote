@@ -23,11 +23,11 @@ class NoteViewModel(application: Application, private val intent: Intent) :
             return id == EmptyId
         }
 
-    val data: LiveData<Note> by lazy {
+    val data: LiveData<NoteWithImages> by lazy {
         val id = intent.getIntExtra("id", EmptyId)
 
         if (id > EmptyId) {
-            _repository.noteDao.note(id)
+            _repository.noteDao.noteWithImages(id)
         } else {
             val text: String? = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
 
@@ -39,7 +39,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
             val star = intent.getBooleanExtra("star", false)
 
-            _repository.noteDao.noteEditing().switchMap {
+            _repository.noteDao.noteEditingWithImages().switchMap {
                 if (it == null) {
                     val note = Note(
                         title = "",
@@ -60,7 +60,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         note.order = (_repository.noteDao.maxOrder() ?: 0) + 1
 
                         val newId = _repository.noteDao.insert(note).toInt()
-                        data.value?.id = newId
+                        data.value?.note?.id = newId
 
                         val sharedPref =
                             application.getSharedPreferences("acronote", Context.MODE_PRIVATE)
@@ -81,15 +81,15 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         }
                     }
 
-                    MutableLiveData(note)
+                    MutableLiveData(NoteWithImages(note, null))
                 } else {
                     if (!textRemoveMediumLink.isNullOrEmpty()) {
                         if (textRemoveMediumLink.textAsTitle()) {
-                            it.title = textRemoveMediumLink
-                            it.description = null
+                            it.note.title = textRemoveMediumLink
+                            it.note.description = null
                         } else {
-                            it.title = ""
-                            it.description = textRemoveMediumLink
+                            it.note.title = ""
+                            it.note.description = textRemoveMediumLink
                         }
                     }
 
@@ -100,7 +100,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
     }
 
     val savable = data.switchMap {
-        MutableLiveData(it.title.isNotEmpty())
+        MutableLiveData(it.note.title.isNotEmpty())
     }
 
     fun onTitleChanged(text: CharSequence) {
@@ -108,14 +108,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
     }
 
     suspend fun updateNote() {
-        val note = data.value ?: throw IllegalStateException("note is not set")
+        val note = data.value?.note ?: throw IllegalStateException("note is not set")
 
         note.updatedAt = Date().time
         _repository.noteDao.update(note)
     }
 
     suspend fun updateColorTag(colorTag: ColorTag) {
-        val note = data.value ?: throw IllegalStateException("note is not set")
+        val note = data.value?.note ?: throw IllegalStateException("note is not set")
 
         if (isCreateNewNote) {
             note.colorTag = colorTag
@@ -127,7 +127,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
     }
 
     fun deleteNote() {
-        data.value?.let {
+        data.value?.note?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 _repository.noteDao.delete(it)
             }

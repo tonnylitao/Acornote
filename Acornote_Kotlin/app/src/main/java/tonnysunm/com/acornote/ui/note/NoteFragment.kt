@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
@@ -66,7 +67,7 @@ class NoteFragment : Fragment() {
                     }
 
                 startForResult(Intent(context, LabelListActivity::class.java).apply {
-                    putExtra("id", fragment.viewModel.data.value?.id)
+                    putExtra("id", fragment.viewModel.data.value?.note?.id)
                 })
             }
 
@@ -76,27 +77,22 @@ class NoteFragment : Fragment() {
         }
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
+            val note = it.note
             if (it != null) { //been deleted
-                if (it.id != 0 && this.noteBeforeEditing == null) {
-                    this.noteBeforeEditing = it.copy()
+                if (note.id != 0 && this.noteBeforeEditing == null) {
+                    this.noteBeforeEditing = note.copy()
                 }
 
-                updateMenuItems(this.menu, it)
+                updateMenuItems(this.menu, note)
 
-                binding.viewPager.adapter = ImagePageViewAdapter(
-                    requireActivity(), listOf(
-                        Image(
-                            id = 0,
-                            url = "https://www.newzealand.com/assets/Tourism-NZ/Fiordland/img-1536137761-110-7749-p-7ECF7092-95BD-FE18-6D4107E2E42D067E-2544003__aWxvdmVrZWxseQo_FocalPointCropWzQyNyw2NDAsNTAsNTAsODUsImpwZyIsNjUsMi41XQ.jpg",
-                            noteId = 1
-                        ),
-                        Image(
-                            id = 0,
-                            url = "https://www.kindpng.com/picc/m/14-142436_android-jetpack-logo-hd-png-download.png",
-                            noteId = 1
-                        )
-                    )
-                )
+                if (it.hasImage) {
+                    binding.viewPager.adapter =
+                        ImagePageViewAdapter(requireActivity(), it.images ?: listOf())
+
+                    TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+
+                    }.attach()
+                }
             }
         })
 
@@ -129,15 +125,15 @@ class NoteFragment : Fragment() {
         inflater.inflate(R.menu.note, menu)
 
         this.menu = menu
-        updateMenuItems(menu, viewModel.data.value)
+        updateMenuItems(menu, viewModel.data.value?.note)
 
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_star -> {
-            val note = viewModel.data.value
-            note?.star = viewModel.data.value?.star != true
+            val note = viewModel.data.value?.note
+            note?.star = note?.star != true
             if (note?.id == 0) {
                 updateMenuItems(this.menu, note)
             } else {
@@ -148,8 +144,8 @@ class NoteFragment : Fragment() {
             true
         }
         R.id.action_pin -> {
-            val note = viewModel.data.value
-            note?.pinned = viewModel.data.value?.pinned != true
+            val note = viewModel.data.value?.note
+            note?.pinned = note?.pinned != true
             if (note?.id == 0) {
                 updateMenuItems(this.menu, note)
             } else {
@@ -167,7 +163,7 @@ class NoteFragment : Fragment() {
             true
         }
         R.id.action_edit -> {
-            viewModel.data.value?.editing = true
+            viewModel.data.value?.note?.editing = true
             binding?.invalidateAll()
             true
         }
@@ -178,7 +174,7 @@ class NoteFragment : Fragment() {
 
     fun insertOrUpdateNote() {
 
-        val note = viewModel.data.value ?: return
+        val note = viewModel.data.value?.note ?: return
 
         val isInsert = this.id == null
         val inUpdate = this.noteBeforeEditing != note
@@ -210,13 +206,13 @@ class NoteFragment : Fragment() {
     inner class ImagePageViewAdapter(fa: FragmentActivity, private val images: List<Image>) :
         FragmentStateAdapter(fa) {
 
-        override fun getItemCount() = images.size
+        override fun getItemCount() = images.size ?: 0
 
         override fun createFragment(position: Int) = ImageSlidePageFragment(images[position])
     }
 
     class ImageSlidePageFragment(val image: Image) : Fragment() {
-        
+
         override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,

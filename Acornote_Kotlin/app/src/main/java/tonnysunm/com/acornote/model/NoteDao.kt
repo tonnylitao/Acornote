@@ -40,11 +40,16 @@ interface NoteDao : BaseDao<Note> {
     @Update
     suspend fun updateNotes(notes: MutableList<Note>): Int
 
-    @Query("SELECT * from note_table WHERE id = :id LIMIT 1")
-    fun note(id: Int): LiveData<Note>
+//    @Query("SELECT * from note_table WHERE id = :id")
+//    fun note(id: Int): LiveData<Note>
 
+    @Transaction
+    @Query("SELECT * from note_table WHERE id = :id")
+    fun noteWithImages(id: Int): LiveData<NoteWithImages>
+
+    @Transaction
     @Query("SELECT * from note_table WHERE editing = 1 LIMIT 1")
-    fun noteEditing(): LiveData<Note?>
+    fun noteEditingWithImages(): LiveData<NoteWithImages?>
 
     @Query("SELECT count(*) from note_table WHERE editing = 0")
     fun notesAllCount(): LiveData<Int>

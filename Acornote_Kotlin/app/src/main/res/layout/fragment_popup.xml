@@ -67,7 +67,7 @@
                     android:layout_marginBottom="0dp"
                     android:textSize="30sp"
                     android:background="@null"
-                    android:text="@={viewModel.data.title}"
+                    android:text="@={viewModel.data.note.title}"
                     android:onTextChanged="@{(text, start, before, count) -> viewModel.onTitleChanged(text)}" />
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,7 +78,7 @@
                     android:textSize="20sp"
                     android:layout_margin="16dp"
                     android:background="@null"
-                    android:text="@={viewModel.data.description}" />
+                    android:text="@={viewModel.data.note.description}" />
             </LinearLayout>
 
         </ScrollView>
@@ -89,7 +89,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.data.note.editing ? View.VISIBLE : View.GONE}"
             app:contentInsetEnd="5dp"
             app:contentInsetStart="5dp">
 

@@ -55,6 +55,9 @@ data class NoteWithImages(
 
     @Relation(parentColumn = "id", entityColumn = "note_id")
     var images: List<Image>?
-)
+) {
+    @Ignore
+    val hasImage = !images.isNullOrEmpty()
+}
 
 fun String.textAsTitle() = split(" ").size <= 3

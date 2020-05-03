@@ -32,42 +32,61 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="?attr/actionBarSize">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1.618"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:visibility="@{viewModel.data.hasImage ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                </androidx.viewpager2.widget.ViewPager2>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    app:tabBackground="@drawable/tab_selector"
+                    android:visibility="@{viewModel.data.hasImage ? View.VISIBLE : View.GONE}"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/viewPager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/titleView"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:hint="Note"
                     android:singleLine="false"
                     android:layout_margin="16dp"
                     android:layout_marginBottom="0dp"
                     android:textSize="30sp"
                     android:background="@null"
-                    android:text="@={viewModel.data.title}" />
+                    android:text="@={viewModel.data.note.title}" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionView"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/titleView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:hint="Description"
                     android:textSize="20sp"
                     android:layout_margin="16dp"
                     android:background="@null"
-                    android:text="@={viewModel.data.description}" />
-            </LinearLayout>
+                    android:text="@={viewModel.data.note.description}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
 
@@ -79,7 +98,7 @@
             android:layout_gravity="bottom"
             app:contentInsetStart="5dp"
             app:contentInsetEnd="5dp"
-            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.data.note.editing ? View.VISIBLE : View.GONE}">
 
             <ImageButton
                 android:id="@+id/link"
@@ -143,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="?android:actionBarSize"
-            android:visibility="@{viewModel.data.editing ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.data.note.editing ? View.VISIBLE : View.GONE}">
 
             <fragment
                 android:id="@+id/color_tag_fragment"
