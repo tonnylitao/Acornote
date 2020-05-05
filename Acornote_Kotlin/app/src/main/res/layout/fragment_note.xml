@@ -15,10 +15,6 @@
             name="editLabel"
             type="android.view.View.OnClickListener" />
 
-        <variable
-            name="editColor"
-            type="android.view.View.OnClickListener" />
-
     </data>
 
     <LinearLayout
@@ -29,8 +25,9 @@
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="?attr/actionBarSize">
+            android:layout_height="0dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_weight="1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -40,7 +37,7 @@
                     android:id="@+id/viewPager"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="1.618"
+                    app:layout_constraintDimensionRatio="1.618122"
                     android:orientation="horizontal"
                     android:visibility="@{viewModel.data.hasImage ? View.VISIBLE : View.GONE}"
                     app:layout_constraintTop_toTopOf="parent"
@@ -81,7 +78,7 @@
                     app:layout_constraintTop_toBottomOf="@id/titleView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:hint="Description"
+                    android:hint="@{viewModel.data.note.editing ? @string/description : @string/none}"
                     android:textSize="20sp"
                     android:layout_margin="16dp"
                     android:background="@null"
@@ -90,12 +87,25 @@
 
         </ScrollView>
 
+        <FrameLayout
+            android:id="@+id/color_tag_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="@{viewModel.colorTagsIsVisible ? View.VISIBLE : View.GONE}">
+
+            <fragment
+                android:id="@+id/color_tag_fragment"
+                android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_colortags_horizontal" />
+        </FrameLayout>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
             app:contentInsetStart="5dp"
             app:contentInsetEnd="5dp"
             android:visibility="@{viewModel.data.note.editing ? View.VISIBLE : View.GONE}">
@@ -154,23 +164,8 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_color"
                 android:padding="12dp"
-                android:onClick="@{editColor}" />
+                android:onClick="@{viewModel::switchColorTagsVisible}" />
         </androidx.appcompat.widget.Toolbar>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="?android:actionBarSize"
-            android:visibility="@{viewModel.data.note.editing ? View.VISIBLE : View.GONE}">
-
-            <fragment
-                android:id="@+id/color_tag_fragment"
-                android:name="tonnysunm.com.acornote.ui.colortag.ColorTagListFragmentHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_colortags_horizontal" />
-        </FrameLayout>
     </LinearLayout>
 
 </layout>

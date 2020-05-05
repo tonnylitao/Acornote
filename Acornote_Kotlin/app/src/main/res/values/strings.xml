@@ -29,7 +29,12 @@
     <string name="action_edit">Edit</string>
     <string name="appwidget_text">Hello</string>
     <string name="add_widget">Add widget</string>
+
     <string name="title_activity_settings">Settings</string>
+
+    <string name="description">Description</string>
+    <string name="none"></string>
+
 
     <!-- Preference Titles -->
 

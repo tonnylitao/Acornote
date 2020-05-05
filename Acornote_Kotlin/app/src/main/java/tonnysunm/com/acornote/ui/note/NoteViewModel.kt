@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -101,6 +102,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
     val savable = data.switchMap {
         MutableLiveData(it?.note?.title?.isNotEmpty() ?: false)
+    }
+
+    private val _colorTagsIsVisible = MutableLiveData(false)
+    val colorTagsIsVisible: LiveData<Boolean>
+        get() = _colorTagsIsVisible
+
+    fun switchColorTagsVisible(view: View) {
+        _colorTagsIsVisible.value = _colorTagsIsVisible.value?.not()
     }
 
     fun onTitleChanged(text: CharSequence) {

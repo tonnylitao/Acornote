@@ -70,10 +70,6 @@ class NoteFragment : Fragment() {
                     putExtra("id", fragment.viewModel.data.value?.note?.id)
                 })
             }
-
-            editColor = View.OnClickListener {
-
-            }
         }
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
