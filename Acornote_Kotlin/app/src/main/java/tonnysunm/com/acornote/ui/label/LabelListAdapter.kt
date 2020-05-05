@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.label
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.findFragment
 import androidx.paging.PagedListAdapter
@@ -53,8 +52,8 @@ class LabelListAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.clickListener = View.OnClickListener {
-                val data = binding.data ?: return@OnClickListener
+            binding.root.setOnClickListener {
+                val data = binding.data ?: return@setOnClickListener
 
                 val fragment = it.findFragment<LabelListFragment>()
                 fragment.viewModel.flipChecked(data)

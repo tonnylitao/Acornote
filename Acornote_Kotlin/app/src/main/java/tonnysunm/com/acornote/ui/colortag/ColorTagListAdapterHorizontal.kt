@@ -2,7 +2,6 @@ package tonnysunm.com.acornote.ui.colortag
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
@@ -61,8 +60,8 @@ class ColorTagListAdapterHorizontal(
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.clickListener = View.OnClickListener {
-                val data = binding.data ?: return@OnClickListener
+            binding.root.setOnClickListener {
+                val data = binding.data ?: return@setOnClickListener
 
                 val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
                 val activity = fragment.activity
@@ -90,9 +89,9 @@ class ColorTagListAdapterHorizontal(
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.clickListener = View.OnClickListener {
+            binding.root.setOnClickListener {
                 val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
-                val activity = fragment.activity ?: return@OnClickListener
+                val activity = fragment.activity ?: return@setOnClickListener
 
                 val startForResult =
                     activity.prepareCall(ActivityResultContracts.StartActivityForResult()) {

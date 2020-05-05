@@ -7,10 +7,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="checked"
             type="Boolean" />
 
@@ -23,8 +19,7 @@
     <RelativeLayout
         android:layout_width="48dp"
         android:layout_height="80dp"
-        android:gravity="center"
-        android:onClick="@{clickListener}">
+        android:gravity="center">
 
         <tonnysunm.com.acornote.ui.colortag.ColorTagView
             android:layout_width="20dp"

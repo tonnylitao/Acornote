@@ -67,11 +67,12 @@ class NoteListAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.clickListener = View.OnClickListener {
-                val note = binding.data ?: return@OnClickListener
+            binding.root.setOnClickListener {
+
+                val note = binding.data ?: return@setOnClickListener
 
                 val activity = it.findFragment<NoteListFragment>().activity as? HomeActivity
-                    ?: return@OnClickListener
+                    ?: return@setOnClickListener
 
                 val startForResult =
                     activity.prepareCall(ActivityResultContracts.StartActivityForResult()) {
@@ -83,8 +84,8 @@ class NoteListAdapter :
 
                     Log.d("TAG", "put ${note.note.id}")
                 })
-
             }
+
         }
 
         fun bind(note: NoteWithImageUrl) {
