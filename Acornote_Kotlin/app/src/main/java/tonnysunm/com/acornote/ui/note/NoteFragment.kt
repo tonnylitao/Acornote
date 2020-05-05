@@ -77,22 +77,23 @@ class NoteFragment : Fragment() {
         }
 
         viewModel.data.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
+
             val note = it.note
-            if (it != null) { //been deleted
-                if (note.id != 0 && this.noteBeforeEditing == null) {
-                    this.noteBeforeEditing = note.copy()
-                }
 
-                updateMenuItems(this.menu, note)
+            if (note.id != 0 && this.noteBeforeEditing == null) {
+                this.noteBeforeEditing = note.copy()
+            }
 
-                if (it.hasImage) {
-                    binding.viewPager.adapter =
-                        ImagePageViewAdapter(requireActivity(), it.images ?: listOf())
+            updateMenuItems(this.menu, note)
 
-                    TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            if (it.hasImage) {
+                binding.viewPager.adapter =
+                    ImagePageViewAdapter(requireActivity(), it.images ?: listOf())
 
-                    }.attach()
-                }
+                TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+
+                }.attach()
             }
         })
 
@@ -118,7 +119,9 @@ class NoteFragment : Fragment() {
         val pin = menu.findItem(R.id.action_pin)
         pin?.setIcon(if (note.pinned == true) R.drawable.ic_pinned else R.drawable.ic_pin)
 
-        menu.findItem(R.id.action_edit)?.isVisible = note.id != EmptyId
+        val isNotEditing = !note.editing
+        menu.findItem(R.id.action_edit)?.isVisible = isNotEditing
+        menu.findItem(R.id.action_delete)?.isVisible = isNotEditing
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -23,7 +23,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
             return id == EmptyId
         }
 
-    val data: LiveData<NoteWithImages> by lazy {
+    val data: LiveData<NoteWithImages?> by lazy {
         val id = intent.getIntExtra("id", EmptyId)
 
         if (id > EmptyId) {
@@ -100,7 +100,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
     }
 
     val savable = data.switchMap {
-        MutableLiveData(it.note.title.isNotEmpty())
+        MutableLiveData(it?.note?.title?.isNotEmpty() ?: false)
     }
 
     fun onTitleChanged(text: CharSequence) {

@@ -45,7 +45,7 @@ interface NoteDao : BaseDao<Note> {
 
     @Transaction
     @Query("SELECT * from note_table WHERE id = :id")
-    fun noteWithImages(id: Int): LiveData<NoteWithImages>
+    fun noteWithImages(id: Int): LiveData<NoteWithImages?>
 
     @Transaction
     @Query("SELECT * from note_table WHERE editing = 1 LIMIT 1")

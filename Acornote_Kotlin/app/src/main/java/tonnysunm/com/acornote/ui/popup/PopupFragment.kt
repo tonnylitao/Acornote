@@ -103,6 +103,8 @@ class PopupFragment : Fragment() {
     fun onWindowFocus() {
         val fragment = this
         viewModel.data.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
+
             val note = it.note
             val text = getCopyText()
             if (note.title.isEmpty() && note.description == null && text != null) {
