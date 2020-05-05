@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="data"
             type="tonnysunm.com.acornote.model.NoteWithImageUrl" />
 
@@ -20,14 +16,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="@{clickListener}">
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:autoLink="web"
             android:fontFamily="sans-serif-medium"
             android:text="@{data.note.title}"
             android:textColor="#383838"
@@ -39,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/description"
             app:layout_constraintVertical_chainStyle="packed"
-            android:textIsSelectable="true"
+            android:autoLink="web"
             tools:text="Title" />
 
         <TextView
@@ -54,7 +48,6 @@
             app:layout_constraintEnd_toStartOf="@+id/imgView_left_barrier"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintBottom_toBottomOf="@id/bottom_barrier"
-            android:textIsSelectable="true"
             tools:text="Description" />
 
         <ImageButton
