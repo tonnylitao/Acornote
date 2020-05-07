@@ -110,7 +110,7 @@ class NoteListFragment : Fragment() {
                     tempList = null
 
                     if (!toUpdateNotes.isNullOrEmpty()) {
-                        mViewModel.viewModelScope.launch(Dispatchers.IO) {
+                        mViewModel.viewModelScope.launch {
                             /*
                             save into db will cause mViewMode.data being posted new value
                             because of pagedList data did not change, so it will have animation after find the diff

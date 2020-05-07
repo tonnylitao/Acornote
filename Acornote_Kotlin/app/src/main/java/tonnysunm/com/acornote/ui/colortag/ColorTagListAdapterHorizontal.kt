@@ -10,7 +10,6 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_note.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.databinding.ListItemColortagHorizontalBinding
 import tonnysunm.com.acornote.databinding.ListItemEditBinding
@@ -70,7 +69,7 @@ class ColorTagListAdapterHorizontal(
                 } else if (activity is NoteActivity) {
                     val noteFgm = activity.fragment_edit_note as NoteFragment
                     val viewModal = noteFgm.viewModel
-                    viewModal.viewModelScope.launch(Dispatchers.IO) {
+                    viewModal.viewModelScope.launch {
                         viewModal.updateColorTag(data)
                     }
                 }

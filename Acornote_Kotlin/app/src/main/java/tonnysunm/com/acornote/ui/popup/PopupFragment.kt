@@ -85,7 +85,7 @@ class PopupFragment : Fragment() {
     private fun insertOrUpdateNote() {
         val note = viewModel.data.value?.note ?: return
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch {
             try {
                 note.editing = note.title.isEmpty()
                 viewModel.updateNote()
@@ -103,9 +103,8 @@ class PopupFragment : Fragment() {
     fun onWindowFocus() {
         val fragment = this
         viewModel.data.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
+            val note = it?.note ?: return@Observer
 
-            val note = it.note
             val text = getCopyText()
             if (note.title.isEmpty() && note.description == null && text != null) {
                 if (text.textAsTitle()) {
@@ -114,7 +113,7 @@ class PopupFragment : Fragment() {
                     note.description = text
                 }
 
-                (viewModel.data as? MutableLiveData<NoteWithImages>)?.postValue(it)
+                (viewModel.data as? MutableLiveData<NoteWithImages?>)?.postValue(it)
             }
 
             viewModel.data.removeObservers(fragment.viewLifecycleOwner)

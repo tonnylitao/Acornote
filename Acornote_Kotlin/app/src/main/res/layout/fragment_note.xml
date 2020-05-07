@@ -91,7 +91,6 @@
             android:id="@+id/color_tag_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:visibility="@{viewModel.colorTagsIsVisible ? View.VISIBLE : View.GONE}">
 
             <fragment

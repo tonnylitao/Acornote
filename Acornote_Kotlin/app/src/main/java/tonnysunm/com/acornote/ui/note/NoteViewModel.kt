@@ -57,7 +57,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                         }
                     }
 
-                    viewModelScope.launch(Dispatchers.IO) {
+                    viewModelScope.launch {
                         note.order = (_repository.noteDao.maxOrder() ?: 0) + 1
 
                         val newId = _repository.noteDao.insert(note).toInt()
@@ -137,14 +137,14 @@ class NoteViewModel(application: Application, private val intent: Intent) :
 
     fun deleteNote() {
         data.value?.note?.let {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 _repository.noteDao.delete(it)
             }
         }
     }
 
     fun createNote(text: String, block: (String) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             var tips = ""
             try {
                 if (_repository.noteDao.getCountByString(text) > 0) {

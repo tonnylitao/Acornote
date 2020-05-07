@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.Label
@@ -22,7 +21,7 @@ import java.lang.reflect.Type
 object BackupFile {
     private fun exportDataToJSON(context: Context) {
         val repository = Repository(context)
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch {
             val allNotes = repository.noteDao.getAll()
             val allLabels = repository.labelDao.getAll()
             val allNoteLabels = repository.noteLabelDao.getAll()
@@ -48,7 +47,7 @@ object BackupFile {
         val string = BackupFile.readFileAsString(context = context, fileName = "backup")
 
         val repository = Repository(context)
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch {
             val listType: Type = object : TypeToken<Map<String, String>?>() {}.type
             val obj = Gson().fromJson(string, listType) as? Map<String, String>
 
@@ -124,7 +123,7 @@ object BackupFile {
 //    }
 
     fun initialImage() {
-        //        viewModelScope.launch(Dispatchers.IO) {
+        //        viewModelScope.launch {
 //            Log.d("TAG", "find all images")
 //
 //            repository.imageDao.insert(

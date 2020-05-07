@@ -136,7 +136,7 @@ class NoteFragment : Fragment() {
             if (note?.id == 0) {
                 updateMenuItems(this.menu, note)
             } else {
-                viewModel.viewModelScope.launch(Dispatchers.IO) {
+                viewModel.viewModelScope.launch {
                     viewModel.updateNote()
                 }
             }
@@ -148,7 +148,7 @@ class NoteFragment : Fragment() {
             if (note?.id == 0) {
                 updateMenuItems(this.menu, note)
             } else {
-                viewModel.viewModelScope.launch(Dispatchers.IO) {
+                viewModel.viewModelScope.launch {
                     viewModel.updateNote()
                 }
             }
@@ -184,7 +184,7 @@ class NoteFragment : Fragment() {
             return
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch {
             try {
                 if (isInsert) {
                     HomeActivity.scrollToTop = isInsert

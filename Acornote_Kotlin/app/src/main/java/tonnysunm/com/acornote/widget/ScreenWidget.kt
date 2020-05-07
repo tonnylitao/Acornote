@@ -37,7 +37,7 @@ class ScreenWidget : AppWidgetProvider() {
     ) {
         //
         val repository = Repository(context)
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch {
             val note = repository.noteDao.getRandom()
 
             note?.let {

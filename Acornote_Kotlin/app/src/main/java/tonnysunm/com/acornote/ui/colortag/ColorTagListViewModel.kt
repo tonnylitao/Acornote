@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.ColorTag
 import tonnysunm.com.acornote.model.Repository
@@ -22,7 +21,7 @@ class ColorTagViewModel(application: Application) :
 
     fun saveColorTags() {
         data.value?.let {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 _repository.colorTagDao.update(it)
             }
         }
