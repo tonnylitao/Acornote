@@ -9,9 +9,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.JobIntentService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.ui.popup.PopupActivity
 import kotlin.math.roundToInt
@@ -137,11 +134,8 @@ class BubbleService : JobIntentService() {
 
         Log.d("TAG", "service $txt")
 
-        val ctx = this
-        GlobalScope.launch(Dispatchers.Main) {
-            val textView = mOverlayView?.findViewById(R.id.number) as? TextView
-            textView?.text = "2"
-        }
+        val textView = mOverlayView?.findViewById(R.id.number) as? TextView
+        textView?.text = "2"
     }
 
     override fun onCreate() {

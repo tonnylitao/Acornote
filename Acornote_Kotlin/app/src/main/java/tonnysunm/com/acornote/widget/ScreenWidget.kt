@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.widget.RemoteViews
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
@@ -51,10 +50,8 @@ class ScreenWidget : AppWidgetProvider() {
                 views.setOnClickPendingIntent(R.id.title_textView, pendingIntent)
 
 
-                GlobalScope.launch(Dispatchers.Main) {
-                    views.setTextViewText(R.id.title_textView, it.title)
-                    appWidgetManager.updateAppWidget(appWidgetId, views)
-                }
+                views.setTextViewText(R.id.title_textView, it.title)
+                appWidgetManager.updateAppWidget(appWidgetId, views)
             }
         }
     }

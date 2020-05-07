@@ -179,9 +179,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                 Log.d(TAG, e.toString())
                 tips = "Save Failed"
             } finally {
-                viewModelScope.launch(Dispatchers.Main) {
-                    block(tips)
-                }
+                block(tips)
             }
         }
     }
