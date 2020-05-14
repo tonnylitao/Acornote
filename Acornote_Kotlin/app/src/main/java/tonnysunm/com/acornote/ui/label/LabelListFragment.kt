@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.label
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import timber.log.Timber
 import tonnysunm.com.acornote.databinding.FragmentLabelsBinding
 import tonnysunm.com.acornote.library.AndroidViewModelFactory
 import tonnysunm.com.acornote.model.EmptyId
@@ -19,7 +19,7 @@ private val TAG = "LabelListFragment"
 class LabelListFragment : Fragment() {
     private val noteId by lazy {
         val id = activity?.intent?.getIntExtra("id", EmptyId)
-        Log.d(TAG, "$id")
+        Timber.d("$id")
         if (id != null && id > 0) id else 0
     }
 

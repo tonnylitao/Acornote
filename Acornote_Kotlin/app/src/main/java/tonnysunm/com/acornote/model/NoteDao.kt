@@ -7,6 +7,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import timber.log.Timber
 import kotlin.math.max
 import kotlin.math.min
 
@@ -73,7 +74,7 @@ interface NoteDao : BaseDao<Note> {
 
     @Transaction
     suspend fun moveNote(target: Int, from: Int, to: Int) {
-        Log.d("SQL", "moveNote $target $from $to")
+        Timber.d("moveNote $target $from $to")
         moveNotes(
             target,
             if (from > to) 1 else -1,

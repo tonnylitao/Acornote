@@ -1,8 +1,8 @@
 package tonnysunm.com.acornote.model
 
 import android.content.Context
-import android.util.Log
 import androidx.paging.DataSource
+import timber.log.Timber
 
 class Repository(private val application: Context) {
 
@@ -18,19 +18,19 @@ class Repository(private val application: Context) {
     // Note
     fun notes(filter: NoteFilter): DataSource.Factory<Int, NoteWithImageUrl> = when (filter) {
         is NoteFilter.All -> {
-            Log.d("ROOM", "get all")
+            Timber.d("get all")
             noteDao.getPagingAll()
         }
         is NoteFilter.Star -> {
-            Log.d("ROOM", "get star")
+            Timber.d("get star")
             noteDao.getStar()
         }
         is NoteFilter.ByLabel -> {
-            Log.d("ROOM", "get notes by label " + filter.id)
+            Timber.d("get notes by label " + filter.id)
             noteDao.getByLabel(filter.id)
         }
         is NoteFilter.ByColorTag -> {
-            Log.d("ROOM", "get notes by colortag  " + filter.colorTag.color)
+            Timber.d("get notes by colortag  " + filter.colorTag.color)
             noteDao.getByColorTag(filter.colorTag.color)
         }
     }

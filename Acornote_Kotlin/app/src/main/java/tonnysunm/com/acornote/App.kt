@@ -5,6 +5,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.preference.PreferenceManager
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 import tonnysunm.com.acornote.ui.popup.InvisibleActivity
 import tonnysunm.com.acornote.widget.ScreenWidget
 
@@ -21,6 +23,11 @@ class App : Application() {
         registerReceiver(receiver, receiver.getFilter())
 
         updateInvisibleComponent(this)
+
+        //
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package tonnysunm.com.acornote.ui.note.list
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 import tonnysunm.com.acornote.GlideApp
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.NoteWithImageUrl
@@ -81,7 +81,7 @@ class NoteListAdapter :
                 launcher.launch(Intent(activity, NoteActivity::class.java).apply {
                     putExtra("id", note.note.id)
 
-                    Log.d("TAG", "put ${note.note.id}")
+                    Timber.d("put ${note.note.id}")
                 })
             }
 

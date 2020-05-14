@@ -106,7 +106,7 @@ class NoteListFragment : Fragment() {
                 }
 
                 override fun onItemEndMove() {
-                    Log.d("TAG", "onItemEndMove")
+                    Timber.d("onItemEndMove")
                     tempList = null
 
                     if (!toUpdateNotes.isNullOrEmpty()) {
@@ -119,7 +119,7 @@ class NoteListFragment : Fragment() {
                             NoteListAdapter.disableAnimation = true
 
                             val count = mViewModel.updateNotes(toUpdateNotes!!)
-                            Log.d("TAG", "updated $count")
+                            Timber.d("updated $count")
 
                             toUpdateNotes = null
                         }

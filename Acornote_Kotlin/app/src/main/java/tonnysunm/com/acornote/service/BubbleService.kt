@@ -3,12 +3,12 @@ package tonnysunm.com.acornote.service
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.graphics.Point
-import android.util.Log
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.JobIntentService
+import timber.log.Timber
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.ui.popup.PopupActivity
 import kotlin.math.roundToInt
@@ -132,7 +132,7 @@ class BubbleService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         val txt = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim() ?: return
 
-        Log.d("TAG", "service $txt")
+        Timber.d("service $txt")
 
         val textView = mOverlayView?.findViewById(R.id.number) as? TextView
         textView?.text = "2"

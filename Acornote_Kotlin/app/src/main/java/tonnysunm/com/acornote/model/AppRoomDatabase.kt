@@ -8,6 +8,7 @@ import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import timber.log.Timber
 import java.lang.reflect.Type
 import java.util.*
 
@@ -86,7 +87,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
                             cursor.use {
 
                                 if (it.moveToFirst() && it.getInt(0) == 0) {
-                                    Log.d(TAG, "insert default data")
+                                    Timber.d("insert default data")
 
                                     db.insert(
                                         "note_table",

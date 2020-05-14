@@ -2,7 +2,6 @@ package tonnysunm.com.acornote.ui.label
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -10,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import tonnysunm.com.acornote.model.Label
 import tonnysunm.com.acornote.model.LabelWithChecked
 import tonnysunm.com.acornote.model.NoteLabelCrossRef
@@ -44,7 +44,7 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
                             noteId = noteId
                         )
                     )
-                Log.d("TAG", "insert noteLabel $id")
+                Timber.d("insert noteLabel $id")
             } else {
                 sharedPref.edit {
                     remove("default_label_id")
@@ -52,7 +52,7 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
 
                 _repository.noteLabelDao.delete(labelId, noteId)
 
-                Log.d("TAG", "delete noteLabel")
+                Timber.d("delete noteLabel")
             }
         }
     }

@@ -1,11 +1,11 @@
 package tonnysunm.com.acornote
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import tonnysunm.com.acornote.model.Label
 import tonnysunm.com.acornote.model.Note
 import tonnysunm.com.acornote.model.NoteLabelCrossRef
@@ -80,7 +80,7 @@ object BackupFile {
             val start = i * maxLogSize
             var end = (i + 1) * maxLogSize
             end = if (end > message.length) message.length else end
-            Log.d(TAG, message.substring(start, end))
+            Timber.d(message.substring(start, end))
         }
     }
 
@@ -124,7 +124,7 @@ object BackupFile {
 
     fun initialImage() {
         //        viewModelScope.launch {
-//            Log.d("TAG", "find all images")
+//            Timber.d("find all images")
 //
 //            repository.imageDao.insert(
 //                Image(

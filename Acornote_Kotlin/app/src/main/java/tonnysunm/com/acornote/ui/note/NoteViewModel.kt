@@ -3,10 +3,10 @@ package tonnysunm.com.acornote.ui.note
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import tonnysunm.com.acornote.model.*
 import java.util.*
 
@@ -175,7 +175,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
                 }
 
             } catch (e: Exception) {
-                Log.d(TAG, e.toString())
+                Timber.d(e.toString())
                 tips = "Save Failed"
             } finally {
                 block(tips)
