@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.R
 import tonnysunm.com.acornote.databinding.FragmentNoteBinding
@@ -60,13 +58,14 @@ class NoteFragment : Fragment() {
             }
 
             editLabel = View.OnClickListener {
-                val startForResult =
-                    requireActivity().prepareCall(ActivityResultContracts.StartActivityForResult()) {
-                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                val launcher =
+                    requireActivity()
+                        .registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                            if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                            }
                         }
-                    }
 
-                startForResult(Intent(context, LabelListActivity::class.java).apply {
+                launcher.launch(Intent(context, LabelListActivity::class.java).apply {
                     putExtra("id", fragment.viewModel.data.value?.note?.id)
                 })
             }

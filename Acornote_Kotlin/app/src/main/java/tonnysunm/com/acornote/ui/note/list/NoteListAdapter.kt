@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
@@ -74,12 +73,12 @@ class NoteListAdapter :
                 val activity = it.findFragment<NoteListFragment>().activity as? HomeActivity
                     ?: return@setOnClickListener
 
-                val startForResult =
-                    activity.prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                val launcher =
+                    activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                         if (it.resultCode == AppCompatActivity.RESULT_OK) {
                         }
                     }
-                startForResult(Intent(activity, NoteActivity::class.java).apply {
+                launcher.launch(Intent(activity, NoteActivity::class.java).apply {
                     putExtra("id", note.note.id)
 
                     Log.d("TAG", "put ${note.note.id}")

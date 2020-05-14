@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -57,12 +56,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_main) {
         //fab
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-            val startForResult = prepareCall(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
+            val launcher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                    if (it.resultCode == RESULT_OK) {
+                    }
                 }
-            }
-
-            startForResult(Intent(this, NoteActivity::class.java).apply {
+            
+            launcher.launch(Intent(this, NoteActivity::class.java).apply {
                 when (val noteFilter = homeSharedModel.noteFilterLiveData.value) {
                     NoteFilter.Star ->
                         putExtra(getString(R.string.starKey), true)

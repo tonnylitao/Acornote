@@ -15,7 +15,7 @@ class InvisibleActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val text = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
+        val text = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim()
         if (text == null || text.isEmpty()) {
             finish()
             return

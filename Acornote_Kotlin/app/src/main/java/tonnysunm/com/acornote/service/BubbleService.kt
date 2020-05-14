@@ -130,7 +130,7 @@ class BubbleService : JobIntentService() {
     }
 
     override fun onHandleWork(intent: Intent) {
-        val txt = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT) ?: return
+        val txt = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim() ?: return
 
         Log.d("TAG", "service $txt")
 

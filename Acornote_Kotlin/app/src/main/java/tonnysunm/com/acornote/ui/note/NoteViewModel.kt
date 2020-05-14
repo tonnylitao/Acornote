@@ -6,7 +6,6 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import tonnysunm.com.acornote.model.*
 import java.util.*
@@ -30,7 +29,7 @@ class NoteViewModel(application: Application, private val intent: Intent) :
         if (id > EmptyId) {
             _repository.noteDao.noteWithImages(id)
         } else {
-            val text: String? = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)
+            val text: String? = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT)?.trim()
 
             val textRemoveMediumLink = text?.let {
                 val regex = Regex("^“(.*)” by  https://link.medium.com/")

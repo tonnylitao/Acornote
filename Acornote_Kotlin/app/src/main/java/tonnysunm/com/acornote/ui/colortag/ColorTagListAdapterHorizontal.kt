@@ -93,7 +93,7 @@ class ColorTagListAdapterHorizontal(
                 val activity = fragment.activity ?: return@setOnClickListener
 
                 val startForResult =
-                    activity.prepareCall(ActivityResultContracts.StartActivityForResult()) {
+                    activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                         if (it.resultCode == AppCompatActivity.RESULT_OK) {
                         }
                     }
