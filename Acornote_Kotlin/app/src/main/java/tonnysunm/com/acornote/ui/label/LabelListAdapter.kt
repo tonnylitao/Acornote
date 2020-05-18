@@ -15,15 +15,15 @@ class LabelListAdapter :
         ViewHolder(
             ListItemLabelBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            ).apply {
-                root.setOnClickListener {
-                    val item = data ?: return@setOnClickListener
+            )
+        ).apply {
+            itemView.setOnClickListener {
+                val item = getItem(this.absoluteAdapterPosition) ?: return@setOnClickListener
 
-                    val fragment = it.findFragment<LabelListFragment>()
-                    fragment.viewModel.flipChecked(item)
-                }
+                val fragment = it.findFragment<LabelListFragment>()
+                fragment.viewModel.flipChecked(item)
             }
-        )
+        }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position) ?: return

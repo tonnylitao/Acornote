@@ -34,35 +34,10 @@ class ColorTagListAdapterHorizontal(
                 ListItemColortagHorizontalBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-            )
-        else
-            EditViewHolder(
-                ListItemEditBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-            )
+            ).apply {
+                val data = array[this.absoluteAdapterPosition]
 
-    override fun getItemViewType(position: Int) =
-        if (position < array.count()) ColorTagType else FooterType
-
-    override fun getItemCount() = array.count() + 1
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ViewHolder) {
-            holder.bind(array[position])
-        }
-    }
-
-    /* ViewHolder */
-
-    inner class ViewHolder(private val binding: ListItemColortagHorizontalBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-                val data = binding.data ?: return@setOnClickListener
-
-                val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
+                val fragment = itemView.findFragment<ColorTagListFragmentHorizontal>()
                 val activity = fragment.activity
                 if (activity is HomeActivity) {
                     fragment.navigateToNotesBy(data)
@@ -74,32 +49,48 @@ class ColorTagListAdapterHorizontal(
                     }
                 }
             }
-        }
+        else
+            EditViewHolder(
+                ListItemEditBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            ).apply {
+                itemView.setOnClickListener {
+                    val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
+                    val activity = fragment.activity ?: return@setOnClickListener
 
-        fun bind(item: ColorTag) {
-            binding.checked = item.color == selectedColorTagColor
-
-            binding.data = item
-            binding.executePendingBindings()
-        }
-    }
-
-    inner class EditViewHolder(binding: ListItemEditBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-                val fragment = it.findFragment<ColorTagListFragmentHorizontal>()
-                val activity = fragment.activity ?: return@setOnClickListener
-
-                val startForResult =
-                    activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                    val startForResult =
+                        activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                            if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                            }
                         }
-                    }
-                startForResult(Intent(activity, ColorTagListActivity::class.java))
+                    startForResult(Intent(activity, ColorTagListActivity::class.java))
+                }
+            }
+
+    override fun getItemViewType(position: Int) =
+        if (position < array.count()) ColorTagType else FooterType
+
+    override fun getItemCount() = array.count() + 1
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is ViewHolder) {
+            val item = array[position]
+
+            with(holder.binding) {
+                checked = item.color == selectedColorTagColor
+                data = item
+                executePendingBindings()
             }
         }
     }
+
+    /* ViewHolder */
+
+    inner class ViewHolder(val binding: ListItemColortagHorizontalBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class EditViewHolder(binding: ListItemEditBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

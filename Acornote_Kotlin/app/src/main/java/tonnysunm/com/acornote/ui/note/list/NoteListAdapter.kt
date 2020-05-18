@@ -29,13 +29,12 @@ class NoteListAdapter :
         ViewHolder(
             ListItemNoteBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            ).apply {
-                root.setOnClickListener {
-                    val item = data ?: return@setOnClickListener
-                    this@NoteListAdapter.clickItem(item, it)
-                }
+            )
+        ).apply {
+            itemView.setOnClickListener {
+                this@NoteListAdapter.clickViewHolder(this)
             }
-        )
+        }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position) ?: return
@@ -44,9 +43,11 @@ class NoteListAdapter :
         holder.binding.executePendingBindings()
     }
 
-    private fun clickItem(item: NoteWithImageUrl, view: View) {
-        val activity = view.findFragment<NoteListFragment>().activity as? HomeActivity
-            ?: return
+    private fun clickViewHolder(viewHolder: ViewHolder) {
+        val item = getItem(viewHolder.absoluteAdapterPosition) ?: return
+        val activity =
+            viewHolder.itemView.findFragment<NoteListFragment>().activity as? HomeActivity
+                ?: return
 
         val launcher =
             activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
