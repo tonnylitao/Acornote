@@ -29,16 +29,36 @@ class NoteListAdapter :
         ViewHolder(
             ListItemNoteBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
+            ).apply {
+                root.setOnClickListener {
+                    val item = data ?: return@setOnClickListener
+                    this@NoteListAdapter.clickItem(item, it)
+                }
+            }
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        val item = getItem(position) ?: return
+
+        holder.binding.data = item
+        holder.binding.executePendingBindings()
     }
 
-    public override fun getItem(position: Int) = super.getItem(position)
+    private fun clickItem(item: NoteWithImageUrl, view: View) {
+        val activity = view.findFragment<NoteListFragment>().activity as? HomeActivity
+            ?: return
+
+        val launcher =
+            activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == AppCompatActivity.RESULT_OK) {
+                }
+            }
+        launcher.launch(Intent(activity, NoteActivity::class.java).apply {
+            putExtra("id", item.note.id)
+
+            Timber.d("put ${item.note.id}")
+        })
+    }
 
     companion object {
         //heck for drag and drop to move items in PagedList
@@ -62,38 +82,8 @@ class NoteListAdapter :
 
     /* ViewHolder */
 
-    inner class ViewHolder(private val binding: ListItemNoteBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-
-                val note = binding.data ?: return@setOnClickListener
-
-                val activity = it.findFragment<NoteListFragment>().activity as? HomeActivity
-                    ?: return@setOnClickListener
-
-                val launcher =
-                    activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
-                        }
-                    }
-                launcher.launch(Intent(activity, NoteActivity::class.java).apply {
-                    putExtra("id", note.note.id)
-
-                    Timber.d("put ${note.note.id}")
-                })
-            }
-
-        }
-
-        fun bind(note: NoteWithImageUrl) {
-            binding.data = note
-
-            binding.executePendingBindings()
-        }
-    }
-
+    inner class ViewHolder(val binding: ListItemNoteBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 
 /* ItemTouchHelperAdapter */

@@ -1,5 +1,6 @@
 package tonnysunm.com.acornote.model
 
+import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
@@ -30,6 +31,24 @@ data class LabelWithChecked(
     val label: Label,
 
     var checked: Boolean
-)
+) {
+    companion object {
+        val DiffCallback = object : DiffUtil.ItemCallback<LabelWithChecked>() {
+            override fun areItemsTheSame(
+                old: LabelWithChecked,
+                aNew: LabelWithChecked
+            ): Boolean {
+                return old.label.id == aNew.label.id
+            }
+
+            override fun areContentsTheSame(
+                old: LabelWithChecked,
+                aNew: LabelWithChecked
+            ): Boolean {
+                return old == aNew
+            }
+        }
+    }
+}
 
 const val EmptyId = 0

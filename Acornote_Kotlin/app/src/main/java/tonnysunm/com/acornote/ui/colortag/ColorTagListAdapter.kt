@@ -17,23 +17,15 @@ class ColorTagListAdapter(var array: List<ColorTag>) :
     override fun getItemCount() = array.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(array[position])
+        val item = array[position]
+
+        holder.binding.data = item
+        holder.binding.executePendingBindings()
     }
 
     /* ViewHolder */
 
-    inner class ViewHolder(private val binding: ListItemColortagBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-
-        }
-
-        fun bind(item: ColorTag) {
-            binding.data = item
-
-            binding.executePendingBindings()
-        }
-    }
+    inner class ViewHolder(val binding: ListItemColortagBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }
