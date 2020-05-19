@@ -35,17 +35,19 @@ class ColorTagListAdapterHorizontal(
                     LayoutInflater.from(parent.context), parent, false
                 )
             ).apply {
-                val data = array[this.absoluteAdapterPosition]
+                itemView.setOnClickListener {
+                    val data = array[this.absoluteAdapterPosition]
 
-                val fragment = itemView.findFragment<ColorTagListFragmentHorizontal>()
-                val activity = fragment.activity
-                if (activity is HomeActivity) {
-                    fragment.navigateToNotesBy(data)
-                } else if (activity is NoteActivity) {
-                    val noteFgm = activity.fragment_edit_note as NoteFragment
-                    val viewModal = noteFgm.viewModel
-                    viewModal.viewModelScope.launch {
-                        viewModal.updateColorTag(data)
+                    val fragment = itemView.findFragment<ColorTagListFragmentHorizontal>()
+                    val activity = fragment.activity
+                    if (activity is HomeActivity) {
+                        fragment.navigateToNotesBy(data)
+                    } else if (activity is NoteActivity) {
+                        val noteFgm = activity.fragment_edit_note as NoteFragment
+                        val viewModal = noteFgm.viewModel
+                        viewModal.viewModelScope.launch {
+                            viewModal.updateColorTag(data)
+                        }
                     }
                 }
             }

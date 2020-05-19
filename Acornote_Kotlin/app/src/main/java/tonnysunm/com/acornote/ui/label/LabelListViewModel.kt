@@ -14,6 +14,7 @@ import tonnysunm.com.acornote.model.Label
 import tonnysunm.com.acornote.model.LabelWithChecked
 import tonnysunm.com.acornote.model.NoteLabelCrossRef
 import tonnysunm.com.acornote.model.Repository
+import tonnysunm.com.acornote.ui.RecyclerItem
 
 private const val TAG = "EditLabelViewModel"
 
@@ -21,8 +22,10 @@ class EditLabelViewModel(app: Application, val noteId: Int) : AndroidViewModel(a
 
     private val _repository: Repository by lazy { Repository(app) }
 
-    val data: LiveData<PagedList<LabelWithChecked>> by lazy {
-        _repository.labelDao.getLabelsWithNoteId(noteId).toLiveData(pageSize = 5)
+    val data: LiveData<PagedList<RecyclerItem<LabelWithChecked>>> by lazy {
+        _repository.labelDao.getLabelsWithNoteId(noteId).map {
+            it.recyclerItem()
+        }.toLiveData(pageSize = 5)
     }
 
     fun flipChecked(lwcs: LabelWithChecked) {
