@@ -3,7 +3,6 @@ package tonnysunm.com.acornote.ui.colortag
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.invoke
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.findFragment
@@ -66,7 +65,7 @@ class ColorTagListAdapterHorizontal(
                             if (it.resultCode == AppCompatActivity.RESULT_OK) {
                             }
                         }
-                    startForResult(Intent(activity, ColorTagListActivity::class.java))
+                    startForResult.launch(Intent(activity, ColorTagListActivity::class.java))
                 }
             }
 
