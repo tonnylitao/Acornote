@@ -20,9 +20,7 @@ class RecyclerAdapter<M : IDEquable>(
         ).apply {
             itemView.setOnClickListener {
                 val item = getItem(this.absoluteAdapterPosition) ?: return@setOnClickListener
-                clickListener?.let {
-                    it(item.data)
-                }
+                clickListener?.invoke(item.data)
             }
         }
 

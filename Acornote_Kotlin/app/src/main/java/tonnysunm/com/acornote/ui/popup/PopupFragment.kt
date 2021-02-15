@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -55,14 +53,10 @@ class PopupFragment : Fragment() {
             }
 
             editLabel = View.OnClickListener {
-                val launcher =
-                    requireActivity().registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                        if (it.resultCode == AppCompatActivity.RESULT_OK) {
-                        }
-                    }
-                launcher.launch(Intent(context, LabelListActivity::class.java).apply {
+                val intent = Intent(context, LabelListActivity::class.java).apply {
                     putExtra("id", fragment.viewModel.data.value?.note?.id)
-                })
+                }
+                startActivity(intent)
             }
 
             editColor = View.OnClickListener {
@@ -129,5 +123,10 @@ class PopupFragment : Fragment() {
         }
 
         return null
+    }
+
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
     }
 }

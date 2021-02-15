@@ -25,7 +25,7 @@ open class ColorTagListFragmentHorizontal : Fragment() {
     private val homeSharedModel: HomeSharedViewModel? by lazy {
         val activity = requireActivity()
         if (activity is HomeActivity) {
-            ViewModelProvider(requireActivity()).get(HomeSharedViewModel::class.java)
+            ViewModelProvider(activity).get(HomeSharedViewModel::class.java)
         } else {
             null
         }
@@ -58,6 +58,7 @@ open class ColorTagListFragmentHorizontal : Fragment() {
 
         viewModel.data.observe(this.viewLifecycleOwner, Observer {
             //TODO is empty
+//            TODO("")
             adapter.array = it
             adapter.notifyDataSetChanged()
         })

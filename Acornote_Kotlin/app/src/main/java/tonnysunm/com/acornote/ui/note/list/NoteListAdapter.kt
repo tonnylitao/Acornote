@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.findFragment
@@ -18,7 +16,6 @@ import timber.log.Timber
 import tonnysunm.com.acornote.GlideApp
 import tonnysunm.com.acornote.databinding.ListItemNoteBinding
 import tonnysunm.com.acornote.model.NoteWithImageUrl
-import tonnysunm.com.acornote.ui.HomeActivity
 import tonnysunm.com.acornote.ui.note.NoteActivity
 
 
@@ -46,19 +43,15 @@ class NoteListAdapter :
     private fun clickViewHolder(viewHolder: ViewHolder) {
         val item = getItem(viewHolder.absoluteAdapterPosition) ?: return
         val activity =
-            viewHolder.itemView.findFragment<NoteListFragment>().activity as? HomeActivity
+            viewHolder.itemView.findFragment<NoteListFragment>().activity
                 ?: return
 
-        val launcher =
-            activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == AppCompatActivity.RESULT_OK) {
-                }
-            }
-        launcher.launch(Intent(activity, NoteActivity::class.java).apply {
+        val intent = Intent(activity, NoteActivity::class.java).apply {
             putExtra("id", item.note.id)
 
             Timber.d("put ${item.note.id}")
-        })
+        }
+        activity.startActivity(intent)
     }
 
     companion object {
